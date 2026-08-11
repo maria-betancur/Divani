@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#e4578f">
 <title>DIVANI · Tienda de Belleza</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💄</text></svg>">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23e4578f'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='58' fill='%23ffffff' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/500.css">
@@ -114,7 +114,6 @@ a.store-row:hover,button.store-row:hover{transform:translateY(-2px);box-shadow:0
 .drawer-admin{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;border:1.5px solid var(--pink-line);
   color:#c98aa5;padding:11px;border-radius:999px;font-weight:700;font-size:12px;cursor:pointer;transition:all .2s}
 .drawer-admin:hover{background:var(--primary-pink);color:#fff;border-color:var(--primary-pink)}
-.drawer-note{text-align:center;font-size:10.5px;color:#b58ba0;margin:12px 0 0}
 
 /* ============ MAIN ============ */
 main{max-width:1100px;margin:0 auto;padding:16px 16px 30px}
@@ -128,7 +127,7 @@ main{max-width:1100px;margin:0 auto;padding:16px 16px 30px}
 .hero-slide{min-width:100%;display:flex;align-items:center;gap:12px;padding:28px 22px 34px;min-height:230px;position:relative;overflow:hidden}
 .hero-slide.t1{background:linear-gradient(115deg,#ffd9e6 0%,#ffc3da 60%,#ffb0cd 100%)}
 .hero-slide.t2{background:linear-gradient(115deg,#f8d7f4 0%,#fbc7e2 60%,#ffc3da 100%)}
-.hero-slide.t3{background:linear-gradient(115deg,#ffe3d2 0%,#ffd0cd 60%,#ffc4d6 100%)}
+.hero-slide.t3{background:linear-gradient(115deg,#fff6d8 0%,#ffedc4 60%,#ffe6ae 100%)}
 .hero-slide::before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.35);top:-70px;right:-45px}
 .hero-slide::after{content:"";position:absolute;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.22);bottom:-50px;left:-30px}
 .hero-text{flex:1;min-width:0;z-index:2}
@@ -172,7 +171,6 @@ main{max-width:1100px;margin:0 auto;padding:16px 16px 30px}
 @media(min-width:640px){.container{grid-template-columns:repeat(3,1fr);gap:20px 14px}}
 @media(min-width:960px){.container{grid-template-columns:repeat(4,1fr);gap:22px 16px}}
 .empty-state{grid-column:1/-1;text-align:center;padding:60px 20px;background:rgba(255,255,255,.7);border-radius:20px;color:#a06b81}
-.empty-state .big{font-size:38px;margin-bottom:10px}
 
 .card{background:var(--card-bg);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-base);
   position:relative;transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s;cursor:pointer;content-visibility:auto}
@@ -247,7 +245,7 @@ main{max-width:1100px;margin:0 auto;padding:16px 16px 30px}
   color:var(--text-dark);display:flex;align-items:center;justify-content:center;transition:all .15s}
 .cart-qty button:hover{background:var(--light-pink);color:var(--primary-pink)}
 .cart-qty b{min-width:24px;text-align:center;font-size:13px}
-.cart-item-remove{background:none;border:none;color:#c39aab;cursor:pointer;font-size:13px;padding:2px}
+.cart-item-remove{background:none;border:none;color:#c39aab;cursor:pointer;font-size:12px;font-weight:600;padding:2px}
 .cart-item-remove:hover{color:var(--danger)}
 .cart-total{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:16px;font-weight:800}
 .cart-total span:last-child{color:var(--primary-pink);font-size:19px}
@@ -296,18 +294,16 @@ main{max-width:1100px;margin:0 auto;padding:16px 16px 30px}
 .store-name{font-family:var(--font-serif);margin:0;font-size:27px;letter-spacing:5px;position:relative;z-index:2}
 .store-tagline{margin:7px 0 0;font-size:11.5px;opacity:.92;letter-spacing:.4px;position:relative;z-index:2}
 .store-body{padding:18px 18px 6px;display:flex;flex-direction:column;gap:10px}
-.store-row{display:flex;align-items:center;gap:12px;background:var(--gray-light);border:1.5px solid var(--gray-border);
-  padding:12px 14px;border-radius:16px;text-decoration:none;color:var(--text-dark);transition:all .25s;text-align:left;width:100%}
-a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,143,.20);border-color:var(--pink-line);background:#fff}
+.store-body .store-row{margin-bottom:0}
 .store-ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .store-ico svg{width:18px;height:18px}
 .store-ico.pink{background:var(--light-pink);color:var(--primary-pink);box-shadow:inset 0 0 0 1px #fbd3e2}
 .store-ico.ig{background:linear-gradient(45deg,#f9ce34,#ee2a7b,#6228d7);color:#fff}
 .store-ico.tk{background:#010101;color:#fff}
 .store-ico.wa{background:#25d366;color:#fff}
-.store-row b{display:block;font-size:13px;line-height:1.25}
-.store-row small{display:block;font-size:11px;color:#a06b81;margin-top:2px}
-.store-row .chev{margin-left:auto;color:#d3a9bc;font-size:17px;font-weight:600}
+.store-body .store-row b{font-size:13px}
+.store-body .store-row small{font-size:11px}
+.store-body .store-row .chev{font-size:17px}
 .store-foot{padding:14px 18px 20px}
 
 /* ============ DETALLE ============ */
@@ -337,10 +333,6 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
 .detail-info{padding:4px 2px}
 .detail-category{font-size:10px;text-transform:uppercase;color:var(--primary-pink);font-weight:700;letter-spacing:2.4px}
 .detail-info h2{font-family:var(--font-serif);font-size:clamp(21px,2.6vw,27px);font-weight:700;margin:7px 0 8px;line-height:1.2;color:var(--text-dark)}
-.detail-rating{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.detail-rating .stars{color:#f2a0b6;font-size:17px;letter-spacing:2px}
-.detail-rating .stars .off{opacity:.35}
-.detail-rating span.count{font-size:12px;color:#8a6478}
 .detail-price{font-size:23px;font-weight:800;color:var(--primary-pink);letter-spacing:-.3px;margin-bottom:12px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
 .detail-price small{font-size:11px;color:#a06b81;font-weight:600;letter-spacing:.5px}
 .detail-price s{font-size:13px;color:#b795a5;font-weight:600}
@@ -443,13 +435,13 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
 .bm-prev{width:92px;height:62px;border-radius:10px;flex-shrink:0;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .bm-prev.t1{background:linear-gradient(135deg,#ffd9e6,#ffb0cd)}
 .bm-prev.t2{background:linear-gradient(135deg,#f8d7f4,#ffc3da)}
-.bm-prev.t3{background:linear-gradient(135deg,#ffe3d2,#ffc4d6)}
+.bm-prev.t3{background:linear-gradient(135deg,#fff6d8,#ffe6ae)}
 .bm-prev img{width:100%;height:100%;object-fit:cover;opacity:.92}
 .banner-mini .bm-info{flex:1;min-width:0}
 .banner-mini .bm-info b{display:block;font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .banner-mini .bm-info small{font-size:10.5px;color:#a06b81;font-weight:600}
 .bm-actions{display:flex;gap:4px}
-.mini-btn{width:30px;height:30px;border-radius:9px;border:none;cursor:pointer;background:var(--gray-light);transition:.2s;font-size:13px;display:flex;align-items:center;justify-content:center}
+.mini-btn{min-width:30px;height:30px;padding:0 8px;border-radius:9px;border:none;cursor:pointer;background:var(--gray-light);transition:.2s;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center}
 .mini-btn:hover{background:var(--light-pink)}
 .mini-btn.del:hover{background:var(--danger);color:#fff}
 
@@ -467,7 +459,7 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
 
 <div class="toast-container" id="toastContainer"></div>
 
-<!-- ============ HEADER: [☰] [DIVANI centrado] [🛒 contador] ============ -->
+<!-- ============ HEADER ============ -->
 <header>
   <div class="header-inner">
     <div class="header-row">
@@ -503,25 +495,25 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
     <div class="drawer-hero">
       <div class="drawer-avatar">D</div>
       <h3 class="drawer-store-name">DIVANI</h3>
-      <p class="drawer-tagline">Belleza que te acompaña ✨</p>
+      <p class="drawer-tagline">Belleza que te acompaña</p>
     </div>
 
     <div class="drawer-label">Información de la tienda</div>
 
     <div class="store-row">
       <span class="store-ico pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-      <div><b>Ubicación</b><small>Colombia 🇨🇴 · Envíos a todo el país</small></div>
+      <div><b>Ubicación</b><small>Colombia · Envíos a todo el país</small></div>
     </div>
 
-    <a class="store-row" href="https://www.instagram.com/divani.belleza" target="_blank" rel="noopener">
+    <a class="store-row" href="https://www.instagram.com/divani_maquillaje/" target="_blank" rel="noopener">
       <span class="store-ico ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></span>
-      <div><b>Instagram</b><small>@divani.belleza</small></div>
+      <div><b>Instagram</b><small>@divani_maquillaje</small></div>
       <span class="chev">›</span>
     </a>
 
-    <a class="store-row" href="https://www.tiktok.com/@divani.belleza" target="_blank" rel="noopener">
+    <a class="store-row" href="https://www.tiktok.com/@divani_maquillaje" target="_blank" rel="noopener">
       <span class="store-ico tk"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 4c.5 2.4 2 3.8 4.4 4v3c-1.7 0-3.2-.5-4.4-1.4v6.4A5.9 5.9 0 1 1 10 10.2v3.1a2.9 2.9 0 1 0 3 2.9V4z"/></svg></span>
-      <div><b>TikTok</b><small>@divani.belleza</small></div>
+      <div><b>TikTok</b><small>@divani_maquillaje</small></div>
       <span class="chev">›</span>
     </a>
 
@@ -533,13 +525,12 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
   </div>
   <div class="drawer-foot">
     <!-- Acceso admin: discreto, fuera de la vista principal -->
-    <button class="drawer-admin" onclick="toggleDrawer(false);abrirLogin()">🔐 Acceso privado</button>
-    <p class="drawer-note">Envíos a todo el país 🚚 · Pagos seguros 🔒</p>
+    <button class="drawer-admin" onclick="toggleDrawer(false);abrirLogin()">Acceso privado</button>
   </div>
 </aside>
 
 <main>
-  <!-- ============ CARRUSEL DESTACADOS (sin título ni hint) ============ -->
+  <!-- ============ CARRUSEL DESTACADOS ============ -->
   <section id="heroSection" aria-label="Destacados de la semana">
     <div class="hero-frame" id="heroFrame">
       <button class="hero-arrow prev" onclick="goHero(heroIdx-1,true)" aria-label="Anterior">‹</button>
@@ -551,13 +542,13 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
 
   <!-- ============ CATEGORÍAS ============ -->
   <div class="section-head">
-    <h2>Categorías 🎀</h2>
+    <h2>Categorías</h2>
   </div>
   <nav class="chips" id="navCategorias" aria-label="Categorías"></nav>
 
   <!-- ============ CATÁLOGO ============ -->
   <div class="section-head">
-    <h2 id="sectionTitle">Para ti ✨</h2>
+    <h2 id="sectionTitle">Para ti</h2>
     <span id="countLabel"></span>
   </div>
   <div class="container" id="productos"></div>
@@ -570,29 +561,21 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
         <div><b>Envíos a todo el país</b><small>Entrega en 2 a 5 días hábiles</small></div>
       </div>
       <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="m9 12 2 2 4-4"/></svg></div>
-        <div><b>Pagos seguros</b><small>Nequi, Bancolombia y tarjeta</small></div>
-      </div>
-      <div class="trust-item">
         <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><path d="M19 5 5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/></svg></div>
         <div><b>Ofertas cada semana</b><small>Hasta 30% OFF en destacados</small></div>
       </div>
-      <div class="trust-item">
-        <div class="trust-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="3" y="13" width="4" height="6" rx="2"/><rect x="17" y="13" width="4" height="6" rx="2"/></svg></div>
-        <div><b>Atención personalizada</b><small>Asesoría de belleza por WhatsApp</small></div>
-      </div>
     </div>
   </section>
-  <div class="foot-bar">© 2026 DIVANI · Hecho con 💗 para ti · <button class="link-soft" onclick="toggleDrawer(true)">Información de la tienda</button></div>
+  <div class="foot-bar">© 2026 DIVANI · <button class="link-soft" onclick="toggleDrawer(true)">Información de la tienda</button></div>
 </main>
 
 <div class="cart-backdrop" id="cartBackdrop" onclick="toggleCart(false)"></div>
 
 <div class="cart" id="cartSidebar">
-  <div class="cart-header"><h2>Mi Carrito 🛍️</h2><button class="close-cart" onclick="toggleCart(false)">✕</button></div>
+  <div class="cart-header"><h2>Carrito</h2><button class="close-cart" onclick="toggleCart(false)">✕</button></div>
   <div id="carrito"></div>
   <div class="cart-total"><span>Total:</span><span>$<span id="total">0</span></span></div>
-  <button class="btn-buy" onclick="comprar()">📱 Enviar Pedido por WhatsApp</button>
+  <button class="btn-buy" onclick="comprar()">Enviar Pedido por WhatsApp</button>
 </div>
 
 <!-- ============ MODAL INFO TIENDA (respaldo) ============ -->
@@ -602,21 +585,21 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
     <div class="store-hero">
       <div class="store-avatar">D</div>
       <h3 class="store-name">DIVANI</h3>
-      <p class="store-tagline">Belleza que te acompaña ✨</p>
+      <p class="store-tagline">Belleza que te acompaña</p>
     </div>
     <div class="store-body">
       <div class="store-row">
         <span class="store-ico pink"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
-        <div><b>Ubicación</b><small>Colombia 🇨🇴 · Envíos a todo el país</small></div>
+        <div><b>Ubicación</b><small>Colombia · Envíos a todo el país</small></div>
       </div>
-      <a class="store-row" href="https://www.instagram.com/divani.belleza" target="_blank" rel="noopener">
+      <a class="store-row" href="https://www.instagram.com/divani_maquillaje/" target="_blank" rel="noopener">
         <span class="store-ico ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></span>
-        <div><b>Instagram</b><small>@divani.belleza</small></div>
+        <div><b>Instagram</b><small>@divani_maquillaje</small></div>
         <span class="chev">›</span>
       </a>
-      <a class="store-row" href="https://www.tiktok.com/@divani.belleza" target="_blank" rel="noopener">
+      <a class="store-row" href="https://www.tiktok.com/@divani_maquillaje" target="_blank" rel="noopener">
         <span class="store-ico tk"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 4c.5 2.4 2 3.8 4.4 4v3c-1.7 0-3.2-.5-4.4-1.4v6.4A5.9 5.9 0 1 1 10 10.2v3.1a2.9 2.9 0 1 0 3 2.9V4z"/></svg></span>
-        <div><b>TikTok</b><small>@divani.belleza</small></div>
+        <div><b>TikTok</b><small>@divani_maquillaje</small></div>
         <span class="chev">›</span>
       </a>
       <a class="store-row" href="https://wa.me/573003896683" target="_blank" rel="noopener">
@@ -657,7 +640,6 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
       <div class="detail-info">
         <span class="detail-category" id="detailCategoria">Maquillaje</span>
         <h2 id="detailTitle">Detalle del Producto</h2>
-        <div class="detail-rating"><span class="stars" id="detailStars">★★★★★</span><span class="count" id="detailReviews">(0)</span></div>
         <div class="detail-price"><span id="detailPrecio">-</span></div>
         <p class="detail-desc" id="detailDesc"></p>
         <div class="tonos-block" id="detailTonosWrap">
@@ -687,7 +669,7 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
 <!-- EDICIÓN -->
 <div class="edit-modal" id="editModal">
   <div class="edit-modal-content">
-    <div class="edit-modal-header"><h3>✏️ Editar Producto</h3><button class="close-edit-modal" onclick="cerrarModalEdicion()">✕</button></div>
+    <div class="edit-modal-header"><h3>Editar Producto</h3><button class="close-edit-modal" onclick="cerrarModalEdicion()">✕</button></div>
     <div class="form-group"><label>Código *</label><input type="text" id="editCodigo" style="text-transform:uppercase;"></div>
     <div class="form-group"><label>Nombre *</label><input type="text" id="editNombre"></div>
     <div class="grid-form-2">
@@ -702,23 +684,23 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
         <small>Aparece en el carrusel de destacados</small>
       </div>
     </div>
-    <div class="form-group"><label>Texto promocional (opcional)</label><input type="text" id="editPromo" placeholder="Frase corta para el banner del destacado"><small>Se muestra como descripción en el carrusel de destacados.</small></div>
+    <div class="form-group"><label>Texto promocional (opcional)</label><input type="text" id="editPromo" placeholder="Frase corta para el banner del destacado"></div>
     <div class="form-group">
-      <label>🖼️ Imágenes del Producto (varios tonos/colores)</label>
-      <div class="tip-box">💡 Sube varias imágenes del mismo producto con distintos tonos o colores. La primera será la principal. <b>(Modo borrador: se guardan solo en esta sesión)</b></div>
+      <label>Imágenes del Producto (varios tonos/colores)</label>
+      <div class="tip-box">Sube varias imágenes del mismo producto con distintos tonos o colores. La primera será la principal. <b>(Modo borrador: se guardan solo en esta sesión)</b></div>
       <input type="file" id="editFileImg" accept="image/*" multiple onchange="cargarImagenesEdicion(this)" style="padding:8px;border:1.5px solid var(--gray-border);border-radius:10px;width:100%;margin-bottom:8px;">
       <div style="margin-top:8px;font-size:12px;color:#64748b;">O pega URLs separadas por coma:</div>
       <input type="text" id="editUrl" placeholder="https://img1.jpg, https://img2.jpg" style="margin-top:5px;">
-      <button type="button" class="sync-btn secondary" style="margin-top:8px;padding:8px;font-size:12px;" onclick="agregarUrlsEdicion()">➕ Agregar URLs</button>
+      <button type="button" class="sync-btn secondary" style="margin-top:8px;padding:8px;font-size:12px;" onclick="agregarUrlsEdicion()">Agregar URLs</button>
       <div class="images-list" id="editImagesList"></div>
     </div>
     <div class="form-group">
-      <label>🎨 Tonos (opcional) — uno por línea: <i>Nombre, #color</i></label>
+      <label>Tonos (opcional) — uno por línea: <i>Nombre, #color</i></label>
       <textarea id="editTonos" rows="3" placeholder="00 Anne, #f4e0cd&#10;02 Miel, #e2a878"></textarea>
     </div>
     <div style="display:flex;gap:10px;margin-top:20px;">
       <button class="sync-btn secondary" onclick="cerrarModalEdicion()" style="flex:1;">Cancelar</button>
-      <button class="sync-btn primary" onclick="guardarEdicionProducto()" style="flex:1;">💾 Guardar</button>
+      <button class="sync-btn primary" onclick="guardarEdicionProducto()" style="flex:1;">Guardar</button>
     </div>
   </div>
 </div>
@@ -729,12 +711,12 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
     <div class="admin-sidebar">
       <h3 class="admin-brand">DIVANI <span style="font-size:11px;letter-spacing:1px;color:#8a6478;font-family:var(--font-family);font-weight:600;">ADMIN</span></h3>
       <div class="admin-nav-menu">
-        <button class="admin-nav-item active" onclick="switchTab('tab-nuevo', this)">➕ Nuevo Producto</button>
-        <button class="admin-nav-item" onclick="switchTab('tab-destacados', this)">⭐ Destacados</button>
-        <button class="admin-nav-item" onclick="switchTab('tab-banners', this)">🖼️ Banners</button>
-        <button class="admin-nav-item" onclick="switchTab('tab-categorias', this)">🏷️ Categorías</button>
-        <button class="admin-nav-item" onclick="switchTab('tab-carga-masiva', this)">📦 Carga Masiva</button>
-        <button class="admin-nav-item" onclick="switchTab('tab-inventario', this)">📊 Inventario</button>
+        <button class="admin-nav-item active" onclick="switchTab('tab-nuevo', this)">Nuevo Producto</button>
+        <button class="admin-nav-item" onclick="switchTab('tab-destacados', this)">Destacados</button>
+        <button class="admin-nav-item" onclick="switchTab('tab-banners', this)">Banners</button>
+        <button class="admin-nav-item" onclick="switchTab('tab-categorias', this)">Categorías</button>
+        <button class="admin-nav-item" onclick="switchTab('tab-carga-masiva', this)">Carga Masiva</button>
+        <button class="admin-nav-item" onclick="switchTab('tab-inventario', this)">Inventario</button>
       </div>
       <button class="admin-nav-item" style="color:var(--danger);margin-top:auto;" onclick="cerrarAdmin()">✕ Salir</button>
     </div>
@@ -747,7 +729,7 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
 
         <div id="tab-nuevo" class="admin-view active">
           <div class="dashboard-card">
-            <h4>➕ Nuevo Producto</h4>
+            <h4>Nuevo Producto</h4>
             <div class="grid-form-2">
               <div class="form-group"><label>Código *</label><input type="text" id="prodCodigo" placeholder="DIV-001" style="text-transform:uppercase;"></div>
               <div class="form-group"><label>Categoría</label><select id="prodCategoria"></select></div>
@@ -767,34 +749,34 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
             </div>
             <div class="form-group"><label>Texto promocional (opcional)</label><input type="text" id="prodPromo" placeholder="Frase corta para el banner del destacado"></div>
             <div class="form-group">
-              <label>🖼️ Imágenes del Producto (varios tonos/colores)</label>
-              <div class="tip-box">💡 <strong>Sube varias imágenes</strong> del mismo producto con distintos tonos o colores. En modo borrador se cargan localmente en tu navegador.</div>
+              <label>Imágenes del Producto (varios tonos/colores)</label>
+              <div class="tip-box"><strong>Sube varias imágenes</strong> del mismo producto con distintos tonos o colores. En modo borrador se cargan localmente en tu navegador.</div>
               <input type="file" id="prodFileImg" accept="image/*" multiple onchange="cargarImagenesProducto(this)" style="padding:10px;border:1.5px solid var(--gray-border);border-radius:10px;width:100%;">
               <div style="margin-top:10px;font-size:12px;color:#64748b;">O pega URLs directas separadas por coma:</div>
               <input type="text" id="prodUrlImg" placeholder="https://img1.jpg, https://img2.jpg" style="margin-top:5px;">
               <div class="images-list" id="prodImagesList"></div>
             </div>
             <div class="form-group">
-              <label>🎨 Tonos (opcional) — uno por línea: <i>Nombre, #color</i></label>
+              <label>Tonos (opcional) — uno por línea: <i>Nombre, #color</i></label>
               <textarea id="prodTonos" rows="3" placeholder="00 Anne, #f4e0cd&#10;02 Miel, #e2a878"></textarea>
             </div>
-            <button class="btn-buy" onclick="guardarNuevoProducto()">✨ Publicar Producto</button>
+            <button class="btn-buy" onclick="guardarNuevoProducto()">Publicar Producto</button>
           </div>
         </div>
 
         <div id="tab-destacados" class="admin-view">
           <div class="dashboard-card">
-            <h4>⭐ Productos Destacados</h4>
-            <p style="font-size:12px;color:#64748b;margin-bottom:15px;">Activa el interruptor para mostrar el producto en el carrusel de destacados. El descuento y el texto promocional se definen con ✏️ Editar (Inventario).</p>
+            <h4>Productos Destacados</h4>
+            <p style="font-size:12px;color:#64748b;margin-bottom:15px;">Activa el interruptor para mostrar el producto en el carrusel de destacados. El descuento y el texto promocional se definen con Editar (Inventario).</p>
             <div id="destacadosList"></div>
           </div>
         </div>
 
         <div id="tab-banners" class="admin-view">
           <div class="dashboard-card">
-            <h4 id="bannerFormTitle">🖼️ Nuevo Banner Promocional</h4>
+            <h4 id="bannerFormTitle">Nuevo Banner Promocional</h4>
             <div class="grid-form-2">
-              <div class="form-group"><label>Etiqueta (chip superior)</label><input type="text" id="bannerEtiqueta" placeholder="✨ Novedades"></div>
+              <div class="form-group"><label>Etiqueta (chip superior)</label><input type="text" id="bannerEtiqueta" placeholder="Novedades"></div>
               <div class="form-group"><label>Insignia promocional</label><input type="text" id="bannerPromo" placeholder="-30% / HOT / NUEVO"></div>
             </div>
             <div class="form-group"><label>Título *</label><input type="text" id="bannerTitulo" placeholder="Destacados de la semana"></div>
@@ -803,9 +785,9 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
               <div class="form-group"><label>Texto del botón</label><input type="text" id="bannerBoton" placeholder="Ver productos"></div>
               <div class="form-group"><label>Tema de color</label>
                 <select id="bannerTema">
-                  <option value="1">🌸 Rosa suave</option>
-                  <option value="2">🌷 Fresa</option>
-                  <option value="3">🍑 Durazno</option>
+                  <option value="1">Rosa</option>
+                  <option value="2">Fresa</option>
+                  <option value="3">Amarillo</option>
                 </select>
               </div>
             </div>
@@ -816,7 +798,7 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
             <div class="form-group"><label>O sube una imagen</label><input type="file" id="bannerFile" accept="image/*" onchange="cargarImagenBannerFile(this)" style="padding:8px;border:1.5px solid var(--gray-border);border-radius:10px;width:100%;"></div>
             <div style="display:flex;gap:10px;">
               <button class="sync-btn secondary" onclick="limpiarFormBanner()" style="flex:1;">Limpiar</button>
-              <button class="sync-btn primary" onclick="guardarBanner()" style="flex:1;">💾 Guardar Banner</button>
+              <button class="sync-btn primary" onclick="guardarBanner()" style="flex:1;">Guardar Banner</button>
             </div>
           </div>
           <div class="dashboard-card">
@@ -827,21 +809,21 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
 
         <div id="tab-carga-masiva" class="admin-view">
           <div class="dashboard-card">
-            <h4>📦 Carga Masiva (Excel / CSV)</h4>
+            <h4>Carga Masiva (Excel / CSV)</h4>
             <input type="file" id="archivoExcel" accept=".xlsx,.xls,.csv" style="padding:10px;border:1.5px solid var(--gray-border);border-radius:10px;width:100%;margin-bottom:10px;">
             <small style="color:#64748b;">Columnas: nombre, codigo, categoria, precio, url (separar varias con coma o |), stock · opcionales: descuento, promo, destacado (si/no)</small>
-            <button class="btn-buy" onclick="procesarArchivoExcel()" style="margin-top:10px;">📥 Procesar</button>
-            <button class="btn-buy" onclick="descargarPlantillaCSV()" style="background:var(--success);margin-top:10px;">⬇️ Descargar Plantilla</button>
+            <button class="btn-buy" onclick="procesarArchivoExcel()" style="margin-top:10px;">Procesar</button>
+            <button class="btn-buy" onclick="descargarPlantillaCSV()" style="background:var(--success);margin-top:10px;">Descargar Plantilla</button>
             <div id="resultadoCarga" style="margin-top:15px;padding:15px;border-radius:10px;display:none;"></div>
           </div>
         </div>
 
         <div id="tab-categorias" class="admin-view">
           <div class="dashboard-card">
-            <h4>🏷️ Nueva Categoría</h4>
+            <h4>Nueva Categoría</h4>
             <div style="display:flex;gap:10px;">
               <input type="text" id="nuevaCategoriaInput" placeholder="Ej: Labiales" style="flex:1;padding:12px;border:1.5px solid var(--gray-border);border-radius:12px;">
-              <button class="sync-btn primary" style="width:auto;padding:12px 22px;margin:0;" onclick="agregarCategoria()">➕</button>
+              <button class="sync-btn primary" style="width:auto;padding:12px 22px;margin:0;" onclick="agregarCategoria()">+</button>
             </div>
           </div>
           <div class="dashboard-card"><h4>Categorías Existentes</h4><div id="categoriasGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;"></div></div>
@@ -849,10 +831,10 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
 
         <div id="tab-inventario" class="admin-view">
           <div class="dashboard-card">
-            <h4>📊 Inventario Completo</h4>
-            <p style="font-size:12px;color:#64748b;margin-bottom:15px;">💡 Usa ✏️ para editar cualquier campo del producto (categoría, nombre, precio, descuento, destacado, imágenes, tonos...)</p>
-            <button class="sync-btn success" style="max-width:280px;" onclick="exportarDatosJSON()">💾 Exportar JSON (local)</button>
-            <input type="text" id="inventarioBuscador" placeholder="🔍 Buscar..." oninput="filtrarTablaInventario(this.value)" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--gray-border);margin-bottom:15px;">
+            <h4>Inventario Completo</h4>
+            <p style="font-size:12px;color:#64748b;margin-bottom:15px;">Usa Editar para modificar cualquier campo del producto (categoría, nombre, precio, descuento, destacado, imágenes, tonos...)</p>
+            <button class="sync-btn success" style="max-width:280px;" onclick="exportarDatosJSON()">Exportar JSON (local)</button>
+            <input type="text" id="inventarioBuscador" placeholder="Buscar..." oninput="filtrarTablaInventario(this.value)" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--gray-border);margin-bottom:15px;">
             <div style="overflow-x:auto;">
               <table style="width:100%;border-collapse:collapse;font-size:12px;">
                 <thead><tr style="background:#f8fafc;">
@@ -871,7 +853,7 @@ a.store-row:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(228,87,
 
 <script>
 // ==========================================
-// 📦 DATOS EN MEMORIA (BORRADOR · sin nube)
+// DATOS EN MEMORIA (BORRADOR · sin nube)
 // ==========================================
 const IMG = {
   hero:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/13b144651-937e-4944-93b5-401ac2236237.png',
@@ -891,40 +873,32 @@ let productos = [
   { id:'1', codigo:'DIV-101', nombre:'Labial Velvet Matte · Edición Rosé', categoria:'Labios', precio:32000, stock:18,
     imagenes:[IMG.labial, IMG.swatches],
     tonos:[{n:'Rosa Encanto',c:'#c96f8e',i:0},{n:'Terracota Dream',c:'#b45a3c',i:1},{n:'Nude Diva',c:'#c99a83',i:1},{n:'Rojo Diva',c:'#b03052',i:0}],
-    descripcion:'Color intenso en una sola pasada, textura aterciopelada que no reseca y hasta 8 horas de duración. Tu labial de todos los días.',
     destacado:true, descuento:30, promo:'Color intenso hasta por 8 horas sin resecar. El favorito de la casa.' },
-  { id:'2', codigo:'DIV-102', nombre:'Lip Combo Divani · Delineador + Gloss', categoria:'Labios', precio:40000, stock:11,
+  { id:'2', codigo:'DIV-102', nombre:'Lip Combo', categoria:'Labios', precio:1000, stock:11,
     imagenes:[IMG.combo, IMG.swatches],
     tonos:[{n:'Rosé',c:'#c96f8e',i:0},{n:'Terracota',c:'#b45a3c',i:1},{n:'Nude',c:'#c99a83',i:1}],
-    descripcion:'El dúo perfecto para unos labios de revista: delineador cremoso de precisión + gloss espejo con brillo húmedo sin sensación pegajosa.',
     destacado:true, promo:'Delineador cremoso + gloss espejo: labios de revista en un solo paso.' },
   { id:'3', codigo:'DIV-103', nombre:'Paleta Cejas Pro · Define & Fix', categoria:'Cejas', precio:28000, stock:20,
-    imagenes:[IMG.cejas],
-    descripcion:'Dúo de sombras micronizadas + herramientas profesionales para definir, rellenar y fijar tus cejas con acabado natural a prueba de agua.' },
+    imagenes:[IMG.cejas] },
   { id:'4', codigo:'DIV-104', nombre:'Máscara Lash Lift · Volumen Extremo', categoria:'Ojos', precio:34000, stock:16,
-    imagenes:[IMG.mascara],
-    descripcion:'Cepillo curvado de precisión que levanta, alarga y da volumen extremo sin grumos. Fórmula resistente al agua que dura todo el día.' },
+    imagenes:[IMG.mascara] },
   { id:'5', codigo:'DIV-105', nombre:'Sérum Glow Elixir · Vitamina C', categoria:'Skincare', precio:58000, stock:9,
     imagenes:[IMG.serum],
-    descripcion:'Concentrado luminoso con Vitamina C y antioxidantes que unifica el tono, hidrata profundamente y devuelve el glow natural de tu piel.',
     destacado:true, descuento:15, promo:'Vitamina C + antioxidantes para un glow inmediato y piel uniforme.' },
   { id:'6', codigo:'DIV-106', nombre:'Bruma Facial Rosé Glow · Efecto Lifting', categoria:'Skincare', precio:36000, stock:0,
-    imagenes:[IMG.bruma],
-    descripcion:'Bruma fijadora con agua de rosas y partículas luminosas: sella tu maquillaje, refresca y deja un acabado dewy de piel jugosa.' },
+    imagenes:[IMG.bruma] },
   { id:'7', codigo:'DIV-107', nombre:'Shampoo Repair Rose · Keratina', categoria:'Capilar', precio:42000, stock:13,
     imagenes:[IMG.shampoo],
-    descripcion:'Limpieza suave + reparación profunda con keratina y rosa mosqueta. Pelo sedoso, brillante y sin frizz desde el primer uso.',
     destacado:true, promo:'Nueva línea Repair Rose: keratina + rosa mosqueta para pelo de seda.' },
   { id:'8', codigo:'DIV-108', nombre:'Set Brochas Divani · Edición Rosé', categoria:'Accesorios', precio:48000, stock:7,
-    imagenes:[IMG.brochas],
-    descripcion:'5 brochas de pelo sintético ultra suave con mangos rosados: rostro y ojos cubiertos con acabado profesional. Cruelty-free.' }
+    imagenes:[IMG.brochas] }
 ];
 let categorias = ['Cejas','Labios','Ojos','Skincare','Capilar','Accesorios','Rostro','Brochas'];
 
 // Banners promocionales (administrables desde el panel)
 let banners = [
-  { id:'b1', etiqueta:'✨ Destacados', titulo:'Destacados de la semana', sub:'Los favoritos de nuestras clientas, reunidos en un solo lugar con amor.', promo:'HOT', textoBoton:'Ver catálogo', img:IMG.hero, tema:1, cat:'Todos' },
-  { id:'b2', etiqueta:'💗 Ofertas especiales', titulo:'Hasta 30% OFF', sub:'Labiales, sérum y más consentidos por tiempo limitado. ¡No te los pierdas!', promo:'-30%', textoBoton:'Ver ofertas', img:IMG.swatches, tema:2, cat:'Labios' }
+  { id:'b1', etiqueta:'Destacados', titulo:'Destacados de la semana', sub:'Los favoritos de nuestras clientas, reunidos en un solo lugar con amor.', promo:'HOT', textoBoton:'Ver catálogo', img:IMG.hero, tema:1, cat:'Todos' },
+  { id:'b2', etiqueta:'Ofertas especiales', titulo:'Hasta 30% OFF', sub:'Labiales, sérum y más consentidos por tiempo limitado. ¡No te los pierdas!', promo:'-30%', textoBoton:'Ver ofertas', img:IMG.swatches, tema:2, cat:'Labios' }
 ];
 
 let tiendaConfig = { name:'DIVANI' };
@@ -941,7 +915,7 @@ let heroIdx = 0, heroTimer = null, heroTotal = 0;
 let bannerEditandoId = null;
 
 // ==========================================
-// 🧰 UTILIDADES
+// UTILIDADES
 // ==========================================
 function showToast(message, type='success'){
   const toast=document.createElement('div');
@@ -966,11 +940,6 @@ function parsearTonos(texto, numImgs){
   });
 }
 function tonosATexto(tonos){ return (tonos||[]).map(t=>`${t.n}${t.c?', '+t.c:''}`).join('\n'); }
-function ratingDe(p){
-  let h=0; const s=(p.codigo||'')+(p.nombre||'');
-  for(let i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))%997;
-  return { stars:(44+h%6)/10, reviews:23+h%180 };
-}
 function descDe(p){
   if(p.descripcion) return p.descripcion;
   const map={ 'Labios':'Textura cremosa, alta pigmentación y larga duración. Fórmulas cruelty-free que realzan tu belleza natural.',
@@ -981,7 +950,7 @@ function descDe(p){
     'Accesorios':'Herramientas profesionales para lograr un acabado perfecto en cada look.',
     'Rostro':'Productos para un cutis radiante, fresco y natural.',
     'Brochas':'Brochas y herramientas para un acabado profesional.' };
-  return map[p.categoria] || 'Un esencial DIVANI seleccionado para consentirte. ✨';
+  return map[p.categoria] || 'Un esencial DIVANI seleccionado para consentirte.';
 }
 function bumpCart(){
   const b=document.getElementById('headerCartBtn');
@@ -990,13 +959,13 @@ function bumpCart(){
 function qtyEnCarrito(codigo){ const r=carrito.find(x=>x.codigo===codigo); return r?r.qty:0; }
 
 // ==========================================
-// ℹ️ MODAL INFO TIENDA (respaldo)
+// MODAL INFO TIENDA (respaldo)
 // ==========================================
 function abrirInfoTienda(){ document.getElementById('storeModal').style.display='flex'; }
 function cerrarInfoTienda(){ document.getElementById('storeModal').style.display='none'; }
 
 // ==========================================
-// 🎠 CARRUSEL DESTACADOS
+// CARRUSEL DESTACADOS
 // ==========================================
 function construirSlidesHero(){
   const slides=[];
@@ -1004,7 +973,7 @@ function construirSlidesHero(){
     slides.push(`
       <div class="hero-slide t${b.tema||1}">
         <div class="hero-text">
-          <span class="hero-tag">${b.etiqueta||'✨ Novedad'}</span>
+          <span class="hero-tag">${b.etiqueta||'Novedad'}</span>
           <h2 class="hero-title">${b.titulo}</h2>
           <p class="hero-sub">${b.sub||''}</p>
           <button class="hero-cta" onclick="ctaBanner('${b.id}')">${b.textoBoton||'Ver más'}
@@ -1028,7 +997,7 @@ function construirSlidesHero(){
     slides.push(`
       <div class="hero-slide t${((banners.length+realIdx)%3)+1}">
         <div class="hero-text">
-          <span class="hero-tag">${hasOff?'🔥 Oferta especial':'⭐ Destacado'}</span>
+          <span class="hero-tag">${hasOff?'Oferta especial':'Destacado'}</span>
           <h2 class="hero-title">${p.nombre}</h2>
           <p class="hero-sub">${p.promo||descDe(p).slice(0,90)+'…'}</p>
           ${precioHtml}
@@ -1037,7 +1006,7 @@ function construirSlidesHero(){
           </button>
         </div>
         <div class="hero-img">
-          <span class="hero-promo-badge">${hasOff?`-${p.descuento}% OFF`:'⭐ Destacado'}</span>
+          <span class="hero-promo-badge">${hasOff?`-${p.descuento}% OFF`:'Destacado'}</span>
           <img src="${obtenerImagenPrincipal(p)}" alt="${p.nombre}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=FALLBACK_IMG">
         </div>
       </div>`);
@@ -1082,7 +1051,7 @@ function initHeroGestures(){
 }
 
 // ==========================================
-// 🗂️ DRAWER · INFO TIENDA
+// DRAWER · INFO TIENDA
 // ==========================================
 function toggleDrawer(abrir){
   const d=document.getElementById('drawer'), b=document.getElementById('drawerBackdrop');
@@ -1092,11 +1061,11 @@ function toggleDrawer(abrir){
 }
 
 // ==========================================
-// 🖼️ CARGA DE IMÁGENES LOCAL
+// CARGA DE IMÁGENES LOCAL
 // ==========================================
 async function archivosADataUrls(files){
   const valid = Array.from(files).filter(f=>f.type.startsWith('image/')&&f.size<=3*1024*1024);
-  if(!valid.length){ showToast('⚠️ Sin imágenes válidas (máx. 3MB c/u en modo borrador)','warning'); return []; }
+  if(!valid.length){ showToast('Sin imágenes válidas (máx. 3MB c/u en modo borrador)','warning'); return []; }
   const urls=[];
   for(const f of valid){
     const url = await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>res(null); r.readAsDataURL(f); });
@@ -1106,12 +1075,12 @@ async function archivosADataUrls(files){
 }
 async function cargarImagenesProducto(input){
   const urls=await archivosADataUrls(input.files);
-  if(urls.length){ urls.forEach(u=>imagenesProductoTemp.push(u)); renderListaImagenesProducto(); showToast(`✅ ${urls.length} imagen(es) cargada(s)`,'success'); }
+  if(urls.length){ urls.forEach(u=>imagenesProductoTemp.push(u)); renderListaImagenesProducto(); showToast(`${urls.length} imagen(es) cargada(s)`,'success'); }
   input.value='';
 }
 async function cargarImagenesEdicion(input){
   const urls=await archivosADataUrls(input.files);
-  if(urls.length){ urls.forEach(u=>imagenesEdicionTemp.push(u)); renderListaImagenesEdicion(); showToast(`✅ ${urls.length} imagen(es) cargada(s)`,'success'); }
+  if(urls.length){ urls.forEach(u=>imagenesEdicionTemp.push(u)); renderListaImagenesEdicion(); showToast(`${urls.length} imagen(es) cargada(s)`,'success'); }
   input.value='';
 }
 function renderListaImagenesProducto(){
@@ -1119,7 +1088,7 @@ function renderListaImagenesProducto(){
   imagenesProductoTemp.forEach((url,idx)=>{
     const div=document.createElement('div');
     div.className='image-item'+(idx===0?' main-img':'');
-    div.innerHTML=`<img src="${url}" alt="img-${idx}"><button class="remove-img-btn" onclick="quitarImagenProducto(${idx})">✕</button><span class="img-index">${idx===0?'👑 Principal':'#'+(idx+1)}</span>`;
+    div.innerHTML=`<img src="${url}" alt="img-${idx}"><button class="remove-img-btn" onclick="quitarImagenProducto(${idx})">✕</button><span class="img-index">${idx===0?'Principal':'#'+(idx+1)}</span>`;
     cont.appendChild(div);
   });
 }
@@ -1129,31 +1098,31 @@ function renderListaImagenesEdicion(){
   imagenesEdicionTemp.forEach((url,idx)=>{
     const div=document.createElement('div');
     div.className='image-item'+(idx===0?' main-img':'');
-    div.innerHTML=`<img src="${url}" alt="img-${idx}"><button class="remove-img-btn" onclick="quitarImagenEdicion(${idx})">✕</button><span class="img-index">${idx===0?'👑 Principal':'#'+(idx+1)}</span>`;
+    div.innerHTML=`<img src="${url}" alt="img-${idx}"><button class="remove-img-btn" onclick="quitarImagenEdicion(${idx})">✕</button><span class="img-index">${idx===0?'Principal':'#'+(idx+1)}</span>`;
     cont.appendChild(div);
   });
 }
 function quitarImagenEdicion(idx){ imagenesEdicionTemp.splice(idx,1); renderListaImagenesEdicion(); }
 function agregarUrlsEdicion(){
   const input=document.getElementById('editUrl'); const texto=input.value.trim();
-  if(!texto){ showToast('⚠️ Pega una o más URLs','warning'); return; }
+  if(!texto){ showToast('Pega una o más URLs','warning'); return; }
   const nuevas=texto.split(/[,\n|]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'));
-  if(!nuevas.length){ showToast('⚠️ URLs no válidas','warning'); return; }
+  if(!nuevas.length){ showToast('URLs no válidas','warning'); return; }
   nuevas.forEach(u=>imagenesEdicionTemp.push(u)); renderListaImagenesEdicion(); input.value='';
-  showToast(`✅ ${nuevas.length} URL(s) agregada(s)`,'success');
+  showToast(`${nuevas.length} URL(s) agregada(s)`,'success');
 }
 function cargarImagenBannerFile(input){
   const f=input.files[0];
   if(!f||!f.type.startsWith('image/')) return;
-  if(f.size>3*1024*1024){ showToast('⚠️ Máximo 3MB','warning'); input.value=''; return; }
+  if(f.size>3*1024*1024){ showToast('Máximo 3MB','warning'); input.value=''; return; }
   const r=new FileReader();
-  r.onload=()=>{ document.getElementById('bannerImg').value=r.result; showToast('✅ Imagen cargada','success'); };
+  r.onload=()=>{ document.getElementById('bannerImg').value=r.result; showToast('Imagen cargada','success'); };
   r.readAsDataURL(f);
   input.value='';
 }
 
 // ==========================================
-// 🛍️ RENDER DE PRODUCTOS
+// RENDER DE PRODUCTOS
 // ==========================================
 const PLUS_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
 function renderProductos(lista=null){
@@ -1192,7 +1161,7 @@ function renderProductos(lista=null){
     }
     const badgesHtml=`<div class="card-badges">
       ${hasOff?`<span class="discount-badge">-${p.descuento}%</span>`:''}
-      ${p.destacado?`<span class="featured-badge">⭐ Destacado</span>`:''}
+      ${p.destacado?`<span class="featured-badge">Destacado</span>`:''}
       ${multi?`<span class="variant-badge">${p.tonos&&p.tonos.length?p.tonos.length+' tonos':imagenes.length+' fotos'}</span>`:''}
     </div>`;
     const shadesHtml = tonosPrev.length ? `<div class="card-shades">${tonosPrev.map((t,i)=>`<span class="shade-dot" title="${t.n}" style="${t.c?`background:${t.c}`:`background:url(${imagenes[t.i]||imagenes[0]}) center/cover`}" onclick="event.stopPropagation();abrirDetalle(${realIdx},${i})"></span>`).join('')}${tonosDe(p).length>5?`<span class="shade-more">+${tonosDe(p).length-5}</span>`:''}</div>` : '<div class="card-shades"></div>';
@@ -1216,7 +1185,7 @@ function renderProductos(lista=null){
     cont.appendChild(card);
   });
   if(visibles===0){
-    cont.innerHTML='<div class="empty-state"><div class="big">🌸</div><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">Prueba con otra búsqueda o categoría.</p></div>';
+    cont.innerHTML='<div class="empty-state"><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">Prueba con otra búsqueda o categoría.</p></div>';
   }
   const lbl=document.getElementById('countLabel');
   if(lbl) lbl.textContent=`${visibles} ${visibles===1?'producto':'productos'}`;
@@ -1237,7 +1206,7 @@ function irImagenCard(cardId,idx){
 }
 
 // ==========================================
-// 🏷️ CATEGORÍAS
+// CATEGORÍAS
 // ==========================================
 function renderSelectCategorias(){
   const sel=document.getElementById('prodCategoria'); sel.innerHTML='';
@@ -1265,20 +1234,20 @@ function renderNavCategorias(){
 }
 function agregarCategoria(){
   const input=document.getElementById('nuevaCategoriaInput'); const nombre=input.value.trim();
-  if(!nombre||categorias.some(c=>c.toLowerCase()===nombre.toLowerCase())){ showToast('⚠️ Nombre inválido o duplicado','danger'); return; }
+  if(!nombre||categorias.some(c=>c.toLowerCase()===nombre.toLowerCase())){ showToast('Nombre inválido o duplicado','danger'); return; }
   categorias.push(nombre.charAt(0).toUpperCase()+nombre.slice(1).toLowerCase());
   input.value=''; renderSelectCategorias(); renderSelectCategoriasBanner(); renderCategoriasAdmin(); renderNavCategorias();
-  showToast('✅ Categoría creada','success');
+  showToast('Categoría creada','success');
 }
 function eliminarCategoria(i){
   const c=categorias[i];
-  if(productos.some(p=>p.categoria===c)){ showToast('⚠️ Tiene productos asignados','danger'); return; }
+  if(productos.some(p=>p.categoria===c)){ showToast('Tiene productos asignados','danger'); return; }
   if(confirm(`¿Eliminar "${c}"?`)){ categorias.splice(i,1); renderSelectCategorias(); renderSelectCategoriasBanner(); renderCategoriasAdmin(); renderNavCategorias(); }
 }
 function filtrarCategoria(cat, scrollTop=true){
   categoriaActual=cat;
   document.querySelectorAll('#navCategorias a').forEach(a=>a.classList.toggle('active',a.dataset.cat===cat));
-  document.getElementById('sectionTitle').textContent = cat==='Todos' ? 'Para ti ✨' : cat+' ✨';
+  document.getElementById('sectionTitle').textContent = cat==='Todos' ? 'Para ti' : cat;
   renderProductos();
   if(scrollTop) window.scrollTo({top:0,behavior:'smooth'});
 }
@@ -1289,7 +1258,7 @@ function irInicio(){
 }
 
 // ==========================================
-// ➕ NUEVO PRODUCTO
+// NUEVO PRODUCTO
 // ==========================================
 function guardarNuevoProducto(){
   const codigo=document.getElementById('prodCodigo').value.trim().toUpperCase();
@@ -1303,8 +1272,8 @@ function guardarNuevoProducto(){
   const urlsInput=document.getElementById('prodUrlImg').value.trim();
   let imagenes=[...imagenesProductoTemp];
   if(urlsInput){ imagenes=[...imagenes,...urlsInput.split(/[,\n|]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'))]; }
-  if(!codigo||!nombre||!precio){ showToast('⚠️ Completa los campos obligatorios','danger'); return; }
-  if(productos.find(p=>p.codigo===codigo)){ showToast('⚠️ Código ya existe','danger'); return; }
+  if(!codigo||!nombre||!precio){ showToast('Completa los campos obligatorios','danger'); return; }
+  if(productos.find(p=>p.codigo===codigo)){ showToast('Código ya existe','danger'); return; }
   imagenes=[...new Set(imagenes.filter(u=>u&&u.trim()!==''))];
   const nuevo={ id:Date.now().toString(), codigo, nombre, precio:formatearPrecio(precio),
     categoria:document.getElementById('prodCategoria').value,
@@ -1321,14 +1290,14 @@ function guardarNuevoProducto(){
   document.getElementById('prodStock').value='10';
   document.getElementById('prodDestacado').checked=false;
   imagenesProductoTemp=[]; renderListaImagenesProducto();
-  showToast(`✅ ${nombre} publicado`,'success');
+  showToast(`${nombre} publicado`,'success');
 }
 
 // ==========================================
-// ✏️ EDICIÓN
+// EDICIÓN
 // ==========================================
 function abrirModalEdicion(index){
-  if(index===undefined||index===null||!productos[index]){ showToast('⚠️ Error al abrir el producto','danger'); return; }
+  if(index===undefined||index===null||!productos[index]){ showToast('Error al abrir el producto','danger'); return; }
   productoEditandoIndex=index;
   const prod=productos[index];
   document.getElementById('editCodigo').value=prod.codigo||'';
@@ -1364,8 +1333,8 @@ function guardarEdicionProducto(){
   const urlsInput=document.getElementById('editUrl').value.trim();
   let imagenes=[...imagenesEdicionTemp];
   if(urlsInput){ imagenes=[...imagenes,...urlsInput.split(/[,\n|]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'))]; }
-  if(!codigo||!nombre||!precio){ showToast('⚠️ Completa los campos obligatorios','danger'); return; }
-  if(productos.find((p,idx)=>p.codigo===codigo&&idx!==productoEditandoIndex)){ showToast('⚠️ Código ya existe en otro producto','danger'); return; }
+  if(!codigo||!nombre||!precio){ showToast('Completa los campos obligatorios','danger'); return; }
+  if(productos.find((p,idx)=>p.codigo===codigo&&idx!==productoEditandoIndex)){ showToast('Código ya existe en otro producto','danger'); return; }
   imagenes=[...new Set(imagenes.filter(u=>u&&u.trim()!==''))];
   const prod=productos[productoEditandoIndex];
   prod.codigo=codigo; prod.nombre=nombre; prod.precio=formatearPrecio(precio); prod.stock=stock; prod.categoria=categoria;
@@ -1378,11 +1347,11 @@ function guardarEdicionProducto(){
   if(tonos) prod.tonos=tonos; else delete prod.tonos;
   prepararCacheBusqueda(); renderProductos(); renderInventario(); renderDestacadosAdmin(); initHero();
   cerrarModalEdicion();
-  showToast('✅ Producto actualizado','success');
+  showToast('Producto actualizado','success');
 }
 
 // ==========================================
-// 🖼️ DETALLE
+// DETALLE
 // ==========================================
 function abrirDetalle(index, tonoInicial=0){
   if(index===undefined||index===null||!productos[index]) return;
@@ -1398,10 +1367,6 @@ function abrirDetalle(index, tonoInicial=0){
   document.getElementById('detailNameCrumb').textContent=prod.nombre;
   document.getElementById('detailCategoria').textContent=prod.categoria;
   document.getElementById('detailTitle').textContent=prod.nombre;
-  const r=ratingDe(prod);
-  const full=Math.round(r.stars);
-  document.getElementById('detailStars').innerHTML='★'.repeat(full)+`<span class="off">${'★'.repeat(5-full)}</span>`;
-  document.getElementById('detailReviews').textContent=`(${r.reviews})`;
   const num=limpiarPrecio(prod.precio);
   if(prod.descuento>0){
     document.getElementById('detailPrecio').innerHTML=`${formatearPrecio(precioFinalDe(prod))} <small>COP</small> <s>${formatearPrecio(num)}</s><span class="off-pill">-${prod.descuento}%</span>`;
@@ -1502,14 +1467,14 @@ function agregarDesdeDetalle(){
   const p=productos[productoDetalleIndex];
   const disponible=p.stock-qtyEnCarrito(p.codigo);
   const porAgregar=Math.min(detalleCantidad, disponible);
-  if(porAgregar<=0){ showToast('⚠️ Sin stock suficiente','danger'); return; }
+  if(porAgregar<=0){ showToast('Sin stock suficiente','danger'); return; }
   agregarAlCarro(productoDetalleIndex, porAgregar);
   cerrarDetalle();
   toggleCart(true);
 }
 
 // ==========================================
-// ⭐ DESTACADOS (ADMIN)
+// DESTACADOS (ADMIN)
 // ==========================================
 function renderDestacadosAdmin(){
   const cont=document.getElementById('destacadosList'); if(!cont) return;
@@ -1520,7 +1485,7 @@ function renderDestacadosAdmin(){
     row.className='dest-row'+(p.destacado?' on':'');
     row.innerHTML=`
       <img src="${obtenerImagenPrincipal(p)}" alt="">
-      <div class="info"><b>${p.destacado?'⭐ ':''}${p.nombre}</b><small>${p.codigo} · ${formatearPrecio(p.precio)}${p.descuento>0?` · -${p.descuento}%`:''}</small></div>
+      <div class="info"><b>${p.nombre}</b><small>${p.codigo} · ${formatearPrecio(p.precio)}${p.descuento>0?` · -${p.descuento}%`:''}</small></div>
       <label class="switch"><input type="checkbox" ${p.destacado?'checked':''} onchange="toggleDestacado(${i},this.checked)"><span class="switch-slider"></span></label>`;
     cont.appendChild(row);
   });
@@ -1528,11 +1493,11 @@ function renderDestacadosAdmin(){
 function toggleDestacado(i,val){
   productos[i].destacado=val;
   initHero(); renderProductos(); renderDestacadosAdmin();
-  showToast(val?'⭐ Agregado a destacados':'Producto quitado de destacados', val?'success':'warning');
+  showToast(val?'Agregado a destacados':'Producto quitado de destacados', val?'success':'warning');
 }
 
 // ==========================================
-// 🖼️ BANNERS (ADMIN)
+// BANNERS (ADMIN)
 // ==========================================
 function renderSelectCategoriasBanner(){
   const sel=document.getElementById('bannerCat'); if(!sel) return;
@@ -1541,7 +1506,7 @@ function renderSelectCategoriasBanner(){
 }
 function limpiarFormBanner(){
   bannerEditandoId=null;
-  document.getElementById('bannerFormTitle').textContent='🖼️ Nuevo Banner Promocional';
+  document.getElementById('bannerFormTitle').textContent='Nuevo Banner Promocional';
   ['bannerEtiqueta','bannerPromo','bannerTitulo','bannerSub','bannerBoton','bannerImg'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('bannerTema').value='1';
   document.getElementById('bannerCat').value='Todos';
@@ -1549,10 +1514,10 @@ function limpiarFormBanner(){
 }
 function guardarBanner(){
   const titulo=document.getElementById('bannerTitulo').value.trim();
-  if(!titulo){ showToast('⚠️ El título es obligatorio','danger'); return; }
+  if(!titulo){ showToast('El título es obligatorio','danger'); return; }
   const data={
     id: bannerEditandoId || 'b'+Date.now(),
-    etiqueta: document.getElementById('bannerEtiqueta').value.trim()||'✨ Novedad',
+    etiqueta: document.getElementById('bannerEtiqueta').value.trim()||'Novedad',
     titulo,
     sub: document.getElementById('bannerSub').value.trim(),
     promo: document.getElementById('bannerPromo').value.trim(),
@@ -1569,12 +1534,12 @@ function guardarBanner(){
   }
   limpiarFormBanner();
   initHero(); renderBannersAdmin();
-  showToast('✅ Banner guardado','success');
+  showToast('Banner guardado','success');
 }
 function editarBanner(id){
   const b=banners.find(x=>x.id===id); if(!b) return;
   bannerEditandoId=id;
-  document.getElementById('bannerFormTitle').textContent='✏️ Editando Banner';
+  document.getElementById('bannerFormTitle').textContent='Editando Banner';
   document.getElementById('bannerEtiqueta').value=b.etiqueta||'';
   document.getElementById('bannerTitulo').value=b.titulo||'';
   document.getElementById('bannerSub').value=b.sub||'';
@@ -1589,7 +1554,7 @@ function eliminarBanner(id){
   if(!confirm('¿Eliminar este banner?')) return;
   banners=banners.filter(b=>b.id!==id);
   initHero(); renderBannersAdmin();
-  showToast('🗑️ Banner eliminado','danger');
+  showToast('Banner eliminado','danger');
 }
 function moverBanner(id,dir){
   const i=banners.findIndex(b=>b.id===id);
@@ -1601,7 +1566,7 @@ function moverBanner(id,dir){
 function renderBannersAdmin(){
   const cont=document.getElementById('bannersList'); if(!cont) return;
   cont.innerHTML='';
-  if(!banners.length){ cont.innerHTML='<p style="font-size:12px;color:#64748b;">No hay banners. Crea el primero arriba. 💡</p>'; return; }
+  if(!banners.length){ cont.innerHTML='<p style="font-size:12px;color:#64748b;">No hay banners. Crea el primero arriba.</p>'; return; }
   banners.forEach((b,idx)=>{
     const row=document.createElement('div');
     row.className='banner-mini';
@@ -1611,15 +1576,15 @@ function renderBannersAdmin(){
       <div class="bm-actions">
         <button class="mini-btn" title="Subir" onclick="moverBanner('${b.id}',-1)">↑</button>
         <button class="mini-btn" title="Bajar" onclick="moverBanner('${b.id}',1)">↓</button>
-        <button class="mini-btn" title="Editar" onclick="editarBanner('${b.id}')">✏️</button>
-        <button class="mini-btn del" title="Eliminar" onclick="eliminarBanner('${b.id}')">🗑️</button>
+        <button class="mini-btn" title="Editar" onclick="editarBanner('${b.id}')">Editar</button>
+        <button class="mini-btn del" title="Eliminar" onclick="eliminarBanner('${b.id}')">✕</button>
       </div>`;
     cont.appendChild(row);
   });
 }
 
 // ==========================================
-// 📊 INVENTARIO
+// INVENTARIO
 // ==========================================
 function renderInventario(){
   const tbody=document.getElementById('tablaInventario'); if(!tbody) return;
@@ -1629,12 +1594,12 @@ function renderInventario(){
     const p=productos[i];
     const numImgs=(p.imagenes&&p.imagenes.length)||0;
     html+=`<tr id="row-${i}">
-      <td style="padding:10px;"><div style="font-weight:600;">${p.destacado?'⭐ ':''}${p.nombre||'Sin nombre'}</div><div style="font-size:10px;color:var(--primary-pink);">${p.codigo||'S/C'}${p.descuento>0?` · <b style="color:var(--danger)">-${p.descuento}%</b>`:''}</div></td>
+      <td style="padding:10px;"><div style="font-weight:600;">${p.nombre||'Sin nombre'}</div><div style="font-size:10px;color:var(--primary-pink);">${p.codigo||'S/C'}${p.descuento>0?` · <b style="color:var(--danger)">-${p.descuento}%</b>`:''}</div></td>
       <td style="padding:10px;text-align:center;"><span style="background:var(--light-pink);padding:3px 8px;border-radius:8px;font-size:11px;font-weight:600;color:var(--primary-pink);">${p.categoria||'General'}</span></td>
       <td style="padding:10px;text-align:center;font-weight:700;">${formatearPrecio(p.precio)}</td>
       <td style="padding:10px;text-align:center;"><input type="number" value="${p.stock!==undefined?p.stock:0}" min="0" onchange="actualizarStockRapido(${i},this.value)" style="width:60px;padding:5px;border-radius:6px;border:1px solid var(--gray-border);text-align:center;"></td>
-      <td style="padding:10px;text-align:center;"><span style="background:#e0e7ff;color:#4338ca;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;">🖼️ ${numImgs}</span></td>
-      <td style="padding:10px;text-align:center;"><button class="btn-action edit" onclick="abrirModalEdicion(${i})">✏️ Editar</button><button class="btn-action delete" onclick="eliminarProducto(${i})">🗑️</button></td>
+      <td style="padding:10px;text-align:center;"><span style="background:#e0e7ff;color:#4338ca;padding:3px 8px;border-radius:8px;font-size:11px;font-weight:700;">${numImgs}</span></td>
+      <td style="padding:10px;text-align:center;"><button class="btn-action edit" onclick="abrirModalEdicion(${i})">Editar</button><button class="btn-action delete" onclick="eliminarProducto(${i})">Eliminar</button></td>
     </tr>`;
   }
   tbody.innerHTML=html;
@@ -1642,7 +1607,7 @@ function renderInventario(){
 function actualizarStockRapido(i,val){
   productos[i].stock=parseInt(val)||0;
   renderProductos();
-  showToast('✅ Stock actualizado','success');
+  showToast('Stock actualizado','success');
 }
 function eliminarProducto(i){
   if(confirm('¿Eliminar este producto?')){
@@ -1650,7 +1615,7 @@ function eliminarProducto(i){
     productos.splice(i,1);
     carrito=carrito.filter(r=>r.codigo!==codigo);
     prepararCacheBusqueda(); renderProductos(); renderInventario(); renderDestacadosAdmin(); actualizarCarrito(); initHero();
-    showToast('🗑️ Eliminado','danger');
+    showToast('Eliminado','danger');
   }
 }
 function filtrarTablaInventario(q){
@@ -1666,11 +1631,11 @@ function exportarDatosJSON(){
   a.href=URL.createObjectURL(blob);
   a.download=`divani_${new Date().toISOString().split('T')[0]}.json`;
   a.click();
-  showToast('💾 Respaldo descargado en tu dispositivo','success');
+  showToast('Respaldo descargado en tu dispositivo','success');
 }
 
 // ==========================================
-// 🛒 CARRITO
+// CARRITO
 // ==========================================
 function toggleCart(abrir){
   const c=document.getElementById('cartSidebar'), b=document.getElementById('cartBackdrop');
@@ -1681,16 +1646,16 @@ function toggleCart(abrir){
 function agregarAlCarro(i, qty=1){
   const p=productos[i];
   const actual=qtyEnCarrito(p.codigo);
-  if(actual+qty>p.stock){ showToast('⚠️ Sin stock suficiente','danger'); return; }
+  if(actual+qty>p.stock){ showToast('Sin stock suficiente','danger'); return; }
   const row=carrito.find(r=>r.codigo===p.codigo);
   if(row) row.qty+=qty; else carrito.push({codigo:p.codigo, qty});
   actualizarCarrito(); bumpCart();
-  showToast(`✅ ${qty} × ${p.nombre}`,'success');
+  showToast(`${qty} × ${p.nombre}`,'success');
 }
 function cambiarCantidadCarrito(codigo,delta){
   const row=carrito.find(r=>r.codigo===codigo); if(!row) return;
   const p=productos.find(x=>x.codigo===codigo);
-  if(delta>0 && p && row.qty+delta>p.stock){ showToast('⚠️ Sin stock suficiente','danger'); return; }
+  if(delta>0 && p && row.qty+delta>p.stock){ showToast('Sin stock suficiente','danger'); return; }
   row.qty+=delta;
   if(row.qty<=0) carrito=carrito.filter(r=>r.codigo!==codigo);
   actualizarCarrito();
@@ -1721,11 +1686,11 @@ function actualizarCarrito(){
             <b>${row.qty}</b>
             <button onclick="cambiarCantidadCarrito('${p.codigo}',1)">+</button>
           </div>
-          <button class="cart-item-remove" onclick="quitarDelCarro('${p.codigo}')">🗑️ Quitar</button>
+          <button class="cart-item-remove" onclick="quitarDelCarro('${p.codigo}')">Quitar</button>
         </div>
       </div>`;
   });
-  if(!carrito.length) div.innerHTML='<p style="text-align:center;color:#a06b81;padding:30px 0;font-size:13px;">Tu carrito está vacío 🌷</p>';
+  if(!carrito.length) div.innerHTML='<p style="text-align:center;color:#a06b81;padding:30px 0;font-size:13px;">Tu carrito está vacío</p>';
   document.getElementById('total').textContent=total.toLocaleString('es-CO');
   document.getElementById('headerCartCount').textContent=totalItems;
 }
@@ -1747,14 +1712,14 @@ function comprar(){
 }
 
 // ==========================================
-// 🔍 BÚSQUEDA
+// BÚSQUEDA
 // ==========================================
 document.getElementById('buscadorCodigo').addEventListener('input',(e)=>{
   const q=e.target.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
   const resDiv=document.getElementById('resultadoBusqueda');
   if(!q||q.length<2){ resDiv.style.display='none'; renderProductos(); return; }
   const resultados=productos.filter(p=>p._cache&&p._cache.includes(q)).slice(0,10);
-  if(!resultados.length){ resDiv.innerHTML='<div style="padding:20px;text-align:center;color:#94a3b8;">Sin resultados 🌸</div>'; }
+  if(!resultados.length){ resDiv.innerHTML='<div style="padding:20px;text-align:center;color:#94a3b8;">Sin resultados</div>'; }
   else{
     resDiv.innerHTML=resultados.map(p=>`
       <div class="search-result-item" onclick="seleccionarBusqueda('${p.codigo}')">
@@ -1779,7 +1744,7 @@ document.addEventListener('click',(e)=>{
 });
 
 // ==========================================
-// 🔐 LOGIN / ADMIN
+// LOGIN / ADMIN
 // ==========================================
 const PIN='55555';
 function abrirLogin(){ document.getElementById('loginModal').style.display='flex'; document.getElementById('adminPassInput').focus(); }
@@ -1790,7 +1755,7 @@ function verificarPassword(){
     document.getElementById('adminPanel').style.display='flex';
     renderInventario(); renderDestacadosAdmin(); renderBannersAdmin();
   }
-  else showToast('❌ PIN incorrecto','danger');
+  else showToast('PIN incorrecto','danger');
 }
 function cerrarAdmin(){ document.getElementById('adminPanel').style.display='none'; renderProductos(); }
 const TAB_TITLES={'tab-nuevo':'Nuevo Producto','tab-destacados':'Productos Destacados','tab-banners':'Banners y Promociones','tab-carga-masiva':'Carga Masiva','tab-categorias':'Categorías','tab-inventario':'Inventario'};
@@ -1807,11 +1772,11 @@ function switchTab(id,btn){
 }
 
 // ==========================================
-// 📦 CARGA MASIVA
+// CARGA MASIVA
 // ==========================================
 function procesarArchivoExcel(){
   const file=document.getElementById('archivoExcel').files[0];
-  if(!file){ showToast('⚠️ Selecciona archivo','warning'); return; }
+  if(!file){ showToast('Selecciona archivo','warning'); return; }
   const reader=new FileReader();
   reader.onload=(e)=>{
     try{
@@ -1835,9 +1800,9 @@ function procesarArchivoExcel(){
       prepararCacheBusqueda(); renderProductos(); renderNavCategorias(); renderDestacadosAdmin(); initHero();
       const res=document.getElementById('resultadoCarga');
       res.style.display='block'; res.style.background='#f0fdf4'; res.style.color='#166534';
-      res.innerHTML=`✅ <b>${creados}</b> productos creados · <b>${actualizados}</b> actualizados (solo en esta sesión)`;
-      showToast(`✅ ${creados} creados, ${actualizados} actualizados`,'success');
-    }catch(err){ showToast('❌ Error: '+err.message,'danger'); }
+      res.innerHTML=`<b>${creados}</b> productos creados · <b>${actualizados}</b> actualizados (solo en esta sesión)`;
+      showToast(`${creados} creados, ${actualizados} actualizados`,'success');
+    }catch(err){ showToast('Error: '+err.message,'danger'); }
   };
   reader.readAsArrayBuffer(file);
 }
@@ -1848,7 +1813,7 @@ function descargarPlantillaCSV(){
 }
 
 // ==========================================
-// 🚀 INICIALIZACIÓN
+// INICIALIZACIÓN
 // ==========================================
 window.addEventListener('DOMContentLoaded',()=>{
   prepararCacheBusqueda();
