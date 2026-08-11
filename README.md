@@ -1,2 +1,2 @@
 # Divani
-Tienda rosadito
+Tienda rosadita
