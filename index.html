@@ -389,6 +389,7 @@ font-family:var(--font-button);transition:all .2s;box-shadow:0 8px 22px color-mi
 .form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;border:1.5px solid var(--gray-border);border-radius:12px;background:#f8fafc;transition:border-color .2s}
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{outline:none;border-color:var(--divani-primary);background:#fff}
 .form-group small{display:block;font-size:10.5px;color:var(--muted);margin-top:5px;line-height:1.4}
+.form-group small a{color:var(--divani-primary);font-weight:var(--fw-mid)}
 .grid-form-2{display:grid;grid-template-columns:1fr 1fr;gap:15px}
 @media(max-width:600px){.grid-form-2{grid-template-columns:1fr}}
 .price-input{display:flex;align-items:stretch;border:1.5px solid var(--gray-border);border-radius:12px;background:#f8fafc;overflow:hidden}
@@ -641,6 +642,13 @@ Panel de administración
 </div>
 <div class="container" id="gridParaTi"></div>
 </section>
+<section class="shop-section" id="secDestacados">
+<div class="section-head">
+<div><h2>⭐ Destacados</h2><p class="section-sub">La selección favorita de la tienda</p></div>
+<button class="link-ver" onclick="filtrarCategoria('Destacados')">Ver todos →</button>
+</div>
+<div class="hscroll" id="rowDestacados"></div>
+</section>
 <section class="shop-section" id="secNuevos">
 <div class="section-head">
 <div><h2>Nuevos</h2><p class="section-sub">Acaban de llegar a DIVANI</p></div>
@@ -775,16 +783,16 @@ Agregar al Carrito
 <span class="sw-lbl on" id="editVisibleLbl">● Visible</span>
 </div>
 </div>
-<div class="form-group"><label>⭐ Producto destacado (marca interna)</label>
+<div class="form-group"><label>⭐ Producto destacado (aparece en la colección Destacados)</label>
 <label class="switch"><input type="checkbox" id="editDestacado"><span class="switch-slider"></span></label>
-<small>No se muestra como etiqueta al cliente.</small>
+<small>Los destacados se muestran en la sección ⭐ Destacados de la tienda.</small>
 </div>
 <div class="form-group"><label>💬 Texto promocional (opcional)</label><input type="text" id="editPromo" placeholder="Frase corta promocional"></div>
 <div class="card-sec-title"><span class="ico">🖼️</span>Imágenes<small>La primera es la portada</small></div>
 <label class="dropzone" for="editFileImg">
 <span class="dz-ico">📤</span>
 <b>Toca para subir imágenes</b>
-<small>Varios tonos/colores · máx. 3MB c/u</small>
+<small id="editUploadHint">Varios tonos/colores · máx. 3MB c/u</small>
 </label>
 <input type="file" id="editFileImg" accept="image/*" multiple onchange="cargarImagenesEdicion(this)" style="display:none;">
 <div style="margin-top:10px;font-size:12px;color:#64748b;">O pega URLs separadas por coma:</div>
@@ -819,6 +827,7 @@ Agregar al Carrito
 <button class="admin-nav-item" data-tab="tab-banners" onclick="switchTab('tab-banners',this)"><span class="nav-ico">🖼️</span>Banners</button>
 <button class="admin-nav-item" data-tab="tab-categorias" onclick="switchTab('tab-categorias',this)"><span class="nav-ico">🏷️</span>Categorías</button>
 <button class="admin-nav-item" data-tab="tab-carga-masiva" onclick="switchTab('tab-carga-masiva',this)"><span class="nav-ico">📊</span>Carga masiva</button>
+<button class="admin-nav-item" data-tab="tab-nube" onclick="switchTab('tab-nube',this)"><span class="nav-ico">☁️</span>Nube</button>
 <button class="admin-nav-item" data-tab="tab-personaliza" onclick="switchTab('tab-personaliza',this)"><span class="nav-ico">🎨</span>Personalización</button>
 <button class="admin-nav-item danger-link" onclick="cerrarAdmin()"><span class="nav-ico">🚪</span>Salir</button>
 </div>
@@ -830,6 +839,7 @@ Agregar al Carrito
 <small id="adminSectionSub">Un vistazo rápido de tu tienda</small>
 </div>
 <span class="draft-badge">Borrador · local</span>
+<span class="draft-badge" id="cloudBadge" style="display:none;background:#e7f8f1;color:#0f9d8f;border-color:#9be3c6;">☁️ Nube activa</span>
 <div class="at-actions">
 <button class="at-btn" onclick="verCatalogo()">👁 Ver tienda</button>
 <button class="at-btn danger" onclick="cerrarAdmin()">Salir</button>
@@ -844,12 +854,14 @@ Agregar al Carrito
 <div class="stat-card"><span class="stat-ico">🔴</span><div class="num" id="statOcultos">0</div><div class="lbl">Ocultos</div></div>
 <div class="stat-card"><span class="stat-ico">🏷️</span><div class="num" id="statCategorias">0</div><div class="lbl">Categorías</div></div>
 <div class="stat-card"><span class="stat-ico">🖼️</span><div class="num" id="statBanners">0</div><div class="lbl">Banners</div></div>
+<div class="stat-card"><span class="stat-ico">⭐</span><div class="num" id="statDestacados">0</div><div class="lbl">Destacados</div></div>
 </div>
 <div class="dashboard-card">
 <h4>⚡ Acciones rápidas</h4>
 <div class="quick-grid">
 <button class="quick-btn" onclick="switchTab('tab-nuevo',navBtn('tab-nuevo'))"><span class="qi">➕</span>Nuevo producto</button>
 <button class="quick-btn" onclick="switchTab('tab-banners',navBtn('tab-banners'))"><span class="qi">🖼️</span>Nuevo banner</button>
+<button class="quick-btn" onclick="switchTab('tab-nube',navBtn('tab-nube'))"><span class="qi">☁️</span>Sincronizar nube</button>
 <button class="quick-btn" onclick="switchTab('tab-personaliza',navBtn('tab-personaliza'))"><span class="qi">🎨</span>Personalizar marca</button>
 <button class="quick-btn" onclick="verCatalogo()"><span class="qi">👁</span>Ver tienda</button>
 <button class="quick-btn" onclick="exportarDatosJSON()"><span class="qi">📤</span>Exportar respaldo</button>
@@ -863,8 +875,9 @@ Agregar al Carrito
 <h4>🚀 Guía rápida</h4>
 <div class="steps">
 <div class="step"><span>1</span><div><b>Crea tus productos</b><small>Ve a “Nuevo producto”, completa nombre, precio e imágenes y publícalo.</small></div></div>
-<div class="step"><span>2</span><div><b>Personaliza tu marca</b><small>Sube tu logo en “Personalización”: los colores se extraen solos.</small></div></div>
-<div class="step"><span>3</span><div><b>Revisa y confirma</b><small>Usa “Ver tienda” para previsualizar y luego “Aplicar cambios” para guardar.</small></div></div>
+<div class="step"><span>2</span><div><b>Conecta la nube</b><small>En “☁️ Nube” agrega tu API key de ImgBB y la URL de tu base de datos para guardar todo en internet.</small></div></div>
+<div class="step"><span>3</span><div><b>Personaliza tu marca</b><small>Sube tu logo en “Personalización”: los colores se extraen solos.</small></div></div>
+<div class="step"><span>4</span><div><b>Revisa y confirma</b><small>Usa “Ver tienda” para previsualizar y luego “Aplicar cambios” para guardar.</small></div></div>
 </div>
 </div>
 </div>
@@ -891,7 +904,7 @@ Agregar al Carrito
 <label class="dropzone" for="prodFileImg">
 <span class="dz-ico">📤</span>
 <b>Toca para subir imágenes</b>
-<small>Varios tonos/colores · máx. 3MB c/u</small>
+<small id="prodUploadHint">Varios tonos/colores · máx. 3MB c/u</small>
 </label>
 <input type="file" id="prodFileImg" accept="image/*" multiple onchange="cargarImagenesProducto(this)" style="display:none;">
 <div style="margin-top:10px;font-size:12px;color:#64748b;">O pega URLs directas separadas por coma:</div>
@@ -908,9 +921,9 @@ Agregar al Carrito
 <span class="sw-lbl on" id="prodVisibleLbl">● Visible</span>
 </div>
 </div>
-<div class="form-group"><label>⭐ Producto destacado (marca interna)</label>
+<div class="form-group"><label>⭐ Producto destacado (aparece en la colección Destacados)</label>
 <label class="switch"><input type="checkbox" id="prodDestacado"><span class="switch-slider"></span></label>
-<small>No se muestra como etiqueta al cliente.</small>
+<small>Los destacados se muestran en la sección ⭐ Destacados de la tienda y puedes enlazarlos desde un banner.</small>
 </div>
 <div class="form-group"><label>💬 Texto promocional (opcional)</label><input type="text" id="prodPromo" placeholder="Ej: Color intenso hasta por 8 horas"></div>
 <button class="btn-buy" onclick="guardarNuevoProducto()">🚀 Publicar producto</button>
@@ -941,7 +954,9 @@ Agregar al Carrito
 <div id="tab-destacados" class="admin-view">
 <div class="dashboard-card">
 <h4>⭐ Productos destacados</h4>
-<p style="font-size:12px;color:#64748b;margin:-6px 0 15px;">Marca interna de la tienda: <b>no aparece como etiqueta</b> en las tarjetas del cliente. Solo aplica a productos visibles.</p>
+<p style="font-size:12px;color:#64748b;margin:-6px 0 15px;">Activa el interruptor para agregar productos a la colección <b>⭐ Destacados</b>. Aparecen en la sección “Destacados” de la tienda y puedes enlazarlos desde un banner eligiendo <b>“⭐ Destacados”</b> como colección destino.</p>
+<div id="destResumen" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:14px;"></div>
+<button class="sync-btn secondary" style="width:auto;padding:9px 16px;margin:0 0 14px;" onclick="verColeccionDestacados()">👁 Ver colección en la tienda</button>
 <div id="destacadosList"></div>
 </div>
 </div>
@@ -956,7 +971,8 @@ Agregar al Carrito
 <div class="form-group"><label>Título *</label><input type="text" id="bannerTitulo" placeholder="Descubre tus nuevos favoritos"></div>
 <div class="form-group"><label>Subtítulo</label><textarea id="bannerSub" rows="2" placeholder="Texto promocional corto..."></textarea></div>
 <div class="grid-form-2">
-<div class="form-group"><label>Colección destino (al tocar la imagen)</label><select id="bannerCat"></select></div>
+<div class="form-group"><label>Colección destino (al tocar la imagen)</label><select id="bannerCat"></select>
+<small>Elige <b>⭐ Destacados</b> para que el banner lleve a tu colección de productos destacados.</small></div>
 <div class="form-group"><label>Tema de color (si no usa identidad)</label>
 <select id="bannerTema">
 <option value="1">🌸 Rosa</option>
@@ -973,7 +989,7 @@ Agregar al Carrito
 <label class="dropzone" for="bannerFile">
 <span class="dz-ico">📤</span>
 <b>O toca para subir una imagen</b>
-<small>máx. 3MB</small>
+<small id="bannerUploadHint">máx. 3MB</small>
 </label>
 <input type="file" id="bannerFile" accept="image/*" onchange="cargarImagenBannerFile(this)" style="display:none;">
 <div style="display:flex;gap:10px;margin-top:14px;">
@@ -1001,6 +1017,50 @@ Agregar al Carrito
 <button class="btn-buy" onclick="procesarArchivoExcel()" style="margin-top:6px;">⚙️ Procesar archivo</button>
 <button class="btn-buy" onclick="descargarPlantillaCSV()" style="background:var(--success);margin-top:10px;">⬇️ Descargar plantilla</button>
 <div id="resultadoCarga" style="margin-top:15px;padding:15px;border-radius:10px;display:none;"></div>
+</div>
+</div>
+<!-- ======== NUBE ======== -->
+<div id="tab-nube" class="admin-view">
+<div class="dashboard-card">
+<h4>☁️ Conexión con la nube</h4>
+<div id="nubeStatus" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;"></div>
+<div class="form-group"><label>🖼️ API Key de ImgBB (imágenes)</label>
+<input type="text" id="nubeImgbbKey" placeholder="Pega aquí tu API key de ImgBB (32 caracteres)">
+<small>Créala gratis en <a href="https://api.imgbb.com/" target="_blank" rel="noopener">api.imgbb.com</a>. Con la key activa, las imágenes que subas se guardan en ImgBB automáticamente y funcionan en cualquier dispositivo.</small>
+</div>
+<div class="form-group"><label>🗄️ URL de la base de datos (Firebase Realtime Database)</label>
+<input type="text" id="nubeDbUrl" placeholder="https://tu-proyecto-default-rtdb.firebaseio.com">
+<small>Crea un proyecto gratis en <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> → Realtime Database → modo prueba → copia la URL. Ahí se guardan tus productos, categorías, banners y contacto.</small>
+</div>
+<div class="estado-box">
+<div class="estado-txt"><b>Sincronización automática</b><small>Cada cambio en el catálogo se guarda en la nube al instante</small></div>
+<label class="switch"><input type="checkbox" id="nubeAutoSync"><span class="switch-slider"></span></label>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+<button class="sync-btn primary" style="flex:1;min-width:160px;margin:0;" onclick="guardarCredencialesNube()">💾 Guardar credenciales</button>
+<button class="sync-btn secondary" style="flex:1;min-width:160px;margin:0;" onclick="probarConexionNube()">🔌 Probar conexión</button>
+</div>
+</div>
+<div class="dashboard-card">
+<h4>📦 Sincronizar catálogo</h4>
+<p style="font-size:12px;color:#64748b;margin:-6px 0 15px;">Sube todo el catálogo a la nube o tráelo de vuelta a este dispositivo.</p>
+<div style="display:flex;gap:10px;flex-wrap:wrap;">
+<button class="sync-btn success" style="flex:1;min-width:160px;margin:0;" onclick="subirDatosANube()">⬆️ Subir todo a la nube</button>
+<button class="sync-btn warning" style="flex:1;min-width:160px;margin:0;" onclick="confirmarDescargaNube()">⬇️ Descargar de la nube</button>
+</div>
+</div>
+<div class="dashboard-card">
+<h4>🖼️ Migrar imágenes locales a ImgBB</h4>
+<p style="font-size:12px;color:#64748b;margin:-6px 0 15px;">Si subiste imágenes sin tener la API key, quedan guardadas dentro del navegador. Este botón las publica en ImgBB para que estén disponibles en la nube y en cualquier dispositivo.</p>
+<button class="sync-btn primary" onclick="migrarImagenesAImgBB()" style="margin:0;">☁️ Migrar imágenes locales a ImgBB</button>
+</div>
+<div class="dashboard-card">
+<h4>🚀 Guía rápida</h4>
+<div class="steps">
+<div class="step"><span>1</span><div><b>Crea tu API key en ImgBB</b><small>Entra a api.imgbb.com, crea una cuenta, genera la API key y pégala arriba.</small></div></div>
+<div class="step"><span>2</span><div><b>Crea tu base de datos en Firebase</b><small>Proyecto nuevo → Realtime Database → crear en modo prueba → copia la URL de la base.</small></div></div>
+<div class="step"><span>3</span><div><b>Guarda y sincroniza</b><small>Presiona “Guardar credenciales”, luego “Subir todo a la nube”. Si activas el auto-sync, cada cambio se guarda solo.</small></div></div>
+</div>
 </div>
 </div>
 <!-- ======== CATEGORÍAS ======== -->
@@ -1111,6 +1171,23 @@ Agregar al Carrito
 </div>
 <script>
 // ==========================================
+// CONFIGURACIÓN DE LA NUBE
+// Puedes pegar tus credenciales aquí directamente,
+// o configurarlas desde Admin → ☁️ Nube (se guardan en el dispositivo).
+// ==========================================
+const CLOUD_CONFIG = {
+  IMGBB_API_KEY: '',   // 👉 Pega aquí tu API key de https://api.imgbb.com/
+  DATABASE_URL: '',    // 👉 Pega aquí la URL de tu Firebase Realtime Database
+  AUTO_SYNC: false     // 👉 true = guardar cada cambio automáticamente en la nube
+};
+const CLOUD = {
+  imgbbKey: localStorage.getItem('divani_imgbb_key') || CLOUD_CONFIG.IMGBB_API_KEY,
+  dbUrl: localStorage.getItem('divani_db_url') || CLOUD_CONFIG.DATABASE_URL,
+  autoSync: (localStorage.getItem('divani_cloud_auto') !== null)
+    ? localStorage.getItem('divani_cloud_auto') === '1'
+    : !!CLOUD_CONFIG.AUTO_SYNC
+};
+// ==========================================
 // DATOS BASE
 // ==========================================
 const IMG = {
@@ -1149,7 +1226,7 @@ const DEFAULT_IDS=new Set(productos.map(p=>p.id));
 let categorias = ['Cejas','Labios','Ojos','Skincare','Capilar','Accesorios','Rostro','Brochas'];
 let banners = [
 { id:'b1', etiqueta:'Nueva colección', titulo:'Descubre tus nuevos favoritos', sub:'Productos seleccionados para complementar tu estilo y rutina.', promo:'NUEVO', textoBoton:'Comprar ahora', img:IMG.hero, tema:1, cat:'Todos', usarIdentidad:true },
-{ id:'b2', etiqueta:'Novedad', titulo:'Rutina Glow & Cuidado', sub:'Sérum, bruma y línea capilar: todo para tu ritual diario.', promo:'NUEVO', textoBoton:'Explorar', img:IMG.swatches, tema:2, cat:'Skincare', usarIdentidad:true }
+{ id:'b2', etiqueta:'Selección especial', titulo:'Los favoritos de la casa', sub:'Marca ⭐ Destacados en tus productos favoritos y aparecerán aquí.', promo:'⭐ TOP', textoBoton:'Ver destacados', img:IMG.swatches, tema:2, cat:'Destacados', usarIdentidad:true }
 ];
 let tiendaConfig = { ubicacion:'Colombia', instagram:'divani_maquillaje', tiktok:'divani_maquillaje', whatsapp:'573003896683' };
 // ==========================================
@@ -1305,17 +1382,26 @@ function setLogoDraft(url, autoExtract=true){
 draft.logo=url; markDirty();
 syncPersUI(); applyPers(draft);
 if(url&&autoExtract){
-const im=new Image();
+const im=new Image(); im.crossOrigin='anonymous';
 im.onload=()=>{ const pal=analizarPaleta(im); if(pal){ draft.palette=pal; markDirty(); applyPers(draft); syncPersUI(); showToast('Paleta generada desde el logo · confirma con “Aplicar cambios”','success'); } };
 im.src=url;
 }
 }
-function cargarLogoPers(input){
+async function cargarLogoPers(input){
 const f=input.files[0]; input.value='';
 if(!f) return;
 const okTypes=['image/png','image/jpeg','image/webp','image/svg+xml'];
 if(!okTypes.includes(f.type)){ showToast('Formato no soportado. Usa PNG, JPG, WEBP o SVG','danger'); return; }
 if(f.size>2*1024*1024){ showToast('El logo debe pesar máximo 2MB','warning'); return; }
+if(CLOUD.imgbbKey){
+try{
+showToast('Subiendo logo a ImgBB…','success');
+const url=await subirImagenImgBB(f);
+setLogoDraft(url,true);
+showToast('Logo subido a ImgBB','success');
+return;
+}catch(e){ showToast('ImgBB: '+e.message+' · usando copia local','warning'); }
+}
 const r=new FileReader();
 r.onload=()=>setLogoDraft(r.result,true);
 r.readAsDataURL(f);
@@ -1363,7 +1449,7 @@ accent: mixHex(primary,'#ffffff',.4)
 }
 function extraerColoresLogo(){
 if(!draft.logo){ showToast('Primero sube un logo','warning'); return; }
-const im=new Image();
+const im=new Image(); im.crossOrigin='anonymous';
 im.onload=()=>{
 const pal=analizarPaleta(im);
 if(!pal){ showToast('No se pudo analizar el logo (imagen externa). Usa los selectores manuales','warning'); return; }
@@ -1385,6 +1471,7 @@ pers=clone(draft); draftDirty=false;
 applyPers(pers); saveConfig();
 document.getElementById('previewBar').hidden=true;
 showToast('Identidad aplicada y guardada','success');
+programarSyncNube();
 }
 function cancelarCambios(){
 draft=clone(pers); draftDirty=false;
@@ -1408,6 +1495,203 @@ tiendaConfig.instagram=document.getElementById('persInstagram').value.trim().rep
 tiendaConfig.tiktok=document.getElementById('persTiktok').value.trim().replace(/^@/,'');
 saveConfig(); renderAllTienda();
 showToast('Datos de contacto guardados','success');
+programarSyncNube();
+}
+// ==========================================
+// NUBE · IMGBB + BASE DE DATOS
+// ==========================================
+let _syncTimer=null, _aplicandoNube=false;
+function dbEndpoint(){
+let u=(CLOUD.dbUrl||'').trim().replace(/\/+$/,'');
+if(!u) return '';
+if(!u.endsWith('.json')) u+='/divani.json';
+return u;
+}
+function dataUrlABlob(dataUrl){
+const parts=String(dataUrl).split(',');
+const meta=parts[0]||'';
+const b64=parts[1]||'';
+const mime=(meta.match(/data:(.*?);/)||[])[1]||'image/png';
+const bin=atob(b64); const arr=new Uint8Array(bin.length);
+for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+return new Blob([arr],{type:mime});
+}
+async function subirImagenImgBB(source){
+if(!CLOUD.imgbbKey) throw new Error('Falta la API key de ImgBB');
+let blob=null;
+if(source instanceof Blob) blob=source;
+else if(typeof source==='string'&&source.startsWith('data:')) blob=dataUrlABlob(source);
+if(!blob) throw new Error('Imagen no válida');
+const fd=new FormData();
+fd.append('image', blob, 'divani_'+Date.now()+'.jpg');
+const res=await fetch('https://api.imgbb.com/1/upload?key='+encodeURIComponent(CLOUD.imgbbKey), {method:'POST', body:fd});
+const j=await res.json().catch(()=>null);
+if(j && j.success && j.data && j.data.url) return j.data.url;
+throw new Error((j&&j.error&&j.error.message)||'Error HTTP '+res.status);
+}
+function archivoADataUrl(f){
+return new Promise(res=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>res(null); r.readAsDataURL(f); });
+}
+async function procesarArchivosImagen(files){
+const valid = Array.from(files).filter(f=>f.type.startsWith('image/')&&f.size<=3*1024*1024);
+if(!valid.length){ showToast('Sin imágenes válidas (máx. 3MB c/u)','warning'); return []; }
+const urls=[];
+if(CLOUD.imgbbKey){
+showToast('Subiendo '+valid.length+' imagen(es) a ImgBB…','success');
+for(const f of valid){
+try{ urls.push(await subirImagenImgBB(f)); }
+catch(e){ showToast('ImgBB: '+e.message+' · se guardó copia local','warning'); const u=await archivoADataUrl(f); if(u) urls.push(u); }
+}
+}else{
+for(const f of valid){ const u=await archivoADataUrl(f); if(u) urls.push(u); }
+}
+return urls;
+}
+function guardarCredencialesNube(){
+CLOUD.imgbbKey=document.getElementById('nubeImgbbKey').value.trim();
+CLOUD.dbUrl=document.getElementById('nubeDbUrl').value.trim();
+CLOUD.autoSync=document.getElementById('nubeAutoSync').checked;
+try{
+localStorage.setItem('divani_imgbb_key',CLOUD.imgbbKey);
+localStorage.setItem('divani_db_url',CLOUD.dbUrl);
+localStorage.setItem('divani_cloud_auto',CLOUD.autoSync?'1':'0');
+}catch(e){}
+syncNubeUI();
+showToast('Credenciales de nube guardadas','success');
+}
+function syncNubeUI(){
+const k=document.getElementById('nubeImgbbKey'); if(k) k.value=CLOUD.imgbbKey;
+const u=document.getElementById('nubeDbUrl'); if(u) u.value=CLOUD.dbUrl;
+const a=document.getElementById('nubeAutoSync'); if(a) a.checked=CLOUD.autoSync;
+const st=document.getElementById('nubeStatus');
+if(st){
+const last=localStorage.getItem('divani_last_sync');
+const pill=(on,txt)=>`<span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;letter-spacing:.4px;padding:5px 11px;border-radius:999px;
+background:${on?'#e7f8f1':'#f1f5f9'};color:${on?'#0f9d8f':'#94a3b8'};border:1px solid ${on?'#9be3c6':'#e2e8f0'};">${txt}</span>`;
+st.innerHTML=
+pill(!!CLOUD.imgbbKey,'🖼️ ImgBB '+(CLOUD.imgbbKey?'conectado':'sin configurar'))+
+pill(!!CLOUD.dbUrl,'🗄️ Base de datos '+(CLOUD.dbUrl?'conectada':'sin configurar'))+
+pill(CLOUD.autoSync,'🔄 Auto-sync '+(CLOUD.autoSync?'activo':'inactivo'))+
+(last?pill(true,'🕘 Última sync: '+last):'');
+}
+const cb=document.getElementById('cloudBadge');
+if(cb) cb.style.display=(CLOUD.imgbbKey||CLOUD.dbUrl)?'':'none';
+const hintImg=CLOUD.imgbbKey?'Con ImgBB activo: las imágenes se suben a la nube automáticamente':'Varios tonos/colores · máx. 3MB c/u';
+const h1=document.getElementById('prodUploadHint'); if(h1) h1.textContent=hintImg;
+const h2=document.getElementById('editUploadHint'); if(h2) h2.textContent=hintImg;
+const h3=document.getElementById('bannerUploadHint'); if(h3) h3.textContent=CLOUD.imgbbKey?'Con ImgBB activo: la imagen se sube a la nube automáticamente':'máx. 3MB';
+}
+async function probarConexionNube(){
+guardarCredencialesNubeSilencioso();
+const ep=dbEndpoint();
+if(ep){
+try{
+const r=await fetch(ep);
+showToast(r.ok?'✅ Base de datos: conexión OK':'❌ Base de datos respondió con error HTTP '+r.status, r.ok?'success':'danger');
+}catch(e){ showToast('❌ Base de datos: sin conexión ('+e.message+')','danger'); }
+}else{ showToast('Base de datos: falta la URL','warning'); }
+if(CLOUD.imgbbKey){
+try{
+const mini='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
+await subirImagenImgBB(mini);
+showToast('✅ ImgBB: API key válida','success');
+}catch(e){ showToast('❌ ImgBB: '+e.message,'danger'); }
+}else{ showToast('ImgBB: falta la API key','warning'); }
+}
+function guardarCredencialesNubeSilencioso(){
+CLOUD.imgbbKey=document.getElementById('nubeImgbbKey').value.trim();
+CLOUD.dbUrl=document.getElementById('nubeDbUrl').value.trim();
+CLOUD.autoSync=document.getElementById('nubeAutoSync').checked;
+try{
+localStorage.setItem('divani_imgbb_key',CLOUD.imgbbKey);
+localStorage.setItem('divani_db_url',CLOUD.dbUrl);
+localStorage.setItem('divani_cloud_auto',CLOUD.autoSync?'1':'0');
+}catch(e){}
+syncNubeUI();
+}
+async function subirDatosANube(silent=false){
+const ep=dbEndpoint();
+if(!ep){ if(!silent) showToast('Primero guarda la URL de la base de datos en la pestaña Nube','warning'); return false; }
+const payload={ productos, categorias, banners, tiendaConfig, personalizacion:pers, actualizado:new Date().toISOString() };
+try{
+if(!silent) showToast('Subiendo datos a la nube…','success');
+const res=await fetch(ep,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+if(!res.ok) throw new Error('HTTP '+res.status);
+try{ localStorage.setItem('divani_last_sync', new Date().toLocaleString('es-CO')); }catch(e){}
+syncNubeUI();
+if(!silent) showToast('☁️ Catálogo guardado en la nube','success');
+return true;
+}catch(e){
+if(!silent) showToast('Error al subir a la nube: '+e.message,'danger');
+return false;
+}
+}
+async function descargarDeNube(silent=false){
+const ep=dbEndpoint();
+if(!ep){ if(!silent) showToast('Primero guarda la URL de la base de datos en la pestaña Nube','warning'); return false; }
+try{
+if(!silent) showToast('Descargando datos de la nube…','success');
+const res=await fetch(ep);
+if(!res.ok) throw new Error('HTTP '+res.status);
+const data=await res.json();
+if(!data){ if(!silent) showToast('La nube está vacía: primero sube tu catálogo','warning'); return false; }
+_aplicandoNube=true;
+if(Array.isArray(data.productos)&&data.productos.length) productos=data.productos;
+if(Array.isArray(data.categorias)&&data.categorias.length) categorias=data.categorias;
+if(Array.isArray(data.banners)) banners=data.banners;
+if(data.tiendaConfig) tiendaConfig=Object.assign(tiendaConfig,data.tiendaConfig);
+if(data.personalizacion){
+const base=clone(DEFAULT_PERS);
+pers={
+logo: typeof data.personalizacion.logo==='string'? data.personalizacion.logo : base.logo,
+name: data.personalizacion.name||base.name,
+tagline: data.personalizacion.tagline??base.tagline,
+weight: data.personalizacion.weight||base.weight,
+palette: Object.assign(clone(base.palette), data.personalizacion.palette||{}),
+fonts: Object.assign(clone(base.fonts), data.personalizacion.fonts||{})
+};
+draft=clone(pers);
+applyPers(pers); saveConfig();
+}
+prepararCacheBusqueda();
+refreshPublic(); refreshAdminViews();
+renderNavCategorias(); renderSelectCategorias(); renderSelectCategoriasBanner(); renderAllTienda();
+syncPersUI();
+_aplicandoNube=false;
+if(!silent) showToast('☁️ Catálogo cargado desde la nube','success');
+return true;
+}catch(e){
+_aplicandoNube=false;
+if(!silent) showToast('Error al descargar de la nube: '+e.message,'danger');
+return false;
+}
+}
+function confirmarDescargaNube(){
+if(confirm('¿Reemplazar los datos locales con los datos de la nube?')) descargarDeNube(false);
+}
+function programarSyncNube(){
+if(_aplicandoNube) return;
+if(!CLOUD.autoSync || !CLOUD.dbUrl) return;
+clearTimeout(_syncTimer);
+_syncTimer=setTimeout(()=>subirDatosANube(true),1500);
+}
+async function migrarImagenesAImgBB(){
+if(!CLOUD.imgbbKey){ showToast('Primero guarda tu API key de ImgBB','warning'); return; }
+const pendientes=[];
+productos.forEach(p=>{ (p.imagenes||[]).forEach((u,i)=>{ if(typeof u==='string'&&u.startsWith('data:')) pendientes.push({tipo:'p',p,i}); }); });
+banners.forEach(b=>{ if(typeof b.img==='string'&&b.img.startsWith('data:')) pendientes.push({tipo:'b',b}); });
+if(!pendientes.length){ showToast('No hay imágenes locales para migrar: todo está en la nube','success'); return; }
+showToast('Migrando '+pendientes.length+' imagen(es) a ImgBB…','success');
+let ok=0,fail=0;
+for(const it of pendientes){
+try{
+if(it.tipo==='p') it.p.imagenes[it.i]=await subirImagenImgBB(it.p.imagenes[it.i]);
+else it.b.img=await subirImagenImgBB(it.b.img);
+ok++;
+}catch(e){ fail++; }
+}
+refreshPublic(); refreshAdminViews(); initHero(); programarSyncNube();
+showToast('Migración completa: '+ok+' OK'+(fail?(' · '+fail+' fallidas'):''), fail?'warning':'success');
 }
 // ==========================================
 // UTILIDADES
@@ -1584,25 +1868,15 @@ d.classList.toggle('open',open); b.classList.toggle('show',open);
 document.body.classList.toggle('no-scroll',open);
 }
 // ==========================================
-// IMÁGENES LOCAL
+// IMÁGENES LOCAL / IMGBB
 // ==========================================
-async function archivosADataUrls(files){
-const valid = Array.from(files).filter(f=>f.type.startsWith('image/')&&f.size<=3*1024*1024);
-if(!valid.length){ showToast('Sin imágenes válidas (máx. 3MB c/u)','warning'); return []; }
-const urls=[];
-for(const f of valid){
-const url = await new Promise(res=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>res(null); r.readAsDataURL(f); });
-if(url) urls.push(url);
-}
-return urls;
-}
 async function cargarImagenesProducto(input){
-const urls=await archivosADataUrls(input.files);
+const urls=await procesarArchivosImagen(input.files);
 if(urls.length){ urls.forEach(u=>imagenesProductoTemp.push(u)); renderListaImagenesProducto(); showToast(`${urls.length} imagen(es) cargada(s)`,'success'); }
 input.value='';
 }
 async function cargarImagenesEdicion(input){
-const urls=await archivosADataUrls(input.files);
+const urls=await procesarArchivosImagen(input.files);
 if(urls.length){ urls.forEach(u=>imagenesEdicionTemp.push(u)); renderListaImagenesEdicion(); showToast(`${urls.length} imagen(es) cargada(s)`,'success'); }
 input.value='';
 }
@@ -1634,14 +1908,22 @@ if(!nuevas.length){ showToast('URLs no válidas','warning'); return; }
 nuevas.forEach(u=>imagenesEdicionTemp.push(u)); renderListaImagenesEdicion(); input.value='';
 showToast(`${nuevas.length} URL(s) agregada(s)`,'success');
 }
-function cargarImagenBannerFile(input){
-const f=input.files[0];
+async function cargarImagenBannerFile(input){
+const f=input.files[0]; input.value='';
 if(!f||!f.type.startsWith('image/')) return;
-if(f.size>3*1024*1024){ showToast('Máximo 3MB','warning'); input.value=''; return; }
+if(f.size>3*1024*1024){ showToast('Máximo 3MB','warning'); return; }
+if(CLOUD.imgbbKey){
+try{
+showToast('Subiendo imagen a ImgBB…','success');
+const url=await subirImagenImgBB(f);
+document.getElementById('bannerImg').value=url;
+showToast('Imagen cargada en ImgBB','success');
+return;
+}catch(e){ showToast('ImgBB: '+e.message+' · usando copia local','warning'); }
+}
 const r=new FileReader();
 r.onload=()=>{ document.getElementById('bannerImg').value=r.result; showToast('Imagen cargada','success'); };
 r.readAsDataURL(f);
-input.value='';
 }
 // ==========================================
 // TARJETA DE PRODUCTO
@@ -1694,13 +1976,19 @@ let visibles=0;
 arr.forEach((p)=>{
 if(productos.indexOf(p)===-1) return;
 if(!esVisible(p)) return;
-if(!lista && categoriaActual!=='Todos' && p.categoria!==categoriaActual) return;
+if(!lista){
+if(categoriaActual==='Destacados'){ if(!p.destacado) return; }
+else if(categoriaActual!=='Todos' && p.categoria!==categoriaActual) return;
+}
 visibles++;
 const card=buildCard(p,'cat');
 if(card) cont.appendChild(card);
 });
 if(visibles===0){
-cont.innerHTML='<div class="empty-state"><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">Prueba con otra búsqueda o categoría.</p></div>';
+const msg = categoriaActual==='Destacados' && !lista
+? 'Aún no has agregado productos destacados.<br><span style="font-size:11px;">Márcalos desde el panel: ⭐ Destacados.</span>'
+: 'Prueba con otra búsqueda o categoría.';
+cont.innerHTML=`<div class="empty-state"><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">${msg}</p></div>`;
 }
 const lbl=document.getElementById('countLabel');
 if(lbl) lbl.textContent=`${visibles} ${visibles===1?'producto':'productos'}`;
@@ -1716,6 +2004,12 @@ const grid=document.getElementById('gridParaTi');
 grid.innerHTML='';
 visibles.slice(0,8).forEach(p=>{ const c=buildCard(p,'pt'); if(c) grid.appendChild(c); });
 if(!visibles.length){ grid.innerHTML='<div class="empty-state"><b>Aún no hay productos publicados</b></div>'; }
+const dests=visibles.filter(p=>p.destacado);
+const secD=document.getElementById('secDestacados');
+const rowD=document.getElementById('rowDestacados');
+rowD.innerHTML='';
+dests.forEach(p=>{ const c=buildCard(p,'ds'); if(c) rowD.appendChild(c); });
+secD.style.display=dests.length?'':'none';
 const nuevos=visibles.filter(p=>p.descuento>0);
 const secN=document.getElementById('secNuevos');
 const rowN=document.getElementById('rowNuevos');
@@ -1723,7 +2017,7 @@ rowN.innerHTML='';
 nuevos.forEach(p=>{ const c=buildCard(p,'nv'); if(c) rowN.appendChild(c); });
 secN.style.display=nuevos.length?'':'none';
 }
-function refreshPublic(){ renderHome(); renderProductos(); initHero(); }
+function refreshPublic(){ renderHome(); renderProductos(); initHero(); programarSyncNube(); }
 function refreshAdminViews(){ renderInventario(); renderDestacadosAdmin(); renderBannersAdmin(); renderDashboard(); }
 function cambiarImagenCard(cardId,dir){
 const cont=document.getElementById(cardId); if(!cont) return;
@@ -1759,8 +2053,9 @@ grid.appendChild(card);
 function renderNavCategorias(){
 const nav=document.getElementById('navCategorias');
 nav.innerHTML='';
-['Todos',...categorias].forEach(c=>{
-const a=document.createElement('a'); a.href='#'; a.dataset.cat=c; a.textContent=c;
+['Todos','Destacados',...categorias].forEach(c=>{
+const a=document.createElement('a'); a.href='#'; a.dataset.cat=c;
+a.textContent=c==='Destacados'?'⭐ Destacados':c;
 a.className=categoriaActual===c?'active':'';
 a.onclick=(e)=>{e.preventDefault();filtrarCategoria(c);};
 nav.appendChild(a);
@@ -1772,17 +2067,19 @@ if(!nombre||categorias.some(c=>c.toLowerCase()===nombre.toLowerCase())){ showToa
 categorias.push(nombre.charAt(0).toUpperCase()+nombre.slice(1).toLowerCase());
 input.value=''; renderSelectCategorias(); renderSelectCategoriasBanner(); renderCategoriasAdmin(); renderNavCategorias(); renderDashboard();
 showToast('Categoría creada','success');
+programarSyncNube();
 }
 function eliminarCategoria(i){
 const c=categorias[i];
 if(productos.some(p=>p.categoria===c)){ showToast('Tiene productos asignados','danger'); return; }
-if(confirm(`¿Eliminar "${c}"?`)){ categorias.splice(i,1); renderSelectCategorias(); renderSelectCategoriasBanner(); renderCategoriasAdmin(); renderNavCategorias(); renderDashboard(); }
+if(confirm(`¿Eliminar "${c}"?`)){ categorias.splice(i,1); renderSelectCategorias(); renderSelectCategoriasBanner(); renderCategoriasAdmin(); renderNavCategorias(); renderDashboard(); programarSyncNube(); }
 }
 function filtrarCategoria(cat){
 categoriaActual=cat;
 document.querySelectorAll('#navCategorias a').forEach(a=>a.classList.toggle('active',a.dataset.cat===cat));
-document.getElementById('sectionTitle').textContent = cat==='Todos' ? 'Para ti' : cat;
-document.getElementById('sectionSub').textContent = cat==='Todos' ? 'Productos seleccionados para ti' : `Explora nuestra colección de ${cat}`;
+document.getElementById('sectionTitle').textContent = cat==='Todos' ? 'Para ti' : (cat==='Destacados' ? '⭐ Destacados' : cat);
+document.getElementById('sectionSub').textContent = cat==='Todos' ? 'Productos seleccionados para ti'
+: (cat==='Destacados' ? 'La selección favorita de la tienda' : `Explora nuestra colección de ${cat}`);
 document.getElementById('buscadorInput').value='';
 document.getElementById('resultadoBusqueda').style.display='none';
 mostrarVista('catalog');
@@ -2010,6 +2307,8 @@ document.getElementById('statVisibles').textContent=visibles;
 document.getElementById('statOcultos').textContent=total-visibles;
 document.getElementById('statCategorias').textContent=categorias.length;
 document.getElementById('statBanners').textContent=banners.length;
+const sD=document.getElementById('statDestacados');
+if(sD) sD.textContent=productos.filter(p=>p.destacado).length;
 const rec=document.getElementById('dashRecientes'); if(!rec) return;
 rec.innerHTML='';
 if(!total){ rec.innerHTML='<p style="font-size:12px;color:#64748b;">Aún no hay productos. ¡Crea el primero!</p>'; return; }
@@ -2018,7 +2317,7 @@ const i=productos.indexOf(p);
 const row=document.createElement('div');
 row.className='recent-row';
 row.innerHTML=`<img src="${obtenerImagenPrincipal(p)}" alt="" onerror="this.onerror=null;this.src=FALLBACK_IMG">
-<div class="ri"><b>${esc(p.nombre)}</b><small>${esc(p.categoria)} · ${formatearPrecio(p.precio)} · ${esVisible(p)?'🟢 Visible':'🔴 Oculto'}</small></div>
+<div class="ri"><b>${esc(p.nombre)}</b><small>${esc(p.categoria)} · ${formatearPrecio(p.precio)} · ${esVisible(p)?'🟢 Visible':'🔴 Oculto'}${p.destacado?' · ⭐ Destacado':''}</small></div>
 <button class="mini-btn" onclick="switchTab('tab-inventario',navBtn('tab-inventario'))">Ver</button>
 <button class="mini-btn" onclick="abrirModalEdicion(${i})">✏️</button>`;
 rec.appendChild(row);
@@ -2030,7 +2329,14 @@ rec.appendChild(row);
 function renderDestacadosAdmin(){
 const cont=document.getElementById('destacadosList'); if(!cont) return;
 cont.innerHTML='';
-if(!productos.length){ cont.innerHTML='<p style="font-size:12px;color:#64748b;">No hay productos.</p>'; return; }
+const resumen=document.getElementById('destResumen');
+const nDest=productos.filter(p=>p.destacado).length;
+if(resumen){
+resumen.innerHTML=`<span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:6px 12px;border-radius:999px;
+background:${nDest?'#e7f8f1':'#fff4e0'};color:${nDest?'#0f9d8f':'#b46a00'};border:1px solid ${nDest?'#9be3c6':'#ffd894'};">
+${nDest?('⭐ '+nDest+' producto(s) en la colección Destacados'):'⚠️ Aún no has agregado productos destacados'}</span>`;
+}
+if(!productos.length){ cont.innerHTML='<p style="font-size:12px;color:#64748b;">No hay productos. Crea el primero en “Nuevo producto”.</p>'; return; }
 productos.forEach((p,i)=>{
 const vis=esVisible(p);
 const row=document.createElement('div');
@@ -2045,7 +2351,11 @@ cont.appendChild(row);
 function toggleDestacado(i,val){
 productos[i].destacado=val;
 refreshPublic(); refreshAdminViews(); saveFlags();
-showToast(val?'Marcado como destacado':'Destacado desactivado', val?'success':'warning');
+showToast(val?('⭐ “'+(productos[i].nombre||'Producto')+'” agregado a Destacados'):'Destacado desactivado', val?'success':'warning');
+}
+function verColeccionDestacados(){
+cerrarAdmin();
+filtrarCategoria('Destacados');
 }
 // ==========================================
 // BANNERS
@@ -2053,12 +2363,16 @@ showToast(val?'Marcado como destacado':'Destacado desactivado', val?'success':'w
 function renderSelectCategoriasBanner(){
 const sel=document.getElementById('bannerCat'); if(!sel) return;
 sel.innerHTML='';
-['Todos',...categorias].forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o); });
+['Todos','Destacados',...categorias].forEach(c=>{
+const o=document.createElement('option'); o.value=c;
+o.textContent=c==='Destacados'?'⭐ Destacados':c;
+sel.appendChild(o);
+});
 }
 function limpiarFormBanner(){
 bannerEditandoId=null;
 document.getElementById('bannerFormTitle').textContent='🖼️ Nuevo banner del carrusel';
-['bannerEtiqueta','bannerPromo','bannerTitulo','bannerSub','bannerBoton','bannerImg'].forEach(id=>document.getElementById(id).value='');
+['bannerEtiqueta','bannerPromo','bannerTitulo','bannerSub','bannerImg'].forEach(id=>document.getElementById(id).value='');
 document.getElementById('bannerTema').value='1';
 document.getElementById('bannerCat').value='Todos';
 document.getElementById('bannerFile').value='';
@@ -2073,7 +2387,7 @@ etiqueta: document.getElementById('bannerEtiqueta').value.trim()||'Novedad',
 titulo,
 sub: document.getElementById('bannerSub').value.trim(),
 promo: document.getElementById('bannerPromo').value.trim(),
-textoBoton: document.getElementById('bannerBoton').value.trim()||'Ver más',
+textoBoton:'Ver más',
 img: document.getElementById('bannerImg').value.trim()||FALLBACK_IMG,
 tema: parseInt(document.getElementById('bannerTema').value)||1,
 cat: document.getElementById('bannerCat').value||'Todos',
@@ -2088,6 +2402,7 @@ banners.push(data);
 limpiarFormBanner();
 initHero(); renderBannersAdmin(); renderDashboard();
 showToast('Banner guardado','success');
+programarSyncNube();
 }
 function editarBanner(id){
 const b=banners.find(x=>x.id===id); if(!b) return;
@@ -2097,7 +2412,6 @@ document.getElementById('bannerEtiqueta').value=b.etiqueta||'';
 document.getElementById('bannerTitulo').value=b.titulo||'';
 document.getElementById('bannerSub').value=b.sub||'';
 document.getElementById('bannerPromo').value=b.promo||'';
-document.getElementById('bannerBoton').value=b.textoBoton||'';
 document.getElementById('bannerImg').value=b.img||'';
 document.getElementById('bannerTema').value=b.tema||1;
 document.getElementById('bannerCat').value=b.cat||'Todos';
@@ -2109,6 +2423,7 @@ if(!confirm('¿Eliminar este banner?')) return;
 banners=banners.filter(b=>b.id!==id);
 initHero(); renderBannersAdmin(); renderDashboard();
 showToast('Banner eliminado','danger');
+programarSyncNube();
 }
 function moverBanner(id,dir){
 const i=banners.findIndex(b=>b.id===id);
@@ -2116,6 +2431,7 @@ const j=i+dir;
 if(i<0||j<0||j>=banners.length) return;
 [banners[i],banners[j]]=[banners[j],banners[i]];
 initHero(); renderBannersAdmin();
+programarSyncNube();
 }
 function renderBannersAdmin(){
 const cont=document.getElementById('bannersList'); if(!cont) return;
@@ -2126,7 +2442,7 @@ const row=document.createElement('div');
 row.className='banner-mini';
 row.innerHTML=`
 <div class="bm-prev ${b.usarIdentidad!==false?'idp':('t'+(b.tema||1))}"><img src="${b.img||FALLBACK_IMG}" alt="" onerror="this.onerror=null;this.style.display='none'"></div>
-<div class="bm-info"><b>${esc(b.titulo)}</b><small>${esc(b.etiqueta||'')}${b.promo?' · '+esc(b.promo):''} → ${esc(b.cat||'Todos')}${b.usarIdentidad!==false?' · identidad':''}</small></div>
+<div class="bm-info"><b>${esc(b.titulo)}</b><small>${esc(b.etiqueta||'')}${b.promo?' · '+esc(b.promo):''} → ${b.cat==='Destacados'?'⭐ Destacados':esc(b.cat||'Todos')}${b.usarIdentidad!==false?' · identidad':''}</small></div>
 <div class="bm-actions">
 <button class="mini-btn" title="Subir" onclick="moverBanner('${b.id}',-1)">↑</button>
 <button class="mini-btn" title="Bajar" onclick="moverBanner('${b.id}',1)">↓</button>
@@ -2351,7 +2667,7 @@ setAdminBtnState();
 cerrarLogin();
 document.getElementById('adminPanel').style.display='flex';
 draft=clone(pers); draftDirty=false; applyPers(draft);
-refreshAdminViews(); syncPersUI();
+refreshAdminViews(); syncPersUI(); syncNubeUI();
 showToast('Bienvenida al panel de administración','success');
 }
 else showToast('PIN incorrecto','danger');
@@ -2367,10 +2683,11 @@ const TAB_META={
 'tab-dashboard':{t:'🏠 Resumen',s:'Un vistazo rápido de tu tienda'},
 'tab-nuevo':{t:'➕ Nuevo producto',s:'Completa los datos y publícalo en segundos'},
 'tab-inventario':{t:'📦 Productos',s:'Edita, oculta o elimina tus productos'},
-'tab-destacados':{t:'⭐ Destacados',s:'Marca interna de la tienda'},
+'tab-destacados':{t:'⭐ Destacados',s:'Agrega productos a la colección Destacados'},
 'tab-banners':{t:'🖼️ Banners',s:'El carrusel que ven tus clientes al entrar'},
 'tab-categorias':{t:'🏷️ Categorías',s:'Organiza tu catálogo'},
 'tab-carga-masiva':{t:'📊 Carga masiva',s:'Sube muchos productos desde Excel o CSV'},
+'tab-nube':{t:'☁️ Nube',s:'ImgBB + base de datos: tus productos en internet'},
 'tab-personaliza':{t:'🎨 Personalización',s:'Logo, colores, tipografías y contacto'}
 };
 function switchTab(id,btn){
@@ -2388,6 +2705,7 @@ if(id==='tab-categorias') renderCategoriasAdmin();
 if(id==='tab-destacados') renderDestacadosAdmin();
 if(id==='tab-banners') renderBannersAdmin();
 if(id==='tab-personaliza') syncPersUI();
+if(id==='tab-nube') syncNubeUI();
 }
 // ==========================================
 // CARGA MASIVA
@@ -2422,7 +2740,7 @@ else{ limpio.id='p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6
 prepararCacheBusqueda(); refreshPublic(); refreshAdminViews(); renderNavCategorias();
 const res=document.getElementById('resultadoCarga');
 res.style.display='block'; res.style.background='#f0fdf4'; res.style.color='#166534';
-res.innerHTML=`✅ <b>${creados}</b> productos creados · <b>${actualizados}</b> actualizados (solo en esta sesión)`;
+res.innerHTML=`✅ <b>${creados}</b> productos creados · <b>${actualizados}</b> actualizados${CLOUD.dbUrl?'': ' (recuerda subirlos a la nube en ☁️ Nube)'}`;
 showToast(`${creados} creados, ${actualizados} actualizados`,'success');
 }catch(err){ showToast('Error: '+err.message,'danger'); }
 };
@@ -2448,6 +2766,7 @@ prepararCacheBusqueda();
 buildColorRows();
 buildFontSelects();
 syncPersUI();
+syncNubeUI();
 renderSelectCategorias();
 renderSelectCategoriasBanner();
 renderCategoriasAdmin();
@@ -2485,6 +2804,8 @@ else if(document.getElementById('drawer').classList.contains('open')) toggleDraw
 document.addEventListener('keydown',e=>{
 if(e.ctrlKey&&e.shiftKey&&(e.key==='A'||e.key==='a')){ e.preventDefault(); accesoAdmin(); }
 });
+// Si hay base de datos configurada, descarga el catálogo de la nube al iniciar
+if(CLOUD.dbUrl){ setTimeout(()=>descargarDeNube(true), 500); }
 });
 </script>
 </body>
