@@ -1170,22 +1170,34 @@ Agregar al Carrito
 </div>
 </div>
 <script>
-// ==========================================
-// CONFIGURACIÓN DE LA NUBE
-// Puedes pegar tus credenciales aquí directamente,
-// o configurarlas desde Admin → ☁️ Nube (se guardan en el dispositivo).
-// ==========================================
+/* ═══════════════════════════════════════════════════════════════
+   🔑 CONFIGURACIÓN DE LA NUBE · PEGA TUS CLAVES AQUÍ ABAJO 👇
+   ═══════════════════════════════════════════════════════════════
+   Estas 3 líneas son las únicas que debes editar en el código:
+   1) IMGBB_API_KEY → tu API key de https://api.imgbb.com/ (gratis)
+   2) DATABASE_URL  → la URL de tu Firebase Realtime Database
+   3) AUTO_SYNC     → true para guardar cada cambio automáticamente
+   También puedes configurarlas sin tocar el código desde:
+   Panel Admin → ☁️ Nube (quedan guardadas en este dispositivo).
+═══════════════════════════════════════════════════════════════ */
 const CLOUD_CONFIG = {
-  IMGBB_API_KEY: '',   // 👉 Pega aquí tu API key de https://api.imgbb.com/
-  DATABASE_URL: '',    // 👉 Pega aquí la URL de tu Firebase Realtime Database
-  AUTO_SYNC: false     // 👉 true = guardar cada cambio automáticamente en la nube
+  IMGBB_API_KEY: '',   // ← 👉 PEGA AQUÍ TU API KEY DE IMGBB
+  DATABASE_URL:  '',   // ← 👉 PEGA AQUÍ LA URL DE TU BASE DE DATOS (Firebase)
+  AUTO_SYNC:     true  // ← true = cada cambio se sube solo a la nube
 };
+/* ═══════════════════════════════════════════════════════════════ */
+function _limpiarClave(v){
+v=String(v==null?'':v).trim();
+if(!v) return '';
+if(/pega.?aqu[ií]|tu.?api|tu.?clave|xxxxxxxx|reemplaza/i.test(v)) return '';
+return v;
+}
 const CLOUD = {
-  imgbbKey: localStorage.getItem('divani_imgbb_key') || CLOUD_CONFIG.IMGBB_API_KEY,
-  dbUrl: localStorage.getItem('divani_db_url') || CLOUD_CONFIG.DATABASE_URL,
-  autoSync: (localStorage.getItem('divani_cloud_auto') !== null)
-    ? localStorage.getItem('divani_cloud_auto') === '1'
-    : !!CLOUD_CONFIG.AUTO_SYNC
+imgbbKey: _limpiarClave(localStorage.getItem('divani_imgbb_key')) || _limpiarClave(CLOUD_CONFIG.IMGBB_API_KEY),
+dbUrl:    _limpiarClave(localStorage.getItem('divani_db_url'))    || _limpiarClave(CLOUD_CONFIG.DATABASE_URL),
+autoSync: (localStorage.getItem('divani_cloud_auto') !== null)
+  ? localStorage.getItem('divani_cloud_auto') === '1'
+  : !!CLOUD_CONFIG.AUTO_SYNC
 };
 // ==========================================
 // DATOS BASE
@@ -1498,7 +1510,7 @@ showToast('Datos de contacto guardados','success');
 programarSyncNube();
 }
 // ==========================================
-// NUBE · IMGBB + BASE DE DATOS
+// NUBE · IMGBB + BASE DE DATOS (Firebase)
 // ==========================================
 let _syncTimer=null, _aplicandoNube=false;
 function dbEndpoint(){
@@ -1548,8 +1560,8 @@ for(const f of valid){ const u=await archivoADataUrl(f); if(u) urls.push(u); }
 return urls;
 }
 function guardarCredencialesNube(){
-CLOUD.imgbbKey=document.getElementById('nubeImgbbKey').value.trim();
-CLOUD.dbUrl=document.getElementById('nubeDbUrl').value.trim();
+CLOUD.imgbbKey=_limpiarClave(document.getElementById('nubeImgbbKey').value);
+CLOUD.dbUrl=_limpiarClave(document.getElementById('nubeDbUrl').value);
 CLOUD.autoSync=document.getElementById('nubeAutoSync').checked;
 try{
 localStorage.setItem('divani_imgbb_key',CLOUD.imgbbKey);
@@ -1558,6 +1570,17 @@ localStorage.setItem('divani_cloud_auto',CLOUD.autoSync?'1':'0');
 }catch(e){}
 syncNubeUI();
 showToast('Credenciales de nube guardadas','success');
+}
+function guardarCredencialesNubeSilencioso(){
+CLOUD.imgbbKey=_limpiarClave(document.getElementById('nubeImgbbKey').value);
+CLOUD.dbUrl=_limpiarClave(document.getElementById('nubeDbUrl').value);
+CLOUD.autoSync=document.getElementById('nubeAutoSync').checked;
+try{
+localStorage.setItem('divani_imgbb_key',CLOUD.imgbbKey);
+localStorage.setItem('divani_db_url',CLOUD.dbUrl);
+localStorage.setItem('divani_cloud_auto',CLOUD.autoSync?'1':'0');
+}catch(e){}
+syncNubeUI();
 }
 function syncNubeUI(){
 const k=document.getElementById('nubeImgbbKey'); if(k) k.value=CLOUD.imgbbKey;
@@ -1597,17 +1620,6 @@ await subirImagenImgBB(mini);
 showToast('✅ ImgBB: API key válida','success');
 }catch(e){ showToast('❌ ImgBB: '+e.message,'danger'); }
 }else{ showToast('ImgBB: falta la API key','warning'); }
-}
-function guardarCredencialesNubeSilencioso(){
-CLOUD.imgbbKey=document.getElementById('nubeImgbbKey').value.trim();
-CLOUD.dbUrl=document.getElementById('nubeDbUrl').value.trim();
-CLOUD.autoSync=document.getElementById('nubeAutoSync').checked;
-try{
-localStorage.setItem('divani_imgbb_key',CLOUD.imgbbKey);
-localStorage.setItem('divani_db_url',CLOUD.dbUrl);
-localStorage.setItem('divani_cloud_auto',CLOUD.autoSync?'1':'0');
-}catch(e){}
-syncNubeUI();
 }
 async function subirDatosANube(silent=false){
 const ep=dbEndpoint();
