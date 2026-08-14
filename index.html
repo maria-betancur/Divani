@@ -29,7 +29,7 @@
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js" defer></script>
 <style>
 /* =====================================================
-   DIVANI · IDENTIDAD + GROSOR DE TIPOGRAFÍA CONFIGURABLE
+DIVANI · IDENTIDAD + GROSOR DE TIPOGRAFÍA CONFIGURABLE
 ===================================================== */
 :root{
 --divani-primary:#e6538b;
@@ -44,7 +44,6 @@
 --font-body:'Poppins',sans-serif;
 --font-button:'Poppins',sans-serif;
 --font-price:'Poppins',sans-serif;
-/* Grosor tipográfico (se ajusta desde el admin) */
 --fw-body:400; --fw-mid:600; --fw-high:700; --fw-max:800;
 --primary-dark:color-mix(in srgb,var(--divani-button) 78%, #000);
 --cream:color-mix(in srgb,var(--divani-light) 55%, #fff);
@@ -77,21 +76,23 @@ img{max-width:100%}
 ::-webkit-scrollbar-thumb{background:var(--divani-accent);border-radius:8px}
 ::-webkit-scrollbar-track{background:transparent}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
 /* ============ HEADER ============ */
 header{background:color-mix(in srgb,#fff 88%, var(--divani-background));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
 border-bottom:1px solid color-mix(in srgb,var(--divani-primary) 10%, transparent);position:sticky;top:0;z-index:100;
 padding:8px 14px 10px;padding-top:calc(8px + var(--safe-top))}
 .header-inner{max-width:1100px;margin:0 auto}
 .header-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;height:44px}
+.header-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .icon-btn{position:relative;width:40px;height:40px;flex-shrink:0;border-radius:12px;border:1px solid var(--pink-line);
 background:#fff;color:var(--divani-text);cursor:pointer;display:flex;align-items:center;justify-content:center;
 transition:all .22s;box-shadow:0 2px 8px color-mix(in srgb,var(--divani-text) 6%, transparent)}
 .icon-btn:hover{background:var(--divani-primary);color:var(--divani-on-primary);border-color:var(--divani-primary);transform:translateY(-1px)}
 .icon-btn svg{width:18px;height:18px}
+#headerAdminBtn.on{background:var(--divani-primary);color:var(--divani-on-primary);border-color:var(--divani-primary);
+box-shadow:0 4px 14px color-mix(in srgb,var(--divani-primary) 40%, transparent)}
 .brand{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--font-title);font-size:22px;font-weight:var(--fw-high);
 color:var(--divani-primary);letter-spacing:6px;cursor:pointer;line-height:1;display:inline-flex;align-items:center;
-user-select:none;white-space:nowrap;transition:transform .25s;text-indent:6px;max-width:60vw}
+user-select:none;white-space:nowrap;transition:transform .25s;text-indent:6px;max-width:52vw}
 .brand:hover{transform:translateX(-50%) scale(1.04)}
 .badge-count{position:absolute;top:-5px;right:-5px;min-width:19px;height:19px;padding:0 5px;background:var(--divani-primary);
 color:var(--divani-on-primary);border-radius:999px;font-size:10.5px;font-weight:var(--fw-max);display:flex;align-items:center;justify-content:center;
@@ -110,8 +111,7 @@ box-shadow:0 16px 40px color-mix(in srgb,var(--divani-text) 16%, transparent);di
 .search-result-item:last-child{border-bottom:none}
 .search-result-item:hover{background:var(--light-pink)}
 @media(max-width:480px){.brand{font-size:18px;letter-spacing:4px;text-indent:4px}.icon-btn{width:38px;height:38px;border-radius:11px}}
-
-/* ============ DRAWER · INFO TIENDA (sin cuadro de logo) ============ */
+/* ============ DRAWER · INFO TIENDA ============ */
 .drawer-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 45%, transparent);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:210}
 .drawer-backdrop.show{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;left:-100%;width:min(350px,90vw);height:100%;background:#fff;z-index:220;transition:left .38s cubic-bezier(.2,.7,.3,1);display:flex;flex-direction:column;padding-top:var(--safe-top)}
@@ -136,8 +136,8 @@ a.store-row:hover,button.store-row:hover{transform:translateY(-2px);box-shadow:0
 .drawer-foot{padding:14px 18px calc(14px + var(--safe-bottom));border-top:1px solid var(--gray-light)}
 .drawer-admin{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;border:1px solid var(--pink-line);
 color:var(--muted-2);padding:11px;border-radius:12px;font-weight:var(--fw-high);font-size:12px;cursor:pointer;transition:all .2s;font-family:var(--font-button)}
+.drawer-admin svg{width:15px;height:15px;flex-shrink:0}
 .drawer-admin:hover{background:var(--divani-button);color:var(--divani-on-primary);border-color:var(--divani-button)}
-
 /* ============ MAIN ============ */
 main{max-width:1100px;margin:0 auto;padding:14px 16px 10px}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin:26px 2px 14px;gap:10px}
@@ -147,8 +147,7 @@ main{max-width:1100px;margin:0 auto;padding:14px 16px 10px}
 .link-ver{background:none;border:none;color:var(--divani-primary);font-size:12px;font-weight:var(--fw-high);cursor:pointer;padding:0 0 2px;letter-spacing:.3px;transition:opacity .2s;font-family:var(--font-button)}
 .link-ver:hover{opacity:.75;text-decoration:underline}
 .shop-section{margin-bottom:6px}
-
-/* ============ HERO (sin botón comprar · imagen clicleable a colección) ============ */
+/* ============ HERO ============ */
 .hero-frame{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 10px 28px color-mix(in srgb,var(--divani-primary) 14%, transparent);margin-top:4px}
 .hero-track{display:flex;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
 .hero-slide{min-width:100%;display:flex;align-items:center;gap:14px;padding:22px 20px 26px;min-height:182px;position:relative;overflow:hidden}
@@ -180,7 +179,6 @@ justify-content:center;box-shadow:0 4px 12px color-mix(in srgb,var(--divani-text
 .hero-dots button{width:7px;height:7px;border-radius:999px;border:none;background:color-mix(in srgb,var(--divani-primary) 28%, #fff);cursor:pointer;transition:all .3s;padding:0}
 .hero-dots button.active{width:22px;background:var(--divani-primary)}
 @media(max-width:640px){.hero-arrow{display:none}}
-
 /* ============ CHIPS CATEGORÍAS ============ */
 .chips{display:flex;gap:8px;overflow-x:auto;padding:6px 2px;margin-top:10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .chips::-webkit-scrollbar{display:none}
@@ -188,7 +186,6 @@ justify-content:center;box-shadow:0 4px 12px color-mix(in srgb,var(--divani-text
 padding:9px 17px;border-radius:10px;transition:all .22s;white-space:nowrap;box-shadow:0 2px 6px color-mix(in srgb,var(--divani-text) 4%, transparent);letter-spacing:.3px}
 .chips a:hover{color:var(--divani-primary);border-color:var(--divani-primary);transform:translateY(-1px)}
 .chips a.active{background:var(--divani-primary);border-color:var(--divani-primary);color:var(--divani-on-primary);box-shadow:0 5px 14px color-mix(in srgb,var(--divani-primary) 32%, transparent)}
-
 /* ============ GRID + CARDS ============ */
 .container{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 12px}
 @media(min-width:640px){.container{grid-template-columns:repeat(3,1fr);gap:18px 14px}}
@@ -234,7 +231,6 @@ box-shadow:0 2px 8px rgba(0,0,0,.16);opacity:0;transition:opacity .25s,backgroun
 .gallery-nav-btn.prev{left:5px}
 .gallery-nav-btn.next{right:5px}
 .gallery-nav-btn:hover{background:var(--divani-primary);color:var(--divani-on-primary)}
-
 /* ============ BANDA PROMO ============ */
 .promo-band{margin:30px 0 8px;border-radius:16px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
 background:linear-gradient(120deg,var(--divani-primary),color-mix(in srgb,var(--divani-primary) 55%, var(--divani-secondary)));
@@ -243,8 +239,7 @@ color:var(--divani-on-primary);box-shadow:0 10px 26px color-mix(in srgb,var(--di
 .promo-band small{font-size:11px;opacity:.92;display:block;margin-top:2px}
 .promo-band button{background:#fff;color:var(--divani-primary);border:none;border-radius:10px;padding:11px 18px;font-weight:var(--fw-high);font-size:12px;cursor:pointer;transition:transform .2s;font-family:var(--font-button)}
 .promo-band button:hover{transform:translateY(-2px)}
-
-/* ============ FOOTER (sin columna de enlaces útiles) ============ */
+/* ============ FOOTER ============ */
 .footer{margin-top:38px;background:var(--divani-text);color:#f5ebf1;padding:34px 18px 18px}
 .foot-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
 @media(max-width:760px){.foot-inner{grid-template-columns:1fr;gap:20px}}
@@ -255,7 +250,6 @@ color:var(--divani-on-primary);box-shadow:0 10px 26px color-mix(in srgb,var(--di
 .foot-contact a:hover{color:#fff}
 .foot-contact svg{width:15px;height:15px;flex-shrink:0;color:var(--divani-accent)}
 .foot-bottom{max-width:1100px;margin:24px auto 0;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);text-align:center;font-size:10.5px;color:#a88b9c;letter-spacing:.4px}
-
 /* ============ CARRITO ============ */
 .cart-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 45%, transparent);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:200}
 .cart-backdrop.show{opacity:1;pointer-events:auto}
@@ -293,7 +287,6 @@ font-weight:var(--fw-high);font-size:14px;font-family:var(--font-button);transit
 .btn-buy.wa{background:#25d366;box-shadow:0 8px 20px rgba(37,211,102,.3)}
 .btn-buy.wa:hover{background:#1fb958}
 .btn-buy svg{width:17px;height:17px}
-
 /* ============ MODALES ============ */
 .login-modal,.admin-panel,.edit-modal,.detail-modal,.store-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
 background:color-mix(in srgb,var(--divani-text) 50%, transparent);backdrop-filter:blur(10px);z-index:230;
@@ -305,8 +298,7 @@ justify-content:center;align-items:center;padding:15px;animation:fadeIn .25s}
 .login-content h3{font-family:var(--font-title);margin:0 0 6px;font-size:22px;font-weight:var(--fw-high)}
 .login-content input{width:100%;padding:13px;border:1.5px solid var(--gray-border);border-radius:12px;text-align:center;letter-spacing:6px;margin-bottom:15px}
 .link-btn{background:none;border:none;margin-top:12px;color:#94a3b8;cursor:pointer;font-size:13px}
-
-/* ============ MODAL INFO TIENDA (sin cuadro de logo) ============ */
+/* ============ MODAL INFO TIENDA ============ */
 .store-content{background:#fff;border-radius:20px;width:100%;max-width:390px;max-height:92vh;overflow-y:auto;animation:popIn .35s cubic-bezier(.2,.7,.3,1);
 position:relative;box-shadow:0 30px 70px color-mix(in srgb,var(--divani-text) 35%, transparent)}
 .store-close{position:absolute;top:12px;right:12px;z-index:5;background:var(--gray-light);color:var(--divani-text);border:none;width:38px;height:38px;
@@ -315,7 +307,6 @@ border-radius:10px;cursor:pointer;font-size:15px;font-weight:var(--fw-high);tran
 .store-body{padding:56px 18px 6px;display:flex;flex-direction:column;gap:10px}
 .store-body .store-row{margin-bottom:0}
 .store-foot{padding:14px 18px 20px}
-
 /* ============ DETALLE ============ */
 .detail-modal-content{background:#fff;border-radius:18px;width:100%;max-width:1020px;max-height:92vh;
 position:relative;animation:popIn .35s cubic-bezier(.2,.7,.3,1);display:flex;flex-direction:column;overflow:hidden}
@@ -387,7 +378,6 @@ font-family:var(--font-button);transition:all .2s;box-shadow:0 8px 22px color-mi
 .detail-price{font-size:21px}
 }
 @media(max-width:350px){.detail-actions{flex-direction:column}.qty-stepper{justify-content:center}}
-
 /* ============ EDICIÓN / ADMIN ============ */
 .edit-modal-content{background:#fff;padding:25px;border-radius:18px;width:100%;max-width:620px;max-height:92vh;overflow-y:auto;animation:popIn .3s}
 .edit-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid var(--gray-border)}
@@ -507,7 +497,6 @@ background:#fff;padding:10px 12px;border-radius:14px;box-shadow:0 16px 44px rgba
 .mini-btn{min-width:30px;height:30px;padding:0 8px;border-radius:9px;border:none;cursor:pointer;background:var(--gray-light);transition:.2s;font-size:11px;font-weight:var(--fw-mid);display:flex;align-items:center;justify-content:center}
 .mini-btn:hover{background:var(--light-pink)}
 .mini-btn.del:hover{background:var(--danger);color:#fff}
-
 /* ============ TOASTS ============ */
 .toast-container{position:fixed;top:15px;right:15px;left:15px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;align-items:center}
 .toast{background:#fff;padding:12px 20px;border-radius:12px;box-shadow:0 10px 30px color-mix(in srgb,var(--divani-text) 16%, transparent);border-left:4px solid var(--divani-primary);
@@ -520,7 +509,6 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 </head>
 <body>
 <div class="toast-container" id="toastContainer"></div>
-
 <!-- ============ HEADER ============ -->
 <header>
 <div class="header-inner">
@@ -531,10 +519,15 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 <div class="brand" onclick="abrirInfoTienda()" title="DIVANI · Información de la tienda">
 <span id="brandText">DIVANI</span>
 </div>
+<div class="header-actions">
+<button class="icon-btn" id="headerAdminBtn" onclick="accesoAdmin()" aria-label="Administrador" title="Administrador (Ctrl+Shift+A)">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+</button>
 <button class="icon-btn" id="headerCartBtn" onclick="toggleCart(true)" aria-label="Carrito de compras">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1.5 13h-15L6 7Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>
 <span class="badge-count" id="headerCartCount">0</span>
 </button>
+</div>
 </div>
 <div class="search-wrap">
 <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -543,7 +536,6 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 </div>
 </div>
 </header>
-
 <!-- ============ DRAWER · INFO TIENDA ============ -->
 <div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleDrawer(false)"></div>
 <aside class="drawer" id="drawer">
@@ -556,12 +548,14 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 <div id="drawerStoreRows"></div>
 </div>
 <div class="drawer-foot">
-<button class="drawer-admin" onclick="toggleDrawer(false);abrirLogin()">Acceso privado</button>
+<button class="drawer-admin" onclick="toggleDrawer(false);accesoAdmin()">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+Panel de administración
+</button>
 </div>
 </aside>
-
 <main>
-<!-- ============ CARRUSEL DESTACADOS (sin botón comprar · imagen lleva a la colección) ============ -->
+<!-- ============ CARRUSEL DESTACADOS ============ -->
 <section id="heroSection" aria-label="Destacados">
 <div class="hero-frame" id="heroFrame">
 <button class="hero-arrow prev" onclick="goHero(heroIdx-1,true)" aria-label="Anterior">‹</button>
@@ -570,10 +564,8 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 </div>
 <div class="hero-dots" id="heroDots"></div>
 </section>
-
 <!-- ============ CATEGORÍAS ============ -->
 <nav class="chips" id="navCategorias" aria-label="Categorías"></nav>
-
 <!-- ============ SECCIONES HOME ============ -->
 <div id="homeSections">
 <section class="shop-section">
@@ -594,7 +586,6 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 <button onclick="abrirWhatsAppDirecto()">Escribir por WhatsApp</button>
 </section>
 </div>
-
 <!-- ============ CATÁLOGO ============ -->
 <div id="catalogSection" style="display:none">
 <div class="section-head">
@@ -604,7 +595,6 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 <div class="container" id="productos"></div>
 </div>
 </main>
-
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
 <div class="foot-inner">
@@ -619,7 +609,6 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 </div>
 <div class="foot-bottom">© 2026 <span id="footBottomBrand">DIVANI</span> · Hecho con amor</div>
 </footer>
-
 <div class="cart-backdrop" id="cartBackdrop" onclick="toggleCart(false)"></div>
 <div class="cart" id="cartSidebar">
 <div class="cart-header">
@@ -633,8 +622,7 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 Realizar pedido por WhatsApp
 </button>
 </div>
-
-<!-- ============ MODAL INFO TIENDA (sin cuadro de logo) ============ -->
+<!-- ============ MODAL INFO TIENDA ============ -->
 <div class="store-modal" id="storeModal">
 <div class="store-content">
 <button class="store-close" onclick="cerrarInfoTienda()" aria-label="Cerrar">✕</button>
@@ -644,7 +632,6 @@ Realizar pedido por WhatsApp
 </div>
 </div>
 </div>
-
 <!-- LOGIN -->
 <div class="login-modal" id="loginModal">
 <div class="login-content">
@@ -655,7 +642,6 @@ Realizar pedido por WhatsApp
 <button class="link-btn" onclick="cerrarLogin()">Cancelar</button>
 </div>
 </div>
-
 <!-- DETALLE -->
 <div class="detail-modal" id="detailModal">
 <div class="detail-modal-content">
@@ -697,7 +683,6 @@ Agregar al Carrito
 </div>
 </div>
 </div>
-
 <!-- EDICIÓN -->
 <div class="edit-modal" id="editModal">
 <div class="edit-modal-content">
@@ -741,14 +726,12 @@ Agregar al Carrito
 </div>
 </div>
 </div>
-
 <!-- BARRA VISTA PREVIA (solo admin autenticado) -->
 <div class="preview-bar" id="previewBar" hidden>
 <button onclick="volverAdmin()">⚙️ Volver al admin</button>
 <button class="ok" onclick="aplicarCambios()">Aplicar cambios</button>
 <button onclick="cancelarCambios()">Cancelar cambios</button>
 </div>
-
 <!-- ADMIN -->
 <div class="admin-panel" id="adminPanel">
 <div class="admin-content">
@@ -979,24 +962,23 @@ Agregar al Carrito
 </div>
 </div>
 </div>
-
 <script>
 // ==========================================
 // DATOS BASE
 // ==========================================
 const IMG = {
-hero:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/13b144651-937e-4944-93b5-401ac2236237.png',
-labial:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/1dbe9f273-7608-4464-93bc-3e41b5530e27.png',
-combo:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/145475a15-34d7-4fa9-a81a-df327c42e818.png',
-swatches:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/13cfccb3e-631f-48d5-bb3f-d661ceb1a7dd.png',
-cejas:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/153c3907f-d0fa-48e7-90b0-aaf5b3bdd58c.png',
-mascara:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/15be7b1fd-075e-4e0f-972e-881def284775.png',
-serum:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/1f0b588c9-62dd-49d6-98a4-0b77669579f4.png',
-bruma:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/190855ab6-3e1a-4659-8562-17194c8b3e40.png',
-shampoo:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/12d793706-ee05-4792-a427-dc3c52f91d52.png',
-brochas:'https://image.qwenlm.ai/public_source/e869c054-8510-47f6-b9f3-aa9f30f3f2bb/18c410dff-dabf-4357-8892-ad960fcd3e9c.png'
+hero:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/1d0e98967-839d-450d-a618-81686045ae88.png',
+labial:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/19468acf1-a2ea-40ea-a11a-6036e47d03bd.png',
+combo:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/1385d621f-4605-44c3-aaa2-afb1ebfac731.png',
+swatches:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/1d2f83ee3-fa7c-46b7-8e00-a67bf95b33bf.png',
+cejas:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/170ae37da-e9f4-468b-84d4-ae9e59a266f6.png',
+mascara:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/1886ce154-7f90-457c-a2ed-3f8f11f9d446.png',
+serum:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/1176ea167-9813-44b1-bb62-ed997844359e.png',
+bruma:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/1c025fc02-3850-47c6-a24d-846389e8d63f.png',
+shampoo:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/101da06de-34d5-4edd-9508-5f234b34e12d.png',
+brochas:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/137441c46-2fe7-4e30-b852-53ed6c80f88c.png'
 };
-const LOGO_DEFAULT='https://image.qwenlm.ai/public_source/058aa464-79ad-4e5e-a0d0-96235053ad27/14abccdc8-2d4b-478a-a434-126f80c5a09f.png';
+const LOGO_DEFAULT='https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/130151fe0-5fd8-4d2b-b32e-c85eec11139f.png';
 const FALLBACK_IMG = 'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="300" height="300" fill="#fff1f6"/><text x="50%" y="50%" font-family="serif" font-size="30" fill="#e6538b" text-anchor="middle" dominant-baseline="middle">DIVANI</text></svg>');
 let productos = [
 { id:'1', nombre:'Labial Velvet Matte · Edición Rosé', categoria:'Labios', precio:32000, visible:true,
@@ -1333,6 +1315,22 @@ l.textContent=on?'● Visible':'● Oculto'; l.className='sw-lbl '+(on?'on':'off
 }
 function abrirWhatsAppDirecto(){ const wa=(tiendaConfig.whatsapp||'').replace(/\D/g,''); window.open(`https://wa.me/${wa}`,'_blank'); }
 // ==========================================
+// ACCESO ADMIN (botón habilitado en header y drawer)
+// ==========================================
+function setAdminBtnState(){
+const b=document.getElementById('headerAdminBtn');
+if(b) b.classList.toggle('on', adminAutenticado);
+}
+function accesoAdmin(){
+if(adminAutenticado){
+const panel=document.getElementById('adminPanel');
+if(panel.style.display!=='flex'){ volverAdmin(); }
+else{ volverAdmin(); }
+}else{
+abrirLogin();
+}
+}
+// ==========================================
 // INFO TIENDA (contacto) + FOOTER
 // ==========================================
 function filasTiendaHtml(){
@@ -1375,7 +1373,6 @@ function abrirInfoTienda(){ document.getElementById('storeModal').style.display=
 function cerrarInfoTienda(){ document.getElementById('storeModal').style.display='none'; }
 // ==========================================
 // CARRUSEL DESTACADOS
-// Sin botón "Comprar ahora": al tocar la imagen se abre la colección del banner.
 // ==========================================
 function construirSlidesHero(){
 const slides=[];
@@ -1514,13 +1511,13 @@ card.onclick=()=>abrirDetalle(realIdx);
 let galleryHtml='';
 if(multi){
 galleryHtml=`<div class="card-gallery" id="${cardId}">`;
-imagenes.forEach((url,i)=>{ galleryHtml+=`<img src="${url}" alt="${esc(p.nombre)}" class="${i===0?'active':''}" loading="lazy" decoding="async">`; });
+imagenes.forEach((url,i)=>{ galleryHtml+=`<img src="${url}" alt="${esc(p.nombre)}" class="${i===0?'active':''}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=FALLBACK_IMG">`; });
 galleryHtml+=`<button class="gallery-nav-btn prev" onclick="event.stopPropagation();cambiarImagenCard('${cardId}',-1)">‹</button>
 <button class="gallery-nav-btn next" onclick="event.stopPropagation();cambiarImagenCard('${cardId}',1)">›</button>
 <div class="gallery-dots">${imagenes.map((_,i)=>`<span class="dot ${i===0?'active':''}" onclick="event.stopPropagation();irImagenCard('${cardId}',${i})"></span>`).join('')}</div>
 </div>`;
 } else {
-galleryHtml=`<img src="${imagenes[0]}" alt="${esc(p.nombre)}" loading="lazy" decoding="async">`;
+galleryHtml=`<img src="${imagenes[0]}" alt="${esc(p.nombre)}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src=FALLBACK_IMG">`;
 }
 const badgesHtml = hasOff ? `<div class="card-badges"><span class="nuevo-badge">Nuevo</span></div>` : '';
 card.innerHTML=`
@@ -1558,7 +1555,7 @@ const lbl=document.getElementById('countLabel');
 if(lbl) lbl.textContent=`${visibles} ${visibles===1?'producto':'productos'}`;
 }
 // ==========================================
-// SECCIONES HOME (sin carrusel "Más vendidos")
+// SECCIONES HOME
 // ==========================================
 function mostrarVista(vista){
 vistaActual=vista;
@@ -1775,13 +1772,14 @@ gallery.innerHTML+=`<button class="gallery-nav-btn prev" onclick="cambiarImagenD
 imagenes.forEach((url,i)=>{
 const img=document.createElement('img');
 img.src=url; img.alt='Producto DIVANI';
+img.onerror=()=>{img.onerror=null;img.src=FALLBACK_IMG;};
 img.style.display=i===detalleImagenActual?'block':'none';
 gallery.appendChild(img);
 });
 imagenes.forEach((url,i)=>{
 const t=document.createElement('div');
 t.className='detail-thumb'+(i===detalleImagenActual?' active':'');
-t.innerHTML=`<img src="${url}" alt="vista-${i+1}" loading="lazy">`;
+t.innerHTML=`<img src="${url}" alt="vista-${i+1}" loading="lazy" onerror="this.onerror=null;this.src=FALLBACK_IMG">`;
 t.onclick=()=>irImagenDetalle(i);
 thumbs.appendChild(t);
 });
@@ -1859,7 +1857,7 @@ const vis=esVisible(p);
 const row=document.createElement('div');
 row.className='dest-row'+(p.destacado?' on':'');
 row.innerHTML=`
-<img src="${obtenerImagenPrincipal(p)}" alt="">
+<img src="${obtenerImagenPrincipal(p)}" alt="" onerror="this.onerror=null;this.src=FALLBACK_IMG">
 <div class="info"><b>${esc(p.nombre)}${vis?'':`<span class="mini-pill off">OCULTO</span>`}</b><small>${esc(p.categoria)} · ${formatearPrecio(p.precio)}${p.descuento>0?` · desc. ${p.descuento}%`:''}</small></div>
 <label class="switch"><input type="checkbox" ${p.destacado?'checked':''} onchange="toggleDestacado(${i},this.checked)"><span class="switch-slider"></span></label>`;
 cont.appendChild(row);
@@ -1973,7 +1971,7 @@ for(let i=0;i<productos.length;i++){
 const p=productos[i];
 const vis=esVisible(p);
 html+=`<tr id="row-${i}">
-<td><div class="td-prod"><img src="${obtenerImagenPrincipal(p)}" alt=""><div><b>${esc(p.nombre||'Sin nombre')}</b><small style="font-size:10px;color:#a06b81;">${p.descuento>0?`<span style="color:var(--danger);font-weight:700;">desc. ${p.descuento}%</span>`:'Sin descuento'}</small></div></div></td>
+<td><div class="td-prod"><img src="${obtenerImagenPrincipal(p)}" alt="" onerror="this.onerror=null;this.src=FALLBACK_IMG"><div><b>${esc(p.nombre||'Sin nombre')}</b><small style="font-size:10px;color:#a06b81;">${p.descuento>0?`<span style="color:var(--danger);font-weight:700;">desc. ${p.descuento}%</span>`:'Sin descuento'}</small></div></div></td>
 <td><span style="background:var(--light-pink);padding:3px 8px;border-radius:8px;font-size:11px;font-weight:600;color:var(--divani-primary);white-space:nowrap;">${esc(p.categoria||'General')}</span></td>
 <td style="font-weight:700;white-space:nowrap;">${formatearPrecio(p.precio)}</td>
 <td><div class="sw-cell">${switchHtml(vis,`cambiarVisible(${i},this.checked)`)}<span class="sw-lbl ${vis?'on':'off'}">${vis?'ON':'OFF'}</span></div></td>
@@ -2049,7 +2047,7 @@ const sub=unit*row.qty;
 total+=sub; totalItems+=row.qty;
 div.innerHTML+=`
 <div class="cart-item">
-<img src="${obtenerImagenPrincipal(p)}" alt="${esc(p.nombre)}" loading="lazy">
+<img src="${obtenerImagenPrincipal(p)}" alt="${esc(p.nombre)}" loading="lazy" onerror="this.onerror=null;this.src=FALLBACK_IMG">
 <div class="cart-item-body">
 <b>${esc(p.nombre)}</b>
 <span class="unit">${formatearPrecio(unit)} c/u</span>
@@ -2078,17 +2076,21 @@ document.getElementById('headerCartCount').textContent=totalItems;
 function comprar(){
 if(!carrito.length){ showToast('Tu carrito está vacío','warning'); return; }
 const nombreTienda=pers.name||'DIVANI';
-let msg=`*NUEVO PEDIDO - ${nombreTienda}*\n\n*PRODUCTOS*\n`;
+let msg=`*NUEVO PEDIDO - ${nombreTienda}*
+*PRODUCTOS*
+`;
 let total=0;
 carrito.forEach(row=>{
 const p=productos.find(x=>x.id===row.id);
 if(!p) return;
 const unit=precioFinalDe(p);
 const sub=unit*row.qty;
-msg+=`• ${row.qty} × ${p.nombre} (${formatearPrecio(unit)} c/u) = ${formatearPrecio(sub)}\n`;
+msg+=`• ${row.qty} × ${p.nombre} (${formatearPrecio(unit)} c/u) = ${formatearPrecio(sub)}
+`;
 total+=sub;
 });
-msg+=`\n*TOTAL: ${formatearPrecio(total)}*`;
+msg+=`
+*TOTAL: ${formatearPrecio(total)}*`;
 const wa=(tiendaConfig.whatsapp||'573003896683').replace(/\D/g,'');
 carrito=[]; actualizarCarrito(); toggleCart(false); renderProductos(); renderHome();
 window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`,'_blank');
@@ -2139,15 +2141,18 @@ function cerrarLogin(){ document.getElementById('loginModal').style.display='non
 function verificarPassword(){
 if(document.getElementById('adminPassInput').value===PIN){
 adminAutenticado=true;
+setAdminBtnState();
 cerrarLogin();
 document.getElementById('adminPanel').style.display='flex';
 draft=clone(pers); draftDirty=false; applyPers(draft);
 renderInventario(); renderDestacadosAdmin(); renderBannersAdmin(); syncPersUI();
+showToast('Bienvenida al panel de administración','success');
 }
 else showToast('PIN incorrecto','danger');
 }
 function cerrarAdmin(){
 adminAutenticado=false;
+setAdminBtnState();
 document.getElementById('adminPanel').style.display='none';
 document.getElementById('previewBar').hidden=true;
 renderHome(); renderProductos();
@@ -2218,6 +2223,7 @@ const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.downloa
 window.addEventListener('DOMContentLoaded',()=>{
 loadFlags();
 applyPers(pers);
+setAdminBtnState();
 renderAllTienda();
 prepararCacheBusqueda();
 buildColorRows();
@@ -2257,7 +2263,7 @@ else if(document.getElementById('drawer').classList.contains('open')) toggleDraw
 }
 });
 document.addEventListener('keydown',e=>{
-if(e.ctrlKey&&e.shiftKey&&(e.key==='A'||e.key==='a')){ e.preventDefault(); abrirLogin(); }
+if(e.ctrlKey&&e.shiftKey&&(e.key==='A'||e.key==='a')){ e.preventDefault(); accesoAdmin(); }
 });
 });
 </script>
