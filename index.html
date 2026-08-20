@@ -40,6 +40,8 @@ DIVANI · IDENTIDAD
 --divani-button:#e6538b;
 --divani-accent:#e9a0bf;
 --divani-on-primary:#ffffff;
+--divani-admin-btn:#e6538b;
+--divani-admin-btn-text:#ffffff;
 --font-title:'Playfair Display',serif;
 --font-body:'Poppins',sans-serif;
 --font-button:'Poppins',sans-serif;
@@ -88,8 +90,8 @@ background:#fff;color:var(--divani-text);cursor:pointer;display:flex;align-items
 transition:all .22s;box-shadow:0 2px 8px color-mix(in srgb,var(--divani-text) 6%, transparent)}
 .icon-btn:hover{background:var(--divani-primary);color:var(--divani-on-primary);border-color:var(--divani-primary);transform:translateY(-1px)}
 .icon-btn svg{width:18px;height:18px}
-#headerAdminBtn.on{background:var(--divani-primary);color:var(--divani-on-primary);border-color:var(--divani-primary);
-box-shadow:0 4px 14px color-mix(in srgb,var(--divani-primary) 40%, transparent)}
+#headerAdminBtn.on{background:var(--divani-admin-btn);color:var(--divani-admin-btn-text);border-color:var(--divani-admin-btn);
+box-shadow:0 4px 14px color-mix(in srgb,var(--divani-admin-btn) 40%, transparent)}
 .brand{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--font-title);font-size:22px;font-weight:var(--fw-high);
 color:var(--divani-primary);letter-spacing:6px;cursor:pointer;line-height:1;display:inline-flex;align-items:center;
 user-select:none;white-space:nowrap;transition:transform .25s;text-indent:6px;max-width:52vw}
@@ -134,10 +136,11 @@ a.store-row:hover,button.store-row:hover{transform:translateY(-2px);box-shadow:0
 .store-row small{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
 .store-row .chev{margin-left:auto;color:var(--muted-2);font-size:16px;font-weight:var(--fw-mid)}
 .drawer-foot{padding:14px 18px calc(14px + var(--safe-bottom));border-top:1px solid var(--gray-light)}
-.drawer-admin{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:#fff;border:1px solid var(--pink-line);
-color:var(--muted-2);padding:11px;border-radius:12px;font-weight:var(--fw-high);font-size:12px;cursor:pointer;transition:all .2s;font-family:var(--font-button)}
+.drawer-admin{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;background:var(--divani-admin-btn);color:var(--divani-admin-btn-text);
+border:1px solid var(--divani-admin-btn);padding:11px;border-radius:12px;font-weight:var(--fw-high);font-size:12px;cursor:pointer;transition:all .2s;font-family:var(--font-button);
+box-shadow:0 4px 14px color-mix(in srgb,var(--divani-admin-btn) 28%, transparent)}
 .drawer-admin svg{width:15px;height:15px;flex-shrink:0}
-.drawer-admin:hover{background:var(--divani-button);color:var(--divani-on-primary);border-color:var(--divani-button)}
+.drawer-admin:hover{filter:brightness(.92);transform:translateY(-1px)}
 /* ============ MAIN ============ */
 main{max-width:1100px;margin:0 auto;padding:14px 16px 10px}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin:26px 2px 14px;gap:10px}
@@ -150,7 +153,7 @@ main{max-width:1100px;margin:0 auto;padding:14px 16px 10px}
 /* ============ HERO ============ */
 .hero-frame{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 10px 28px color-mix(in srgb,var(--divani-primary) 14%, transparent);margin-top:4px}
 .hero-track{display:flex;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
-.hero-slide{min-width:100%;display:flex;align-items:center;gap:14px;padding:22px 20px 26px;min-height:182px;position:relative;overflow:hidden}
+.hero-slide{min-width:100%;display:flex;align-items:center;gap:14px;padding:22px 20px 26px;min-height:200px;position:relative;overflow:hidden}
 .hero-slide.t1{background:linear-gradient(115deg,#ffe9f1 0%,#ffd3e2 60%,#ffc4d8 100%)}
 .hero-slide.t2{background:linear-gradient(115deg,#f9e3f6 0%,#fbd3e6 60%,#ffd3e2 100%)}
 .hero-slide.t3{background:linear-gradient(115deg,#fff8e0 0%,#fff0ca 60%,#ffe7b5 100%)}
@@ -162,9 +165,13 @@ main{max-width:1100px;margin:0 auto;padding:14px 16px 10px}
 .hero-title{font-family:var(--font-title);font-size:clamp(18px,4.8vw,26px);line-height:1.16;margin:9px 0 5px;color:var(--divani-text);font-weight:var(--fw-high)}
 .hero-sub{font-size:11px;color:color-mix(in srgb,var(--divani-text) 72%, #fff);margin:0 0 6px;line-height:1.55;max-width:270px;font-weight:var(--fw-body)}
 .hero-sub:empty{display:none}
-.hero-img{width:40%;max-width:176px;z-index:2;flex-shrink:0;position:relative;cursor:pointer}
-.hero-img img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:14px;box-shadow:0 12px 26px color-mix(in srgb,var(--divani-primary) 26%, transparent);
-animation:floaty 4.5s ease-in-out infinite;border:3px solid rgba(255,255,255,.7);transition:transform .3s}
+/* === CAMBIO 1: Imagen del banner completa, sin recortes === */
+.hero-img{width:44%;max-width:220px;z-index:2;flex-shrink:0;position:relative;cursor:pointer;
+display:flex;align-items:center;justify-content:center;padding:6px}
+.hero-img img{width:100%;height:auto;max-height:200px;object-fit:contain;border-radius:14px;
+box-shadow:0 12px 26px color-mix(in srgb,var(--divani-primary) 26%, transparent);
+animation:floaty 4.5s ease-in-out infinite;border:3px solid rgba(255,255,255,.7);transition:transform .3s;
+background:transparent}
 .hero-img:hover img{transform:scale(1.04)}
 @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 .hero-promo-badge{position:absolute;top:8px;right:8px;background:#fff;color:var(--divani-primary);font-size:10px;font-weight:var(--fw-max);
@@ -178,7 +185,22 @@ justify-content:center;box-shadow:0 4px 12px color-mix(in srgb,var(--divani-text
 .hero-dots{display:flex;gap:6px;justify-content:center;margin-top:12px}
 .hero-dots button{width:7px;height:7px;border-radius:999px;border:none;background:color-mix(in srgb,var(--divani-primary) 28%, #fff);cursor:pointer;transition:all .3s;padding:0}
 .hero-dots button.active{width:22px;background:var(--divani-primary)}
-@media(max-width:640px){.hero-arrow{display:none}}
+@media(max-width:900px){
+.hero-img{max-width:180px}
+.hero-img img{max-height:170px}
+}
+@media(max-width:640px){
+.hero-arrow{display:none}
+.hero-slide{min-height:240px;padding:18px 16px 22px;gap:10px}
+.hero-img{width:42%;max-width:150px;padding:4px}
+.hero-img img{max-height:160px}
+}
+@media(max-width:420px){
+.hero-slide{flex-direction:column;text-align:center;min-height:auto;padding:18px 14px 20px}
+.hero-text{order:2}
+.hero-img{order:1;width:70%;max-width:200px;margin:0 auto}
+.hero-img img{max-height:180px}
+}
 /* ============ CHIPS ============ */
 .chips{display:flex;gap:8px;overflow-x:auto;padding:6px 2px;margin-top:10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .chips::-webkit-scrollbar{display:none}
@@ -1169,23 +1191,16 @@ Agregar al Carrito
 </div>
 </div>
 </div>
+</div>
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   🔑 CONFIGURACIÓN DE LA NUBE · PEGA TUS CLAVES AQUÍ ABAJO 👇
-   ═══════════════════════════════════════════════════════════════
-   Estas 3 líneas son las únicas que debes editar en el código:
-   1) IMGBB_API_KEY → tu API key de https://api.imgbb.com/ (gratis)
-   2) DATABASE_URL  → la URL de tu Firebase Realtime Database
-   3) AUTO_SYNC     → true para guardar cada cambio automáticamente
-   También puedes configurarlas sin tocar el código desde:
-   Panel Admin → ☁️ Nube (quedan guardadas en este dispositivo).
+🔑 CONFIGURACIÓN DE LA NUBE · PEGA TUS CLAVES AQUÍ ABAJO 👇
 ═══════════════════════════════════════════════════════════════ */
 const CLOUD_CONFIG = {
-  IMGBB_API_KEY: '',   // ← 👉 PEGA AQUÍ TU API KEY DE IMGBB
-  DATABASE_URL:  '',   // ← 👉 PEGA AQUÍ LA URL DE TU BASE DE DATOS (Firebase)
-  AUTO_SYNC:     true  // ← true = cada cambio se sube solo a la nube
+IMGBB_API_KEY: '',
+DATABASE_URL:  '',
+AUTO_SYNC:     true
 };
-/* ═══════════════════════════════════════════════════════════════ */
 function _limpiarClave(v){
 v=String(v==null?'':v).trim();
 if(!v) return '';
@@ -1196,8 +1211,8 @@ const CLOUD = {
 imgbbKey: _limpiarClave(localStorage.getItem('divani_imgbb_key')) || _limpiarClave(CLOUD_CONFIG.IMGBB_API_KEY),
 dbUrl:    _limpiarClave(localStorage.getItem('divani_db_url'))    || _limpiarClave(CLOUD_CONFIG.DATABASE_URL),
 autoSync: (localStorage.getItem('divani_cloud_auto') !== null)
-  ? localStorage.getItem('divani_cloud_auto') === '1'
-  : !!CLOUD_CONFIG.AUTO_SYNC
+? localStorage.getItem('divani_cloud_auto') === '1'
+: !!CLOUD_CONFIG.AUTO_SYNC
 };
 // ==========================================
 // DATOS BASE
@@ -1246,7 +1261,7 @@ let tiendaConfig = { ubicacion:'Colombia', instagram:'divani_maquillaje', tiktok
 // ==========================================
 const DEFAULT_PERS = {
 logo: LOGO_DEFAULT, name:'DIVANI', tagline:'Tu tienda de confianza', weight:'normal',
-palette:{ primary:'#e6538b', secondary:'#fbe1ea', background:'#fff9fb', light:'#fff1f6', text:'#33252b', button:'#e6538b', accent:'#e9a0bf' },
+palette:{ primary:'#e6538b', secondary:'#fbe1ea', background:'#fff9fb', light:'#fff1f6', text:'#33252b', button:'#e6538b', accent:'#e9a0bf', adminBtn:'#e6538b' },
 fonts:{ title:'playfair', body:'poppins', button:'poppins', price:'poppins' }
 };
 const FONT_OPTIONS=[
@@ -1263,7 +1278,8 @@ const COLOR_META=[
 {key:'background', label:'Color de fondo', desc:'Fondo general del catálogo'},
 {key:'text', label:'Color de textos', desc:'Títulos y párrafos'},
 {key:'button', label:'Color de botones', desc:'Botones de acción y carrito'},
-{key:'accent', label:'Color de detalles', desc:'Bordes, acentos y scrollbars'}
+{key:'accent', label:'Color de detalles', desc:'Bordes, acentos y scrollbars'},
+{key:'adminBtn', label:'Color del botón Admin', desc:'Botón de acceso al panel de administración'}
 ];
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 function loadPers(){
@@ -1304,6 +1320,10 @@ r.setProperty('--divani-text',p.text);
 r.setProperty('--divani-button',p.button);
 r.setProperty('--divani-accent',p.accent);
 r.setProperty('--divani-on-primary', luminancia(p.primary)>.55 ? p.text : '#ffffff');
+// === CAMBIO 2: Color del botón Admin con contraste automático ===
+const adminBtnColor = p.adminBtn || p.primary;
+r.setProperty('--divani-admin-btn', adminBtnColor);
+r.setProperty('--divani-admin-btn-text', luminancia(adminBtnColor) > .55 ? p.text : '#ffffff');
 r.setProperty('--font-title',stackOf(cfg.fonts.title));
 r.setProperty('--font-body',stackOf(cfg.fonts.body));
 r.setProperty('--font-button',stackOf(cfg.fonts.button));
@@ -1395,7 +1415,7 @@ draft.logo=url; markDirty();
 syncPersUI(); applyPers(draft);
 if(url&&autoExtract){
 const im=new Image(); im.crossOrigin='anonymous';
-im.onload=()=>{ const pal=analizarPaleta(im); if(pal){ draft.palette=pal; markDirty(); applyPers(draft); syncPersUI(); showToast('Paleta generada desde el logo · confirma con “Aplicar cambios”','success'); } };
+im.onload=()=>{ const pal=analizarPaleta(im); if(pal){ draft.palette=Object.assign(draft.palette,pal); markDirty(); applyPers(draft); syncPersUI(); showToast('Paleta generada desde el logo · confirma con “Aplicar cambios”','success'); } };
 im.src=url;
 }
 }
@@ -1465,7 +1485,7 @@ const im=new Image(); im.crossOrigin='anonymous';
 im.onload=()=>{
 const pal=analizarPaleta(im);
 if(!pal){ showToast('No se pudo analizar el logo (imagen externa). Usa los selectores manuales','warning'); return; }
-draft.palette=pal; markDirty(); applyPers(draft); syncPersUI();
+draft.palette=Object.assign(draft.palette,pal); markDirty(); applyPers(draft); syncPersUI();
 showToast('Paleta extraída · revisa la vista previa y confirma con “Aplicar cambios”','success');
 };
 im.onerror=()=>showToast('No se pudo cargar el logo para análisis','warning');
@@ -1743,7 +1763,6 @@ const l=document.getElementById(lblId);
 l.textContent=on?'● Visible':'● Oculto'; l.className='sw-lbl '+(on?'on':'off');
 }
 function abrirWhatsAppDirecto(){ const wa=(tiendaConfig.whatsapp||'').replace(/\D/g,''); window.open(`https://wa.me/${wa}`,'_blank'); }
-// ---- helpers formulario intuitivo ----
 function syncDescuento(rangeId,lblId,precioId,previewId){
 const v=parseInt(document.getElementById(rangeId).value)||0;
 const l=document.getElementById(lblId);
@@ -1915,7 +1934,7 @@ function quitarImagenEdicion(idx){ imagenesEdicionTemp.splice(idx,1); renderList
 function agregarUrlsEdicion(){
 const input=document.getElementById('editUrl'); const texto=input.value.trim();
 if(!texto){ showToast('Pega una o más URLs','warning'); return; }
-const nuevas=texto.split(/[,\n|]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'));
+const nuevas=texto.split(/[,|]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'));
 if(!nuevas.length){ showToast('URLs no válidas','warning'); return; }
 nuevas.forEach(u=>imagenesEdicionTemp.push(u)); renderListaImagenesEdicion(); input.value='';
 showToast(`${nuevas.length} URL(s) agregada(s)`,'success');
@@ -2119,7 +2138,7 @@ const visible=document.getElementById('prodVisible').checked;
 const promo=document.getElementById('prodPromo').value.trim();
 const urlsInput=document.getElementById('prodUrlImg').value.trim();
 let imagenes=[...imagenesProductoTemp];
-if(urlsInput){ imagenes=[...imagenes,...urlsInput.split(/[,\n|]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'))]; }
+if(urlsInput){ imagenes=[...imagenes,...urlsInput.split(/[,|]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'))]; }
 if(!nombre||!precio){ showToast('Completa nombre y precio','danger'); return; }
 imagenes=[...new Set(imagenes.filter(u=>u&&u.trim()!==''))];
 const nuevo={ id:'p'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),
@@ -2178,7 +2197,7 @@ const categoria=document.getElementById('editCategoria').value;
 const descuento=parseInt(document.getElementById('editDescuento').value)||0;
 const urlsInput=document.getElementById('editUrl').value.trim();
 let imagenes=[...imagenesEdicionTemp];
-if(urlsInput){ imagenes=[...imagenes,...urlsInput.split(/[,\n|]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'))]; }
+if(urlsInput){ imagenes=[...imagenes,...urlsInput.split(/[,|]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'))]; }
 if(!nombre||!precio){ showToast('Completa nombre y precio','danger'); return; }
 imagenes=[...new Set(imagenes.filter(u=>u&&u.trim()!==''))];
 const prod=productos[productoEditandoIndex];
@@ -2736,7 +2755,7 @@ data.forEach(row=>{
 const nombre=(row.nombre||'').toString().trim();
 if(!nombre) return;
 const urlsRaw=(row.url||row.img||row.imagenes||'').toString().trim();
-let imagenes=urlsRaw.split(/[,\n|;]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'));
+let imagenes=urlsRaw.split(/[,|;]/).map(u=>u.trim()).filter(u=>u&&u.startsWith('http'));
 if(!imagenes.length) imagenes=[FALLBACK_IMG];
 const limpio={ nombre, categoria:(row.categoria||'General').toString().trim(),
 precio:formatearPrecio(limpiarPrecio(row.precio)), imagenes, visible:true };
@@ -2816,7 +2835,6 @@ else if(document.getElementById('drawer').classList.contains('open')) toggleDraw
 document.addEventListener('keydown',e=>{
 if(e.ctrlKey&&e.shiftKey&&(e.key==='A'||e.key==='a')){ e.preventDefault(); accesoAdmin(); }
 });
-// Si hay base de datos configurada, descarga el catálogo de la nube al iniciar
 if(CLOUD.dbUrl){ setTimeout(()=>descargarDeNube(true), 500); }
 });
 </script>
