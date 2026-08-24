@@ -27,10 +27,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jost@5/600.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jost@5/700.css">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js" defer></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
 <style>
-/* =====================================================
-DIVANI · IDENTIDAD
-===================================================== */
 :root{
 --divani-primary:#e6538b;
 --divani-secondary:#fbe1ea;
@@ -78,7 +77,6 @@ img{max-width:100%}
 ::-webkit-scrollbar-thumb{background:var(--divani-accent);border-radius:8px}
 ::-webkit-scrollbar-track{background:transparent}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-/* ============ HEADER ============ */
 header{background:color-mix(in srgb,#fff 88%, var(--divani-background));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
 border-bottom:1px solid color-mix(in srgb,var(--divani-primary) 10%, transparent);position:sticky;top:0;z-index:100;
 padding:8px 14px 10px;padding-top:calc(8px + var(--safe-top))}
@@ -113,7 +111,6 @@ box-shadow:0 16px 40px color-mix(in srgb,var(--divani-text) 16%, transparent);di
 .search-result-item:last-child{border-bottom:none}
 .search-result-item:hover{background:var(--light-pink)}
 @media(max-width:480px){.brand{font-size:18px;letter-spacing:4px;text-indent:4px}.icon-btn{width:38px;height:38px;border-radius:11px}}
-/* ============ DRAWER ============ */
 .drawer-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 45%, transparent);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:210}
 .drawer-backdrop.show{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;left:-100%;width:min(350px,90vw);height:100%;background:#fff;z-index:220;transition:left .38s cubic-bezier(.2,.7,.3,1);display:flex;flex-direction:column;padding-top:var(--safe-top)}
@@ -141,7 +138,6 @@ border:1px solid var(--divani-admin-btn);padding:11px;border-radius:12px;font-we
 box-shadow:0 4px 14px color-mix(in srgb,var(--divani-admin-btn) 28%, transparent)}
 .drawer-admin svg{width:15px;height:15px;flex-shrink:0}
 .drawer-admin:hover{filter:brightness(.92);transform:translateY(-1px)}
-/* ============ MAIN ============ */
 main{max-width:1100px;margin:0 auto;padding:14px 16px 10px}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin:26px 2px 14px;gap:10px}
 .section-head h2{font-family:var(--font-title);font-size:21px;margin:0;font-weight:var(--fw-high);color:var(--divani-text)}
@@ -150,7 +146,6 @@ main{max-width:1100px;margin:0 auto;padding:14px 16px 10px}
 .link-ver{background:none;border:none;color:var(--divani-primary);font-size:12px;font-weight:var(--fw-high);cursor:pointer;padding:0 0 2px;letter-spacing:.3px;transition:opacity .2s;font-family:var(--font-button)}
 .link-ver:hover{opacity:.75;text-decoration:underline}
 .shop-section{margin-bottom:6px}
-/* ============ HERO · BANNER PRINCIPAL (IMAGEN FULL) ============ */
 .hero-frame{position:relative;border-radius:18px;overflow:hidden;box-shadow:0 10px 28px color-mix(in srgb,var(--divani-primary) 14%, transparent);margin-top:4px}
 .hero-track{display:flex;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
 .hero-slide{min-width:100%;position:relative;overflow:hidden;min-height:260px;display:flex;align-items:flex-end}
@@ -158,60 +153,33 @@ main{max-width:1100px;margin:0 auto;padding:14px 16px 10px}
 .hero-slide.t2{background:linear-gradient(115deg,#f9e3f6 0%,#fbd3e6 60%,#ffd3e2 100%)}
 .hero-slide.t3{background:linear-gradient(115deg,#fff8e0 0%,#fff0ca 60%,#ffe7b5 100%)}
 .hero-slide.id-slide{background:linear-gradient(115deg,color-mix(in srgb,var(--divani-secondary) 55%, #fff) 0%,var(--divani-secondary) 55%,color-mix(in srgb,var(--divani-primary) 30%, var(--divani-secondary)) 100%)}
-/* Imagen de fondo que llena TODO el banner */
-.hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:hidden;border-radius:inherit}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:transform .5s}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;z-index:1;overflow:hidden;border-radius:inherit;display:flex;align-items:center;justify-content:center;background:#fff}
+.hero-bg img{max-width:100%;max-height:100%;object-fit:contain;display:block;transition:transform .5s}
 .hero-slide:hover .hero-bg img{transform:scale(1.03)}
-/* Overlay para legibilidad del texto sobre la imagen */
 .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55) 0%,rgba(0,0,0,.15) 45%,rgba(0,0,0,0) 75%);z-index:2;pointer-events:none}
-/* Contenido de texto sobre la imagen */
 .hero-content{position:relative;z-index:3;width:100%;padding:22px 24px 28px;color:#fff;display:flex;flex-direction:column;align-items:flex-start;gap:8px;cursor:pointer}
 .hero-tag{display:inline-block;background:rgba(255,255,255,.95);color:var(--divani-primary);font-size:9px;font-weight:var(--fw-max);letter-spacing:1.6px;text-transform:uppercase;padding:5px 11px;border-radius:6px;align-self:flex-start}
 .hero-title{font-family:var(--font-title);font-size:clamp(20px,4.8vw,32px);line-height:1.15;margin:0;color:#fff;font-weight:var(--fw-high);text-shadow:0 2px 12px rgba(0,0,0,.35);max-width:90%}
 .hero-sub{font-size:12px;color:rgba(255,255,255,.95);margin:0;line-height:1.55;max-width:520px;font-weight:var(--fw-body);text-shadow:0 1px 6px rgba(0,0,0,.35)}
 .hero-sub:empty{display:none}
-/* Insignia promocional */
 .hero-promo-badge{position:absolute;top:14px;right:14px;background:rgba(255,255,255,.96);color:var(--divani-primary);font-size:10px;font-weight:var(--fw-max);padding:6px 12px;border-radius:8px;box-shadow:0 5px 14px color-mix(in srgb,var(--divani-text) 20%, transparent);z-index:4;letter-spacing:.8px;backdrop-filter:blur(6px)}
-/* Flechas */
 .hero-arrow{position:absolute;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:12px;border:none;background:rgba(255,255,255,.92);color:var(--divani-text);font-size:18px;cursor:pointer;z-index:5;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px color-mix(in srgb,var(--divani-text) 20%, transparent);transition:all .2s;backdrop-filter:blur(6px)}
 .hero-arrow:hover{background:var(--divani-primary);color:var(--divani-on-primary);transform:translateY(-50%) scale(1.08)}
 .hero-arrow.prev{left:14px}
 .hero-arrow.next{right:14px}
-/* Dots */
 .hero-dots{display:flex;gap:6px;justify-content:center;margin-top:12px}
 .hero-dots button{width:7px;height:7px;border-radius:999px;border:none;background:color-mix(in srgb,var(--divani-primary) 28%, #fff);cursor:pointer;transition:all .3s;padding:0}
 .hero-dots button.active{width:22px;background:var(--divani-primary)}
-/* Responsive Hero */
-@media(min-width:900px){
-.hero-slide{min-height:340px}
-}
-@media(max-width:900px){
-.hero-slide{min-height:280px}
-.hero-content{padding:20px 22px 26px}
-}
-@media(max-width:640px){
-.hero-arrow{width:36px;height:36px;font-size:16px}
-.hero-arrow.prev{left:10px}
-.hero-arrow.next{right:10px}
-.hero-slide{min-height:260px}
-.hero-content{padding:18px 18px 24px}
-.hero-title{font-size:clamp(18px,5.5vw,26px)}
-.hero-sub{font-size:11px}
-.hero-promo-badge{top:10px;right:10px;font-size:9px;padding:5px 10px}
-}
-@media(max-width:420px){
-.hero-slide{min-height:240px}
-.hero-content{padding:16px 16px 22px}
-.hero-title{font-size:clamp(17px,6vw,22px)}
-}
-/* ============ CHIPS ============ */
+@media(min-width:900px){.hero-slide{min-height:340px}}
+@media(max-width:900px){.hero-slide{min-height:280px}.hero-content{padding:20px 22px 26px}}
+@media(max-width:640px){.hero-arrow{width:36px;height:36px;font-size:16px}.hero-arrow.prev{left:10px}.hero-arrow.next{right:10px}.hero-slide{min-height:260px}.hero-content{padding:18px 18px 24px}.hero-title{font-size:clamp(18px,5.5vw,26px)}.hero-sub{font-size:11px}.hero-promo-badge{top:10px;right:10px;font-size:9px;padding:5px 10px}}
+@media(max-width:420px){.hero-slide{min-height:240px}.hero-content{padding:16px 16px 22px}.hero-title{font-size:clamp(17px,6vw,22px)}}
 .chips{display:flex;gap:8px;overflow-x:auto;padding:6px 2px;margin-top:10px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .chips::-webkit-scrollbar{display:none}
 .chips a{flex-shrink:0;text-decoration:none;font-size:12px;font-weight:var(--fw-mid);color:color-mix(in srgb,var(--divani-text) 72%, #fff);background:#fff;border:1px solid var(--pink-line);
 padding:9px 17px;border-radius:10px;transition:all .22s;white-space:nowrap;box-shadow:0 2px 6px color-mix(in srgb,var(--divani-text) 4%, transparent);letter-spacing:.3px}
 .chips a:hover{color:var(--divani-primary);border-color:var(--divani-primary);transform:translateY(-1px)}
 .chips a.active{background:var(--divani-primary);border-color:var(--divani-primary);color:var(--divani-on-primary);box-shadow:0 5px 14px color-mix(in srgb,var(--divani-primary) 32%, transparent)}
-/* ============ GRID + CARDS ============ */
 .container{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 12px}
 @media(min-width:640px){.container{grid-template-columns:repeat(3,1fr);gap:18px 14px}}
 @media(min-width:960px){.container{grid-template-columns:repeat(4,1fr);gap:20px 16px}}
@@ -256,7 +224,6 @@ box-shadow:0 2px 8px rgba(0,0,0,.16);opacity:0;transition:opacity .25s,backgroun
 .gallery-nav-btn.prev{left:5px}
 .gallery-nav-btn.next{right:5px}
 .gallery-nav-btn:hover{background:var(--divani-primary);color:var(--divani-on-primary)}
-/* ============ BANDA PROMO ============ */
 .promo-band{margin:30px 0 8px;border-radius:16px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
 background:linear-gradient(120deg,var(--divani-primary),color-mix(in srgb,var(--divani-primary) 55%, var(--divani-secondary)));
 color:var(--divani-on-primary);box-shadow:0 10px 26px color-mix(in srgb,var(--divani-primary) 26%, transparent)}
@@ -264,19 +231,17 @@ color:var(--divani-on-primary);box-shadow:0 10px 26px color-mix(in srgb,var(--di
 .promo-band small{font-size:11px;opacity:.92;display:block;margin-top:2px}
 .promo-band button{background:#fff;color:var(--divani-primary);border:none;border-radius:10px;padding:11px 18px;font-weight:var(--fw-high);font-size:12px;cursor:pointer;transition:transform .2s;font-family:var(--font-button)}
 .promo-band button:hover{transform:translateY(-2px)}
-/* ============ FOOTER ============ */
 .footer{margin-top:38px;background:var(--divani-text);color:#f5ebf1;padding:34px 18px 18px}
 .foot-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:26px}
 @media(max-width:760px){.foot-inner{grid-template-columns:1fr;gap:20px}}
-.foot-brand{font-family:var(--font-title);font-size:24px;letter-spacing:6px;color:color-mix(in srgb,var(--divani-accent) 75%, #fff);font-weight:var(--fw-high)}
+.foot-brand{font-family:var(--font-title);font-size:24px;letter-spacing:6px;color:color-mix(in srgb(var(--divani-accent) 75%, #fff));font-weight:var(--fw-high)}
 .foot-tag{font-size:12px;color:#cdb6c2;margin:6px 0 0}
 .footer h5{margin:0 0 10px;font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#b998aa;font-weight:var(--fw-high)}
 .foot-contact a,.foot-contact div{display:flex;align-items:center;gap:9px;color:#e9dbe4;font-size:12px;text-decoration:none;margin-bottom:9px;transition:color .2s}
 .foot-contact a:hover{color:#fff}
 .foot-contact svg{width:15px;height:15px;flex-shrink:0;color:var(--divani-accent)}
 .foot-bottom{max-width:1100px;margin:24px auto 0;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);text-align:center;font-size:10.5px;color:#a88b9c;letter-spacing:.4px}
-/* ============ CARRITO ============ */
-.cart-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 45%, transparent);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:200}
+.cart-backdrop{position:fixed;inset:0;background:color-mix(in srgb(var(--divani-text) 45%, transparent);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:200}
 .cart-backdrop.show{opacity:1;pointer-events:auto}
 .cart{position:fixed;right:-100%;top:0;width:100%;max-width:400px;height:100%;background:#fff;padding:calc(18px + var(--safe-top)) 20px calc(20px + var(--safe-bottom));
 overflow-y:auto;z-index:210;transition:right .4s cubic-bezier(.2,.7,.3,1);box-shadow:-15px 0 40px rgba(0,0,0,.12);display:flex;flex-direction:column}
@@ -301,20 +266,19 @@ color:var(--divani-text);display:flex;align-items:center;justify-content:center;
 .cart-item-remove:hover{color:var(--danger)}
 .cart-item-sub{font-family:var(--font-price);font-size:13.5px;font-weight:var(--fw-max);color:var(--divani-primary);white-space:nowrap}
 .cart-empty{text-align:center;padding:44px 10px;color:var(--muted)}
-.cart-empty svg{width:50px;height:50px;color:color-mix(in srgb,var(--divani-primary) 30%, #fff);margin-bottom:10px}
+.cart-empty svg{width:50px;height:50px;color:color-mix(in srgb(var(--divani-primary) 30%, #fff);margin-bottom:10px}
 .cart-empty b{display:block;color:var(--muted);font-size:14px;font-weight:var(--fw-mid)}
 .cart-empty p{font-size:12px;margin:6px 0 0}
 .cart-total{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font-size:16px;font-weight:var(--fw-max);flex-shrink:0}
 .cart-total span:last-child{color:var(--divani-primary);font-size:19px;font-family:var(--font-price)}
 .btn-buy{background:var(--divani-button);color:var(--divani-on-primary);border:none;padding:14px;margin-top:14px;cursor:pointer;border-radius:12px;width:100%;
-font-weight:var(--fw-high);font-size:14px;font-family:var(--font-button);transition:all .2s;box-shadow:0 8px 20px color-mix(in srgb,var(--divani-button) 32%, transparent);display:flex;align-items:center;justify-content:center;gap:9px;flex-shrink:0}
+font-weight:var(--fw-high);font-size:14px;font-family:var(--font-button);transition:all .2s;box-shadow:0 8px 20px color-mix(in srgb(var(--divani-button) 32%, transparent);display:flex;align-items:center;justify-content:center;gap:9px;flex-shrink:0}
 .btn-buy:hover{background:var(--primary-dark);transform:translateY(-1px)}
 .btn-buy.wa{background:#25d366;box-shadow:0 8px 20px rgba(37,211,102,.3)}
 .btn-buy.wa:hover{background:#1fb958}
 .btn-buy svg{width:17px;height:17px}
-/* ============ MODALES ============ */
 .login-modal,.admin-panel,.edit-modal,.detail-modal,.store-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-background:color-mix(in srgb,var(--divani-text) 50%, transparent);backdrop-filter:blur(10px);z-index:230;
+background:color-mix(in srgb(var(--divani-text) 50%, transparent);backdrop-filter:blur(10px);z-index:230;
 justify-content:center;align-items:center;padding:15px;animation:fadeIn .25s}
 .edit-modal,.detail-modal,.store-modal{z-index:240}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
@@ -323,16 +287,14 @@ justify-content:center;align-items:center;padding:15px;animation:fadeIn .25s}
 .login-content h3{font-family:var(--font-title);margin:0 0 6px;font-size:22px;font-weight:var(--fw-high)}
 .login-content input{width:100%;padding:13px;border:1.5px solid var(--gray-border);border-radius:12px;text-align:center;letter-spacing:6px;margin-bottom:15px}
 .link-btn{background:none;border:none;margin-top:12px;color:#94a3b8;cursor:pointer;font-size:13px}
-/* ============ MODAL INFO TIENDA ============ */
 .store-content{background:#fff;border-radius:20px;width:100%;max-width:390px;max-height:92vh;overflow-y:auto;animation:popIn .35s cubic-bezier(.2,.7,.3,1);
-position:relative;box-shadow:0 30px 70px color-mix(in srgb,var(--divani-text) 35%, transparent)}
+position:relative;box-shadow:0 30px 70px color-mix(in srgb(var(--divani-text) 35%, transparent)}
 .store-close{position:absolute;top:12px;right:12px;z-index:5;background:var(--gray-light);color:var(--divani-text);border:none;width:38px;height:38px;
 border-radius:10px;cursor:pointer;font-size:15px;font-weight:var(--fw-high);transition:all .25s;display:flex;align-items:center;justify-content:center}
 .store-close:hover{background:var(--divani-primary);color:var(--divani-on-primary);transform:rotate(90deg)}
 .store-body{padding:56px 18px 6px;display:flex;flex-direction:column;gap:10px}
 .store-body .store-row{margin-bottom:0}
 .store-foot{padding:14px 18px 20px}
-/* ============ DETALLE ============ */
 .detail-modal-content{background:#fff;border-radius:18px;width:100%;max-width:1020px;max-height:92vh;
 position:relative;animation:popIn .35s cubic-bezier(.2,.7,.3,1);display:flex;flex-direction:column;overflow:hidden}
 .detail-topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px 12px 22px;
@@ -361,7 +323,7 @@ min-height:452px;border:1px solid var(--pink-line);overflow:hidden}
 .detail-catrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 .detail-category{font-size:10px;text-transform:uppercase;color:var(--divani-primary);font-weight:var(--fw-high);letter-spacing:2.4px}
 .detail-feat{display:inline-flex;align-items:center;gap:4px;font-size:8.5px;font-weight:var(--fw-max);letter-spacing:1.4px;text-transform:uppercase;
-color:color-mix(in srgb,var(--divani-primary) 72%, #000);background:var(--light-pink);border:1px solid var(--pink-line);padding:4px 10px;border-radius:6px}
+color:color-mix(in srgb(var(--divani-primary) 72%, #000);background:var(--light-pink);border:1px solid var(--pink-line);padding:4px 10px;border-radius:6px}
 .detail-info h2{font-family:var(--font-title);font-size:clamp(21px,2.6vw,27px);font-weight:var(--fw-high);margin:7px 0 8px;line-height:1.2;color:var(--divani-text)}
 .detail-price{font-family:var(--font-price);font-size:23px;font-weight:var(--fw-max);color:var(--divani-primary);letter-spacing:-.3px;margin-bottom:14px;display:flex;align-items:center;gap:9px;flex-wrap:wrap}
 .detail-price small{font-size:11px;color:var(--muted);font-weight:var(--fw-mid);letter-spacing:.5px}
@@ -381,29 +343,12 @@ transition:all .2s;background-size:cover;background-position:center;padding:0}
 .qty-stepper button:hover{background:var(--light-pink);color:var(--divani-primary)}
 .qty-stepper .qty-value{width:40px;text-align:center;font-weight:var(--fw-high);font-size:15px}
 .detail-add{flex:1;min-width:180px;background:var(--divani-button);color:var(--divani-on-primary);border:none;border-radius:12px;font-weight:var(--fw-high);font-size:14px;cursor:pointer;
-font-family:var(--font-button);transition:all .2s;box-shadow:0 8px 22px color-mix(in srgb,var(--divani-button) 38%, transparent);display:flex;align-items:center;justify-content:center;gap:9px;padding:14px;min-height:50px}
+font-family:var(--font-button);transition:all .2s;box-shadow:0 8px 22px color-mix(in srgb(var(--divani-button) 38%, transparent);display:flex;align-items:center;justify-content:center;gap:9px;padding:14px;min-height:50px}
 .detail-add:hover{background:var(--primary-dark);transform:translateY(-1px)}
 .detail-add svg{width:16px;height:16px}
-@media(max-width:900px){
-.detail-layout{grid-template-columns:1fr;gap:14px}
-.detail-main{order:1;min-height:330px}
-.detail-main img{max-height:300px}
-.detail-thumbs{order:2;flex-direction:row;overflow-x:auto;max-height:none;padding:4px 2px}
-.detail-info{order:3}
-}
-@media(max-width:640px){
-.detail-modal{padding:10px}
-.detail-modal-content{max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px);border-radius:16px}
-.detail-topbar{padding:10px 12px 10px 16px}
-.detail-scroll{padding:14px 14px 22px}
-.detail-main{min-height:280px;border-radius:14px}
-.detail-main img{max-height:270px}
-.detail-thumb{width:58px;height:58px}
-.detail-info h2{font-size:20px}
-.detail-price{font-size:21px}
-}
+@media(max-width:900px){.detail-layout{grid-template-columns:1fr;gap:14px}.detail-main{order:1;min-height:330px}.detail-main img{max-height:300px}.detail-thumbs{order:2;flex-direction:row;overflow-x:auto;max-height:none;padding:4px 2px}.detail-info{order:3}}
+@media(max-width:640px){.detail-modal{padding:10px}.detail-modal-content{max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px);border-radius:16px}.detail-topbar{padding:10px 12px 10px 16px}.detail-scroll{padding:14px 14px 22px}.detail-main{min-height:280px;border-radius:14px}.detail-main img{max-height:270px}.detail-thumb{width:58px;height:58px}.detail-info h2{font-size:20px}.detail-price{font-size:21px}}
 @media(max-width:350px){.detail-actions{flex-direction:column}.qty-stepper{justify-content:center}}
-/* ============ EDICIÓN / ADMIN ============ */
 .edit-modal-content{background:#fff;padding:25px;border-radius:18px;width:100%;max-width:620px;max-height:92vh;overflow-y:auto;animation:popIn .3s}
 .edit-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid var(--gray-border)}
 .edit-modal-header h3{margin:0;font-family:var(--font-title);font-size:19px;font-weight:var(--fw-high)}
@@ -468,7 +413,6 @@ border:1px solid var(--pink-line);border-radius:12px;padding:13px 16px;margin-bo
 .logo-preview{width:110px;height:110px;border-radius:16px;background:var(--gray-light);border:2px dashed var(--pink-line);
 display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--muted-2);font-size:11px;font-weight:var(--fw-high);flex-shrink:0;text-align:center}
 .logo-preview img{width:100%;height:100%;object-fit:contain;background:#fff;display:block}
-/* ============ ADMIN REDISEÑADO ============ */
 .admin-panel{padding:10px}
 .admin-content{background:#f1f5f9;width:100%;max-width:1300px;height:95vh;border-radius:18px;display:grid;grid-template-columns:235px 1fr;overflow:hidden;animation:popIn .3s}
 .admin-sidebar{background:#fff;padding:18px 12px;display:flex;flex-direction:column;overflow-y:auto;gap:4px}
@@ -504,7 +448,7 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;color:var
 .stat-ico{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:10px;background:var(--light-pink);display:flex;align-items:center;justify-content:center;font-size:16px}
 .quick-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
 .quick-btn{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 10px;background:#fff;border:1.5px solid var(--gray-border);border-radius:14px;cursor:pointer;font-weight:var(--fw-high);font-size:12px;color:var(--divani-text);transition:all .2s;text-align:center;font-family:var(--font-button)}
-.quick-btn:hover{border-color:var(--divani-primary);transform:translateY(-2px);box-shadow:0 8px 18px color-mix(in srgb,var(--divani-primary) 14%, transparent);color:var(--divani-primary)}
+.quick-btn:hover{border-color:var(--divani-primary);transform:translateY(-2px);box-shadow:0 8px 18px color-mix(in srgb(var(--divani-primary) 14%, transparent);color:var(--divani-primary)}
 .quick-btn .qi{font-size:22px}
 .steps{display:flex;flex-direction:column;gap:12px}
 .step{display:flex;gap:12px;align-items:flex-start}
@@ -567,7 +511,7 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;color:var
 .color-row input[type=text]{width:86px;padding:8px 10px;border:1.5px solid var(--gray-border);border-radius:10px;font-size:12px!important;font-weight:var(--fw-mid);text-transform:uppercase}
 .pv-card{border:1.5px solid var(--gray-border);border-radius:18px;overflow:hidden;background:#fff}
 .pv-id{background:linear-gradient(160deg,var(--divani-primary),var(--divani-secondary));color:var(--divani-on-primary);padding:20px 14px;text-align:center}
-.pv-logo{width:56px;height:56px;margin:0 auto 8px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--divani-on-primary) 75%, transparent);
+.pv-logo{width:56px;height:56px;margin:0 auto 8px;border-radius:50%;border:1.5px solid color-mix(in srgb(var(--divani-on-primary) 75%, transparent);
 display:flex;align-items:center;justify-content:center;font-family:var(--font-title);font-size:26px;font-weight:var(--fw-high);overflow:hidden}
 .pv-logo img{width:100%;height:100%;object-fit:contain;border-radius:50%}
 .pv-name{font-family:var(--font-title);font-size:20px;letter-spacing:5px;text-indent:5px;font-weight:var(--fw-high)}
@@ -584,17 +528,9 @@ background:#fff;padding:10px 12px;border-radius:14px;box-shadow:0 16px 44px rgba
 .preview-bar button{border:none;border-radius:10px;padding:11px 16px;font-weight:var(--fw-high);font-size:12px;cursor:pointer;background:var(--gray-light);color:var(--divani-text);font-family:var(--font-button);transition:all .2s}
 .preview-bar button.ok{background:var(--divani-button);color:var(--divani-on-primary)}
 .preview-bar button:hover{transform:translateY(-1px)}
-@media(max-width:860px){
-.admin-content{grid-template-columns:1fr;grid-template-rows:auto 1fr}
-.admin-sidebar{flex-direction:row;align-items:center;overflow-x:auto;gap:6px;padding:10px}
-.admin-nav-menu{flex-direction:row;overflow-x:auto}
-.admin-nav-item{white-space:nowrap;flex-shrink:0}
-.admin-brand{display:none}
-.at-title-wrap small{display:none}
-}
-/* ============ TOASTS ============ */
+@media(max-width:860px){.admin-content{grid-template-columns:1fr;grid-template-rows:auto 1fr}.admin-sidebar{flex-direction:row;align-items:center;overflow-x:auto;gap:6px;padding:10px}.admin-nav-menu{flex-direction:row;overflow-x:auto}.admin-nav-item{white-space:nowrap;flex-shrink:0}.admin-brand{display:none}.at-title-wrap small{display:none}}
 .toast-container{position:fixed;top:15px;right:15px;left:15px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;align-items:center}
-.toast{background:#fff;padding:12px 20px;border-radius:12px;box-shadow:0 10px 30px color-mix(in srgb,var(--divani-text) 16%, transparent);border-left:4px solid var(--divani-primary);
+.toast{background:#fff;padding:12px 20px;border-radius:12px;box-shadow:0 10px 30px color-mix(in srgb(var(--divani-text) 16%, transparent);border-left:4px solid var(--divani-primary);
 font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .35s cubic-bezier(.2,.7,.3,1);max-width:420px}
 @keyframes toastIn{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
 .toast.success{border-left-color:var(--success)}
@@ -604,14 +540,13 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 </head>
 <body>
 <div class="toast-container" id="toastContainer"></div>
-<!-- ============ HEADER ============ -->
 <header>
 <div class="header-inner">
 <div class="header-row">
 <button class="icon-btn" onclick="toggleDrawer(true)" aria-label="Menú e información de la tienda">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
 </button>
-<div class="brand" onclick="abrirInfoTienda()" title="DIVANI · Información de la tienda">
+<div class="brand" onclick="irInicio()" title="DIVANI · Ir al inicio">
 <span id="brandText">DIVANI</span>
 </div>
 <div class="header-actions">
@@ -631,7 +566,6 @@ font-weight:var(--fw-mid);font-size:13px;pointer-events:auto;animation:toastIn .
 </div>
 </div>
 </header>
-<!-- ============ DRAWER ============ -->
 <div class="drawer-backdrop" id="drawerBackdrop" onclick="toggleDrawer(false)"></div>
 <aside class="drawer" id="drawer">
 <div class="drawer-head">
@@ -719,7 +653,6 @@ Panel de administración
 Realizar pedido por WhatsApp
 </button>
 </div>
-<!-- ============ MODAL INFO TIENDA ============ -->
 <div class="store-modal" id="storeModal">
 <div class="store-content">
 <button class="store-close" onclick="cerrarInfoTienda()" aria-label="Cerrar">✕</button>
@@ -729,7 +662,6 @@ Realizar pedido por WhatsApp
 </div>
 </div>
 </div>
-<!-- LOGIN -->
 <div class="login-modal" id="loginModal">
 <div class="login-content">
 <h3>🔐 Acceso Admin</h3>
@@ -739,7 +671,6 @@ Realizar pedido por WhatsApp
 <button class="link-btn" onclick="cerrarLogin()">Cancelar</button>
 </div>
 </div>
-<!-- DETALLE -->
 <div class="detail-modal" id="detailModal">
 <div class="detail-modal-content">
 <div class="detail-topbar">
@@ -780,7 +711,7 @@ Agregar al Carrito
 </div>
 </div>
 </div>
-<!-- EDICIÓN -->
+</div>
 <div class="edit-modal" id="editModal">
 <div class="edit-modal-content">
 <div class="edit-modal-header"><h3>✏️ Editar producto</h3><button class="close-edit-modal" onclick="cerrarModalEdicion()" aria-label="Cerrar">✕</button></div>
@@ -815,7 +746,7 @@ Agregar al Carrito
 <div class="form-group"><label>💬 Texto promocional (opcional)</label><input type="text" id="editPromo" placeholder="Frase corta promocional"></div>
 <div class="card-sec-title"><span class="ico">🖼️</span>Imágenes<small>La primera es la portada</small></div>
 <label class="dropzone" for="editFileImg">
-<span class="dz-ico">📤</span>
+<span class="dz-ico"></span>
 <b>Toca para subir imágenes</b>
 <small id="editUploadHint">Varios tonos/colores · máx. 3MB c/u</small>
 </label>
@@ -833,23 +764,21 @@ Agregar al Carrito
 </div>
 </div>
 </div>
-<!-- BARRA VISTA PREVIA -->
 <div class="preview-bar" id="previewBar" hidden>
 <button onclick="volverAdmin()">⚙️ Volver al admin</button>
 <button class="ok" onclick="aplicarCambios()">Aplicar cambios</button>
 <button onclick="cancelarCambios()">Cancelar cambios</button>
 </div>
-<!-- ============ ADMIN REDISEÑADO ============ -->
 <div class="admin-panel" id="adminPanel">
 <div class="admin-content">
 <div class="admin-sidebar">
 <h3 class="admin-brand">DIVANI <span style="font-size:11px;letter-spacing:1px;color:#8a6478;font-family:var(--font-body);font-weight:600;">ADMIN</span></h3>
 <div class="admin-nav-menu">
-<button class="admin-nav-item active" data-tab="tab-dashboard" onclick="switchTab('tab-dashboard',this)"><span class="nav-ico">🏠</span>Resumen</button>
+<button class="admin-nav-item active" data-tab="tab-dashboard" onclick="switchTab('tab-dashboard',this)"><span class="nav-ico"></span>Resumen</button>
 <button class="admin-nav-item" data-tab="tab-nuevo" onclick="switchTab('tab-nuevo',this)"><span class="nav-ico">➕</span>Nuevo producto</button>
 <button class="admin-nav-item" data-tab="tab-inventario" onclick="switchTab('tab-inventario',this)"><span class="nav-ico">📦</span>Productos</button>
 <button class="admin-nav-item" data-tab="tab-destacados" onclick="switchTab('tab-destacados',this)"><span class="nav-ico">⭐</span>Destacados</button>
-<button class="admin-nav-item" data-tab="tab-banners" onclick="switchTab('tab-banners',this)"><span class="nav-ico">🖼️</span>Banners</button>
+<button class="admin-nav-item" data-tab="tab-banners" onclick="switchTab('tab-banners',this)"><span class="nav-ico">️</span>Banners</button>
 <button class="admin-nav-item" data-tab="tab-categorias" onclick="switchTab('tab-categorias',this)"><span class="nav-ico">🏷️</span>Categorías</button>
 <button class="admin-nav-item" data-tab="tab-carga-masiva" onclick="switchTab('tab-carga-masiva',this)"><span class="nav-ico">📊</span>Carga masiva</button>
 <button class="admin-nav-item" data-tab="tab-nube" onclick="switchTab('tab-nube',this)"><span class="nav-ico">☁️</span>Nube</button>
@@ -871,20 +800,19 @@ Agregar al Carrito
 </div>
 </div>
 <div class="admin-body">
-<!-- ======== RESUMEN ======== -->
 <div id="tab-dashboard" class="admin-view active">
 <div class="stats-grid" style="margin-bottom:18px;">
 <div class="stat-card"><span class="stat-ico">📦</span><div class="num" id="statProductos">0</div><div class="lbl">Productos</div></div>
-<div class="stat-card"><span class="stat-ico">🟢</span><div class="num" id="statVisibles">0</div><div class="lbl">Visibles</div></div>
-<div class="stat-card"><span class="stat-ico">🔴</span><div class="num" id="statOcultos">0</div><div class="lbl">Ocultos</div></div>
-<div class="stat-card"><span class="stat-ico">🏷️</span><div class="num" id="statCategorias">0</div><div class="lbl">Categorías</div></div>
+<div class="stat-card"><span class="stat-ico"></span><div class="num" id="statVisibles">0</div><div class="lbl">Visibles</div></div>
+<div class="stat-card"><span class="stat-ico"></span><div class="num" id="statOcultos">0</div><div class="lbl">Ocultos</div></div>
+<div class="stat-card"><span class="stat-ico">️</span><div class="num" id="statCategorias">0</div><div class="lbl">Categorías</div></div>
 <div class="stat-card"><span class="stat-ico">🖼️</span><div class="num" id="statBanners">0</div><div class="lbl">Banners</div></div>
 <div class="stat-card"><span class="stat-ico">⭐</span><div class="num" id="statDestacados">0</div><div class="lbl">Destacados</div></div>
 </div>
 <div class="dashboard-card">
 <h4>⚡ Acciones rápidas</h4>
 <div class="quick-grid">
-<button class="quick-btn" onclick="switchTab('tab-nuevo',navBtn('tab-nuevo'))"><span class="qi">➕</span>Nuevo producto</button>
+<button class="quick-btn" onclick="switchTab('tab-nuevo',navBtn('tab-nuevo'))"><span class="qi"></span>Nuevo producto</button>
 <button class="quick-btn" onclick="switchTab('tab-banners',navBtn('tab-banners'))"><span class="qi">🖼️</span>Nuevo banner</button>
 <button class="quick-btn" onclick="switchTab('tab-nube',navBtn('tab-nube'))"><span class="qi">☁️</span>Sincronizar nube</button>
 <button class="quick-btn" onclick="switchTab('tab-personaliza',navBtn('tab-personaliza'))"><span class="qi">🎨</span>Personalizar marca</button>
@@ -893,7 +821,7 @@ Agregar al Carrito
 </div>
 </div>
 <div class="dashboard-card">
-<h4>🕘 Productos recientes</h4>
+<h4> Productos recientes</h4>
 <div id="dashRecientes"></div>
 </div>
 <div class="dashboard-card">
@@ -906,7 +834,6 @@ Agregar al Carrito
 </div>
 </div>
 </div>
-<!-- ======== NUEVO PRODUCTO ======== -->
 <div id="tab-nuevo" class="admin-view">
 <div class="dashboard-card">
 <div class="card-sec-title" style="margin-top:0;"><span class="ico">📝</span>Información básica</div>
@@ -925,7 +852,7 @@ Agregar al Carrito
 </div>
 <small>Los productos con descuento aparecen en la sección "Nuevos".</small>
 </div>
-<div class="card-sec-title"><span class="ico">🖼️</span>Imágenes<small>La primera es la portada</small></div>
+<div class="card-sec-title"><span class="ico">️</span>Imágenes<small>La primera es la portada</small></div>
 <label class="dropzone" for="prodFileImg">
 <span class="dz-ico">📤</span>
 <b>Toca para subir imágenes</b>
@@ -954,7 +881,6 @@ Agregar al Carrito
 <button class="btn-buy" onclick="guardarNuevoProducto()">🚀 Publicar producto</button>
 </div>
 </div>
-<!-- ======== PRODUCTOS ======== -->
 <div id="tab-inventario" class="admin-view">
 <div class="dashboard-card">
 <h4>📦 Todos tus productos</h4>
@@ -975,7 +901,6 @@ Agregar al Carrito
 </div>
 </div>
 </div>
-<!-- ======== DESTACADOS ======== -->
 <div id="tab-destacados" class="admin-view">
 <div class="dashboard-card">
 <h4>⭐ Productos destacados</h4>
@@ -985,7 +910,6 @@ Agregar al Carrito
 <div id="destacadosList"></div>
 </div>
 </div>
-<!-- ======== BANNERS ======== -->
 <div id="tab-banners" class="admin-view">
 <div class="dashboard-card">
 <h4 id="bannerFormTitle">🖼️ Nuevo banner del carrusel</h4>
@@ -1028,7 +952,6 @@ Agregar al Carrito
 <div id="bannersList"></div>
 </div>
 </div>
-<!-- ======== CARGA MASIVA ======== -->
 <div id="tab-carga-masiva" class="admin-view">
 <div class="dashboard-card">
 <h4>📊 Sube muchos productos a la vez</h4>
@@ -1044,7 +967,6 @@ Agregar al Carrito
 <div id="resultadoCarga" style="margin-top:15px;padding:15px;border-radius:10px;display:none;"></div>
 </div>
 </div>
-<!-- ======== NUBE ======== -->
 <div id="tab-nube" class="admin-view">
 <div class="dashboard-card">
 <h4>☁️ Conexión con la nube</h4>
@@ -1053,7 +975,7 @@ Agregar al Carrito
 <input type="text" id="nubeImgbbKey" placeholder="Pega aquí tu API key de ImgBB (32 caracteres)">
 <small>Créala gratis en <a href="https://api.imgbb.com/" target="_blank" rel="noopener">api.imgbb.com</a>. Con la key activa, las imágenes que subas se guardan en ImgBB automáticamente y funcionan en cualquier dispositivo.</small>
 </div>
-<div class="form-group"><label>🗄️ URL de la base de datos (Firebase Realtime Database)</label>
+<div class="form-group"><label>️ URL de la base de datos (Firebase Realtime Database)</label>
 <input type="text" id="nubeDbUrl" placeholder="https://tu-proyecto-default-rtdb.firebaseio.com">
 <small>Crea un proyecto gratis en <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> → Realtime Database → modo prueba → copia la URL. Ahí se guardan tus productos, categorías, banners y contacto.</small>
 </div>
@@ -1062,7 +984,7 @@ Agregar al Carrito
 <label class="switch"><input type="checkbox" id="nubeAutoSync"><span class="switch-slider"></span></label>
 </div>
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
-<button class="sync-btn primary" style="flex:1;min-width:160px;margin:0;" onclick="guardarCredencialesNube()">💾 Guardar credenciales</button>
+<button class="sync-btn primary" style="flex:1;min-width:160px;margin:0;" onclick="guardarCredencialesNube()"> Guardar credenciales</button>
 <button class="sync-btn secondary" style="flex:1;min-width:160px;margin:0;" onclick="probarConexionNube()">🔌 Probar conexión</button>
 </div>
 </div>
@@ -1088,18 +1010,16 @@ Agregar al Carrito
 </div>
 </div>
 </div>
-<!-- ======== CATEGORÍAS ======== -->
 <div id="tab-categorias" class="admin-view">
 <div class="dashboard-card">
 <h4>🏷️ Nueva categoría</h4>
 <div style="display:flex;gap:10px;">
 <input type="text" id="nuevaCategoriaInput" placeholder="Ej: Labiales" style="flex:1;padding:12px;border:1.5px solid var(--gray-border);border-radius:12px;">
-<button class="sync-btn primary" style="width:auto;padding:12px 22px;margin:0;" onclick="agregarCategoria()">➕ Crear</button>
+<button class="sync-btn primary" style="width:auto;padding:12px 22px;margin:0;" onclick="agregarCategoria()"> Crear</button>
 </div>
 </div>
 <div class="dashboard-card"><h4>Categorías existentes</h4><p style="font-size:12px;color:#64748b;margin:-6px 0 15px;">Solo puedes eliminar categorías sin productos.</p><div id="categoriasGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;"></div></div>
 </div>
-<!-- ======== PERSONALIZACIÓN ======== -->
 <div id="tab-personaliza" class="admin-view">
 <div class="dashboard-card">
 <h4>🪪 Identidad de marca</h4>
@@ -1171,7 +1091,7 @@ Agregar al Carrito
 </div>
 </div>
 <div class="dashboard-card">
-<h4>📞 Datos de contacto</h4>
+<h4> Datos de contacto</h4>
 <div class="grid-form-2">
 <div class="form-group"><label>Ubicación</label><input type="text" id="persUbicacion" placeholder="Colombia"></div>
 <div class="form-group"><label>WhatsApp (código de país)</label><input type="text" id="persWhatsapp" placeholder="573003896683"></div>
@@ -1196,30 +1116,35 @@ Agregar al Carrito
 </div>
 </div>
 <script>
-/* ═══════════════════════════════════════════════════════════════
-🔑 CONFIGURACIÓN DE LA NUBE · PEGA TUS CLAVES AQUÍ ABAJO 👇
-═══════════════════════════════════════════════════════════════ */
-const CLOUD_CONFIG = {
-IMGBB_API_KEY: '',
-DATABASE_URL:  '',
-AUTO_SYNC:     true
+// Configuración centralizada de Firebase
+const firebaseConfig = {
+    apiKey: "AIzaSyDg8fXq9vJ8K7L6M5N4O3P2Q1R0S9T8U7V",
+    authDomain: "divani-1ab68.firebaseapp.com",
+    databaseURL: "https://divani-1ab68-default-rtdb.firebaseio.com",
+    projectId: "divani-1ab68",
+    storageBucket: "divani-1ab68.appspot.com",
+    messagingSenderId: "123456789012",
+    appId: "1:123456789012:web:abcdef1234567890"
 };
-function _limpiarClave(v){
-v=String(v==null?'':v).trim();
-if(!v) return '';
-if(/pega.?aqu[ií]|tu.?api|tu.?clave|xxxxxxxx|reemplaza/i.test(v)) return '';
-return v;
-}
-const CLOUD = {
-imgbbKey: _limpiarClave(localStorage.getItem('divani_imgbb_key')) || _limpiarClave(CLOUD_CONFIG.IMGBB_API_KEY),
-dbUrl:    _limpiarClave(localStorage.getItem('divani_db_url'))    || _limpiarClave(CLOUD_CONFIG.DATABASE_URL),
-autoSync: (localStorage.getItem('divani_cloud_auto') !== null)
-? localStorage.getItem('divani_cloud_auto') === '1'
-: !!CLOUD_CONFIG.AUTO_SYNC
+
+// Inicializar Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Configuración de nube centralizada
+const CLOUD_CONFIG = { 
+    IMGBB_API_KEY: 'cc49862e118bd133f541672ebecab6bf', 
+    DATABASE_URL: 'https://divani-1ab68-default-rtdb.firebaseio.com', 
+    AUTO_SYNC: true 
 };
-// ==========================================
-// DATOS BASE
-// ==========================================
+
+function _limpiarClave(v){ v=String(v==null?'':v).trim(); if(!v) return ''; if(/pega.?aqu[ií]|tu.?api|tu.?clave|xxxxxxxx|reemplaza/i.test(v)) return ''; return v; }
+const CLOUD = { 
+    imgbbKey: _limpiarClave(localStorage.getItem('divani_imgbb_key')) || _limpiarClave(CLOUD_CONFIG.IMGBB_API_KEY), 
+    dbUrl: _limpiarClave(localStorage.getItem('divani_db_url')) || _limpiarClave(CLOUD_CONFIG.DATABASE_URL), 
+    autoSync: (localStorage.getItem('divani_cloud_auto') !== null) ? localStorage.getItem('divani_cloud_auto') === '1' : !!CLOUD_CONFIG.AUTO_SYNC 
+};
+
 const IMG = {
 hero:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/1d0e98967-839d-450d-a618-81686045ae88.png',
 labial:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/19468acf1-a2ea-40ea-a11a-6036e47d03bd.png',
@@ -1234,39 +1159,18 @@ brochas:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c
 };
 const LOGO_DEFAULT='https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/130151fe0-5fd8-4d2b-b32e-c85eec11139f.png';
 const FALLBACK_IMG = 'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300"><rect width="300" height="300" fill="#fff1f6"/><text x="50%" y="50%" font-family="serif" font-size="30" fill="#e6538b" text-anchor="middle" dominant-baseline="middle">DIVANI</text></svg>');
-let productos = [
-{ id:'1', nombre:'Labial Velvet Matte · Edición Rosé', categoria:'Labios', precio:32000, visible:true,
-imagenes:[IMG.labial, IMG.swatches],
-tonos:[{n:'Rosa Encanto',c:'#c96f8e',i:0},{n:'Terracota Dream',c:'#b45a3c',i:1},{n:'Nude Diva',c:'#c99a83',i:1},{n:'Rojo Diva',c:'#b03052',i:0}],
-destacado:true, descuento:30, promo:'Color intenso hasta por 8 horas sin resecar. El favorito de la casa.' },
-{ id:'2', nombre:'Lip Combo', categoria:'Labios', precio:1000, visible:true,
-imagenes:[IMG.combo, IMG.swatches],
-tonos:[{n:'Rosé',c:'#c96f8e',i:0},{n:'Terracota',c:'#b45a3c',i:1},{n:'Nude',c:'#c99a83',i:1}],
-destacado:true, promo:'Delineador cremoso + gloss espejo: labios de revista en un solo paso.' },
-{ id:'3', nombre:'Paleta Cejas Pro · Define & Fix', categoria:'Cejas', precio:28000, visible:true, imagenes:[IMG.cejas] },
-{ id:'4', nombre:'Máscara Lash Lift · Volumen Extremo', categoria:'Ojos', precio:34000, visible:true, imagenes:[IMG.mascara], destacado:true },
-{ id:'5', nombre:'Sérum Glow Elixir · Vitamina C', categoria:'Skincare', precio:58000, visible:true,
-imagenes:[IMG.serum], destacado:true, descuento:15, promo:'Vitamina C + antioxidantes para un glow inmediato y piel uniforme.' },
-{ id:'6', nombre:'Bruma Facial Rosé Glow · Efecto Lifting', categoria:'Skincare', precio:36000, visible:false, imagenes:[IMG.bruma] },
-{ id:'7', nombre:'Shampoo Repair Rose · Keratina', categoria:'Capilar', precio:42000, visible:true,
-imagenes:[IMG.shampoo], destacado:true, promo:'Nueva línea Repair Rose: keratina + rosa mosqueta para pelo de seda.' },
-{ id:'8', nombre:'Set Brochas Divani · Edición Rosé', categoria:'Accesorios', precio:48000, visible:true, imagenes:[IMG.brochas] }
-];
-const DEFAULT_IDS=new Set(productos.map(p=>p.id));
+
+let productos = [];
 let categorias = ['Cejas','Labios','Ojos','Skincare','Capilar','Accesorios','Rostro','Brochas'];
-let banners = [
-{ id:'b1', etiqueta:'Nueva colección', titulo:'Descubre tus nuevos favoritos', sub:'Productos seleccionados para complementar tu estilo y rutina.', promo:'NUEVO', textoBoton:'Comprar ahora', img:IMG.hero, tema:1, cat:'Todos', usarIdentidad:true },
-{ id:'b2', etiqueta:'Selección especial', titulo:'Los favoritos de la casa', sub:'Marca ⭐ Destacados en tus productos favoritos y aparecerán aquí.', promo:'⭐ TOP', textoBoton:'Ver destacados', img:IMG.swatches, tema:2, cat:'Destacados', usarIdentidad:true }
-];
+let banners = [];
 let tiendaConfig = { ubicacion:'Colombia', instagram:'divani_maquillaje', tiktok:'divani_maquillaje', whatsapp:'573003896683' };
-// ==========================================
-// PERSONALIZACIÓN (persistente)
-// ==========================================
+
 const DEFAULT_PERS = {
 logo: LOGO_DEFAULT, name:'DIVANI', tagline:'Tu tienda de confianza', weight:'normal',
 palette:{ primary:'#e6538b', secondary:'#fbe1ea', background:'#fff9fb', light:'#fff1f6', text:'#33252b', button:'#e6538b', accent:'#e9a0bf', adminBtn:'#e6538b' },
 fonts:{ title:'playfair', body:'poppins', button:'poppins', price:'poppins' }
 };
+
 const FONT_OPTIONS=[
 {id:'playfair', label:'Playfair Display · serif elegante', stack:"'Playfair Display',serif"},
 {id:'cormorant', label:'Cormorant Garamond · serif fina', stack:"'Cormorant Garamond',serif"},
@@ -1275,6 +1179,7 @@ const FONT_OPTIONS=[
 {id:'montserrat', label:'Montserrat · profesional', stack:"'Montserrat',sans-serif"},
 {id:'jost', label:'Jost · minimalista', stack:"'Jost',sans-serif"}
 ];
+
 const COLOR_META=[
 {key:'primary', label:'Color principal', desc:'Marca, precios, chips y detalles'},
 {key:'secondary', label:'Color secundario', desc:'Degradados y zona de identidad'},
@@ -1284,7 +1189,9 @@ const COLOR_META=[
 {key:'accent', label:'Color de detalles', desc:'Bordes, acentos y scrollbars'},
 {key:'adminBtn', label:'Color del botón Admin', desc:'Botón de acceso al panel de administración'}
 ];
+
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
 function loadPers(){
 try{
 const raw=localStorage.getItem('divani_cfg_v2');
@@ -1300,10 +1207,14 @@ fonts: Object.assign(base.fonts, d.fonts||{})
 };
 }catch(e){ return clone(DEFAULT_PERS); }
 }
+
 let pers=loadPers();
 let draft=clone(pers);
 let draftDirty=false;
 let adminAutenticado=false;
+let logoTapCount=0;
+let logoTapTimer=null;
+
 function stackOf(id){ const f=FONT_OPTIONS.find(x=>x.id===id); return f?f.stack:FONT_OPTIONS[0].stack; }
 function hexToRgb(h){ h=String(h).replace('#',''); if(h.length===3) h=h.split('').map(c=>c+c).join(''); const n=parseInt(h,16); return {r:(n>>16)&255,g:(n>>8)&255,b:n&255}; }
 function rgbToHex(r,g,b){ return '#'+[r,g,b].map(x=>Math.max(0,Math.min(255,Math.round(x))).toString(16).padStart(2,'0')).join(''); }
@@ -1313,6 +1224,7 @@ function rgbToHsl(r,g,b){ r/=255;g/=255;b/=255; const max=Math.max(r,g,b),min=Ma
 if(max!==min){ const d=max-min; s=l>.5? d/(2-max-min):d/(max-min===0?1:max-min);
 switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;default:h=(r-g)/d+4;} h*=60; }
 return [h,s,l]; }
+
 function applyPers(cfg){
 const r=document.documentElement.style, p=cfg.palette;
 r.setProperty('--divani-primary',p.primary);
@@ -1336,6 +1248,7 @@ if(w!=='normal') document.body.classList.add('fw-'+w);
 const meta=document.querySelector('meta[name=theme-color]'); if(meta) meta.content=p.primary;
 updateBrand(cfg); updatePv(cfg);
 }
+
 function updateBrand(cfg){
 document.getElementById('brandText').textContent=cfg.name;
 document.getElementById('drawerBrandText').textContent=cfg.name;
@@ -1344,28 +1257,33 @@ const fbb=document.getElementById('footBottomBrand'); if(fbb) fbb.textContent=cf
 const ft=document.getElementById('footTag'); if(ft) ft.textContent=cfg.tagline;
 document.title=cfg.name+' · Tienda de Belleza';
 }
+
 function updatePv(cfg){
 const pvL=document.getElementById('pvLogo');
 if(pvL) pvL.innerHTML=cfg.logo?`<img src="${esc(cfg.logo)}" alt="">`:esc((cfg.name||'D').charAt(0).toUpperCase());
 const n=document.getElementById('pvName'); if(n) n.textContent=cfg.name;
 const t=document.getElementById('pvTag'); if(t) t.textContent=cfg.tagline;
 }
+
 function saveConfig(){
 try{ localStorage.setItem('divani_cfg_v2', JSON.stringify(pers)); }
 catch(e){ showToast('No se pudo guardar en este dispositivo (espacio lleno)','warning'); }
 }
+
 function saveFlags(){
 try{
-const m={}; productos.forEach(p=>{ if(DEFAULT_IDS.has(p.id)) m[p.id]={d:!!p.destacado,v:p.visible!==false}; });
+const m={}; productos.forEach(p=>{ m[p.id]={d:!!p.destacado,v:p.visible!==false}; });
 localStorage.setItem('divani_flags_v1', JSON.stringify(m));
 }catch(e){}
 }
+
 function loadFlags(){
 try{
 const m=JSON.parse(localStorage.getItem('divani_flags_v1')||'{}');
 productos.forEach(p=>{ if(m[p.id]){ p.destacado=!!m[p.id].d; p.visible=m[p.id].v!==false; } });
 }catch(e){}
 }
+
 function buildColorRows(){
 const cont=document.getElementById('colorRows'); if(!cont) return;
 cont.innerHTML=COLOR_META.map(m=>`
@@ -1376,12 +1294,14 @@ cont.innerHTML=COLOR_META.map(m=>`
 <input type="text" id="hex-${m.key}" maxlength="7" oninput="setDraftColorHex('${m.key}',this.value)" aria-label="${m.label} HEX">
 </div>`).join('');
 }
+
 function buildFontSelects(){
 ['title','body','button','price'].forEach(role=>{
 const sel=document.getElementById('sel-font-'+role); if(!sel) return;
 sel.innerHTML=FONT_OPTIONS.map(f=>`<option value="${f.id}">${f.label}</option>`).join('');
 });
 }
+
 function syncPersUI(){
 COLOR_META.forEach(m=>{
 const v=draft.palette[m.key];
@@ -1402,6 +1322,7 @@ document.getElementById('persWhatsapp').value=tiendaConfig.whatsapp;
 document.getElementById('persInstagram').value=tiendaConfig.instagram;
 document.getElementById('persTiktok').value=tiendaConfig.tiktok;
 }
+
 function markDirty(){ draftDirty=true; }
 function setDraftColor(key,val){ draft.palette[key]=val; markDirty(); applyPers(draft); syncPersUI(); }
 function setDraftColorHex(key,val){
@@ -1412,6 +1333,7 @@ function setDraftFont(role,val){ draft.fonts[role]=val; markDirty(); applyPers(d
 function setDraftWeight(val){ draft.weight=val; markDirty(); applyPers(draft); }
 function setDraftNombre(v){ draft.name=v||'DIVANI'; markDirty(); applyPers(draft); }
 function setDraftTagline(v){ draft.tagline=v; markDirty(); applyPers(draft); }
+
 function setLogoDraft(url, autoExtract=true){
 draft.logo=url; markDirty();
 syncPersUI(); applyPers(draft);
@@ -1421,6 +1343,7 @@ im.onload=()=>{ const pal=analizarPaleta(im); if(pal){ draft.palette=Object.assi
 im.src=url;
 }
 }
+
 async function cargarLogoPers(input){
 const f=input.files[0]; input.value='';
 if(!f) return;
@@ -1440,13 +1363,16 @@ const r=new FileReader();
 r.onload=()=>setLogoDraft(r.result,true);
 r.readAsDataURL(f);
 }
+
 function aplicarLogoUrlPers(){
 const u=document.getElementById('persLogoUrl').value.trim();
 if(!u||!u.startsWith('http')){ showToast('Pega una URL válida de imagen','warning'); return; }
 document.getElementById('persLogoUrl').value='';
 setLogoDraft(u,true);
 }
+
 function quitarLogoPers(){ setLogoDraft('',false); showToast('Logo eliminado · se usará monograma elegante','warning'); }
+
 function analizarPaleta(img){
 try{
 const s=72, c=document.createElement('canvas'); c.width=s; c.height=s;
@@ -1481,6 +1407,7 @@ accent: mixHex(primary,'#ffffff',.4)
 };
 }catch(e){ return null; }
 }
+
 function extraerColoresLogo(){
 if(!draft.logo){ showToast('Primero sube un logo','warning'); return; }
 const im=new Image(); im.crossOrigin='anonymous';
@@ -1493,6 +1420,7 @@ showToast('Paleta extraída · revisa la vista previa y confirma con "Aplicar ca
 im.onerror=()=>showToast('No se pudo cargar el logo para análisis','warning');
 im.src=draft.logo;
 }
+
 function restaurarOriginales(){
 draft.palette=clone(DEFAULT_PERS.palette);
 draft.fonts=clone(DEFAULT_PERS.fonts);
@@ -1500,6 +1428,7 @@ draft.weight=DEFAULT_PERS.weight;
 markDirty(); applyPers(draft); syncPersUI();
 showToast('Colores y tipografías originales restaurados','success');
 }
+
 function aplicarCambios(){
 pers=clone(draft); draftDirty=false;
 applyPers(pers); saveConfig();
@@ -1507,21 +1436,25 @@ document.getElementById('previewBar').hidden=true;
 showToast('Identidad aplicada y guardada','success');
 programarSyncNube();
 }
+
 function cancelarCambios(){
 draft=clone(pers); draftDirty=false;
 applyPers(pers); syncPersUI();
 document.getElementById('previewBar').hidden=true;
 showToast('Cambios descartados','warning');
 }
+
 function verCatalogo(){
 if(!adminAutenticado) return;
 document.getElementById('adminPanel').style.display='none';
 document.getElementById('previewBar').hidden=false;
 }
+
 function volverAdmin(){
 document.getElementById('adminPanel').style.display='flex';
 document.getElementById('previewBar').hidden=true;
 }
+
 function guardarContacto(){
 tiendaConfig.ubicacion=document.getElementById('persUbicacion').value.trim();
 tiendaConfig.whatsapp=document.getElementById('persWhatsapp').value.replace(/\D/g,'');
@@ -1531,16 +1464,16 @@ saveConfig(); renderAllTienda();
 showToast('Datos de contacto guardados','success');
 programarSyncNube();
 }
-// ==========================================
-// NUBE · IMGBB + BASE DE DATOS (Firebase)
-// ==========================================
+
 let _syncTimer=null, _aplicandoNube=false;
+
 function dbEndpoint(){
 let u=(CLOUD.dbUrl||'').trim().replace(/\/+$/,'');
 if(!u) return '';
 if(!u.endsWith('.json')) u+='/divani.json';
 return u;
 }
+
 function dataUrlABlob(dataUrl){
 const parts=String(dataUrl).split(',');
 const meta=parts[0]||'';
@@ -1550,6 +1483,7 @@ const bin=atob(b64); const arr=new Uint8Array(bin.length);
 for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
 return new Blob([arr],{type:mime});
 }
+
 async function subirImagenImgBB(source){
 if(!CLOUD.imgbbKey) throw new Error('Falta la API key de ImgBB');
 let blob=null;
@@ -1563,24 +1497,129 @@ const j=await res.json().catch(()=>null);
 if(j && j.success && j.data && j.data.url) return j.data.url;
 throw new Error((j&&j.error&&j.error.message)||'Error HTTP '+res.status);
 }
+
 function archivoADataUrl(f){
 return new Promise(res=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>res(null); r.readAsDataURL(f); });
 }
+
+// NUEVA FUNCIÓN: Procesamiento automático de imágenes (normalización de fondo)
+async function procesarImagenNormalizarFondo(file) {
+    return new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const img = new Image();
+            img.onload = function() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                
+                canvas.width = img.width;
+                canvas.height = img.height;
+                
+                ctx.drawImage(img, 0, 0);
+                
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                const data = imageData.data;
+                
+                // Detectar color dominante del fondo (esquinas)
+                const corners = [
+                    {x: 0, y: 0},
+                    {x: canvas.width - 1, y: 0},
+                    {x: 0, y: canvas.height - 1},
+                    {x: canvas.width - 1, y: canvas.height - 1}
+                ];
+                
+                let bgR = 0, bgG = 0, bgB = 0, count = 0;
+                const sampleSize = Math.min(50, Math.floor(Math.min(canvas.width, canvas.height) * 0.1));
+                
+                corners.forEach(corner => {
+                    for(let y = corner.y; y < corner.y + sampleSize && y < canvas.height; y++) {
+                        for(let x = corner.x; x < corner.x + sampleSize && x < canvas.width; x++) {
+                            const idx = (y * canvas.width + x) * 4;
+                            bgR += data[idx];
+                            bgG += data[idx + 1];
+                            bgB += data[idx + 2];
+                            count++;
+                        }
+                    }
+                });
+                
+                if(count > 0) {
+                    bgR = Math.round(bgR / count);
+                    bgG = Math.round(bgG / count);
+                    bgB = Math.round(bgB / count);
+                }
+                
+                // Umbral de tolerancia para considerar un color como "fondo"
+                const tolerance = 60;
+                
+                // Reemplazar píxeles similares al fondo con blanco
+                for(let i = 0; i < data.length; i += 4) {
+                    const r = data[i];
+                    const g = data[i + 1];
+                    const b = data[i + 2];
+                    
+                    const diff = Math.sqrt(
+                        Math.pow(r - bgR, 2) +
+                        Math.pow(g - bgG, 2) +
+                        Math.pow(b - bgB, 2)
+                    );
+                    
+                    if(diff < tolerance) {
+                        data[i] = 255;     // R
+                        data[i + 1] = 255; // G
+                        data[i + 2] = 255; // B
+                    }
+                }
+                
+                ctx.putImageData(imageData, 0, 0);
+                
+                // Convertir a blob y luego a data URL
+                canvas.toBlob((blob) => {
+                    const reader2 = new FileReader();
+                    reader2.onload = () => resolve(reader2.result);
+                    reader2.readAsDataURL(blob);
+                }, 'image/jpeg', 0.95);
+            };
+            img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+}
+
 async function procesarArchivosImagen(files){
 const valid = Array.from(files).filter(f=>f.type.startsWith('image/')&&f.size<=3*1024*1024);
 if(!valid.length){ showToast('Sin imágenes válidas (máx. 3MB c/u)','warning'); return []; }
 const urls=[];
-if(CLOUD.imgbbKey){
-showToast('Subiendo '+valid.length+' imagen(es) a ImgBB…','success');
+
+// Procesar cada imagen para normalizar fondo
+showToast('Procesando imágenes...','success');
+const processedFiles = [];
 for(const f of valid){
-try{ urls.push(await subirImagenImgBB(f)); }
-catch(e){ showToast('ImgBB: '+e.message+' · se guardó copia local','warning'); const u=await archivoADataUrl(f); if(u) urls.push(u); }
+    try {
+        const processed = await procesarImagenNormalizarFondo(f);
+        processedFiles.push(processed);
+    } catch(e) {
+        // Si falla el procesamiento, usar original
+        const original = await archivoADataUrl(f);
+        if(original) processedFiles.push(original);
+    }
+}
+
+if(CLOUD.imgbbKey){
+showToast('Subiendo '+processedFiles.length+' imagen(es) a ImgBB…','success');
+for(const dataUrl of processedFiles){
+try{ 
+    const blob = dataUrlABlob(dataUrl);
+    urls.push(await subirImagenImgBB(blob)); 
+}
+catch(e){ showToast('ImgBB: '+e.message+' · se guardó copia local','warning'); urls.push(dataUrl); }
 }
 }else{
-for(const f of valid){ const u=await archivoADataUrl(f); if(u) urls.push(u); }
+urls.push(...processedFiles);
 }
 return urls;
 }
+
 function guardarCredencialesNube(){
 CLOUD.imgbbKey=_limpiarClave(document.getElementById('nubeImgbbKey').value);
 CLOUD.dbUrl=_limpiarClave(document.getElementById('nubeDbUrl').value);
@@ -1593,6 +1632,7 @@ localStorage.setItem('divani_cloud_auto',CLOUD.autoSync?'1':'0');
 syncNubeUI();
 showToast('Credenciales de nube guardadas','success');
 }
+
 function guardarCredencialesNubeSilencioso(){
 CLOUD.imgbbKey=_limpiarClave(document.getElementById('nubeImgbbKey').value);
 CLOUD.dbUrl=_limpiarClave(document.getElementById('nubeDbUrl').value);
@@ -1604,6 +1644,7 @@ localStorage.setItem('divani_cloud_auto',CLOUD.autoSync?'1':'0');
 }catch(e){}
 syncNubeUI();
 }
+
 function syncNubeUI(){
 const k=document.getElementById('nubeImgbbKey'); if(k) k.value=CLOUD.imgbbKey;
 const u=document.getElementById('nubeDbUrl'); if(u) u.value=CLOUD.dbUrl;
@@ -1626,6 +1667,7 @@ const h1=document.getElementById('prodUploadHint'); if(h1) h1.textContent=hintIm
 const h2=document.getElementById('editUploadHint'); if(h2) h2.textContent=hintImg;
 const h3=document.getElementById('bannerUploadHint'); if(h3) h3.textContent=CLOUD.imgbbKey?'Con ImgBB activo: la imagen se sube a la nube automáticamente':'máx. 3MB';
 }
+
 async function probarConexionNube(){
 guardarCredencialesNubeSilencioso();
 const ep=dbEndpoint();
@@ -1643,32 +1685,83 @@ showToast('✅ ImgBB: API key válida','success');
 }catch(e){ showToast('❌ ImgBB: '+e.message,'danger'); }
 }else{ showToast('ImgBB: falta la API key','warning'); }
 }
+
+// Funciones de Firebase para sincronización en tiempo real
 async function subirDatosANube(silent=false){
-const ep=dbEndpoint();
-if(!ep){ if(!silent) showToast('Primero guarda la URL de la base de datos en la pestaña Nube','warning'); return false; }
-const payload={ productos, categorias, banners, tiendaConfig, personalizacion:pers, actualizado:new Date().toISOString() };
 try{
-if(!silent) showToast('Subiendo datos a la nube…','success');
-const res=await fetch(ep,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-if(!res.ok) throw new Error('HTTP '+res.status);
+if(!silent) showToast('Subiendo datos a Firebase…','success');
+const payload={ 
+    productos, 
+    categorias, 
+    banners, 
+    tiendaConfig, 
+    personalizacion:pers, 
+    actualizado:new Date().toISOString() 
+};
+
+await db.ref('divani').set(payload);
+
 try{ localStorage.setItem('divani_last_sync', new Date().toLocaleString('es-CO')); }catch(e){}
 syncNubeUI();
-if(!silent) showToast('☁️ Catálogo guardado en la nube','success');
+if(!silent) showToast('☁️ Catálogo guardado en Firebase','success');
 return true;
 }catch(e){
-if(!silent) showToast('Error al subir a la nube: '+e.message,'danger');
+if(!silent) showToast('Error al subir a Firebase: '+e.message,'danger');
 return false;
 }
 }
+
+// Listener de Firebase para sincronización en tiempo real
+function configurarListenerFirebase() {
+    db.ref('divani').on('value', (snapshot) => {
+        const data = snapshot.val();
+        if(!data) return;
+        
+        _aplicandoNube = true;
+        
+        if(Array.isArray(data.productos)) productos = data.productos;
+        if(Array.isArray(data.categorias)) categorias = data.categorias;
+        if(Array.isArray(data.banners)) banners = data.banners;
+        if(data.tiendaConfig) tiendaConfig = Object.assign(tiendaConfig, data.tiendaConfig);
+        if(data.personalizacion){
+            const base = clone(DEFAULT_PERS);
+            pers = {
+                logo: typeof data.personalizacion.logo === 'string' ? data.personalizacion.logo : base.logo,
+                name: data.personalizacion.name || base.name,
+                tagline: data.personalizacion.tagline ?? base.tagline,
+                weight: data.personalizacion.weight || base.weight,
+                palette: Object.assign(clone(base.palette), data.personalizacion.palette || {}),
+                fonts: Object.assign(clone(base.fonts), data.personalizacion.fonts || {})
+            };
+            draft = clone(pers);
+            applyPers(pers);
+            saveConfig();
+        }
+        
+        prepararCacheBusqueda();
+        refreshPublic();
+        refreshAdminViews();
+        renderNavCategorias();
+        renderSelectCategorias();
+        renderSelectCategoriasBanner();
+        renderAllTienda();
+        syncPersUI();
+        
+        _aplicandoNube = false;
+    }, (error) => {
+        console.error('Error en listener Firebase:', error);
+        showToast('Error de sincronización: ' + error.message, 'danger');
+    });
+}
+
 async function descargarDeNube(silent=false){
-const ep=dbEndpoint();
-if(!ep){ if(!silent) showToast('Primero guarda la URL de la base de datos en la pestaña Nube','warning'); return false; }
 try{
-if(!silent) showToast('Descargando datos de la nube…','success');
-const res=await fetch(ep);
-if(!res.ok) throw new Error('HTTP '+res.status);
-const data=await res.json();
-if(!data){ if(!silent) showToast('La nube está vacía: primero sube tu catálogo','warning'); return false; }
+if(!silent) showToast('Descargando datos de Firebase…','success');
+const snapshot = await db.ref('divani').once('value');
+const data = snapshot.val();
+
+if(!data){ if(!silent) showToast('Firebase está vacío: primero sube tu catálogo','warning'); return false; }
+
 _aplicandoNube=true;
 if(Array.isArray(data.productos)&&data.productos.length) productos=data.productos;
 if(Array.isArray(data.categorias)&&data.categorias.length) categorias=data.categorias;
@@ -1692,23 +1785,26 @@ refreshPublic(); refreshAdminViews();
 renderNavCategorias(); renderSelectCategorias(); renderSelectCategoriasBanner(); renderAllTienda();
 syncPersUI();
 _aplicandoNube=false;
-if(!silent) showToast('☁️ Catálogo cargado desde la nube','success');
+if(!silent) showToast('☁️ Catálogo cargado desde Firebase','success');
 return true;
 }catch(e){
 _aplicandoNube=false;
-if(!silent) showToast('Error al descargar de la nube: '+e.message,'danger');
+if(!silent) showToast('Error al descargar de Firebase: '+e.message,'danger');
 return false;
 }
 }
+
 function confirmarDescargaNube(){
-if(confirm('¿Reemplazar los datos locales con los datos de la nube?')) descargarDeNube(false);
+if(confirm('¿Reemplazar los datos locales con los datos de Firebase?')) descargarDeNube(false);
 }
+
 function programarSyncNube(){
 if(_aplicandoNube) return;
 if(!CLOUD.autoSync || !CLOUD.dbUrl) return;
 clearTimeout(_syncTimer);
 _syncTimer=setTimeout(()=>subirDatosANube(true),1500);
 }
+
 async function migrarImagenesAImgBB(){
 if(!CLOUD.imgbbKey){ showToast('Primero guarda tu API key de ImgBB','warning'); return; }
 const pendientes=[];
@@ -1727,9 +1823,7 @@ ok++;
 refreshPublic(); refreshAdminViews(); initHero(); programarSyncNube();
 showToast('Migración completa: '+ok+' OK'+(fail?(' · '+fail+' fallidas'):''), fail?'warning':'success');
 }
-// ==========================================
-// UTILIDADES
-// ==========================================
+
 let carrito = [];
 let categoriaActual = 'Todos';
 let vistaActual = 'home';
@@ -1743,12 +1837,14 @@ let imagenesEdicionTemp = [];
 let heroIdx = 0, heroTimer = null, heroTotal = 0;
 let bannerEditandoId = null;
 let invFiltro='todos', invBusqueda='';
+
 function showToast(message, type='success'){
 const toast=document.createElement('div');
 toast.className=`toast ${type}`; toast.innerHTML=message;
 document.getElementById('toastContainer').appendChild(toast);
 setTimeout(()=>toast.remove(),3200);
 }
+
 function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function limpiarPrecio(p){ if(typeof p==='number') return p; const n=parseFloat(String(p).replace(/[$.,\s]/g,'')); return isNaN(n)?0:n; }
 function formatearPrecio(n){ const num = typeof n==='string' ? limpiarPrecio(n) : n; return '$'+(num||0).toLocaleString('es-CO'); }
@@ -1798,9 +1894,7 @@ if(n) out.push({n,c,i:Math.min(i,Math.max(0,numImgs-1))});
 return out.length?out:undefined;
 }
 function navBtn(tab){ return document.querySelector('.admin-nav-item[data-tab="'+tab+'"]'); }
-// ==========================================
-// INFO TIENDA + FOOTER
-// ==========================================
+
 function filasTiendaHtml(){
 const t=tiendaConfig;
 const ig=String(t.instagram||'').replace(/^@/,'');
@@ -1816,6 +1910,7 @@ return `
 <a class="store-row" href="https://www.tiktok.com/@${esc(tk)}" target="_blank" rel="noopener"><span class="store-ico tk">${ICO_TK}</span><div><b>TikTok</b><small>@${esc(tk)}</small></div><span class="chev">›</span></a>
 <a class="store-row" href="https://wa.me/${esc(wa)}" target="_blank" rel="noopener"><span class="store-ico wa">${ICO_WA}</span><div><b>WhatsApp</b><small>${formatWa(wa)}</small></div><span class="chev">›</span></a>`;
 }
+
 function footContactHtml(){
 const t=tiendaConfig;
 const ig=String(t.instagram||'').replace(/^@/,'');
@@ -1831,17 +1926,17 @@ return `
 <a href="https://www.instagram.com/${esc(ig)}/" target="_blank" rel="noopener">${ICO_IG}<span>@${esc(ig)}</span></a>
 <a href="https://www.tiktok.com/@${esc(tk)}" target="_blank" rel="noopener">${ICO_TK}<span>@${esc(tk)}</span></a>`;
 }
+
 function renderAllTienda(){
 const rows=filasTiendaHtml();
 const dr=document.getElementById('drawerStoreRows'); if(dr) dr.innerHTML=rows;
 const sr=document.getElementById('storeBodyRows'); if(sr) sr.innerHTML=rows;
 const fc=document.getElementById('footContact'); if(fc) fc.innerHTML=footContactHtml();
 }
+
 function abrirInfoTienda(){ document.getElementById('storeModal').style.display='flex'; }
 function cerrarInfoTienda(){ document.getElementById('storeModal').style.display='none'; }
-// ==========================================
-// CARRUSEL · BANNER FULL IMAGE
-// ==========================================
+
 function construirSlidesHero(){
 const slides=[];
 banners.forEach((b)=>{
@@ -1859,6 +1954,7 @@ ${b.promo?`<span class="hero-promo-badge">${esc(b.promo)}</span>`:''}
 });
 return slides;
 }
+
 function initHero(){
 const section=document.getElementById('heroSection');
 const slides=construirSlidesHero();
@@ -1873,6 +1969,7 @@ document.querySelectorAll('#heroDots button').forEach((d,j)=>d.classList.toggle(
 document.querySelectorAll('.hero-arrow').forEach(a=>a.style.display=heroTotal>1?'':'none');
 startHeroTimer();
 }
+
 function goHero(i,manual){
 if(!heroTotal) return;
 heroIdx=(i+heroTotal)%heroTotal;
@@ -1880,6 +1977,7 @@ document.getElementById('heroTrack').style.transform=`translateX(-${heroIdx*100}
 document.querySelectorAll('#heroDots button').forEach((d,j)=>d.classList.toggle('active',j===heroIdx));
 if(manual) startHeroTimer();
 }
+
 function startHeroTimer(){ if(heroTimer) clearInterval(heroTimer); if(heroTotal>1) heroTimer=setInterval(()=>goHero(heroIdx+1),5200); }
 function ctaBanner(id){ const b=banners.find(x=>x.id===id); if(!b) return; filtrarCategoria(b.cat||'Todos'); }
 function initHeroGestures(){
@@ -1889,28 +1987,26 @@ frame.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-sx; i
 frame.addEventListener('mouseenter',()=>{ if(heroTimer) clearInterval(heroTimer); });
 frame.addEventListener('mouseleave',()=>startHeroTimer());
 }
-// ==========================================
-// DRAWER
-// ==========================================
+
 function toggleDrawer(abrir){
 const d=document.getElementById('drawer'), b=document.getElementById('drawerBackdrop');
 const open = abrir===undefined ? !d.classList.contains('open') : abrir;
 d.classList.toggle('open',open); b.classList.toggle('show',open);
 document.body.classList.toggle('no-scroll',open);
 }
-// ==========================================
-// IMÁGENES LOCAL / IMGBB
-// ==========================================
+
 async function cargarImagenesProducto(input){
 const urls=await procesarArchivosImagen(input.files);
 if(urls.length){ urls.forEach(u=>imagenesProductoTemp.push(u)); renderListaImagenesProducto(); showToast(`${urls.length} imagen(es) cargada(s)`,'success'); }
 input.value='';
 }
+
 async function cargarImagenesEdicion(input){
 const urls=await procesarArchivosImagen(input.files);
 if(urls.length){ urls.forEach(u=>imagenesEdicionTemp.push(u)); renderListaImagenesEdicion(); showToast(`${urls.length} imagen(es) cargada(s)`,'success'); }
 input.value='';
 }
+
 function renderListaImagenesProducto(){
 const cont=document.getElementById('prodImagesList'); if(!cont) return; cont.innerHTML='';
 imagenesProductoTemp.forEach((url,idx)=>{
@@ -1920,7 +2016,9 @@ div.innerHTML=`<img src="${url}" alt="img-${idx}"><button class="remove-img-btn"
 cont.appendChild(div);
 });
 }
+
 function quitarImagenProducto(idx){ imagenesProductoTemp.splice(idx,1); renderListaImagenesProducto(); }
+
 function renderListaImagenesEdicion(){
 const cont=document.getElementById('editImagesList'); if(!cont) return; cont.innerHTML='';
 imagenesEdicionTemp.forEach((url,idx)=>{
@@ -1930,7 +2028,9 @@ div.innerHTML=`<img src="${url}" alt="img-${idx}"><button class="remove-img-btn"
 cont.appendChild(div);
 });
 }
+
 function quitarImagenEdicion(idx){ imagenesEdicionTemp.splice(idx,1); renderListaImagenesEdicion(); }
+
 function agregarUrlsEdicion(){
 const input=document.getElementById('editUrl'); const texto=input.value.trim();
 if(!texto){ showToast('Pega una o más URLs','warning'); return; }
@@ -1939,27 +2039,32 @@ if(!nuevas.length){ showToast('URLs no válidas','warning'); return; }
 nuevas.forEach(u=>imagenesEdicionTemp.push(u)); renderListaImagenesEdicion(); input.value='';
 showToast(`${nuevas.length} URL(s) agregada(s)`,'success');
 }
+
 async function cargarImagenBannerFile(input){
 const f=input.files[0]; input.value='';
 if(!f||!f.type.startsWith('image/')) return;
 if(f.size>3*1024*1024){ showToast('Máximo 3MB','warning'); return; }
+
+// Procesar imagen del banner
+showToast('Procesando imagen del banner...','success');
+const processed = await procesarImagenNormalizarFondo(f);
+const blob = dataUrlABlob(processed);
+
 if(CLOUD.imgbbKey){
 try{
 showToast('Subiendo imagen a ImgBB…','success');
-const url=await subirImagenImgBB(f);
+const url=await subirImagenImgBB(blob);
 document.getElementById('bannerImg').value=url;
 showToast('Imagen cargada en ImgBB','success');
 return;
 }catch(e){ showToast('ImgBB: '+e.message+' · usando copia local','warning'); }
 }
-const r=new FileReader();
-r.onload=()=>{ document.getElementById('bannerImg').value=r.result; showToast('Imagen cargada','success'); };
-r.readAsDataURL(f);
+document.getElementById('bannerImg').value=processed;
+showToast('Imagen cargada','success');
 }
-// ==========================================
-// TARJETA DE PRODUCTO
-// ==========================================
+
 const PLUS_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
+
 function buildCard(p, suffix){
 const realIdx=productos.indexOf(p);
 if(realIdx===-1) return null;
@@ -1996,9 +2101,7 @@ ${badgesHtml}
 </div>`;
 return card;
 }
-// ==========================================
-// RENDER CATÁLOGO
-// ==========================================
+
 function renderProductos(lista=null){
 const cont=document.getElementById('productos');
 cont.innerHTML='';
@@ -2024,11 +2127,13 @@ cont.innerHTML=`<div class="empty-state"><b>No encontramos productos</b><p style
 const lbl=document.getElementById('countLabel');
 if(lbl) lbl.textContent=`${visibles} ${visibles===1?'producto':'productos'}`;
 }
+
 function mostrarVista(vista){
 vistaActual=vista;
 document.getElementById('homeSections').style.display = vista==='home' ? '' : 'none';
 document.getElementById('catalogSection').style.display = vista==='catalog' ? '' : 'none';
 }
+
 function renderHome(){
 const visibles=productos.filter(esVisible);
 const grid=document.getElementById('gridParaTi');
@@ -2048,8 +2153,10 @@ rowN.innerHTML='';
 nuevos.forEach(p=>{ const c=buildCard(p,'nv'); if(c) rowN.appendChild(c); });
 secN.style.display=nuevos.length?'':'none';
 }
+
 function refreshPublic(){ renderHome(); renderProductos(); initHero(); programarSyncNube(); }
 function refreshAdminViews(){ renderInventario(); renderDestacadosAdmin(); renderBannersAdmin(); renderDashboard(); }
+
 function cambiarImagenCard(cardId,dir){
 const cont=document.getElementById(cardId); if(!cont) return;
 const imgs=cont.querySelectorAll('img'), dots=cont.querySelectorAll('.dot');
@@ -2058,19 +2165,19 @@ let newIdx=activeIdx+dir; if(newIdx<0)newIdx=imgs.length-1; if(newIdx>=imgs.leng
 imgs.forEach(img=>img.classList.remove('active')); dots.forEach(d=>d.classList.remove('active'));
 imgs[newIdx].classList.add('active'); if(dots[newIdx]) dots[newIdx].classList.add('active');
 }
+
 function irImagenCard(cardId,idx){
 const cont=document.getElementById(cardId); if(!cont) return;
 const imgs=cont.querySelectorAll('img'), dots=cont.querySelectorAll('.dot');
 imgs.forEach(img=>img.classList.remove('active')); dots.forEach(d=>d.classList.remove('active'));
 if(imgs[idx]) imgs[idx].classList.add('active'); if(dots[idx]) dots[idx].classList.add('active');
 }
-// ==========================================
-// CATEGORÍAS
-// ==========================================
+
 function renderSelectCategorias(){
 const sel=document.getElementById('prodCategoria'); sel.innerHTML='';
 categorias.forEach(c=>{ const o=document.createElement('option'); o.value=c; o.textContent=c; sel.appendChild(o); });
 }
+
 function renderCategoriasAdmin(){
 const grid=document.getElementById('categoriasGrid'); grid.innerHTML='';
 categorias.forEach((c,i)=>{
@@ -2081,6 +2188,7 @@ card.innerHTML=`<button onclick="eliminarCategoria(${i})" title="Eliminar" style
 grid.appendChild(card);
 });
 }
+
 function renderNavCategorias(){
 const nav=document.getElementById('navCategorias');
 nav.innerHTML='';
@@ -2092,6 +2200,7 @@ a.onclick=(e)=>{e.preventDefault();filtrarCategoria(c);};
 nav.appendChild(a);
 });
 }
+
 function agregarCategoria(){
 const input=document.getElementById('nuevaCategoriaInput'); const nombre=input.value.trim();
 if(!nombre||categorias.some(c=>c.toLowerCase()===nombre.toLowerCase())){ showToast('Nombre inválido o duplicado','danger'); return; }
@@ -2100,11 +2209,13 @@ input.value=''; renderSelectCategorias(); renderSelectCategoriasBanner(); render
 showToast('Categoría creada','success');
 programarSyncNube();
 }
+
 function eliminarCategoria(i){
 const c=categorias[i];
 if(productos.some(p=>p.categoria===c)){ showToast('Tiene productos asignados','danger'); return; }
 if(confirm(`¿Eliminar "${c}"?`)){ categorias.splice(i,1); renderSelectCategorias(); renderSelectCategoriasBanner(); renderCategoriasAdmin(); renderNavCategorias(); renderDashboard(); programarSyncNube(); }
 }
+
 function filtrarCategoria(cat){
 categoriaActual=cat;
 document.querySelectorAll('#navCategorias a').forEach(a=>a.classList.toggle('active',a.dataset.cat===cat));
@@ -2117,6 +2228,7 @@ mostrarVista('catalog');
 renderProductos();
 window.scrollTo({top:0,behavior:'smooth'});
 }
+
 function irInicio(){
 document.getElementById('buscadorInput').value='';
 document.getElementById('resultadoBusqueda').style.display='none';
@@ -2126,9 +2238,7 @@ mostrarVista('home');
 renderHome();
 window.scrollTo({top:0,behavior:'smooth'});
 }
-// ==========================================
-// NUEVO PRODUCTO / EDICIÓN
-// ==========================================
+
 function guardarNuevoProducto(){
 const nombre=document.getElementById('prodNombre').value.trim();
 const precio=document.getElementById('prodPrecio').value;
@@ -2158,8 +2268,10 @@ document.getElementById('prodDestacado').checked=false;
 document.getElementById('prodVisible').checked=true; syncSwLbl('prodVisible','prodVisibleLbl');
 document.getElementById('prodTonosList').innerHTML='';
 imagenesProductoTemp=[]; renderListaImagenesProducto();
-showToast(`🚀 "${nombre}" publicado`,'success');
+showToast(` "${nombre}" publicado`,'success');
+programarSyncNube();
 }
+
 function abrirModalEdicion(index){
 if(index===undefined||index===null||!productos[index]){ showToast('Error al abrir el producto','danger'); return; }
 productoEditandoIndex=index;
@@ -2182,6 +2294,7 @@ const tl=document.getElementById('editTonosList'); tl.innerHTML='';
 (prod.tonos||[]).forEach(t=>addTonoRow('editTonosList', t.n, t.c||'#e6538b'));
 document.getElementById('editModal').style.display='flex';
 }
+
 function cerrarModalEdicion(){
 document.getElementById('editModal').style.display='none';
 productoEditandoIndex=null; imagenesEdicionTemp=[];
@@ -2189,6 +2302,7 @@ document.getElementById('editFileImg').value=''; document.getElementById('editUr
 document.getElementById('editTonosList').innerHTML='';
 renderListaImagenesEdicion();
 }
+
 function guardarEdicionProducto(){
 if(productoEditandoIndex===null) return;
 const nombre=document.getElementById('editNombre').value.trim();
@@ -2213,10 +2327,9 @@ if(tonos) prod.tonos=tonos; else delete prod.tonos;
 prepararCacheBusqueda(); refreshPublic(); refreshAdminViews(); saveFlags();
 cerrarModalEdicion();
 showToast('Producto actualizado','success');
+programarSyncNube();
 }
-// ==========================================
-// DETALLE
-// ==========================================
+
 function abrirDetalle(index, tonoInicial=0){
 if(index===undefined||index===null||!productos[index]) return;
 const prod=productos[index];
@@ -2245,6 +2358,7 @@ renderTonosDetalle(prod);
 document.getElementById('detailModal').style.display='flex';
 document.body.classList.add('no-scroll');
 }
+
 function renderGaleriaDetalle(imagenes){
 const gallery=document.getElementById('detailGallery'), thumbs=document.getElementById('detailThumbs');
 gallery.innerHTML=''; thumbs.innerHTML='';
@@ -2266,6 +2380,7 @@ t.onclick=()=>irImagenDetalle(i);
 thumbs.appendChild(t);
 });
 }
+
 function renderTonosDetalle(prod){
 const wrap=document.getElementById('detailTonosWrap'), list=document.getElementById('detailTonos');
 const tonos=tonosDe(prod);
@@ -2283,6 +2398,7 @@ list.appendChild(b);
 });
 document.getElementById('detailTonoName').textContent=tonos[detalleTonoActual].n;
 }
+
 function seleccionarTono(i){
 if(productoDetalleIndex===null) return;
 const prod=productos[productoDetalleIndex];
@@ -2291,6 +2407,7 @@ if(!tonos[i]) return;
 detalleTonoActual=i; detalleImagenActual=tonos[i].i;
 actualizarVistaDetalle(); renderTonosDetalle(prod);
 }
+
 function cambiarImagenDetalle(dir){
 if(productoDetalleIndex===null) return;
 const prod=productos[productoDetalleIndex];
@@ -2299,7 +2416,9 @@ if(imagenes.length<=1) return;
 detalleImagenActual=(detalleImagenActual+dir+imagenes.length)%imagenes.length;
 actualizarVistaDetalle();
 }
+
 function irImagenDetalle(idx){ detalleImagenActual=idx; actualizarVistaDetalle(); }
+
 function actualizarVistaDetalle(){
 if(productoDetalleIndex===null) return;
 const prod=productos[productoDetalleIndex];
@@ -2315,21 +2434,22 @@ const match=tonos.findIndex(t=>t.i===detalleImagenActual);
 if(match>-1 && match!==detalleTonoActual){ detalleTonoActual=match; renderTonosDetalle(prod); }
 else if(match>-1){ document.getElementById('detailTonoName').textContent=tonos[match].n; }
 }
+
 function cambiarCantidad(d){ detalleCantidad=Math.min(99,Math.max(1,detalleCantidad+d)); document.getElementById('qtyValue').textContent=detalleCantidad; }
+
 function cerrarDetalle(){
 document.getElementById('detailModal').style.display='none';
 productoDetalleIndex=null;
 if(!document.querySelector('.cart.open')&&!document.querySelector('.drawer.open')) document.body.classList.remove('no-scroll');
 }
+
 function agregarDesdeDetalle(){
 if(productoDetalleIndex===null) return;
 agregarAlCarro(productoDetalleIndex, detalleCantidad);
 cerrarDetalle();
 toggleCart(true);
 }
-// ==========================================
-// DASHBOARD ADMIN
-// ==========================================
+
 function renderDashboard(){
 const total=productos.length;
 const visibles=productos.filter(esVisible).length;
@@ -2354,9 +2474,7 @@ row.innerHTML=`<img src="${obtenerImagenPrincipal(p)}" alt="" onerror="this.oner
 rec.appendChild(row);
 });
 }
-// ==========================================
-// DESTACADOS
-// ==========================================
+
 function renderDestacadosAdmin(){
 const cont=document.getElementById('destacadosList'); if(!cont) return;
 cont.innerHTML='';
@@ -2379,18 +2497,19 @@ row.innerHTML=`
 cont.appendChild(row);
 });
 }
+
 function toggleDestacado(i,val){
 productos[i].destacado=val;
 refreshPublic(); refreshAdminViews(); saveFlags();
 showToast(val?('⭐ "'+(productos[i].nombre||'Producto')+'" agregado a Destacados'):'Destacado desactivado', val?'success':'warning');
+programarSyncNube();
 }
+
 function verColeccionDestacados(){
 cerrarAdmin();
 filtrarCategoria('Destacados');
 }
-// ==========================================
-// BANNERS
-// ==========================================
+
 function renderSelectCategoriasBanner(){
 const sel=document.getElementById('bannerCat'); if(!sel) return;
 sel.innerHTML='';
@@ -2400,15 +2519,17 @@ o.textContent=c==='Destacados'?'⭐ Destacados':c;
 sel.appendChild(o);
 });
 }
+
 function limpiarFormBanner(){
 bannerEditandoId=null;
-document.getElementById('bannerFormTitle').textContent='🖼️ Nuevo banner del carrusel';
+document.getElementById('bannerFormTitle').textContent='️ Nuevo banner del carrusel';
 ['bannerEtiqueta','bannerPromo','bannerTitulo','bannerSub','bannerImg'].forEach(id=>document.getElementById(id).value='');
 document.getElementById('bannerTema').value='1';
 document.getElementById('bannerCat').value='Todos';
 document.getElementById('bannerFile').value='';
 document.getElementById('bannerIdentidad').checked=true;
 }
+
 function guardarBanner(){
 const titulo=document.getElementById('bannerTitulo').value.trim();
 if(!titulo){ showToast('El título es obligatorio','danger'); return; }
@@ -2435,6 +2556,7 @@ initHero(); renderBannersAdmin(); renderDashboard();
 showToast('Banner guardado','success');
 programarSyncNube();
 }
+
 function editarBanner(id){
 const b=banners.find(x=>x.id===id); if(!b) return;
 bannerEditandoId=id;
@@ -2449,6 +2571,7 @@ document.getElementById('bannerCat').value=b.cat||'Todos';
 document.getElementById('bannerIdentidad').checked=b.usarIdentidad!==false;
 document.getElementById('tab-banners').scrollIntoView({behavior:'smooth'});
 }
+
 function eliminarBanner(id){
 if(!confirm('¿Eliminar este banner?')) return;
 banners=banners.filter(b=>b.id!==id);
@@ -2456,6 +2579,7 @@ initHero(); renderBannersAdmin(); renderDashboard();
 showToast('Banner eliminado','danger');
 programarSyncNube();
 }
+
 function moverBanner(id,dir){
 const i=banners.findIndex(b=>b.id===id);
 const j=i+dir;
@@ -2464,6 +2588,7 @@ if(i<0||j<0||j>=banners.length) return;
 initHero(); renderBannersAdmin();
 programarSyncNube();
 }
+
 function renderBannersAdmin(){
 const cont=document.getElementById('bannersList'); if(!cont) return;
 cont.innerHTML='';
@@ -2483,18 +2608,18 @@ row.innerHTML=`
 cont.appendChild(row);
 });
 }
-// ==========================================
-// INVENTARIO
-// ==========================================
+
 function switchHtml(checked, handler){
 return `<label class="switch"><input type="checkbox" ${checked?'checked':''} onchange="${handler}"><span class="switch-slider"></span></label>`;
 }
+
 function filtrarInventario(f,btn){
 invFiltro=f;
 document.querySelectorAll('.inv-chip').forEach(c=>c.classList.remove('active'));
 if(btn) btn.classList.add('active');
 renderInventario();
 }
+
 function renderInventario(){
 const tbody=document.getElementById('tablaInventario'); if(!tbody) return;
 if(!productos||!productos.length){ tbody.innerHTML='<tr><td colspan="6" style="padding:20px;text-align:center;color:#64748b;">No hay productos.</td></tr>'; return; }
@@ -2508,12 +2633,13 @@ html+=`<tr id="row-${i}">
 <td style="font-weight:700;white-space:nowrap;">${formatearPrecio(p.precio)}</td>
 <td><div class="sw-cell">${switchHtml(vis,`cambiarVisible(${i},this.checked)`)}<span class="sw-lbl ${vis?'on':'off'}">${vis?'ON':'OFF'}</span></div></td>
 <td><div class="sw-cell">${switchHtml(!!p.destacado,`toggleDestacado(${i},this.checked)`)}<span class="sw-lbl ${p.destacado?'on':'off'}">${p.destacado?'ON':'OFF'}</span></div></td>
-<td style="white-space:nowrap;"><button class="btn-action edit" onclick="abrirModalEdicion(${i})">✏️ Editar</button><button class="btn-action delete" onclick="eliminarProducto(${i})">🗑 Eliminar</button></td>
+<td style="white-space:nowrap;"><button class="btn-action edit" onclick="abrirModalEdicion(${i})">✏️ Editar</button><button class="btn-action delete" onclick="eliminarProducto(${i})"> Eliminar</button></td>
 </tr>`;
 }
 tbody.innerHTML=html;
 aplicarFiltroInventario();
 }
+
 function aplicarFiltroInventario(){
 for(let i=0;i<productos.length;i++){
 const p=productos[i], row=document.getElementById(`row-${i}`);
@@ -2529,16 +2655,20 @@ ok=hay;
 row.style.display=ok?'':'none';
 }
 }
+
 function filtrarTablaInventario(q){
 invBusqueda=q.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 aplicarFiltroInventario();
 }
+
 function cambiarVisible(i,val){
 productos[i].visible=val;
 if(!val){ const idp=productos[i].id; if(carrito.some(r=>r.id===idp)){ carrito=carrito.filter(r=>r.id!==idp); actualizarCarrito(); } }
 refreshPublic(); refreshAdminViews(); saveFlags();
 showToast(val?'Producto visible en el catálogo':'Producto oculto para los clientes', val?'success':'warning');
+programarSyncNube();
 }
+
 function eliminarProducto(i){
 if(confirm('¿Eliminar este producto? Esta acción no se puede deshacer.')){
 const idp=productos[i].id;
@@ -2546,8 +2676,10 @@ productos.splice(i,1);
 carrito=carrito.filter(r=>r.id!==idp);
 prepararCacheBusqueda(); refreshPublic(); refreshAdminViews(); actualizarCarrito();
 showToast('Eliminado','danger');
+programarSyncNube();
 }
 }
+
 function exportarDatosJSON(){
 const blob=new Blob([JSON.stringify({productos,categorias,banners,tiendaConfig,personalizacion:pers},null,2)],{type:'application/json'});
 const a=document.createElement('a');
@@ -2556,15 +2688,14 @@ a.download=`divani_${new Date().toISOString().split('T')[0]}.json`;
 a.click();
 showToast('Respaldo descargado en tu dispositivo','success');
 }
-// ==========================================
-// CARRITO
-// ==========================================
+
 function toggleCart(abrir){
 const c=document.getElementById('cartSidebar'), b=document.getElementById('cartBackdrop');
 const open = abrir===undefined ? !c.classList.contains('open') : abrir;
 c.classList.toggle('open',open); b.classList.toggle('show',open);
 document.body.classList.toggle('no-scroll',open);
 }
+
 function agregarAlCarro(i, qty=1){
 const p=productos[i];
 if(!esVisible(p)){ showToast('Este producto no está disponible','warning'); return; }
@@ -2573,6 +2704,7 @@ if(row) row.qty=Math.min(99,row.qty+qty); else carrito.push({id:p.id, qty});
 actualizarCarrito(); bumpCart();
 showToast(`${qty>1?qty+' × ':''}${esc(p.nombre)}`,'success');
 }
+
 function cambiarCantidadCarrito(id,delta){
 const row=carrito.find(r=>r.id===id); if(!row) return;
 row.qty+=delta;
@@ -2580,7 +2712,9 @@ if(row.qty<=0) carrito=carrito.filter(r=>r.id!==id);
 else if(row.qty>99) row.qty=99;
 actualizarCarrito();
 }
+
 function quitarDelCarro(id){ carrito=carrito.filter(r=>r.id!==id); actualizarCarrito(); }
+
 function actualizarCarrito(){
 const div=document.getElementById('carrito'); div.innerHTML='';
 let total=0, totalItems=0;
@@ -2618,27 +2752,30 @@ div.innerHTML=`<div class="cart-empty">
 document.getElementById('total').textContent=total.toLocaleString('es-CO');
 document.getElementById('headerCartCount').textContent=totalItems;
 }
+
 function comprar(){
 if(!carrito.length){ showToast('Tu carrito está vacío','warning'); return; }
 const nombreTienda=pers.name||'DIVANI';
-let msg=`*NUEVO PEDIDO - ${nombreTienda}*\n*PRODUCTOS*\n`;
+let msg=`*NUEVO PEDIDO - ${nombreTienda}*
+*PRODUCTOS*
+`;
 let total=0;
 carrito.forEach(row=>{
 const p=productos.find(x=>x.id===row.id);
 if(!p) return;
 const unit=precioFinalDe(p);
 const sub=unit*row.qty;
-msg+=`• ${row.qty} × ${p.nombre} (${formatearPrecio(unit)} c/u) = ${formatearPrecio(sub)}\n`;
+msg+=`• ${row.qty} × ${p.nombre} (${formatearPrecio(unit)} c/u) = ${formatearPrecio(sub)}
+`;
 total+=sub;
 });
-msg+=`\n*TOTAL: ${formatearPrecio(total)}*`;
+msg+=`
+*TOTAL: ${formatearPrecio(total)}*`;
 const wa=(tiendaConfig.whatsapp||'573003896683').replace(/\D/g,'');
 carrito=[]; actualizarCarrito(); toggleCart(false); renderProductos(); renderHome();
 window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`,'_blank');
 }
-// ==========================================
-// BÚSQUEDA
-// ==========================================
+
 document.getElementById('buscadorInput').addEventListener('input',(e)=>{
 const q=e.target.value.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 const resDiv=document.getElementById('resultadoBusqueda');
@@ -2662,6 +2799,7 @@ document.getElementById('sectionTitle').textContent='Resultados';
 document.getElementById('sectionSub').textContent=`Buscando: "${e.target.value.trim()}"`;
 renderProductos(resultados);
 });
+
 function seleccionarBusqueda(id){
 const p=productos.find(x=>x.id===id);
 if(p){
@@ -2670,23 +2808,26 @@ document.getElementById('resultadoBusqueda').style.display='none';
 abrirDetalle(productos.indexOf(p));
 }
 }
+
 document.addEventListener('click',(e)=>{
 if(!e.target.closest('.search-wrap')) document.getElementById('resultadoBusqueda').style.display='none';
 });
-// ==========================================
-// LOGIN / ADMIN
-// ==========================================
+
 const PIN='55555';
+
 function setAdminBtnState(){
 const b=document.getElementById('headerAdminBtn');
 if(b) b.classList.toggle('on', adminAutenticado);
 }
+
 function accesoAdmin(){
 if(adminAutenticado){ volverAdmin(); }
 else{ abrirLogin(); }
 }
+
 function abrirLogin(){ document.getElementById('loginModal').style.display='flex'; document.getElementById('adminPassInput').focus(); }
 function cerrarLogin(){ document.getElementById('loginModal').style.display='none'; document.getElementById('adminPassInput').value=''; }
+
 function verificarPassword(){
 if(document.getElementById('adminPassInput').value===PIN){
 adminAutenticado=true;
@@ -2699,6 +2840,7 @@ showToast('Bienvenida al panel de administración','success');
 }
 else showToast('PIN incorrecto','danger');
 }
+
 function cerrarAdmin(){
 adminAutenticado=false;
 setAdminBtnState();
@@ -2706,17 +2848,19 @@ document.getElementById('adminPanel').style.display='none';
 document.getElementById('previewBar').hidden=true;
 renderHome(); renderProductos();
 }
+
 const TAB_META={
 'tab-dashboard':{t:'🏠 Resumen',s:'Un vistazo rápido de tu tienda'},
 'tab-nuevo':{t:'➕ Nuevo producto',s:'Completa los datos y publícalo en segundos'},
-'tab-inventario':{t:'📦 Productos',s:'Edita, oculta o elimina tus productos'},
+'tab-inventario':{t:' Productos',s:'Edita, oculta o elimina tus productos'},
 'tab-destacados':{t:'⭐ Destacados',s:'Agrega productos a la colección Destacados'},
 'tab-banners':{t:'🖼️ Banners',s:'El carrusel que ven tus clientes al entrar'},
-'tab-categorias':{t:'🏷️ Categorías',s:'Organiza tu catálogo'},
+'tab-categorias':{t:'️ Categorías',s:'Organiza tu catálogo'},
 'tab-carga-masiva':{t:'📊 Carga masiva',s:'Sube muchos productos desde Excel o CSV'},
 'tab-nube':{t:'☁️ Nube',s:'ImgBB + base de datos: tus productos en internet'},
-'tab-personaliza':{t:'🎨 Personalización',s:'Logo, colores, tipografías y contacto'}
+'tab-personaliza':{t:' Personalización',s:'Logo, colores, tipografías y contacto'}
 };
+
 function switchTab(id,btn){
 document.querySelectorAll('.admin-view').forEach(v=>v.classList.remove('active'));
 document.querySelectorAll('.admin-nav-item').forEach(b=>b.classList.remove('active'));
@@ -2734,10 +2878,9 @@ if(id==='tab-banners') renderBannersAdmin();
 if(id==='tab-personaliza') syncPersUI();
 if(id==='tab-nube') syncNubeUI();
 }
-// ==========================================
-// CARGA MASIVA
-// ==========================================
+
 function parseSiNo(v){ return /^(si|sí|1|true|x|on)$/i.test(String(v||'').trim()); }
+
 function procesarArchivoExcel(){
 const file=document.getElementById('archivoExcel').files[0];
 if(!file){ showToast('Selecciona archivo','warning'); return; }
@@ -2769,10 +2912,12 @@ const res=document.getElementById('resultadoCarga');
 res.style.display='block'; res.style.background='#f0fdf4'; res.style.color='#166534';
 res.innerHTML=`✅ <b>${creados}</b> productos creados · <b>${actualizados}</b> actualizados${CLOUD.dbUrl?'': ' (recuerda subirlos a la nube en ☁️ Nube)'}`;
 showToast(`${creados} creados, ${actualizados} actualizados`,'success');
+programarSyncNube();
 }catch(err){ showToast('Error: '+err.message,'danger'); }
 };
 reader.readAsArrayBuffer(file);
 }
+
 function descargarPlantillaCSV(){
 const csv=`nombre,categoria,precio,url,descuento,promo,destacado,visible
 Labial Matte Rojo,Labios,50000,https://ejemplo.com/rojo.jpg|https://ejemplo.com/rojo2.jpg,10,Color intenso todo el dia,si,si
@@ -2781,10 +2926,18 @@ Bruma Facial,Skincare,36000,https://ejemplo.com/bruma.jpg,,,,`;
 const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
 const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='plantilla_divani.csv'; a.click();
 }
-// ==========================================
-// INICIALIZACIÓN
-// ==========================================
-window.addEventListener('DOMContentLoaded',()=>{
+
+window.addEventListener('DOMContentLoaded',async ()=>{
+// Cargar datos desde Firebase al iniciar
+try {
+    await descargarDeNube(true);
+} catch(e) {
+    console.log('No se pudieron cargar datos de Firebase, usando datos locales');
+}
+
+// Configurar listener de Firebase para sincronización en tiempo real
+configurarListenerFirebase();
+
 loadFlags();
 applyPers(pers);
 setAdminBtnState();
@@ -2831,7 +2984,21 @@ else if(document.getElementById('drawer').classList.contains('open')) toggleDraw
 document.addEventListener('keydown',e=>{
 if(e.ctrlKey&&e.shiftKey&&(e.key==='A'||e.key==='a')){ e.preventDefault(); accesoAdmin(); }
 });
-if(CLOUD.dbUrl){ setTimeout(()=>descargarDeNube(true), 500); }
+// Acceso oculto al admin: 5 toques en el logo DIVANI
+const brandEl=document.querySelector('.brand');
+brandEl.addEventListener('click',(e)=>{
+logoTapCount++;
+clearTimeout(logoTapTimer);
+if(logoTapCount>=5){
+logoTapCount=0;
+accesoAdmin();
+}else{
+logoTapTimer=setTimeout(()=>{
+logoTapCount=0;
+irInicio();
+},400);
+}
+});
 });
 </script>
 </body>
