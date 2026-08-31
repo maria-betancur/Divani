@@ -7,25 +7,25 @@
 <title>DIVANI · Tienda de Belleza</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23e6538b'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='58' fill='%23ffffff' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/300.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/500.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/600.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/700.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/500.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/600.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/300.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/500.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/600.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/cormorant-garamond@5/700.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/marcellus@5/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5/300.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5/500.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5/600.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5/700.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/montserrat@5/800.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jost@5/300.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jost@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jost@5/500.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jost@5/600.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jost@5/700.css">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js" defer></script>
 <style>
 :root{
@@ -43,7 +43,7 @@
 --font-body:'Poppins',sans-serif;
 --font-button:'Poppins',sans-serif;
 --font-price:'Poppins',sans-serif;
---fw-body:400; --fw-mid:600; --fw-high:700; --fw-max:800;
+--fw-body:300; --fw-mid:400; --fw-high:500; --fw-max:600;
 --primary-dark:color-mix(in srgb,var(--divani-button) 78%, #000);
 --light-pink:var(--divani-light);
 --text-dark:var(--divani-text);
@@ -61,8 +61,8 @@
 --safe-top:env(safe-area-inset-top); --safe-bottom:env(safe-area-inset-bottom);
 --radius-sm:8px; --radius-md:12px; --radius-lg:18px; --radius-xl:24px;
 }
-body.fw-medium{--fw-body:500;--fw-mid:700;--fw-high:800;--fw-max:800}
-body.fw-bold{--fw-body:600;--fw-mid:800;--fw-high:900;--fw-max:900}
+body.fw-medium{--fw-body:400;--fw-mid:500;--fw-high:600;--fw-max:600}
+body.fw-bold{--fw-body:500;--fw-mid:600;--fw-high:700;--fw-max:700}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:var(--font-body);font-size:14px;font-weight:var(--fw-body);background:var(--divani-background);
@@ -76,7 +76,6 @@ img{max-width:100%}
 ::-webkit-scrollbar-thumb{background:var(--divani-accent);border-radius:8px}
 ::-webkit-scrollbar-track{background:transparent}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
 header{background:var(--divani-background);
 border-bottom:1px solid color-mix(in srgb,var(--divani-primary) 8%, transparent);position:sticky;top:0;z-index:100;
 padding:12px 24px 14px;padding-top:calc(12px + var(--safe-top));
@@ -98,7 +97,7 @@ user-select:none;white-space:nowrap;transition:transform .3s;text-indent:8px;max
 .brand:hover{transform:translateX(-50%) scale(1.03)}
 .badge-count{position:absolute;top:-6px;right:-6px;min-width:20px;height:20px;padding:0 6px;background:var(--divani-primary);
 color:var(--divani-on-primary);border-radius:999px;font-size:11px;font-weight:var(--fw-max);display:flex;align-items:center;justify-content:center;
-border:2px solid var(--divani-background);transition:transform .2s}
+border:2px solid var(--divani-background);transition:transform .2s;display:none}
 #headerCartBtn.bump{animation:bump .45s cubic-bezier(.2,.7,.3,1)}
 @keyframes bump{0%{transform:scale(1)}35%{transform:scale(1.18)}70%{transform:scale(.94)}100%{transform:scale(1)}}
 .search-wrap{position:relative;margin-top:12px;max-width:760px;margin-left:auto;margin-right:auto}
@@ -115,7 +114,6 @@ box-shadow:0 20px 50px color-mix(in srgb,var(--divani-text) 16%, transparent);di
 .search-result-item:hover{background:var(--light-pink)}
 .search-hint{padding:10px 20px;font-size:12px;color:var(--muted);background:var(--light-pink);border-bottom:1px solid var(--gray-light);font-style:italic}
 @media(max-width:480px){.brand{font-size:20px;letter-spacing:5px;text-indent:5px}.brand::before,.brand::after{width:16px;margin:0 6px}.icon-btn{width:40px;height:40px;border-radius:11px}}
-
 .drawer-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 45%, transparent);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:210}
 .drawer-backdrop.show{opacity:1;pointer-events:auto}
 .drawer{position:fixed;top:0;left:-100%;width:min(350px,90vw);height:100%;background:#fff;z-index:220;transition:left .38s cubic-bezier(.2,.7,.3,1);display:flex;flex-direction:column;padding-top:var(--safe-top)}
@@ -138,7 +136,6 @@ a.store-row:hover,button.store-row:hover{transform:translateY(-2px);box-shadow:0
 .store-row b{display:block;font-size:12.5px;line-height:1.25;font-weight:var(--fw-mid)}
 .store-row small{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
 .store-row .chev{margin-left:auto;color:var(--muted-2);font-size:16px;font-weight:var(--fw-mid)}
-
 main{max-width:1280px;margin:0 auto;padding:20px 28px 16px}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin:36px 4px 18px;gap:12px}
 .section-head h2{font-family:var(--font-title);font-size:24px;margin:0;font-weight:var(--fw-high);color:var(--divani-text);letter-spacing:.5px}
@@ -148,7 +145,6 @@ main{max-width:1280px;margin:0 auto;padding:20px 28px 16px}
 .link-ver{background:none;border:none;color:var(--divani-primary);font-size:12px;font-weight:var(--fw-high);cursor:pointer;padding:0 0 2px;letter-spacing:.3px;transition:opacity .2s;font-family:var(--font-button);display:inline-flex;align-items:center;gap:4px}
 .link-ver:hover{opacity:.75}
 .shop-section{margin-bottom:10px}
-
 .hero-frame{position:relative;border-radius:var(--radius-xl);overflow:hidden;box-shadow:0 16px 40px color-mix(in srgb,var(--divani-primary) 16%, transparent);margin-top:8px;background:#000;aspect-ratio:21/9;min-height:320px}
 .hero-track{position:relative;width:100%;height:100%}
 .hero-slide{position:absolute;inset:0;overflow:hidden;display:flex;align-items:flex-end;cursor:pointer;opacity:0;transition:opacity 1s ease-in-out;pointer-events:none}
@@ -175,9 +171,25 @@ main{max-width:1280px;margin:0 auto;padding:20px 28px 16px}
 .hero-dots button{width:8px;height:8px;border-radius:999px;border:none;background:color-mix(in srgb,var(--divani-primary) 25%, #fff);cursor:pointer;transition:all .35s;padding:0}
 .hero-dots button.active{width:28px;background:var(--divani-primary)}
 @media(max-width:1024px){.hero-frame{aspect-ratio:16/7;min-height:300px}}
-@media(max-width:768px){.hero-frame{aspect-ratio:4/3;min-height:260px}.hero-content{padding:24px 24px 36px}.hero-title{font-size:clamp(18px,5vw,26px)}.hero-sub{font-size:11.5px}.hero-arrow{width:38px;height:38px;font-size:16px}.hero-arrow.prev{left:12px}.hero-arrow.next{right:12px}.hero-promo-badge{top:14px;right:14px;font-size:9.5px;padding:6px 12px}}
-@media(max-width:480px){.hero-frame{aspect-ratio:3/3.2;min-height:240px}.hero-content{padding:18px 18px 28px;gap:8px}.hero-title{font-size:clamp(16px,5.5vw,22px)}.hero-arrow{width:34px;height:34px;font-size:14px}.hero-arrow.prev{left:8px}.hero-arrow.next{right:8px}}
-
+@media(max-width:768px){
+.hero-frame{aspect-ratio:16/9;min-height:180px}
+.hero-content{padding:20px 20px 28px}
+.hero-title{font-size:clamp(16px,4.5vw,22px)}
+.hero-sub{font-size:11px}
+.hero-arrow{width:34px;height:34px;font-size:14px}
+.hero-arrow.prev{left:10px}
+.hero-arrow.next{right:10px}
+.hero-promo-badge{top:12px;right:12px;font-size:9px;padding:5px 10px}
+}
+@media(max-width:480px){
+.hero-frame{aspect-ratio:4/3;min-height:160px}
+.hero-content{padding:16px 16px 22px;gap:6px}
+.hero-title{font-size:clamp(14px,5vw,18px)}
+.hero-sub{font-size:10px}
+.hero-arrow{width:30px;height:30px;font-size:12px}
+.hero-arrow.prev{left:8px}
+.hero-arrow.next{right:8px}
+}
 .skeleton-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px 16px}
 @media(min-width:640px){.skeleton-grid{grid-template-columns:repeat(3,1fr);gap:22px 18px}}
 @media(min-width:960px){.skeleton-grid{grid-template-columns:repeat(4,1fr);gap:24px 20px}}
@@ -187,14 +199,22 @@ main{max-width:1280px;margin:0 auto;padding:20px 28px 16px}
 .skeleton-text.short{width:60%;margin-top:4px;margin-bottom:16px}
 .skeleton-text.price{width:40%;height:14px}
 @keyframes skeletonShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
 .chips{display:flex;gap:10px;overflow-x:auto;padding:8px 4px;margin-top:14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .chips::-webkit-scrollbar{display:none}
 .chips a{flex-shrink:0;text-decoration:none;font-size:12.5px;font-weight:var(--fw-mid);color:color-mix(in srgb,var(--divani-text) 72%, #fff);background:var(--divani-background);border:1px solid var(--pink-line);
 padding:10px 20px;border-radius:999px;transition:all .25s;white-space:nowrap;letter-spacing:.4px}
 .chips a:hover{color:var(--divani-primary);border-color:var(--divani-primary);transform:translateY(-1px)}
 .chips a.active{background:var(--divani-primary);border-color:var(--divani-primary);color:var(--divani-on-primary);box-shadow:0 6px 16px color-mix(in srgb,var(--divani-primary) 32%, transparent)}
-
+.chips a[data-cat="Todos"].active{background:#f8a5c2;border-color:#f8a5c2}
+.chips a[data-cat="Destacados"].active{background:#f39c12;border-color:#f39c12}
+.chips a[data-cat="Cejas"].active{background:#27ae60;border-color:#27ae60}
+.chips a[data-cat="Labios"].active{background:#e74c3c;border-color:#e74c3c}
+.chips a[data-cat="Ojos"].active{background:#9b59b6;border-color:#9b59b6}
+.chips a[data-cat="Skincare"].active{background:#1abc9c;border-color:#1abc9c}
+.chips a[data-cat="Capilar"].active{background:#e67e22;border-color:#e67e22}
+.chips a[data-cat="Accesorios"].active{background:#3498db;border-color:#3498db}
+.chips a[data-cat="Rostro"].active{background:#fd79a8;border-color:#fd79a8}
+.chips a[data-cat="Brochas"].active{background:#a29bfe;border-color:#a29bfe}
 .container{display:grid;grid-template-columns:repeat(2,1fr);gap:22px 18px}
 @media(min-width:640px){.container{grid-template-columns:repeat(3,1fr);gap:24px 20px}}
 @media(min-width:960px){.container{grid-template-columns:repeat(4,1fr);gap:26px 22px}}
@@ -204,7 +224,6 @@ padding:10px 20px;border-radius:999px;transition:all .25s;white-space:nowrap;let
 .hscroll::-webkit-scrollbar{display:none}
 .hscroll .card{width:200px;flex:0 0 auto}
 .hscroll .card-top{height:200px}
-
 .card{background:var(--card-bg);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-card);
 border:1px solid color-mix(in srgb,var(--divani-primary) 6%, transparent);
 position:relative;transition:transform .35s cubic-bezier(.2,.7,.3,1),box-shadow .35s;cursor:pointer;content-visibility:auto}
@@ -240,7 +259,6 @@ box-shadow:0 2px 10px rgba(0,0,0,.16);opacity:0;transition:opacity .25s,backgrou
 .gallery-nav-btn.prev{left:6px}
 .gallery-nav-btn.next{right:6px}
 .gallery-nav-btn:hover{background:var(--divani-primary);color:var(--divani-on-primary)}
-
 .promo-band{margin:40px 0 12px;border-radius:var(--radius-xl);padding:24px 28px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
 background:linear-gradient(120deg,var(--divani-primary),color-mix(in srgb,var(--divani-primary) 55%, var(--divani-secondary)));
 color:var(--divani-on-primary);box-shadow:0 14px 32px color-mix(in srgb,var(--divani-primary) 28%, transparent)}
@@ -248,7 +266,6 @@ color:var(--divani-on-primary);box-shadow:0 14px 32px color-mix(in srgb,var(--di
 .promo-band small{font-size:12px;opacity:.94;display:block;margin-top:3px}
 .promo-band button{background:#fff;color:var(--divani-primary);border:none;border-radius:999px;padding:12px 22px;font-weight:var(--fw-high);font-size:12.5px;cursor:pointer;transition:transform .2s;font-family:var(--font-button);letter-spacing:.5px}
 .promo-band button:hover{transform:translateY(-2px)}
-
 .footer{margin-top:50px;background:var(--divani-text);color:#f5ebf1;padding:44px 24px 22px}
 .foot-inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:32px}
 @media(max-width:760px){.foot-inner{grid-template-columns:1fr;gap:24px}}
@@ -259,7 +276,6 @@ color:var(--divani-on-primary);box-shadow:0 14px 32px color-mix(in srgb,var(--di
 .foot-contact a:hover{color:#fff}
 .foot-contact svg{width:15px;height:15px;flex-shrink:0;color:var(--divani-accent)}
 .foot-bottom{max-width:1280px;margin:28px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.12);text-align:center;font-size:11px;color:#a88b9c;letter-spacing:.5px}
-
 .cart-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 45%, transparent);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:200}
 .cart-backdrop.show{opacity:1;pointer-events:auto}
 .cart{position:fixed;right:-100%;top:0;width:100%;max-width:420px;height:100%;background:#fff;padding:calc(20px + var(--safe-top)) 22px calc(22px + var(--safe-bottom));
@@ -296,7 +312,6 @@ font-weight:var(--fw-high);font-size:14.5px;font-family:var(--font-button);trans
 .btn-buy.wa{background:#25d366;box-shadow:0 10px 24px rgba(37,211,102,.3)}
 .btn-buy.wa:hover{background:#1fb958}
 .btn-buy svg{width:18px;height:18px}
-
 .login-modal,.admin-panel,.edit-modal,.detail-modal,.store-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
 background:color-mix(in srgb,var(--divani-text) 50%, transparent);backdrop-filter:blur(10px);z-index:230;
 justify-content:center;align-items:center;padding:15px;animation:fadeIn .25s}
@@ -315,7 +330,6 @@ border-radius:var(--radius-md);cursor:pointer;font-size:16px;font-weight:var(--f
 .store-body{padding:60px 20px 8px;display:flex;flex-direction:column;gap:10px}
 .store-body .store-row{margin-bottom:0}
 .store-foot{padding:16px 20px 22px}
-
 .detail-modal-content{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:1060px;max-height:92vh;
 position:relative;animation:popIn .35s cubic-bezier(.2,.7,.3,1);display:flex;flex-direction:column;overflow:hidden}
 .detail-topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px 14px 24px;
@@ -370,7 +384,6 @@ font-family:var(--font-button);transition:all .25s;box-shadow:0 10px 26px color-
 @media(max-width:900px){.detail-layout{grid-template-columns:1fr;gap:16px}.detail-main{order:1;min-height:350px}.detail-main img{max-height:320px}.detail-thumbs{order:2;flex-direction:row;overflow-x:auto;max-height:none;padding:4px 2px}.detail-info{order:3}}
 @media(max-width:640px){.detail-modal{padding:10px}.detail-modal-content{max-height:calc(100vh - 20px);max-height:calc(100dvh - 20px);border-radius:var(--radius-lg)}.detail-topbar{padding:12px 14px 12px 18px}.detail-scroll{padding:16px 16px 24px}.detail-main{min-height:300px;border-radius:var(--radius-md)}.detail-main img{max-height:280px}.detail-thumb{width:62px;height:62px}.detail-info h2{font-size:21px}.detail-price{font-size:22px}}
 @media(max-width:350px){.detail-actions{flex-direction:column}.qty-stepper{justify-content:center}}
-
 .edit-modal-content{background:#fff;padding:28px;border-radius:var(--radius-xl);width:100%;max-width:640px;max-height:92vh;overflow-y:auto;animation:popIn .3s}
 .edit-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;padding-bottom:16px;border-bottom:1px solid var(--gray-border)}
 .edit-modal-header h3{margin:0;font-family:var(--font-title);font-size:21px;font-weight:var(--fw-high)}
@@ -551,7 +564,6 @@ font-weight:var(--fw-mid);font-size:13.5px;pointer-events:auto;animation:toastIn
 .toast.success{border-left-color:var(--success)}
 .toast.danger{border-left-color:var(--danger)}
 .toast.warning{border-left-color:var(--warning)}
-
 .banner-preview-box{margin-top:14px;border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--gray-border);background:#000;aspect-ratio:21/9;position:relative;min-height:180px}
 .banner-preview-box img{width:100%;height:100%;display:block}
 .banner-preview-box.no-img{background:linear-gradient(135deg,var(--divani-secondary),var(--divani-primary))}
@@ -565,71 +577,68 @@ font-weight:var(--fw-mid);font-size:13.5px;pointer-events:auto;animation:toastIn
 .img-fit-opt:hover{border-color:var(--divani-primary);color:var(--divani-primary)}
 .img-fit-opt.active{background:var(--divani-primary);color:#fff;border-color:var(--divani-primary)}
 .img-fit-opt svg{display:block;margin:0 auto 4px;width:24px;height:24px}
-
 @media(max-width:640px){
-  header{padding:10px 14px 12px;padding-top:calc(10px + var(--safe-top))}
-  .header-row{height:44px;gap:8px}
-  .brand{font-size:19px;letter-spacing:4px;text-indent:4px;max-width:50vw}
-  .brand::before,.brand::after{width:18px;margin:0 6px}
-  .icon-btn{width:40px;height:40px;border-radius:11px}
-  .icon-btn svg{width:17px;height:17px}
-  .search-wrap{margin-top:8px}
-  #buscadorInput{padding:11px 16px 11px 40px;font-size:13.5px!important}
-  main{padding:14px 14px 10px}
-  .section-head{margin:24px 2px 14px}
-  .section-head h2{font-size:20px}
-  .chips{gap:7px;padding:5px 2px;margin-top:10px}
-  .chips a{font-size:11.5px;padding:8px 15px}
-  .container{gap:14px 11px}
-  .card-top{height:180px;padding:14px}
-  .card h3{font-size:12px;min-height:34px}
-  .card .price{font-size:14.5px}
-  .fab-add{width:38px;height:38px;right:10px;bottom:-16px}
-  .fab-add svg{width:15px;height:15px}
-  .card-info{padding:22px 12px 14px}
-  .hscroll{gap:12px}
-  .hscroll .card{width:170px}
-  .hscroll .card-top{height:170px}
-  .promo-band{padding:18px 20px;margin:28px 0 8px}
-  .promo-band b{font-size:15px}
-  .promo-band small{font-size:11px}
-  .promo-band button{padding:10px 16px;font-size:11.5px}
-  .footer{padding:30px 16px 16px}
-  .foot-brand{font-size:22px;letter-spacing:5px}
+header{padding:10px 14px 12px;padding-top:calc(10px + var(--safe-top))}
+.header-row{height:44px;gap:8px}
+.brand{font-size:19px;letter-spacing:4px;text-indent:4px;max-width:50vw}
+.brand::before,.brand::after{width:18px;margin:0 6px}
+.icon-btn{width:40px;height:40px;border-radius:11px}
+.icon-btn svg{width:17px;height:17px}
+.search-wrap{margin-top:8px}
+#buscadorInput{padding:11px 16px 11px 40px;font-size:13.5px!important}
+main{padding:14px 14px 10px}
+.section-head{margin:24px 2px 14px}
+.section-head h2{font-size:20px}
+.chips{gap:7px;padding:5px 2px;margin-top:10px}
+.chips a{font-size:11.5px;padding:8px 15px}
+.container{gap:14px 11px}
+.card-top{height:180px;padding:14px}
+.card h3{font-size:12px;min-height:34px}
+.card .price{font-size:14.5px}
+.fab-add{width:38px;height:38px;right:10px;bottom:-16px}
+.fab-add svg{width:15px;height:15px}
+.card-info{padding:22px 12px 14px}
+.hscroll{gap:12px}
+.hscroll .card{width:170px}
+.hscroll .card-top{height:170px}
+.promo-band{padding:18px 20px;margin:28px 0 8px}
+.promo-band b{font-size:15px}
+.promo-band small{font-size:11px}
+.promo-band button{padding:10px 16px;font-size:11.5px}
+.footer{padding:30px 16px 16px}
+.foot-brand{font-size:22px;letter-spacing:5px}
 }
-
 @media(max-width:420px){
-  header{padding:8px 12px 10px;padding-top:calc(8px + var(--safe-top))}
-  .header-row{height:42px;gap:6px}
-  .brand{font-size:17px;letter-spacing:3.5px;text-indent:3.5px;max-width:48vw}
-  .brand::before,.brand::after{width:14px;margin:0 4px}
-  .icon-btn{width:38px;height:38px}
-  .icon-btn svg{width:16px;height:16px}
-  .badge-count{min-width:18px;height:18px;font-size:10px;top:-5px;right:-5px}
-  main{padding:12px 10px 8px}
-  .section-head h2{font-size:18px}
-  .section-sub{font-size:11px}
-  .chips a{font-size:11px;padding:7px 13px}
-  .container{grid-template-columns:repeat(2,1fr);gap:12px 9px}
-  .card-top{height:160px;padding:12px}
-  .card h3{font-size:11.5px;min-height:32px}
-  .card .price{font-size:14px}
-  .card-info{padding:20px 10px 12px}
-  .hscroll{gap:10px}
-  .hscroll .card{width:155px}
-  .hscroll .card-top{height:155px}
-  .promo-band{flex-direction:column;align-items:flex-start;gap:12px;padding:16px 18px}
-  .promo-band button{width:100%;text-align:center}
-  .foot-inner{gap:18px}
-  .foot-brand{font-size:20px}
+header{padding:8px 12px 10px;padding-top:calc(8px + var(--safe-top))}
+.header-row{height:42px;gap:6px}
+.brand{font-size:17px;letter-spacing:3.5px;text-indent:3.5px;max-width:48vw}
+.brand::before,.brand::after{width:14px;margin:0 4px}
+.icon-btn{width:38px;height:38px}
+.icon-btn svg{width:16px;height:16px}
+.badge-count{min-width:18px;height:18px;font-size:10px;top:-5px;right:-5px}
+main{padding:12px 10px 8px}
+.section-head h2{font-size:18px}
+.section-sub{font-size:11px}
+.chips a{font-size:11px;padding:7px 13px}
+.container{grid-template-columns:repeat(2,1fr);gap:12px 9px}
+.card-top{height:160px;padding:12px}
+.card h3{font-size:11.5px;min-height:32px}
+.card .price{font-size:14px}
+.card-info{padding:20px 10px 12px}
+.hscroll{gap:10px}
+.hscroll .card{width:155px}
+.hscroll .card-top{height:155px}
+.promo-band{flex-direction:column;align-items:flex-start;gap:12px;padding:16px 18px}
+.promo-band button{width:100%;text-align:center}
+.foot-inner{gap:18px}
+.foot-brand{font-size:20px}
 }
-
 @media(max-width:340px){
-  .brand{font-size:15px;letter-spacing:2.5px;text-indent:2.5px}
-  .brand::before,.brand::after{display:none}
-  .container{gap:10px 7px}
-  .card-top{height:140px}
-  .card h3{font-size:11px}
+.brand{font-size:15px;letter-spacing:2.5px;text-indent:2.5px}
+.brand::before,.brand::after{display:none}
+.container{gap:10px 7px}
+.card-top{height:140px}
+.card h3{font-size:11px}
 }
 </style>
 </head>
@@ -730,7 +739,7 @@ font-weight:var(--fw-mid);font-size:13.5px;pointer-events:auto;animation:toastIn
 <div class="cart" id="cartSidebar">
 <div class="cart-header">
 <h2>Carrito</h2>
-<button class="close-cart" onclick="toggleCart(false)" aria-label="Cerrar carrito">✕</button>
+<button class="close-cart" onclick="toggleCart(false)" aria-label="Cerrar carrito"></button>
 </div>
 <div id="carrito"></div>
 <div class="cart-total"><span>Total:</span><span>$<span id="total">0</span></span></div>
@@ -830,7 +839,7 @@ Agregar al Carrito
 <small>Los destacados se muestran en la sección Destacados de la tienda.</small>
 </div>
 <div class="form-group"><label>💬 Texto promocional (opcional)</label><input type="text" id="editPromo" placeholder="Frase corta promocional"></div>
-<div class="card-sec-title"><span class="ico">🖼️</span>Imágenes<small>La primera es la portada</small></div>
+<div class="card-sec-title"><span class="ico">️</span>Imágenes<small>La primera es la portada</small></div>
 <label class="dropzone" for="editFileImg">
 <span class="dz-ico">📤</span>
 <b>Toca para subir imágenes</b>
@@ -859,12 +868,12 @@ Agregar al Carrito
 <button class="admin-nav-item" data-tab="tab-nuevo" onclick="switchTab('tab-nuevo',this)"><span class="nav-ico">➕</span>Nuevo producto</button>
 <button class="admin-nav-item" data-tab="tab-inventario" onclick="switchTab('tab-inventario',this)"><span class="nav-ico">📦</span>Productos</button>
 <button class="admin-nav-item" data-tab="tab-destacados" onclick="switchTab('tab-destacados',this)"><span class="nav-ico">⭐</span>Destacados</button>
-<button class="admin-nav-item" data-tab="tab-banners" onclick="switchTab('tab-banners',this)"><span class="nav-ico">🖼️</span>Banners</button>
-<button class="admin-nav-item" data-tab="tab-categorias" onclick="switchTab('tab-categorias',this)"><span class="nav-ico">🏷️</span>Categorías</button>
+<button class="admin-nav-item" data-tab="tab-banners" onclick="switchTab('tab-banners',this)"><span class="nav-ico">️</span>Banners</button>
+<button class="admin-nav-item" data-tab="tab-categorias" onclick="switchTab('tab-categorias',this)"><span class="nav-ico">️</span>Categorías</button>
 <button class="admin-nav-item" data-tab="tab-carga-masiva" onclick="switchTab('tab-carga-masiva',this)"><span class="nav-ico">📊</span>Carga masiva</button>
 <button class="admin-nav-item" data-tab="tab-nube" onclick="switchTab('tab-nube',this)"><span class="nav-ico">☁️</span>Nube</button>
-<button class="admin-nav-item" data-tab="tab-personaliza" onclick="switchTab('tab-personaliza',this)"><span class="nav-ico">🎨</span>Personalización</button>
-<button class="admin-nav-item danger-link" onclick="cerrarAdmin()"><span class="nav-ico">🚪</span>Salir</button>
+<button class="admin-nav-item" data-tab="tab-personaliza" onclick="switchTab('tab-personaliza',this)"><span class="nav-ico"></span>Personalización</button>
+<button class="admin-nav-item danger-link" onclick="cerrarAdmin()"><span class="nav-ico"></span>Salir</button>
 </div>
 </div>
 <div class="admin-main">
@@ -935,7 +944,7 @@ Agregar al Carrito
 </div>
 <div class="card-sec-title"><span class="ico">🖼️</span>Imágenes<small>La primera es la portada</small></div>
 <label class="dropzone" for="prodFileImg">
-<span class="dz-ico">📤</span>
+<span class="dz-ico"></span>
 <b>Toca para subir imágenes</b>
 <small id="prodUploadHint">Varios tonos/colores · máx. 3MB c/u</small>
 </label>
@@ -946,7 +955,7 @@ Agregar al Carrito
 <div class="card-sec-title"><span class="ico">🎨</span>Tonos<small>Aparecen como círculos de color</small></div>
 <div id="prodTonosList"></div>
 <button type="button" class="add-tono-btn" onclick="addTonoRow('prodTonosList')">➕ Agregar tono</button>
-<div class="card-sec-title"><span class="ico">⚙️</span>Opciones de publicación</div>
+<div class="card-sec-title"><span class="ico">️</span>Opciones de publicación</div>
 <div class="estado-box">
 <div class="estado-txt"><b>Mostrar producto en catálogo</b><small>ON: los clientes lo ven · OFF: queda oculto</small></div>
 <div class="switch-col">
@@ -971,7 +980,7 @@ Agregar al Carrito
 <button class="inv-chip" onclick="filtrarInventario('visibles',this)">🟢 Visibles</button>
 <button class="inv-chip" onclick="filtrarInventario('ocultos',this)">🔴 Ocultos</button>
 </div>
-<input type="text" id="inventarioBuscador" placeholder="🔍 Buscar por nombre o categoría..." oninput="filtrarTablaInventario(this.value)" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--gray-border);margin-bottom:16px;">
+<input type="text" id="inventarioBuscador" placeholder=" Buscar por nombre o categoría..." oninput="filtrarTablaInventario(this.value)" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--gray-border);margin-bottom:16px;">
 <div style="overflow-x:auto;">
 <table class="tbl">
 <thead><tr>
@@ -1005,8 +1014,8 @@ Agregar al Carrito
 <small>Elige <b>Destacados</b> para que el banner lleve a tu colección de productos destacados.</small></div>
 <div class="form-group"><label>Tema de color (si no usa identidad)</label>
 <select id="bannerTema">
-<option value="1">🌸 Rosa</option>
-<option value="2">🍓 Fresa</option>
+<option value="1"> Rosa</option>
+<option value="2"> Fresa</option>
 <option value="3">🌼 Amarillo</option>
 </select>
 </div>
@@ -1017,12 +1026,11 @@ Agregar al Carrito
 </div>
 <div class="form-group"><label>Imagen (URL)</label><input type="text" id="bannerImg" placeholder="https://..." oninput="actualizarPreviewBanner()"></div>
 <label class="dropzone" for="bannerFile">
-<span class="dz-ico">📤</span>
+<span class="dz-ico"></span>
 <b>O toca para subir una imagen</b>
 <small id="bannerUploadHint">máx. 3MB</small>
 </label>
 <input type="file" id="bannerFile" accept="image/*" onchange="cargarImagenBannerFile(this)" style="display:none;">
-
 <div class="card-sec-title" style="margin-top:18px;"><span class="ico">🎯</span>Ajuste de imagen<small>Cómo se verá la imagen en el banner</small></div>
 <div class="form-group"><label>Modo de ajuste</label>
 <div class="img-fit-options" id="bannerFitOptions">
@@ -1043,11 +1051,11 @@ Llenar
 <div class="form-group"><label>Posición de la imagen</label>
 <div class="img-fit-options" id="bannerPosOptions" style="grid-template-columns:repeat(3,1fr)">
 <div class="img-fit-opt" data-pos="top" onclick="seleccionarPos('top')">⬆ Superior</div>
-<div class="img-fit-opt active" data-pos="center" onclick="seleccionarPos('center')">⊙ Centro</div>
+<div class="img-fit-opt active" data-pos="center" onclick="seleccionarPos('center')"> Centro</div>
 <div class="img-fit-opt" data-pos="bottom" onclick="seleccionarPos('bottom')">⬇ Inferior</div>
 <div class="img-fit-opt" data-pos="left" onclick="seleccionarPos('left')">⬅ Izquierda</div>
 <div class="img-fit-opt" data-pos="center-h" onclick="seleccionarPos('center-h')">⊙ Centro-H</div>
-<div class="img-fit-opt" data-pos="right" onclick="seleccionarPos('right')">➡ Derecha</div>
+<div class="img-fit-opt" data-pos="right" onclick="seleccionarPos('right')"> Derecha</div>
 </div>
 <small style="display:block;margin-top:6px;color:#64748b;">La posición controla qué parte de la imagen se muestra cuando se recorta.</small>
 </div>
@@ -1055,8 +1063,7 @@ Llenar
 <input type="number" id="bannerDuracion" min="2" max="15" value="3" style="width:100px">
 <small>Este banner se mostrará durante este tiempo antes de pasar al siguiente.</small>
 </div>
-
-<div class="card-sec-title"><span class="ico">👁️</span>Vista previa</div>
+<div class="card-sec-title"><span class="ico">️</span>Vista previa</div>
 <div class="banner-preview-box" id="bannerPreviewBox">
 <img id="bannerPreviewImg" src="" alt="Vista previa del banner" style="display:none">
 <div class="banner-preview-overlay"></div>
@@ -1066,9 +1073,8 @@ Llenar
 <p id="bpSub">Tu subtítulo aquí</p>
 </div>
 </div>
-
 <div style="display:flex;gap:10px;margin-top:16px;">
-<button class="sync-btn secondary" onclick="limpiarFormBanner()" style="flex:1;">🧹 Limpiar</button>
+<button class="sync-btn secondary" onclick="limpiarFormBanner()" style="flex:1;"> Limpiar</button>
 <button class="sync-btn primary" onclick="guardarBanner()" style="flex:1;">💾 Guardar banner</button>
 </div>
 </div>
@@ -1111,7 +1117,7 @@ Llenar
 </div>
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
 <button class="sync-btn primary" style="flex:1;min-width:160px;margin:0;" onclick="guardarCredencialesNube()">💾 Guardar credenciales</button>
-<button class="sync-btn secondary" style="flex:1;min-width:160px;margin:0;" onclick="probarConexionNube()">🔌 Probar conexión</button>
+<button class="sync-btn secondary" style="flex:1;min-width:160px;margin:0;" onclick="probarConexionNube()"> Probar conexión</button>
 </div>
 </div>
 <div class="dashboard-card">
@@ -1119,7 +1125,7 @@ Llenar
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Sube todo el catálogo a la nube o tráelo de vuelta a este dispositivo.</p>
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
 <button class="sync-btn success" style="flex:1;min-width:160px;margin:0;" onclick="subirDatosANube()">⬆️ Subir todo a la nube</button>
-<button class="sync-btn warning" style="flex:1;min-width:160px;margin:0;" onclick="confirmarDescargaNube()">⬇️ Descargar de la nube</button>
+<button class="sync-btn warning" style="flex:1;min-width:160px;margin:0;" onclick="confirmarDescargaNube()">️ Descargar de la nube</button>
 </div>
 </div>
 <div class="dashboard-card">
@@ -1128,7 +1134,7 @@ Llenar
 <button class="sync-btn primary" onclick="migrarImagenesAImgBB()" style="margin:0;">☁️ Migrar imágenes locales a ImgBB</button>
 </div>
 <div class="dashboard-card">
-<h4>🚀 Guía rápida</h4>
+<h4> Guía rápida</h4>
 <div class="steps">
 <div class="step"><span>1</span><div><b>Crea tu API key en ImgBB</b><small>Entra a api.imgbb.com, crea una cuenta, genera la API key y pégala arriba.</small></div></div>
 <div class="step"><span>2</span><div><b>Crea tu base de datos en Firebase</b><small>Proyecto nuevo → Realtime Database → crear en modo prueba → copia la URL de la base.</small></div></div>
@@ -1217,7 +1223,7 @@ Llenar
 </div>
 </div>
 <div class="dashboard-card">
-<h4>📞 Datos de contacto</h4>
+<h4> Datos de contacto</h4>
 <div class="grid-form-2">
 <div class="form-group"><label>Ubicación</label><input type="text" id="persUbicacion" placeholder="Colombia"></div>
 <div class="form-group"><label>WhatsApp (código de país)</label><input type="text" id="persWhatsapp" placeholder="573003896683"></div>
@@ -1315,39 +1321,37 @@ const COLOR_META=[
 {key:'adminBtn', label:'Color del botón Admin', desc:'Botón de acceso al panel de administración'}
 ];
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
-
 const CACHE_KEY = 'divani_cache_v1';
 function loadCache(){
-  try{ const raw = localStorage.getItem(CACHE_KEY); if(!raw) return null; return JSON.parse(raw); }
-  catch(e){ return null; }
+try{ const raw = localStorage.getItem(CACHE_KEY); if(!raw) return null; return JSON.parse(raw); }
+catch(e){ return null; }
 }
 function saveCache(){
-  try{
-    const data = { productos, categorias, banners, tiendaConfig, personalizacion: pers, ts: Date.now() };
-    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-  }catch(e){}
+try{
+const data = { productos, categorias, banners, tiendaConfig, personalizacion: pers, ts: Date.now() };
+localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+}catch(e){}
 }
 function applyCachedData(cache){
-  if(!cache) return false;
-  let applied = false;
-  if(Array.isArray(cache.productos) && cache.productos.length){ productos = cache.productos; applied = true; }
-  if(Array.isArray(cache.categorias) && cache.categorias.length){ categorias = cache.categorias; }
-  if(Array.isArray(cache.banners) && cache.banners.length){ banners = cache.banners; }
-  if(cache.tiendaConfig){ tiendaConfig = Object.assign(tiendaConfig, cache.tiendaConfig); }
-  if(cache.personalizacion){
-    const base = clone(DEFAULT_PERS);
-    pers = {
-      logo: typeof cache.personalizacion.logo==='string'? cache.personalizacion.logo : base.logo,
-      name: cache.personalizacion.name||base.name,
-      tagline: cache.personalizacion.tagline??base.tagline,
-      weight: cache.personalizacion.weight||base.weight,
-      palette: Object.assign(clone(base.palette), cache.personalizacion.palette||{}),
-      fonts: Object.assign(clone(base.fonts), cache.personalizacion.fonts||{})
-    };
-  }
-  return applied;
+if(!cache) return false;
+let applied = false;
+if(Array.isArray(cache.productos) && cache.productos.length){ productos = cache.productos; applied = true; }
+if(Array.isArray(cache.categorias) && cache.categorias.length){ categorias = cache.categorias; }
+if(Array.isArray(cache.banners) && cache.banners.length){ banners = cache.banners; }
+if(cache.tiendaConfig){ tiendaConfig = Object.assign(tiendaConfig, cache.tiendaConfig); }
+if(cache.personalizacion){
+const base = clone(DEFAULT_PERS);
+pers = {
+logo: typeof cache.personalizacion.logo==='string'? cache.personalizacion.logo : base.logo,
+name: cache.personalizacion.name||base.name,
+tagline: cache.personalizacion.tagline??base.tagline,
+weight: cache.personalizacion.weight||base.weight,
+palette: Object.assign(clone(base.palette), cache.personalizacion.palette||{}),
+fonts: Object.assign(clone(base.fonts), cache.personalizacion.fonts||{})
+};
 }
-
+return applied;
+}
 function loadPers(){
 try{
 const raw=localStorage.getItem('divani_cfg_v2');
@@ -1809,7 +1813,6 @@ let bannerEditandoId = null;
 let bannerFitActual = 'cover';
 let bannerPosActual = 'center';
 let invFiltro='todos', invBusqueda='';
-
 function showToast(message, type='success'){
 const toast=document.createElement('div');
 toast.className=`toast ${type}`; toast.innerHTML=message;
@@ -1865,72 +1868,70 @@ if(n) out.push({n,c,i:Math.min(i,Math.max(0,numImgs-1))});
 return out.length?out:undefined;
 }
 function navBtn(tab){ return document.querySelector('.admin-nav-item[data-tab="'+tab+'"]'); }
-
 function levenshtein(a,b){
-  if(a===b) return 0;
-  if(!a.length) return b.length;
-  if(!b.length) return a.length;
-  const matrix=[];
-  for(let i=0;i<=b.length;i++) matrix[i]=[i];
-  for(let j=0;j<=a.length;j++) matrix[0][j]=j;
-  for(let i=1;i<=b.length;i++){
-    for(let j=1;j<=a.length;j++){
-      if(b.charAt(i-1)===a.charAt(j-1)) matrix[i][j]=matrix[i-1][j-1];
-      else matrix[i][j]=Math.min(matrix[i-1][j-1]+1, matrix[i][j-1]+1, matrix[i-1][j]+1);
-    }
-  }
-  return matrix[b.length][a.length];
+if(a===b) return 0;
+if(!a.length) return b.length;
+if(!b.length) return a.length;
+const matrix=[];
+for(let i=0;i<=b.length;i++) matrix[i]=[i];
+for(let j=0;j<=a.length;j++) matrix[0][j]=j;
+for(let i=1;i<=b.length;i++){
+for(let j=1;j<=a.length;j++){
+if(b.charAt(i-1)===a.charAt(j-1)) matrix[i][j]=matrix[i-1][j-1];
+else matrix[i][j]=Math.min(matrix[i-1][j-1]+1, matrix[i][j-1]+1, matrix[i-1][j]+1);
+}
+}
+return matrix[b.length][a.length];
 }
 function normalizarTexto(t){
-  return String(t||'').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ');
+return String(t||'').toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,' ');
 }
 function fuzzyMatch(query, text){
-  const q=normalizarTexto(query);
-  const t=normalizarTexto(text);
-  if(!q) return {match:false, score:0, type:'none'};
-  if(t===q) return {match:true, score:100, type:'exact'};
-  if(t.startsWith(q)) return {match:true, score:90, type:'start'};
-  if(t.includes(q)) return {match:true, score:80, type:'contains'};
-  const qWords=q.split(' ').filter(w=>w.length>=2);
-  if(!qWords.length) return {match:false, score:0, type:'none'};
-  const tWords=t.split(' ');
-  let totalScore=0, matched=0;
-  for(const qw of qWords){
-    let bestWordScore=0;
-    for(const tw of tWords){
-      if(tw.includes(qw)){ bestWordScore=Math.max(bestWordScore, 70); continue; }
-      if(qw.includes(tw) && tw.length>2){ bestWordScore=Math.max(bestWordScore, 55); continue; }
-      const dist=levenshtein(qw, tw);
-      const maxLen=Math.max(qw.length, tw.length);
-      const sim=1-(dist/maxLen);
-      if(sim>=0.72){ bestWordScore=Math.max(bestWordScore, Math.round(sim*70)); }
-    }
-    if(bestWordScore>0){ matched++; totalScore+=bestWordScore; }
-  }
-  if(matched>0){
-    const avgScore=Math.round(totalScore/matched);
-    const coverage=matched/qWords.length;
-    const finalScore=Math.round(avgScore*coverage);
-    if(finalScore>=40) return {match:true, score:finalScore, type:'fuzzy'};
-  }
-  return {match:false, score:0, type:'none'};
+const q=normalizarTexto(query);
+const t=normalizarTexto(text);
+if(!q) return {match:false, score:0, type:'none'};
+if(t===q) return {match:true, score:100, type:'exact'};
+if(t.startsWith(q)) return {match:true, score:90, type:'start'};
+if(t.includes(q)) return {match:true, score:80, type:'contains'};
+const qWords=q.split(' ').filter(w=>w.length>=2);
+if(!qWords.length) return {match:false, score:0, type:'none'};
+const tWords=t.split(' ');
+let totalScore=0, matched=0;
+for(const qw of qWords){
+let bestWordScore=0;
+for(const tw of tWords){
+if(tw.includes(qw)){ bestWordScore=Math.max(bestWordScore, 70); continue; }
+if(qw.includes(tw) && tw.length>2){ bestWordScore=Math.max(bestWordScore, 55); continue; }
+const dist=levenshtein(qw, tw);
+const maxLen=Math.max(qw.length, tw.length);
+const sim=1-(dist/maxLen);
+if(sim>=0.72){ bestWordScore=Math.max(bestWordScore, Math.round(sim*70)); }
+}
+if(bestWordScore>0){ matched++; totalScore+=bestWordScore; }
+}
+if(matched>0){
+const avgScore=Math.round(totalScore/matched);
+const coverage=matched/qWords.length;
+const finalScore=Math.round(avgScore*coverage);
+if(finalScore>=40) return {match:true, score:finalScore, type:'fuzzy'};
+}
+return {match:false, score:0, type:'none'};
 }
 function buscarProductosFuzzy(query){
-  const q=normalizarTexto(query);
-  if(!q||q.length<2) return [];
-  const resultados=[];
-  productos.forEach(p=>{
-    if(!esVisible(p)) return;
-    const campos=[p.nombre, p.categoria, p.promo||''].join(' ');
-    const r=fuzzyMatch(q, campos);
-    if(r.match){
-      resultados.push({producto:p, score:r.score, type:r.type});
-    }
-  });
-  resultados.sort((a,b)=>b.score-a.score);
-  return resultados.slice(0,12);
+const q=normalizarTexto(query);
+if(!q||q.length<2) return [];
+const resultados=[];
+productos.forEach(p=>{
+if(!esVisible(p)) return;
+const campos=[p.nombre, p.categoria, p.promo||''].join(' ');
+const r=fuzzyMatch(q, campos);
+if(r.match){
+resultados.push({producto:p, score:r.score, type:r.type});
 }
-
+});
+resultados.sort((a,b)=>b.score-a.score);
+return resultados.slice(0,12);
+}
 function filasTiendaHtml(){
 const t=tiendaConfig;
 const ig=String(t.instagram||'').replace(/^@/,'');
@@ -1969,32 +1970,29 @@ const fc=document.getElementById('footContact'); if(fc) fc.innerHTML=footContact
 }
 function abrirInfoTienda(){ document.getElementById('storeModal').style.display='flex'; }
 function cerrarInfoTienda(){ document.getElementById('storeModal').style.display='none'; }
-
 function renderSkeleton(containerId, count=8){
-  const cont=document.getElementById(containerId);
-  if(!cont) return;
-  let html='<div class="skeleton-grid">';
-  for(let i=0;i<count;i++){
-    html+=`<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-text short"></div><div class="skeleton-text price"></div></div>`;
-  }
-  html+='</div>';
-  cont.innerHTML=html;
+const cont=document.getElementById(containerId);
+if(!cont) return;
+let html='<div class="skeleton-grid">';
+for(let i=0;i<count;i++){
+html+=`<div class="skeleton-card"><div class="skeleton-img"></div><div class="skeleton-text"></div><div class="skeleton-text short"></div><div class="skeleton-text price"></div></div>`;
 }
-
+html+='</div>';
+cont.innerHTML=html;
+}
 function getImgFitStyle(b){
-  const fit=b.imgFit||'cover';
-  const pos=b.imgPos||'center';
-  const posMap={
-    top:'center top',
-    bottom:'center bottom',
-    left:'left center',
-    right:'right center',
-    center:'center center',
-    'center-h':'center center'
-  };
-  return {objectFit:fit, objectPosition:posMap[pos]||'center center'};
+const fit=b.imgFit||'cover';
+const pos=b.imgPos||'center';
+const posMap={
+top:'center top',
+bottom:'center bottom',
+left:'left center',
+right:'right center',
+center:'center center',
+'center-h':'center center'
+};
+return {objectFit:fit, objectPosition:posMap[pos]||'center center'};
 }
-
 function construirSlidesHero(){
 const slides=[];
 banners.forEach((b,idx)=>{
@@ -2037,13 +2035,13 @@ document.querySelectorAll('#heroDots button').forEach((d,j)=>d.classList.toggle(
 if(manual) startHeroTimer();
 }
 function startHeroTimer(){
-  if(heroTimer) clearTimeout(heroTimer);
-  if(heroTotal<=1 || heroPaused) return;
-  const currentSlide=document.querySelector('#heroTrack .hero-slide.active');
-  const duracion=(currentSlide?parseInt(currentSlide.dataset.duracion):3)||3;
-  heroTimer=setTimeout(()=>{
-    if(!heroPaused) goHero(heroIdx+1, false);
-  }, duracion*1000);
+if(heroTimer) clearTimeout(heroTimer);
+if(heroTotal<=1 || heroPaused) return;
+const currentSlide=document.querySelector('#heroTrack .hero-slide.active');
+const duracion=(currentSlide?parseInt(currentSlide.dataset.duracion):3)||3;
+heroTimer=setTimeout(()=>{
+if(!heroPaused) goHero(heroIdx+1, false);
+}, duracion*1000);
 }
 function ctaBanner(id){ const b=banners.find(x=>x.id===id); if(!b) return; filtrarCategoria(b.cat||'Todos'); }
 function initHeroGestures(){
@@ -2115,57 +2113,54 @@ const r=new FileReader();
 r.onload=()=>{ document.getElementById('bannerImg').value=r.result; actualizarPreviewBanner(); showToast('Imagen cargada','success'); };
 r.readAsDataURL(f);
 }
-
 function seleccionarFit(fit){
-  bannerFitActual=fit;
-  document.querySelectorAll('#bannerFitOptions .img-fit-opt').forEach(el=>{
-    el.classList.toggle('active', el.dataset.fit===fit);
-  });
-  actualizarPreviewBanner();
+bannerFitActual=fit;
+document.querySelectorAll('#bannerFitOptions .img-fit-opt').forEach(el=>{
+el.classList.toggle('active', el.dataset.fit===fit);
+});
+actualizarPreviewBanner();
 }
 function seleccionarPos(pos){
-  bannerPosActual=pos;
-  document.querySelectorAll('#bannerPosOptions .img-fit-opt').forEach(el=>{
-    el.classList.toggle('active', el.dataset.pos===pos);
-  });
-  actualizarPreviewBanner();
+bannerPosActual=pos;
+document.querySelectorAll('#bannerPosOptions .img-fit-opt').forEach(el=>{
+el.classList.toggle('active', el.dataset.pos===pos);
+});
+actualizarPreviewBanner();
 }
 function actualizarPreviewBanner(){
-  const img=document.getElementById('bannerPreviewImg');
-  const box=document.getElementById('bannerPreviewBox');
-  const url=(document.getElementById('bannerImg').value||'').trim();
-  const titulo=(document.getElementById('bannerTitulo').value||'').trim()||'Tu título aquí';
-  const sub=(document.getElementById('bannerSub').value||'').trim()||'Tu subtítulo aquí';
-  const tag=(document.getElementById('bannerEtiqueta').value||'').trim()||'Novedad';
-  
-  if(url && url.startsWith('http') || url.startsWith('data:')){
-    img.src=url;
-    img.style.display='block';
-    img.style.objectFit=bannerFitActual;
-    const posMap={
-      top:'center top',
-      bottom:'center bottom',
-      left:'left center',
-      right:'right center',
-      center:'center center',
-      'center-h':'center center'
-    };
-    img.style.objectPosition=posMap[bannerPosActual]||'center center';
-    box.classList.remove('no-img');
-    img.onerror=function(){
-      this.style.display='none';
-      box.classList.add('no-img');
-    };
-  } else {
-    img.style.display='none';
-    img.removeAttribute('src');
-    box.classList.add('no-img');
-  }
-  document.getElementById('bpTitle').textContent=titulo;
-  document.getElementById('bpSub').textContent=sub;
-  document.getElementById('bpTag').textContent=tag;
+const img=document.getElementById('bannerPreviewImg');
+const box=document.getElementById('bannerPreviewBox');
+const url=(document.getElementById('bannerImg').value||'').trim();
+const titulo=(document.getElementById('bannerTitulo').value||'').trim()||'Tu título aquí';
+const sub=(document.getElementById('bannerSub').value||'').trim()||'Tu subtítulo aquí';
+const tag=(document.getElementById('bannerEtiqueta').value||'').trim()||'Novedad';
+if(url && url.startsWith('http') || url.startsWith('data:')){
+img.src=url;
+img.style.display='block';
+img.style.objectFit=bannerFitActual;
+const posMap={
+top:'center top',
+bottom:'center bottom',
+left:'left center',
+right:'right center',
+center:'center center',
+'center-h':'center center'
+};
+img.style.objectPosition=posMap[bannerPosActual]||'center center';
+box.classList.remove('no-img');
+img.onerror=function(){
+this.style.display='none';
+box.classList.add('no-img');
+};
+} else {
+img.style.display='none';
+img.removeAttribute('src');
+box.classList.add('no-img');
 }
-
+document.getElementById('bpTitle').textContent=titulo;
+document.getElementById('bpSub').textContent=sub;
+document.getElementById('bpTag').textContent=tag;
+}
 const PLUS_SVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>';
 function buildCard(p, suffix){
 const realIdx=productos.indexOf(p);
@@ -2264,7 +2259,7 @@ imgs[newIdx].classList.add('active'); if(dots[newIdx]) dots[newIdx].classList.ad
 }
 function irImagenCard(cardId,idx){
 const cont=document.getElementById(cardId); if(!cont) return;
-const imgs=cont.querySelectorAll('img'), dots=cont.querySelectorAll('.dot');
+const imgs=cont.querySelectorAll('img'), dots=cont.querySelectorAll('dot');
 imgs.forEach(img=>img.classList.remove('active')); dots.forEach(d=>d.classList.remove('active'));
 if(imgs[idx]) imgs[idx].classList.add('active'); if(dots[idx]) dots[idx].classList.add('active');
 }
@@ -2520,7 +2515,20 @@ function agregarDesdeDetalle(){
 if(productoDetalleIndex===null) return;
 agregarAlCarro(productoDetalleIndex, detalleCantidad);
 cerrarDetalle();
-toggleCart(true);
+}
+function cambiarImagenCard(cardId,dir){
+const cont=document.getElementById(cardId); if(!cont) return;
+const imgs=cont.querySelectorAll('img'), dots=cont.querySelectorAll('.dot');
+let activeIdx=0; imgs.forEach((img,i)=>{ if(img.classList.contains('active')) activeIdx=i; });
+let newIdx=activeIdx+dir; if(newIdx<0)newIdx=imgs.length-1; if(newIdx>=imgs.length)newIdx=0;
+imgs.forEach(img=>img.classList.remove('active')); dots.forEach(d=>d.classList.remove('active'));
+imgs[newIdx].classList.add('active'); if(dots[newIdx]) dots[newIdx].classList.add('active');
+}
+function irImagenCard(cardId,idx){
+const cont=document.getElementById(cardId); if(!cont) return;
+const imgs=cont.querySelectorAll('img'), dots=cont.querySelectorAll('.dot');
+imgs.forEach(img=>img.classList.remove('active')); dots.forEach(d=>d.classList.remove('active'));
+if(imgs[idx]) imgs[idx].classList.add('active'); if(dots[idx]) dots[idx].classList.add('active');
 }
 function renderDashboard(){
 const total=productos.length;
@@ -2832,55 +2840,54 @@ const wa=(tiendaConfig.whatsapp||'573003896683').replace(/\D/g,'');
 carrito=[]; actualizarCarrito(); toggleCart(false); renderProductos(); renderHome();
 window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`,'_blank');
 }
-
 let _searchDebounce=null;
 document.getElementById('buscadorInput').addEventListener('input',(e)=>{
-  clearTimeout(_searchDebounce);
-  const q=e.target.value;
-  _searchDebounce=setTimeout(()=>ejecutarBusqueda(q), 180);
+clearTimeout(_searchDebounce);
+const q=e.target.value;
+_searchDebounce=setTimeout(()=>ejecutarBusqueda(q), 180);
 });
 function ejecutarBusqueda(q){
-  const resDiv=document.getElementById('resultadoBusqueda');
-  const qn=normalizarTexto(q);
-  if(!qn||qn.length<2){
-    resDiv.style.display='none';
-    if(vistaActual==='home') renderHome(); else renderProductos();
-    return;
-  }
-  const resultados=buscarProductosFuzzy(q);
-  if(!resultados.length){
-    resDiv.innerHTML='<div style="padding:24px;text-align:center;color:#94a3b8;"><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">Intenta con otra palabra o revisa la ortografía.</p></div>';
-    resDiv.style.display='block';
-    mostrarVista('catalog');
-    document.getElementById('sectionTitle').textContent='Resultados';
-    document.getElementById('sectionSub').textContent=`Sin resultados para "${esc(q.trim())}"`;
-    document.getElementById('productos').innerHTML='<div class="empty-state"><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">Intenta con otra palabra o revisa la ortografía.</p></div>';
-    document.getElementById('countLabel').textContent='0 productos';
-    return;
-  }
-  const best=resultados[0];
-  let hint='';
-  if(best.type==='fuzzy' && best.score<80){
-    hint=`<div class="search-hint">💡 ¿Quizás quisiste decir: <b>${esc(best.producto.nombre)}</b>?</div>`;
-  } else if(best.type==='fuzzy'){
-    hint=`<div class="search-hint">✨ Mostrando resultados relacionados con tu búsqueda</div>`;
-  }
-  resDiv.innerHTML=hint+resultados.map(r=>`
+const resDiv=document.getElementById('resultadoBusqueda');
+const qn=normalizarTexto(q);
+if(!qn||qn.length<2){
+resDiv.style.display='none';
+if(vistaActual==='home') renderHome(); else renderProductos();
+return;
+}
+const resultados=buscarProductosFuzzy(q);
+if(!resultados.length){
+resDiv.innerHTML='<div style="padding:24px;text-align:center;color:#94a3b8;"><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">Intenta con otra palabra o revisa la ortografía.</p></div>';
+resDiv.style.display='block';
+mostrarVista('catalog');
+document.getElementById('sectionTitle').textContent='Resultados';
+document.getElementById('sectionSub').textContent=`Sin resultados para "${esc(q.trim())}"`;
+document.getElementById('productos').innerHTML='<div class="empty-state"><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">Intenta con otra palabra o revisa la ortografía.</p></div>';
+document.getElementById('countLabel').textContent='0 productos';
+return;
+}
+const best=resultados[0];
+let hint='';
+if(best.type==='fuzzy' && best.score<80){
+hint=`<div class="search-hint">💡 ¿Quizás quisiste decir: <b>${esc(best.producto.nombre)}</b>?</div>`;
+} else if(best.type==='fuzzy'){
+hint=`<div class="search-hint">✨ Mostrando resultados relacionados con tu búsqueda</div>`;
+}
+resDiv.innerHTML=hint+resultados.map(r=>`
 <div class="search-result-item" onclick="seleccionarBusqueda('${r.producto.id}')">
 <div><div style="font-weight:700;color:var(--divani-primary);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;">${esc(r.producto.categoria)}</div><div style="font-size:13px;">${esc(r.producto.nombre)}</div></div>
 <div style="font-weight:700;color:var(--divani-text);white-space:nowrap;">${formatearPrecio(precioFinalDe(r.producto))}</div>
 </div>`).join('');
-  resDiv.style.display='block';
-  mostrarVista('catalog');
-  document.getElementById('sectionTitle').textContent='Resultados';
-  document.getElementById('sectionSub').textContent=`Buscando: "${esc(q.trim())}"`;
-  const cont=document.getElementById('productos');
-  cont.innerHTML='';
-  resultados.forEach(r=>{
-    const card=buildCard(r.producto,'srch');
-    if(card) cont.appendChild(card);
-  });
-  document.getElementById('countLabel').textContent=`${resultados.length} ${resultados.length===1?'producto':'productos'}`;
+resDiv.style.display='block';
+mostrarVista('catalog');
+document.getElementById('sectionTitle').textContent='Resultados';
+document.getElementById('sectionSub').textContent=`Buscando: "${esc(q.trim())}"`;
+const cont=document.getElementById('productos');
+cont.innerHTML='';
+resultados.forEach(r=>{
+const card=buildCard(r.producto,'srch');
+if(card) cont.appendChild(card);
+});
+document.getElementById('countLabel').textContent=`${resultados.length} ${resultados.length===1?'producto':'productos'}`;
 }
 function seleccionarBusqueda(id){
 const p=productos.find(x=>x.id===id);
@@ -2988,11 +2995,9 @@ Bruma Facial,Skincare,36000,https://ejemplo.com/bruma.jpg,,,,`;
 const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
 const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='plantilla_divani.csv'; a.click();
 }
-
 const cachedData = loadCache();
 const cacheApplied = applyCachedData(cachedData);
 applyPers(pers);
-
 window.addEventListener('DOMContentLoaded',()=>{
 loadFlags();
 renderAllTienda();
@@ -3008,24 +3013,22 @@ renderNavCategorias();
 renderDestacadosAdmin();
 renderBannersAdmin();
 mostrarVista('home');
-
 if(cacheApplied){
-  renderHome();
-  renderProductos();
-  initHero();
-  initHeroGestures();
-  document.getElementById('pvImg').src=IMG.labial;
-  updatePrecioPreview('prodPrecio','prodDescuento','prodPrecioPreview');
-  actualizarPreviewBanner();
+renderHome();
+renderProductos();
+initHero();
+initHeroGestures();
+document.getElementById('pvImg').src=IMG.labial;
+updatePrecioPreview('prodPrecio','prodDescuento','prodPrecioPreview');
+actualizarPreviewBanner();
 }else{
-  renderSkeleton('gridParaTi', 8);
-  initHero();
-  initHeroGestures();
-  document.getElementById('pvImg').src=IMG.labial;
-  updatePrecioPreview('prodPrecio','prodDescuento','prodPrecioPreview');
-  actualizarPreviewBanner();
+renderSkeleton('gridParaTi', 8);
+initHero();
+initHeroGestures();
+document.getElementById('pvImg').src=IMG.labial;
+updatePrecioPreview('prodPrecio','prodDescuento','prodPrecioPreview');
+actualizarPreviewBanner();
 }
-
 actualizarCarrito();
 document.getElementById('adminPassInput').addEventListener('keydown',e=>{ if(e.key==='Enter') verificarPassword(); });
 ['storeModal','detailModal','editModal'].forEach(id=>{
@@ -3064,12 +3067,10 @@ irInicio();
 },400);
 }
 });
-
 const header=document.getElementById('mainHeader');
 window.addEventListener('scroll',()=>{
-  header.classList.toggle('scrolled', window.scrollY>10);
+header.classList.toggle('scrolled', window.scrollY>10);
 },{passive:true});
-
 if(CLOUD.dbUrl){
 setTimeout(async ()=>{
 const ep = dbEndpoint();
