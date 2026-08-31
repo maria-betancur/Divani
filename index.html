@@ -32,6 +32,11 @@
 --divani-primary:#e6538b;
 --divani-secondary:#fbe1ea;
 --divani-background:#fff9fb;
+--divani-background-gradient:var(--divani-background);
+--divani-header-bg:#fff9fb;
+--divani-header-gradient:var(--divani-header-bg);
+--divani-cart-bg:#ffffff;
+--divani-cart-gradient:var(--divani-cart-bg);
 --divani-light:#fff1f6;
 --divani-text:#33252b;
 --divani-button:#e6538b;
@@ -66,8 +71,9 @@ body.fw-medium{--fw-body:400;--fw-mid:500;--fw-high:600;--fw-max:600}
 body.fw-bold{--fw-body:500;--fw-mid:600;--fw-high:700;--fw-max:700}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;font-family:var(--font-body);font-size:14px;font-weight:var(--fw-body);background:var(--divani-background);
-color:var(--divani-text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;letter-spacing:.2px}
+body{margin:0;font-family:var(--font-body);font-size:14px;font-weight:var(--fw-body);background:var(--divani-background-gradient);
+color:var(--divani-text);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;letter-spacing:.2px;
+background-attachment:fixed}
 body.no-scroll{overflow:hidden}
 input,select,textarea{font-size:16px!important;font-family:inherit}
 @media(min-width:768px){input,select,textarea{font-size:14px!important}}
@@ -77,16 +83,16 @@ img{max-width:100%}
 ::-webkit-scrollbar-thumb{background:var(--divani-accent);border-radius:8px}
 ::-webkit-scrollbar-track{background:transparent}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-header{background:var(--divani-background);
+header{background:var(--divani-header-gradient);
 border-bottom:1px solid color-mix(in srgb,var(--divani-primary) 6%, transparent);position:sticky;top:0;z-index:100;
 padding:14px 28px 16px;padding-top:calc(14px + var(--safe-top));
 transition:box-shadow .4s,backdrop-filter .4s}
-header.scrolled{box-shadow:0 2px 16px color-mix(in srgb,var(--divani-text) 5%, transparent);backdrop-filter:blur(12px);background:color-mix(in srgb,var(--divani-background) 92%, transparent)}
+header.scrolled{box-shadow:0 2px 16px color-mix(in srgb,var(--divani-text) 5%, transparent);backdrop-filter:blur(12px)}
 .header-inner{max-width:1320px;margin:0 auto}
 .header-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;height:54px}
 .header-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}
 .icon-btn{position:relative;width:44px;height:44px;flex-shrink:0;border-radius:var(--radius-md);border:1px solid var(--pink-line);
-background:var(--divani-background);color:var(--divani-text);cursor:pointer;display:flex;align-items:center;justify-content:center;
+background:transparent;color:var(--divani-text);cursor:pointer;display:flex;align-items:center;justify-content:center;
 transition:all .3s cubic-bezier(.2,.7,.3,1)}
 .icon-btn:hover{background:var(--divani-primary);color:var(--divani-on-primary);border-color:var(--divani-primary);transform:translateY(-2px);box-shadow:0 6px 16px color-mix(in srgb,var(--divani-primary) 25%, transparent)}
 .icon-btn svg{width:19px;height:19px}
@@ -252,7 +258,7 @@ color:var(--divani-on-primary);box-shadow:0 12px 28px color-mix(in srgb,var(--di
 .foot-bottom{max-width:1320px;margin:32px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:11px;color:#a88b9c;letter-spacing:.5px;font-weight:300}
 .cart-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 40%, transparent);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:200}
 .cart-backdrop.show{opacity:1;pointer-events:auto}
-.cart{position:fixed;right:-100%;top:0;width:100%;max-width:420px;height:100%;background:#fff;padding:calc(22px + var(--safe-top)) 24px calc(24px + var(--safe-bottom));
+.cart{position:fixed;right:-100%;top:0;width:100%;max-width:420px;height:100%;background:var(--divani-cart-gradient);padding:calc(22px + var(--safe-top)) 24px calc(24px + var(--safe-bottom));
 overflow-y:auto;z-index:210;transition:right .4s cubic-bezier(.2,.7,.3,1);box-shadow:-12px 0 36px rgba(0,0,0,.1);display:flex;flex-direction:column}
 .cart.open{right:0}
 .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-shrink:0}
@@ -510,15 +516,24 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;color:var
 .mini-btn{min-width:32px;height:32px;padding:0 9px;border-radius:9px;border:none;cursor:pointer;background:var(--gray-light);transition:.2s;font-size:11.5px;font-weight:500;display:flex;align-items:center;justify-content:center}
 .mini-btn:hover{background:var(--light-pink)}
 .mini-btn.del:hover{background:var(--danger);color:#fff}
-.color-row{display:flex;align-items:center;gap:13px;background:var(--gray-light);border:1.5px solid var(--gray-border);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:10px}
+.color-row{display:flex;align-items:center;gap:13px;background:var(--gray-light);border:1.5px solid var(--gray-border);border-radius:var(--radius-md);padding:12px 16px;margin-bottom:10px;flex-wrap:wrap}
 .cr-swatch{width:36px;height:36px;border-radius:10px;flex-shrink:0;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.15)}
-.cr-txt{flex:1;min-width:0}
+.cr-txt{flex:1;min-width:140px}
 .cr-txt b{display:block;font-size:13px;font-weight:500}
 .cr-txt small{font-size:10.5px;color:var(--muted)}
 .color-row input[type=color]{width:46px;height:40px;border:1.5px solid var(--gray-border);border-radius:10px;background:#fff;padding:3px;cursor:pointer}
 .color-row input[type=text]{width:90px;padding:9px 11px;border:1.5px solid var(--gray-border);border-radius:10px;font-size:12px!important;font-weight:500;text-transform:uppercase}
+.color-row .type-toggle{display:flex;gap:4px;background:#fff;border:1.5px solid var(--gray-border);border-radius:10px;padding:3px;margin-left:auto}
+.color-row .type-toggle button{border:none;background:transparent;padding:6px 10px;border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;color:#64748b;transition:all .2s}
+.color-row .type-toggle button.active{background:var(--divani-primary);color:#fff}
+.color-row .gradient-controls{display:flex;gap:6px;align-items:center;margin-top:8px;width:100%;flex-wrap:wrap}
+.color-row .gradient-controls input[type=color]{width:40px;height:34px}
+.color-row .gradient-controls select{padding:6px 8px;border:1.5px solid var(--gray-border);border-radius:8px;font-size:11px;background:#fff}
+.color-row .gradient-preview{width:100%;height:24px;border-radius:8px;margin-top:6px;border:1px solid var(--gray-border)}
 .pv-card{border:1.5px solid var(--gray-border);border-radius:var(--radius-lg);overflow:hidden;background:#fff}
-.pv-id{background:linear-gradient(160deg,var(--divani-primary),var(--divani-secondary));color:var(--divani-on-primary);padding:24px 16px;text-align:center}
+.pv-id{background:var(--divani-header-gradient);color:var(--divani-text);padding:24px 16px;text-align:center;border-bottom:1px solid var(--pink-line)}
+.pv-id .pv-logo{border-color:color-mix(in srgb,var(--divani-text) 25%, transparent)}
+.pv-id .pv-name{color:var(--divani-primary)}
 .pv-logo{width:58px;height:58px;margin:0 auto 10px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--divani-on-primary) 75%, transparent);
 display:flex;align-items:center;justify-content:center;font-family:var(--font-title);font-size:27px;font-weight:500;overflow:hidden;background:#ffffff}
 .pv-logo img{width:100%;height:100%;object-fit:contain;border-radius:50%;background:#ffffff}
@@ -531,6 +546,24 @@ display:flex;align-items:center;justify-content:center;font-family:var(--font-ti
 .pv-title{display:block;font-family:var(--font-title);font-size:15.5px;margin:3px 0 5px;font-weight:500}
 .pv-price{font-family:var(--font-price);font-weight:600;color:var(--divani-primary);font-size:17px}
 .pv-btn{margin-top:10px;border:none;background:var(--divani-button);color:var(--divani-on-primary);font-family:var(--font-button);font-weight:500;font-size:11px;letter-spacing:1.2px;padding:11px 18px;border-radius:10px;cursor:pointer}
+.pv-live{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;padding:14px;background:var(--divani-background-gradient)}
+.pv-live-item{padding:10px;border-radius:10px;border:1px solid var(--gray-border);text-align:center;font-size:11px;font-weight:500}
+.pv-live-item .lbl{display:block;font-size:9px;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.pv-live-btn{background:var(--divani-button);color:var(--divani-on-primary);padding:8px;border-radius:8px}
+.pv-live-cat{background:var(--divani-background);color:var(--divani-text)}
+.pv-live-cat.active{background:var(--divani-primary);color:var(--divani-on-primary)}
+.pv-live-card{background:var(--card-bg);color:var(--divani-text);padding:12px}
+.pv-live-search{background:var(--divani-background);color:var(--divani-text);border:1px solid var(--pink-line)}
+.pv-live-cart{background:var(--divani-cart-gradient);color:var(--divani-text);padding:12px;border:1px solid var(--gray-border)}
+.palette-suggestions{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px}
+.palette-card{background:#fff;border:2px solid var(--gray-border);border-radius:var(--radius-md);padding:12px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden}
+.palette-card:hover{border-color:var(--divani-primary);transform:translateY(-2px);box-shadow:0 8px 20px color-mix(in srgb,var(--divani-primary) 15%, transparent)}
+.palette-card.selected{border-color:var(--divani-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--divani-primary) 20%, transparent)}
+.palette-card .pname{font-size:12px;font-weight:500;margin-bottom:8px;color:var(--divani-text)}
+.palette-colors{display:flex;gap:4px;height:32px;border-radius:6px;overflow:hidden}
+.palette-colors span{flex:1;display:block}
+.palette-card .papply{position:absolute;top:8px;right:8px;background:var(--divani-primary);color:#fff;border:none;width:24px;height:24px;border-radius:50%;font-size:12px;cursor:pointer;opacity:0;transition:opacity .2s;display:flex;align-items:center;justify-content:center}
+.palette-card:hover .papply{opacity:1}
 .toast-container{position:fixed;top:18px;right:18px;left:18px;z-index:9999;display:flex;flex-direction:column;gap:9px;pointer-events:none;align-items:center}
 .toast{background:#fff;padding:13px 22px;border-radius:var(--radius-md);box-shadow:0 12px 34px color-mix(in srgb,var(--divani-text) 16%, transparent);border-left:4px solid var(--divani-primary);
 font-weight:400;font-size:13.5px;pointer-events:auto;animation:toastIn .35s cubic-bezier(.2,.7,.3,1);max-width:440px}
@@ -581,6 +614,7 @@ main{padding:16px 16px 12px}
 .promo-band button{padding:10px 18px;font-size:12px}
 .footer{padding:32px 18px 18px}
 .foot-brand{font-size:22px;letter-spacing:6px}
+.palette-suggestions{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:420px){
 header{padding:10px 14px 12px;padding-top:calc(10px + var(--safe-top))}
@@ -606,6 +640,9 @@ main{padding:14px 12px 10px}
 .promo-band button{width:100%;text-align:center}
 .foot-inner{gap:20px}
 .foot-brand{font-size:20px}
+.palette-suggestions{grid-template-columns:1fr 1fr;gap:8px}
+.palette-card{padding:8px}
+.palette-card .pname{font-size:11px}
 }
 @media(max-width:340px){
 .brand{font-size:14px;letter-spacing:3px;text-indent:3px}
@@ -880,16 +917,16 @@ Agregar al Carrito
 <button class="quick-btn" onclick="switchTab('tab-banners',navBtn('tab-banners'))"><span class="qi">🖼️</span>Nuevo banner</button>
 <button class="quick-btn" onclick="switchTab('tab-nube',navBtn('tab-nube'))"><span class="qi">☁️</span>Sincronizar nube</button>
 <button class="quick-btn" onclick="switchTab('tab-personaliza',navBtn('tab-personaliza'))"><span class="qi">🎨</span>Personalizar marca</button>
-<button class="quick-btn" onclick="verCatalogo()"><span class="qi"></span>Ver tienda</button>
+<button class="quick-btn" onclick="verCatalogo()"><span class="qi">👁</span>Ver tienda</button>
 <button class="quick-btn" onclick="exportarDatosJSON()"><span class="qi">📤</span>Exportar respaldo</button>
 </div>
 </div>
 <div class="dashboard-card">
-<h4>📦 Productos recientes</h4>
+<h4> Productos recientes</h4>
 <div id="dashRecientes"></div>
 </div>
 <div class="dashboard-card">
-<h4> Guía rápida</h4>
+<h4>🚀 Guía rápida</h4>
 <div class="steps">
 <div class="step"><span>1</span><div><b>Crea tus productos</b><small>Ve a "Nuevo producto", completa nombre, precio e imágenes y publícalo.</small></div></div>
 <div class="step"><span>2</span><div><b>Conecta la nube</b><small>En "☁️ Nube" agrega tu API key de ImgBB y la URL de tu base de datos para guardar todo en internet.</small></div></div>
@@ -916,7 +953,7 @@ Agregar al Carrito
 </div>
 <small>Los productos con descuento aparecen en la sección "Nuevos".</small>
 </div>
-<div class="card-sec-title"><span class="ico">🖼️</span>Imágenes<small>La primera es la portada</small></div>
+<div class="card-sec-title"><span class="ico">️</span>Imágenes<small>La primera es la portada</small></div>
 <label class="dropzone" for="prodFileImg">
 <span class="dz-ico">📤</span>
 <b>Toca para subir imágenes</b>
@@ -926,7 +963,7 @@ Agregar al Carrito
 <div style="margin-top:10px;font-size:12px;color:#64748b;">O pega URLs directas separadas por coma:</div>
 <input type="text" id="prodUrlImg" placeholder="https://img1.jpg, https://img2.jpg" style="margin-top:5px;width:100%;padding:12px 14px;border:1.5px solid var(--gray-border);border-radius:12px;background:#f8fafc;">
 <div class="images-list" id="prodImagesList"></div>
-<div class="card-sec-title"><span class="ico"></span>Tonos<small>Aparecen como círculos de color</small></div>
+<div class="card-sec-title"><span class="ico">🎨</span>Tonos<small>Aparecen como círculos de color</small></div>
 <div id="prodTonosList"></div>
 <button type="button" class="add-tono-btn" onclick="addTonoRow('prodTonosList')">➕ Agregar tono</button>
 <div class="card-sec-title"><span class="ico">⚙️</span>Opciones de publicación</div>
@@ -952,9 +989,9 @@ Agregar al Carrito
 <div class="inv-filters">
 <button class="inv-chip active" onclick="filtrarInventario('todos',this)">Todos</button>
 <button class="inv-chip" onclick="filtrarInventario('visibles',this)">🟢 Visibles</button>
-<button class="inv-chip" onclick="filtrarInventario('ocultos',this)">🔴 Ocultos</button>
+<button class="inv-chip" onclick="filtrarInventario('ocultos',this)"> Ocultos</button>
 </div>
-<input type="text" id="inventarioBuscador" placeholder=" Buscar por nombre o categoría..." oninput="filtrarTablaInventario(this.value)" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--gray-border);margin-bottom:16px;">
+<input type="text" id="inventarioBuscador" placeholder="🔍 Buscar por nombre o categoría..." oninput="filtrarTablaInventario(this.value)" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--gray-border);margin-bottom:16px;">
 <div style="overflow-x:auto;">
 <table class="tbl">
 <thead><tr>
@@ -988,8 +1025,8 @@ Agregar al Carrito
 <small>Elige <b>Destacados</b> para que el banner lleve a tu colección de productos destacados.</small></div>
 <div class="form-group"><label>Tema de color (si no usa identidad)</label>
 <select id="bannerTema">
-<option value="1"> Rosa</option>
-<option value="2"> Fresa</option>
+<option value="1">🌸 Rosa</option>
+<option value="2">🍓 Fresa</option>
 <option value="3">🌼 Amarillo</option>
 </select>
 </div>
@@ -1000,7 +1037,7 @@ Agregar al Carrito
 </div>
 <div class="form-group"><label>Imagen (URL)</label><input type="text" id="bannerImg" placeholder="https://..." oninput="actualizarPreviewBanner()"></div>
 <label class="dropzone" for="bannerFile">
-<span class="dz-ico"></span>
+<span class="dz-ico">📤</span>
 <b>O toca para subir una imagen</b>
 <small id="bannerUploadHint">máx. 3MB</small>
 </label>
@@ -1025,9 +1062,9 @@ Llenar
 <div class="form-group"><label>Posición de la imagen</label>
 <div class="img-fit-options" id="bannerPosOptions" style="grid-template-columns:repeat(3,1fr)">
 <div class="img-fit-opt" data-pos="top" onclick="seleccionarPos('top')">⬆ Superior</div>
-<div class="img-fit-opt active" data-pos="center" onclick="seleccionarPos('center')"> Centro</div>
+<div class="img-fit-opt active" data-pos="center" onclick="seleccionarPos('center')">⊙ Centro</div>
 <div class="img-fit-opt" data-pos="bottom" onclick="seleccionarPos('bottom')">⬇ Inferior</div>
-<div class="img-fit-opt" data-pos="left" onclick="seleccionarPos('left')"> Izquierda</div>
+<div class="img-fit-opt" data-pos="left" onclick="seleccionarPos('left')">⬅ Izquierda</div>
 <div class="img-fit-opt" data-pos="center-h" onclick="seleccionarPos('center-h')">⊙ Centro-H</div>
 <div class="img-fit-opt" data-pos="right" onclick="seleccionarPos('right')">➡ Derecha</div>
 </div>
@@ -1068,7 +1105,7 @@ Llenar
 </div>
 <small style="color:#64748b;display:block;line-height:1.6;margin-bottom:13px;">Columnas: <b>nombre, categoria, precio, url</b> (varias separadas con coma o |) · opcionales: <b>descuento, promo, destacado (si/no), visible (si/no)</b>. Sin columna visible = se publica automáticamente.</small>
 <input type="file" id="archivoExcel" accept=".xlsx,.xls,.csv" style="padding:10px;border:1.5px solid var(--gray-border);border-radius:10px;width:100%;margin-bottom:11px;">
-<button class="btn-buy" onclick="procesarArchivoExcel()" style="margin-top:6px;">️ Procesar archivo</button>
+<button class="btn-buy" onclick="procesarArchivoExcel()" style="margin-top:6px;">⚙️ Procesar archivo</button>
 <button class="btn-buy" onclick="descargarPlantillaCSV()" style="background:var(--success);margin-top:10px;">⬇️ Descargar plantilla</button>
 <div id="resultadoCarga" style="margin-top:16px;padding:16px;border-radius:10px;display:none;"></div>
 </div>
@@ -1077,7 +1114,7 @@ Llenar
 <div class="dashboard-card">
 <h4>☁️ Conexión con la nube</h4>
 <div id="nubeStatus" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:15px;"></div>
-<div class="form-group"><label>🖼️ API Key de ImgBB (imágenes)</label>
+<div class="form-group"><label>️ API Key de ImgBB (imágenes)</label>
 <input type="text" id="nubeImgbbKey" placeholder="Pega aquí tu API key de ImgBB (32 caracteres)">
 <small>Créala gratis en <a href="https://api.imgbb.com/" target="_blank" rel="noopener">api.imgbb.com</a>. Con la key activa, las imágenes que subas se guardan en ImgBB automáticamente y funcionan en cualquier dispositivo.</small>
 </div>
@@ -1098,12 +1135,12 @@ Llenar
 <h4>📦 Sincronizar catálogo</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Sube todo el catálogo a la nube o tráelo de vuelta a este dispositivo.</p>
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
-<button class="sync-btn success" style="flex:1;min-width:160px;margin:0;" onclick="subirDatosANube()">⬆️ Subir todo a la nube</button>
-<button class="sync-btn warning" style="flex:1;min-width:160px;margin:0;" onclick="confirmarDescargaNube()">⬇️ Descargar de la nube</button>
+<button class="sync-btn success" style="flex:1;min-width:160px;margin:0;" onclick="subirDatosANube()">️ Subir todo a la nube</button>
+<button class="sync-btn warning" style="flex:1;min-width:160px;margin:0;" onclick="confirmarDescargaNube()">️ Descargar de la nube</button>
 </div>
 </div>
 <div class="dashboard-card">
-<h4>️ Migrar imágenes locales a ImgBB</h4>
+<h4>🖼️ Migrar imágenes locales a ImgBB</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Si subiste imágenes sin tener la API key, quedan guardadas dentro del navegador. Este botón las publica en ImgBB para que estén disponibles en la nube y en cualquier dispositivo.</p>
 <button class="sync-btn primary" onclick="migrarImagenesAImgBB()" style="margin:0;">☁️ Migrar imágenes locales a ImgBB</button>
 </div>
@@ -1118,7 +1155,7 @@ Llenar
 </div>
 <div id="tab-categorias" class="admin-view">
 <div class="dashboard-card">
-<h4>️ Nueva categoría</h4>
+<h4>🏷️ Nueva categoría</h4>
 <div style="display:flex;gap:10px;">
 <input type="text" id="nuevaCategoriaInput" placeholder="Ej: Labiales" style="flex:1;padding:12px;border:1.5px solid var(--gray-border);border-radius:12px;">
 <button class="sync-btn primary" style="width:auto;padding:12px 24px;margin:0;" onclick="agregarCategoria()">✨ Crear</button>
@@ -1151,14 +1188,91 @@ Llenar
 <div class="form-group"><label>Eslogan</label><input type="text" id="persTagline" oninput="setDraftTagline(this.value)"></div>
 </div>
 </div>
+
+<div class="dashboard-card">
+<h4>✨ Paletas prediseñadas</h4>
+<p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Selecciona una paleta para cargar automáticamente los colores. Puedes modificarlos después.</p>
+<div class="palette-suggestions" id="paletteSuggestions"></div>
+</div>
+
+<div class="dashboard-card">
+<h4>🎨 Fondo del catálogo</h4>
+<p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Personaliza el fondo general. Puedes usar color sólido o degradado con varios colores.</p>
+<div class="color-row" data-key="background">
+<span class="cr-swatch" id="sw-background"></span>
+<div class="cr-txt"><b>Fondo principal</b><small>Color base del catálogo</small></div>
+<div class="type-toggle"><button type="button" data-type="solid" onclick="setColorType('background','solid')">Sólido</button><button type="button" data-type="gradient" onclick="setColorType('background','gradient')">Degradado</button></div>
+<input type="color" id="col-background" oninput="setDraftColor('background',this.value)" aria-label="Color de fondo">
+<input type="text" id="hex-background" maxlength="7" oninput="setDraftColorHex('background',this.value)" aria-label="HEX de fondo">
+<div class="gradient-controls" id="grad-background" style="display:none">
+<input type="color" id="grad1-background" oninput="updateGradient('background')" title="Color 1">
+<input type="color" id="grad2-background" oninput="updateGradient('background')" title="Color 2">
+<input type="color" id="grad3-background" oninput="updateGradient('background')" title="Color 3 (opcional)">
+<select id="gradDir-background" onchange="updateGradient('background')">
+<option value="to right">→ Horizontal</option>
+<option value="to bottom">↓ Vertical</option>
+<option value="to bottom right">↘ Diagonal</option>
+<option value="to top right">↗ Diagonal inv.</option>
+<option value="radial">⊙ Radial (difuminado)</option>
+</select>
+<div class="gradient-preview" id="gradPrev-background"></div>
+</div>
+</div>
+</div>
+
+<div class="dashboard-card">
+<h4> Header DIVANI</h4>
+<p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Configuración independiente del header. No cambia con el fondo.</p>
+<div class="color-row" data-key="headerBg">
+<span class="cr-swatch" id="sw-headerBg"></span>
+<div class="cr-txt"><b>Fondo del header</b><small>Barra superior con logo y búsqueda</small></div>
+<div class="type-toggle"><button type="button" data-type="solid" onclick="setColorType('headerBg','solid')">Sólido</button><button type="button" data-type="gradient" onclick="setColorType('headerBg','gradient')">Degradado</button></div>
+<input type="color" id="col-headerBg" oninput="setDraftColor('headerBg',this.value)" aria-label="Color del header">
+<input type="text" id="hex-headerBg" maxlength="7" oninput="setDraftColorHex('headerBg',this.value)" aria-label="HEX del header">
+<div class="gradient-controls" id="grad-headerBg" style="display:none">
+<input type="color" id="grad1-headerBg" oninput="updateGradient('headerBg')" title="Color 1">
+<input type="color" id="grad2-headerBg" oninput="updateGradient('headerBg')" title="Color 2">
+<select id="gradDir-headerBg" onchange="updateGradient('headerBg')">
+<option value="to right">→ Horizontal</option>
+<option value="to bottom">↓ Vertical</option>
+<option value="to bottom right">↘ Diagonal</option>
+</select>
+<div class="gradient-preview" id="gradPrev-headerBg"></div>
+</div>
+</div>
+</div>
+
+<div class="dashboard-card">
+<h4>🛒 Carrito</h4>
+<p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Configuración independiente del panel del carrito.</p>
+<div class="color-row" data-key="cartBg">
+<span class="cr-swatch" id="sw-cartBg"></span>
+<div class="cr-txt"><b>Fondo del carrito</b><small>Panel lateral del carrito</small></div>
+<div class="type-toggle"><button type="button" data-type="solid" onclick="setColorType('cartBg','solid')">Sólido</button><button type="button" data-type="gradient" onclick="setColorType('cartBg','gradient')">Degradado</button></div>
+<input type="color" id="col-cartBg" oninput="setDraftColor('cartBg',this.value)" aria-label="Color del carrito">
+<input type="text" id="hex-cartBg" maxlength="7" oninput="setDraftColorHex('cartBg',this.value)" aria-label="HEX del carrito">
+<div class="gradient-controls" id="grad-cartBg" style="display:none">
+<input type="color" id="grad1-cartBg" oninput="updateGradient('cartBg')" title="Color 1">
+<input type="color" id="grad2-cartBg" oninput="updateGradient('cartBg')" title="Color 2">
+<select id="gradDir-cartBg" onchange="updateGradient('cartBg')">
+<option value="to right">→ Horizontal</option>
+<option value="to bottom">↓ Vertical</option>
+<option value="to bottom right">↘ Diagonal</option>
+</select>
+<div class="gradient-preview" id="gradPrev-cartBg"></div>
+</div>
+</div>
+</div>
+
 <div class="dashboard-card">
 <h4>🎨 Colores de la marca</h4>
 <div id="colorRows"></div>
 <div style="display:flex;gap:10px;margin-top:13px;flex-wrap:wrap;">
 <button class="sync-btn primary" id="btnExtraer" style="flex:1;min-width:210px;margin:0;" onclick="extraerColoresLogo()">✨ Extraer colores del logo</button>
-<button class="sync-btn secondary" style="flex:1;min-width:210px;margin:0;" onclick="restaurarOriginales()">️ Restaurar originales</button>
+<button class="sync-btn secondary" style="flex:1;min-width:210px;margin:0;" onclick="restaurarOriginales()">↩️ Restaurar originales</button>
 </div>
 </div>
+
 <div class="dashboard-card">
 <h4>🔤 Tipografía</h4>
 <div class="grid-form-2">
@@ -1177,13 +1291,23 @@ Llenar
 <small>Engrosa textos, nombres, títulos y precios de todo el catálogo.</small>
 </div>
 </div>
+
 <div class="dashboard-card">
 <h4>👀 Vista previa en tiempo real</h4>
+<p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Así se verá tu catálogo con los cambios actuales.</p>
 <div class="pv-card">
 <div class="pv-id">
 <div class="pv-logo" id="pvLogo">D</div>
 <div class="pv-name" id="pvName">DIVANI</div>
 <div class="pv-tag" id="pvTag">Tu tienda de confianza</div>
+</div>
+<div class="pv-live" id="pvLiveBg">
+<div class="pv-live-item pv-live-cat"><span class="lbl">Categoría</span>Categoría</div>
+<div class="pv-live-item pv-live-cat active"><span class="lbl">Categoría activa</span>Activa</div>
+<div class="pv-live-item pv-live-card"><span class="lbl">Tarjeta</span>Tarjeta producto</div>
+<div class="pv-live-item pv-live-search"><span class="lbl">Búsqueda</span>Buscar...</div>
+<div class="pv-live-item pv-live-btn"><span class="lbl">Botón</span>Botón acción</div>
+<div class="pv-live-item pv-live-cart"><span class="lbl">Carrito</span>Panel carrito</div>
 </div>
 <div class="pv-prod">
 <div class="pv-img"><img id="pvImg" src="" alt=""></div>
@@ -1196,8 +1320,9 @@ Llenar
 </div>
 </div>
 </div>
+
 <div class="dashboard-card">
-<h4> Datos de contacto</h4>
+<h4>📞 Datos de contacto</h4>
 <div class="grid-form-2">
 <div class="form-group"><label>Ubicación</label><input type="text" id="persUbicacion" placeholder="Colombia"></div>
 <div class="form-group"><label>WhatsApp (código de país)</label><input type="text" id="persWhatsapp" placeholder="573003896683"></div>
@@ -1206,14 +1331,15 @@ Llenar
 </div>
 <button class="sync-btn success" style="max-width:310px;margin-bottom:0;" onclick="guardarContacto()">💾 Guardar contacto</button>
 </div>
+
 <div class="dashboard-card">
 <h4>✅ Acciones finales</h4>
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
-<button class="sync-btn primary" style="flex:1;min-width:165px;margin:0;" onclick="aplicarCambios()">✅ Aplicar cambios</button>
-<button class="sync-btn secondary" style="flex:1;min-width:165px;margin:0;" onclick="cancelarCambios()">️ Cancelar cambios</button>
-<button class="sync-btn warning" style="flex:1;min-width:165px;margin:0;" onclick="verCatalogo()">👁 Ver catálogo</button>
+<button class="sync-btn primary" style="flex:1;min-width:165px;margin:0;" onclick="aplicarCambios()">✅ Guardar cambios</button>
+<button class="sync-btn secondary" style="flex:1;min-width:165px;margin:0;" onclick="cancelarCambios()">↩️ Cancelar cambios</button>
+<button class="sync-btn warning" style="flex:1;min-width:165px;margin:0;" onclick="verCatalogo()"> Ver catálogo</button>
 </div>
-<small style="color:#64748b;display:block;margin-top:11px;line-height:1.5;">Los cambios se ven en vivo sobre el catálogo. Nada se guarda hasta presionar <b>Aplicar cambios</b>.</small>
+<small style="color:#64748b;display:block;margin-top:11px;line-height:1.5;">Los cambios se ven en vivo sobre el catálogo. Nada se guarda hasta presionar <b>Guardar cambios</b>.</small>
 </div>
 </div>
 </div>
@@ -1274,7 +1400,13 @@ let banners = [
 let tiendaConfig = { ubicacion:'Colombia', instagram:'divani_maquillaje', tiktok:'divani_maquillaje', whatsapp:'573003896683' };
 const DEFAULT_PERS = {
 logo: LOGO_DEFAULT, name:'DIVANI', tagline:'Tu tienda de confianza', weight:'normal',
-palette:{ primary:'#e6538b', secondary:'#fbe1ea', background:'#fff9fb', light:'#fff1f6', text:'#33252b', button:'#e6538b', accent:'#e9a0bf', adminBtn:'#e6538b' },
+palette:{ primary:'#e6538b', secondary:'#fbe1ea', background:'#fff9fb', light:'#fff1f6', text:'#33252b', button:'#e6538b', accent:'#e9a0bf', adminBtn:'#e6538b',
+headerBg:'#fff9fb', cartBg:'#ffffff' },
+gradients:{
+background:{type:'solid',value:'#fff9fb'},
+headerBg:{type:'solid',value:'#fff9fb'},
+cartBg:{type:'solid',value:'#ffffff'}
+},
 fonts:{ title:'playfair', body:'poppins', button:'poppins', price:'poppins' }
 };
 const FONT_OPTIONS=[
@@ -1286,13 +1418,54 @@ const FONT_OPTIONS=[
 {id:'jost', label:'Jost · minimalista', stack:"'Jost',sans-serif"}
 ];
 const COLOR_META=[
-{key:'primary', label:'Color principal', desc:'Marca, precios, chips y detalles'},
+{key:'primary', label:'Color principal', desc:'Marca, precios y detalles'},
 {key:'secondary', label:'Color secundario', desc:'Degradados y zona de identidad'},
-{key:'background', label:'Color de fondo', desc:'Fondo general del catálogo'},
 {key:'text', label:'Color de textos', desc:'Títulos y párrafos'},
-{key:'button', label:'Color de botones', desc:'Botones de acción y carrito'},
+{key:'button', label:'Color de botones', desc:'Botones de acción'},
 {key:'accent', label:'Color de detalles', desc:'Bordes, acentos y scrollbars'},
-{key:'adminBtn', label:'Color del botón Admin', desc:'Botón de acceso al panel de administración'}
+{key:'adminBtn', label:'Color del botón Admin', desc:'Botón de acceso al panel'}
+];
+const PALETTE_SUGGESTIONS = [
+{
+name:'🌸 Rosa pastel',
+palette:{primary:'#f472b6',secondary:'#fce7f3',background:'#fdf2f8',light:'#fce7f3',text:'#4a1942',button:'#f472b6',accent:'#f9a8d4',adminBtn:'#f472b6',headerBg:'#fdf2f8',cartBg:'#ffffff'},
+gradients:{background:{type:'gradient',colors:['#fdf2f8','#fce7f3'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#fdf2f8','#fce7f3'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
+},
+{
+name:'🌷 Rosa + crema',
+palette:{primary:'#ec4899',secondary:'#fce4ec',background:'#fff8f5',light:'#fce4ec',text:'#4a1942',button:'#ec4899',accent:'#f472b6',adminBtn:'#ec4899',headerBg:'#fff8f5',cartBg:'#ffffff'},
+gradients:{background:{type:'gradient',colors:['#fff8f5','#fce4ec'],direction:'to bottom'},headerBg:{type:'gradient',colors:['#fff8f5','#fce4ec'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
+},
+{
+name:'🤎 Nude elegante',
+palette:{primary:'#a67c52',secondary:'#f5ebe0',background:'#faf6f1',light:'#f5ebe0',text:'#3d2817',button:'#a67c52',accent:'#d4a574',adminBtn:'#a67c52',headerBg:'#faf6f1',cartBg:'#ffffff'},
+gradients:{background:{type:'gradient',colors:['#faf6f1','#f5ebe0'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#faf6f1','#f5ebe0'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
+},
+{
+name:'💜 Lila + blanco',
+palette:{primary:'#8b5cf6',secondary:'#ede9fe',background:'#faf5ff',light:'#ede9fe',text:'#3b1f6e',button:'#8b5cf6',accent:'#a78bfa',adminBtn:'#8b5cf6',headerBg:'#faf5ff',cartBg:'#ffffff'},
+gradients:{background:{type:'gradient',colors:['#faf5ff','#ede9fe'],direction:'to bottom'},headerBg:{type:'gradient',colors:['#faf5ff','#ede9fe'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
+},
+{
+name:'💗 Rosa + lila',
+palette:{primary:'#d946a8',secondary:'#f5d0f0',background:'#fdf0f8',light:'#f5d0f0',text:'#4a1540',button:'#d946a8',accent:'#e879c8',adminBtn:'#d946a8',headerBg:'#fdf0f8',cartBg:'#ffffff'},
+gradients:{background:{type:'gradient',colors:['#fdf0f8','#ede9fe'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#fdf0f8','#f5d0f0'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
+},
+{
+name:' Minimalista',
+palette:{primary:'#1a1a1a',secondary:'#f5f5f5',background:'#ffffff',light:'#fafafa',text:'#1a1a1a',button:'#1a1a1a',accent:'#d4d4d4',adminBtn:'#1a1a1a',headerBg:'#ffffff',cartBg:'#ffffff'},
+gradients:{background:{type:'solid',value:'#ffffff'},headerBg:{type:'solid',value:'#ffffff'},cartBg:{type:'solid',value:'#ffffff'}}
+},
+{
+name:'🖤 Elegante oscuro',
+palette:{primary:'#c9a96e',secondary:'#2a2a2a',background:'#1a1a1a',light:'#2a2a2a',text:'#f5f5f5',button:'#c9a96e',accent:'#d4af37',adminBtn:'#c9a96e',headerBg:'#1a1a1a',cartBg:'#222222'},
+gradients:{background:{type:'gradient',colors:['#1a1a1a','#2a2a2a'],direction:'to bottom'},headerBg:{type:'gradient',colors:['#1a1a1a','#2a2a2a'],direction:'to right'},cartBg:{type:'gradient',colors:['#222222','#2a2a2a'],direction:'to bottom'}}
+},
+{
+name:'✨ Degradado moderno',
+palette:{primary:'#6366f1',secondary:'#e0e7ff',background:'#f8fafc',light:'#e0e7ff',text:'#1e1b4b',button:'#6366f1',accent:'#818cf8',adminBtn:'#6366f1',headerBg:'#f8fafc',cartBg:'#ffffff'},
+gradients:{background:{type:'gradient',colors:['#f8fafc','#e0e7ff'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#f8fafc','#e0e7ff'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
+}
 ];
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 const CACHE_KEY = 'divani_cache_v1';
@@ -1321,6 +1494,7 @@ name: cache.personalizacion.name||base.name,
 tagline: cache.personalizacion.tagline??base.tagline,
 weight: cache.personalizacion.weight||base.weight,
 palette: Object.assign(clone(base.palette), cache.personalizacion.palette||{}),
+gradients: Object.assign(clone(base.gradients), cache.personalizacion.gradients||{}),
 fonts: Object.assign(clone(base.fonts), cache.personalizacion.fonts||{})
 };
 }
@@ -1337,6 +1511,7 @@ logo: typeof d.logo==='string'? d.logo : base.logo,
 name: d.name||base.name, tagline: d.tagline??base.tagline,
 weight: d.weight||base.weight,
 palette: Object.assign(base.palette, d.palette||{}),
+gradients: Object.assign(clone(base.gradients), d.gradients||{}),
 fonts: Object.assign(base.fonts, d.fonts||{})
 };
 }catch(e){ return clone(DEFAULT_PERS); }
@@ -1356,6 +1531,16 @@ function rgbToHsl(r,g,b){ r/=255;g/=255;b/=255; const max=Math.max(r,g,b),min=Ma
 if(max!==min){ const d=max-min; s=l>.5? d/(2-max-min):d/(max-min===0?1:max-min);
 switch(max){case r:h=(g-b)/d+(g<b?6:0);break;case g:h=(b-r)/d+2;break;default:h=(r-g)/d+4;} h*=60; }
 return [h,s,l]; }
+function buildGradientCSS(g){
+if(!g || g.type!=='gradient') return null;
+const colors = (g.colors||[]).filter(c=>c&&c.startsWith('#')).join(', ');
+if(!colors) return null;
+const dir = g.direction || 'to right';
+if(dir==='radial'){
+return `radial-gradient(ellipse at center, ${colors})`;
+}
+return `linear-gradient(${dir}, ${colors})`;
+}
 function applyPers(cfg){
 const r=document.documentElement.style, p=cfg.palette;
 r.setProperty('--divani-primary',p.primary);
@@ -1376,6 +1561,13 @@ r.setProperty('--font-price',stackOf(cfg.fonts.price));
 const w=cfg.weight||'normal';
 document.body.classList.remove('fw-normal','fw-medium','fw-bold');
 if(w!=='normal') document.body.classList.add('fw-'+w);
+const g = cfg.gradients || {};
+const bgGrad = buildGradientCSS(g.background);
+r.setProperty('--divani-background-gradient', bgGrad || p.background);
+const headGrad = buildGradientCSS(g.headerBg);
+r.setProperty('--divani-header-gradient', headGrad || p.headerBg);
+const cartGrad = buildGradientCSS(g.cartBg);
+r.setProperty('--divani-cart-gradient', cartGrad || p.cartBg);
 const meta=document.querySelector('meta[name=theme-color]'); if(meta) meta.content=p.primary;
 updateBrand(cfg); updatePv(cfg);
 }
@@ -1432,6 +1624,28 @@ const c=document.getElementById('col-'+m.key); if(c) c.value=v;
 const h=document.getElementById('hex-'+m.key); if(h) h.value=v.toUpperCase();
 const s=document.getElementById('sw-'+m.key); if(s) s.style.background=v;
 });
+['background','headerBg','cartBg'].forEach(key=>{
+const v=draft.palette[key];
+const c=document.getElementById('col-'+key); if(c) c.value=v;
+const h=document.getElementById('hex-'+key); if(h) h.value=v.toUpperCase();
+const s=document.getElementById('sw-'+key); if(s) s.style.background=v;
+const g = draft.gradients[key];
+const gradWrap = document.getElementById('grad-'+key);
+if(gradWrap){
+const isGrad = g && g.type==='gradient';
+gradWrap.style.display = isGrad ? 'flex' : 'none';
+if(isGrad){
+const c1 = document.getElementById('grad1-'+key); if(c1) c1.value = g.colors[0]||v;
+const c2 = document.getElementById('grad2-'+key); if(c2) c2.value = g.colors[1]||v;
+const c3 = document.getElementById('grad3-'+key); if(c3) c3.value = g.colors[2]||v;
+const dir = document.getElementById('gradDir-'+key); if(dir) dir.value = g.direction||'to right';
+const prev = document.getElementById('gradPrev-'+key);
+if(prev) prev.style.background = buildGradientCSS(g);
+}
+const toggleBtns = document.querySelectorAll(`.color-row[data-key="${key}"] .type-toggle button`);
+toggleBtns.forEach(b=>b.classList.toggle('active', b.dataset.type===(isGrad?'gradient':'solid')));
+}
+});
 ['title','body','button','price'].forEach(role=>{
 const sel=document.getElementById('sel-font-'+role); if(sel) sel.value=draft.fonts[role];
 });
@@ -1446,10 +1660,37 @@ document.getElementById('persInstagram').value=tiendaConfig.instagram;
 document.getElementById('persTiktok').value=tiendaConfig.tiktok;
 }
 function markDirty(){ draftDirty=true; }
-function setDraftColor(key,val){ draft.palette[key]=val; markDirty(); applyPers(draft); syncPersUI(); }
+function setDraftColor(key,val){ 
+draft.palette[key]=val; 
+if(draft.gradients[key] && draft.gradients[key].type==='gradient'){
+draft.gradients[key].colors[0]=val;
+}
+markDirty(); applyPers(draft); syncPersUI(); 
+}
 function setDraftColorHex(key,val){
 let v=val.trim(); if(!v.startsWith('#')) v='#'+v;
 if(/^#([0-9a-f]{6}|[0-9a-f]{3})$/i.test(v)){ if(v.length===4) v='#'+[...v.slice(1)].map(c=>c+c).join(''); setDraftColor(key,v.toLowerCase()); }
+}
+function setColorType(key, type){
+if(!draft.gradients[key]) draft.gradients[key]={type:'solid',value:draft.palette[key]};
+if(type==='gradient'){
+draft.gradients[key]={type:'gradient',colors:[draft.palette[key], mixHex(draft.palette[key],'#ffffff',0.3)],direction:'to right'};
+}else{
+draft.gradients[key]={type:'solid',value:draft.palette[key]};
+}
+markDirty(); applyPers(draft); syncPersUI();
+}
+function updateGradient(key){
+const c1 = document.getElementById('grad1-'+key).value;
+const c2 = document.getElementById('grad2-'+key).value;
+const c3 = document.getElementById('grad3-'+key);
+const dir = document.getElementById('gradDir-'+key).value;
+const colors = [c1, c2];
+if(c3 && c3.value && c3.value !== '#000000') colors.push(c3.value);
+draft.gradients[key]={type:'gradient',colors,direction:dir};
+const prev = document.getElementById('gradPrev-'+key);
+if(prev) prev.style.background = buildGradientCSS(draft.gradients[key]);
+markDirty(); applyPers(draft);
 }
 function setDraftFont(role,val){ draft.fonts[role]=val; markDirty(); applyPers(draft); }
 function setDraftWeight(val){ draft.weight=val; markDirty(); applyPers(draft); }
@@ -1460,7 +1701,7 @@ draft.logo=url; markDirty();
 syncPersUI(); applyPers(draft);
 if(url&&autoExtract){
 const im=new Image(); im.crossOrigin='anonymous';
-im.onload=()=>{ const pal=analizarPaleta(im); if(pal){ draft.palette=Object.assign(draft.palette,pal); markDirty(); applyPers(draft); syncPersUI(); showToast('Paleta generada desde el logo · confirma con "Aplicar cambios"','success'); } };
+im.onload=()=>{ const pal=analizarPaleta(im); if(pal){ draft.palette=Object.assign(draft.palette,pal); markDirty(); applyPers(draft); syncPersUI(); showToast('Paleta generada desde el logo · confirma con "Guardar cambios"','success'); } };
 im.src=url;
 }
 }
@@ -1531,27 +1772,47 @@ im.onload=()=>{
 const pal=analizarPaleta(im);
 if(!pal){ showToast('No se pudo analizar el logo (imagen externa). Usa los selectores manuales','warning'); return; }
 draft.palette=Object.assign(draft.palette,pal); markDirty(); applyPers(draft); syncPersUI();
-showToast('Paleta extraída · revisa la vista previa y confirma con "Aplicar cambios"','success');
+showToast('Paleta extraída · revisa la vista previa y confirma con "Guardar cambios"','success');
 };
 im.onerror=()=>showToast('No se pudo cargar el logo para análisis','warning');
 im.src=draft.logo;
 }
 function restaurarOriginales(){
 draft.palette=clone(DEFAULT_PERS.palette);
+draft.gradients=clone(DEFAULT_PERS.gradients);
 draft.fonts=clone(DEFAULT_PERS.fonts);
 draft.weight=DEFAULT_PERS.weight;
 markDirty(); applyPers(draft); syncPersUI();
 showToast('Colores y tipografías originales restaurados','success');
 }
+function aplicarSugerencia(idx){
+const sug = PALETTE_SUGGESTIONS[idx];
+if(!sug) return;
+draft.palette = Object.assign(clone(DEFAULT_PERS.palette), sug.palette);
+draft.gradients = Object.assign(clone(DEFAULT_PERS.gradients), sug.gradients);
+markDirty(); applyPers(draft); syncPersUI(); renderPaletteSuggestions(idx);
+showToast('Paleta "'+sug.name+'" cargada · presiona "Guardar cambios" para aplicar','success');
+}
+function renderPaletteSuggestions(selectedIdx=-1){
+const cont=document.getElementById('paletteSuggestions'); if(!cont) return;
+cont.innerHTML=PALETTE_SUGGESTIONS.map((s,i)=>{
+const colors = [s.palette.primary, s.palette.button, s.palette.background, s.palette.text];
+return `<div class="palette-card ${i===selectedIdx?'selected':''}" onclick="aplicarSugerencia(${i})">
+<button class="papply" title="Usar esta paleta">✓</button>
+<div class="pname">${s.name}</div>
+<div class="palette-colors">${colors.map(c=>`<span style="background:${c}"></span>`).join('')}</div>
+</div>`;
+}).join('');
+}
 function aplicarCambios(){
 pers=clone(draft); draftDirty=false;
 applyPers(pers); saveConfig(); saveCache();
-showToast('Identidad aplicada y guardada','success');
+showToast('Cambios guardados correctamente','success');
 programarSyncNube();
 }
 function cancelarCambios(){
 draft=clone(pers); draftDirty=false;
-applyPers(pers); syncPersUI();
+applyPers(pers); syncPersUI(); renderPaletteSuggestions();
 showToast('Cambios descartados','warning');
 }
 function verCatalogo(){
@@ -1650,7 +1911,7 @@ const last=localStorage.getItem('divani_last_sync');
 const pill=(on,txt)=>`<span style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;letter-spacing:.4px;padding:5px 11px;border-radius:999px;
 background:${on?'#e7f8f1':'#f1f5f9'};color:${on?'#0f9d8f':'#94a3b8'};border:1px solid ${on?'#9be3c6':'#e2e8f0'};">${txt}</span>`;
 st.innerHTML=
-pill(!!CLOUD.imgbbKey,'🖼️ ImgBB '+(CLOUD.imgbbKey?'conectado':'sin configurar'))+
+pill(!!CLOUD.imgbbKey,'️ ImgBB '+(CLOUD.imgbbKey?'conectado':'sin configurar'))+
 pill(!!CLOUD.dbUrl,'🗄️ Base de datos '+(CLOUD.dbUrl?'conectada':'sin configurar'))+
 pill(CLOUD.autoSync,'🔄 Auto-sync '+(CLOUD.autoSync?'activo':'inactivo'))+
 (last?pill(true,'🕘 Última sync: '+last):'');
@@ -1724,6 +1985,7 @@ name: data.personalizacion.name||base.name,
 tagline: data.personalizacion.tagline??base.tagline,
 weight: data.personalizacion.weight||base.weight,
 palette: Object.assign(clone(base.palette), data.personalizacion.palette||{}),
+gradients: Object.assign(clone(base.gradients), data.personalizacion.gradients||{}),
 fonts: Object.assign(clone(base.fonts), data.personalizacion.fonts||{})
 };
 draft=clone(pers);
@@ -2509,7 +2771,7 @@ const i=productos.indexOf(p);
 const row=document.createElement('div');
 row.className='recent-row';
 row.innerHTML=`<img src="${obtenerImagenPrincipal(p)}" alt="" onerror="this.onerror=null;this.src=FALLBACK_IMG">
-<div class="ri"><b>${esc(p.nombre)}</b><small>${esc(p.categoria)} · ${formatearPrecio(p.precio)} · ${esVisible(p)?'🟢 Visible':'🔴 Oculto'}${p.destacado?' · Destacado':''}</small></div>
+<div class="ri"><b>${esc(p.nombre)}</b><small>${esc(p.categoria)} · ${formatearPrecio(p.precio)} · ${esVisible(p)?'🟢 Visible':' Oculto'}${p.destacado?' · Destacado':''}</small></div>
 <button class="mini-btn" onclick="switchTab('tab-inventario',navBtn('tab-inventario'))">Ver</button>
 <button class="mini-btn" onclick="abrirModalEdicion(${i})">✏️</button>`;
 rec.appendChild(row);
@@ -2600,7 +2862,7 @@ programarSyncNube();
 function editarBanner(id){
 const b=banners.find(x=>x.id===id); if(!b) return;
 bannerEditandoId=id;
-document.getElementById('bannerFormTitle').textContent='✏️ Editando banner';
+document.getElementById('bannerFormTitle').textContent='️ Editando banner';
 document.getElementById('bannerEtiqueta').value=b.etiqueta||'';
 document.getElementById('bannerTitulo').value=b.titulo||'';
 document.getElementById('bannerSub').value=b.sub||'';
@@ -2873,7 +3135,7 @@ adminAutenticado=true;
 cerrarLogin();
 document.getElementById('adminPanel').style.display='flex';
 draft=clone(pers); draftDirty=false; applyPers(draft);
-refreshAdminViews(); syncPersUI(); syncNubeUI();
+refreshAdminViews(); syncPersUI(); syncNubeUI(); renderPaletteSuggestions();
 showToast('Bienvenida al panel de administración','success');
 }
 else showToast('PIN incorrecto','danger');
@@ -2886,10 +3148,10 @@ renderHome(); renderProductos();
 const TAB_META={
 'tab-dashboard':{t:'🏠 Resumen',s:'Un vistazo rápido de tu tienda'},
 'tab-nuevo':{t:'➕ Nuevo producto',s:'Completa los datos y publícalo en segundos'},
-'tab-inventario':{t:' Productos',s:'Edita, oculta o elimina tus productos'},
+'tab-inventario':{t:'📦 Productos',s:'Edita, oculta o elimina tus productos'},
 'tab-destacados':{t:'⭐ Destacados',s:'Agrega productos a la colección Destacados'},
 'tab-banners':{t:'🖼️ Banners',s:'El carrusel que ven tus clientes al entrar'},
-'tab-categorias':{t:'️ Categorías',s:'Organiza tu catálogo'},
+'tab-categorias':{t:'🏷️ Categorías',s:'Organiza tu catálogo'},
 'tab-carga-masiva':{t:'📊 Carga masiva',s:'Sube muchos productos desde Excel o CSV'},
 'tab-nube':{t:'☁️ Nube',s:'ImgBB + base de datos: tus productos en internet'},
 'tab-personaliza':{t:'🎨 Personalización',s:'Logo, colores, tipografías y contacto'}
@@ -2908,7 +3170,7 @@ if(id==='tab-inventario') renderInventario();
 if(id==='tab-categorias') renderCategoriasAdmin();
 if(id==='tab-destacados') renderDestacadosAdmin();
 if(id==='tab-banners'){ renderBannersAdmin(); actualizarPreviewBanner(); }
-if(id==='tab-personaliza') syncPersUI();
+if(id==='tab-personaliza'){ syncPersUI(); renderPaletteSuggestions(); }
 if(id==='tab-nube') syncNubeUI();
 }
 function parseSiNo(v){ return /^(si|sí|1|true|x|on)$/i.test(String(v||'').trim()); }
@@ -2972,6 +3234,7 @@ renderCategoriasAdmin();
 renderNavCategorias();
 renderDestacadosAdmin();
 renderBannersAdmin();
+renderPaletteSuggestions();
 mostrarVista('home');
 if(cacheApplied){
 renderHome();
@@ -3055,6 +3318,7 @@ name: data.personalizacion.name||base.name,
 tagline: data.personalizacion.tagline??base.tagline,
 weight: data.personalizacion.weight||base.weight,
 palette: Object.assign(clone(base.palette), data.personalizacion.palette||{}),
+gradients: Object.assign(clone(base.gradients), data.personalizacion.gradients||{}),
 fonts: Object.assign(clone(base.fonts), data.personalizacion.fonts||{})
 };
 draft=clone(pers);
