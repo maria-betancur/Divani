@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#e6538b">
-<title>DIVANI · Tienda de Belleza</title>
+<title>DIVANI · La tienda más rosadita de todo Tunja</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23e6538b'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='58' fill='%23ffffff' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/300.css">
@@ -156,7 +156,8 @@ main{max-width:1320px;margin:0 auto;padding:24px 32px 20px}
 .link-ver{background:none;border:none;color:var(--divani-primary);font-size:12.5px;font-weight:500;cursor:pointer;padding:0 0 2px;letter-spacing:.4px;transition:opacity .2s;font-family:var(--font-button);display:inline-flex;align-items:center;gap:4px}
 .link-ver:hover{opacity:.7}
 .shop-section{margin-bottom:12px}
-.hero-frame{position:relative;border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-elevated);margin-top:10px;background:#000;aspect-ratio:21/9;min-height:340px}
+.hero-frame{position:relative;border-radius:var(--radius-xl);overflow:hidden;box-shadow:var(--shadow-elevated);margin-top:10px;background:#000;
+width:100%;max-width:870px;margin-left:auto;margin-right:auto;aspect-ratio:870/304.5;min-height:auto;max-height:none}
 .hero-track{position:relative;width:100%;height:100%}
 .hero-slide{position:absolute;inset:0;overflow:hidden;display:flex;align-items:flex-end;cursor:pointer;opacity:0;transition:opacity 1s ease-in-out;pointer-events:none}
 .hero-slide.active{opacity:1;pointer-events:auto;z-index:2}
@@ -181,9 +182,9 @@ main{max-width:1320px;margin:0 auto;padding:24px 32px 20px}
 .hero-dots{display:flex;gap:8px;justify-content:center;margin-top:20px}
 .hero-dots button{width:8px;height:8px;border-radius:999px;border:none;background:color-mix(in srgb,var(--divani-primary) 20%, #fff);cursor:pointer;transition:all .4s;padding:0}
 .hero-dots button.active{width:28px;background:var(--divani-primary)}
-@media(max-width:1024px){.hero-frame{aspect-ratio:16/7;min-height:300px}}
-@media(max-width:768px){.hero-frame{aspect-ratio:4/3;min-height:260px}.hero-content{padding:26px 26px 38px}.hero-title{font-size:clamp(20px,5vw,28px)}.hero-sub{font-size:12px}.hero-arrow{width:38px;height:38px;font-size:16px}.hero-arrow.prev{left:14px}.hero-arrow.next{right:14px}.hero-promo-badge{top:14px;right:14px;font-size:9.5px;padding:6px 12px}}
-@media(max-width:480px){.hero-frame{aspect-ratio:3/3.2;min-height:240px}.hero-content{padding:20px 20px 30px;gap:10px}.hero-title{font-size:clamp(18px,5.5vw,24px)}.hero-arrow{width:34px;height:34px;font-size:14px}.hero-arrow.prev{left:10px}.hero-arrow.next{right:10px}}
+@media(max-width:1024px){.hero-frame{aspect-ratio:870/304.5}}
+@media(max-width:768px){.hero-frame{aspect-ratio:400/200;max-width:400px}.hero-content{padding:26px 26px 38px}.hero-title{font-size:clamp(20px,5vw,28px)}.hero-sub{font-size:12px}.hero-arrow{width:38px;height:38px;font-size:16px}.hero-arrow.prev{left:14px}.hero-arrow.next{right:14px}.hero-promo-badge{top:14px;right:14px;font-size:9.5px;padding:6px 12px}}
+@media(max-width:480px){.hero-frame{aspect-ratio:400/200;max-width:400px}.hero-content{padding:20px 20px 30px;gap:10px}.hero-title{font-size:clamp(18px,5.5vw,24px)}.hero-arrow{width:34px;height:34px;font-size:14px}.hero-arrow.prev{left:10px}.hero-arrow.next{right:10px}}
 .skeleton-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px 16px}
 @media(min-width:640px){.skeleton-grid{grid-template-columns:repeat(3,1fr);gap:22px 18px}}
 @media(min-width:960px){.skeleton-grid{grid-template-columns:repeat(4,1fr);gap:24px 20px}}
@@ -212,7 +213,7 @@ padding:10px 22px;border-radius:999px;transition:all .3s;white-space:nowrap;lett
 border:1px solid color-mix(in srgb,var(--divani-primary) 4%, transparent);
 position:relative;transition:transform .4s cubic-bezier(.2,.7,.3,1),box-shadow .4s;cursor:pointer;content-visibility:auto}
 .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-hover)}
-.card-top{background:#ffffff;padding:20px;text-align:center;height:220px;display:flex;align-items:center;justify-content:center;position:relative;overflow:visible}
+.card-top{background:#ffffff;padding:20px;text-align:center;height:218.66px;display:flex;align-items:center;justify-content:center;position:relative;overflow:visible}
 .card-top>img{max-width:100%;max-height:100%;object-fit:contain;border-radius:var(--radius-md);transition:transform .6s cubic-bezier(.2,.7,.3,1);background:#ffffff}
 .card:hover .card-top>img{transform:scale(1.05)}
 .card-badges{position:absolute;top:14px;left:14px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;z-index:4;pointer-events:none}
@@ -603,7 +604,7 @@ main{padding:16px 16px 12px}
 .chips{gap:8px;padding:6px 2px;margin-top:12px}
 .chips a{font-size:12px;padding:9px 18px}
 .container{gap:16px 12px}
-.card-top{height:180px;padding:16px}
+.card-top{height:178px;padding:16px}
 .card h3{font-size:12.5px;min-height:34px}
 .card .price{font-size:15px}
 .fab-add{width:38px;height:38px;right:12px;bottom:-16px}
@@ -611,7 +612,7 @@ main{padding:16px 16px 12px}
 .card-info{padding:24px 14px 16px}
 .hscroll{gap:14px}
 .hscroll .card{width:170px}
-.hscroll .card-top{height:170px}
+.hscroll .card-top{height:178px}
 .promo-band{padding:20px 22px;margin:32px 0 10px}
 .promo-band b{font-size:16px}
 .promo-band small{font-size:11.5px}
@@ -633,13 +634,13 @@ main{padding:14px 12px 10px}
 .section-sub{font-size:11.5px}
 .chips a{font-size:11.5px;padding:8px 15px}
 .container{grid-template-columns:repeat(2,1fr);gap:12px 10px}
-.card-top{height:160px;padding:14px}
+.card-top{height:178px;padding:14px}
 .card h3{font-size:12px;min-height:32px}
 .card .price{font-size:14.5px}
 .card-info{padding:22px 12px 14px}
 .hscroll{gap:12px}
 .hscroll .card{width:155px}
-.hscroll .card-top{height:155px}
+.hscroll .card-top{height:178px}
 .promo-band{flex-direction:column;align-items:flex-start;gap:14px;padding:18px 20px}
 .promo-band button{width:100%;text-align:center}
 .foot-inner{gap:20px}
@@ -652,7 +653,7 @@ main{padding:14px 12px 10px}
 .brand{font-size:14px;letter-spacing:3px;text-indent:3px}
 .brand::before,.brand::after{display:none}
 .container{gap:10px 8px}
-.card-top{height:140px}
+.card-top{height:178px}
 .card h3{font-size:11.5px}
 }
 </style>
@@ -686,10 +687,10 @@ main{padding:14px 12px 10px}
 <aside class="drawer" id="drawer">
 <div class="drawer-head">
 <span class="brand" onclick="toggleDrawer(false);irInicio()" id="drawerBrandText">DIVANI</span>
-<button class="icon-btn" onclick="toggleDrawer(false)" aria-label="Cerrar">✕</button>
+<button class="icon-btn" onclick="toggleDrawer(false)" aria-label="Cerrar"></button>
 </div>
 <div class="drawer-body">
-<div class="drawer-label">Información de la tienda</div>
+<div class="drawer-label">Información de Divani</div>
 <div id="drawerStoreRows"></div>
 </div>
 </aside>
@@ -741,14 +742,14 @@ main{padding:14px 12px 10px}
 <div class="foot-inner">
 <div>
 <div class="foot-brand" id="footBrand">DIVANI</div>
-<p class="foot-tag" id="footTag">Tu tienda de confianza</p>
+<p class="foot-tag" id="footTag">La tienda más rosadita d etodo Tunja</p>
 </div>
 <div>
 <h5>Contacto</h5>
 <div class="foot-contact" id="footContact"></div>
 </div>
 </div>
-<div class="foot-bottom">© 2026 <span id="footBottomBrand">DIVANI</span> · Hecho con amor</div>
+<div class="foot-bottom">© 2026 <span id="footBottomBrand">DIVANI</span></div>
 </footer>
 <div class="cart-backdrop" id="cartBackdrop" onclick="toggleCart(false)"></div>
 <div class="cart" id="cartSidebar">
@@ -854,7 +855,7 @@ Agregar al Carrito
 <small>Los destacados se muestran en la sección Destacados de la tienda.</small>
 </div>
 <div class="form-group"><label>💬 Texto promocional (opcional)</label><input type="text" id="editPromo" placeholder="Frase corta promocional"></div>
-<div class="card-sec-title"><span class="ico">️</span>Imágenes<small>La primera es la portada</small></div>
+<div class="card-sec-title"><span class="ico">🖼️</span>Imágenes<small>La primera es la portada</small></div>
 <label class="dropzone" for="editFileImg">
 <span class="dz-ico">📤</span>
 <b>Toca para subir imágenes</b>
@@ -883,7 +884,7 @@ Agregar al Carrito
 <button class="admin-nav-item" data-tab="tab-nuevo" onclick="switchTab('tab-nuevo',this)"><span class="nav-ico">➕</span>Nuevo producto</button>
 <button class="admin-nav-item" data-tab="tab-inventario" onclick="switchTab('tab-inventario',this)"><span class="nav-ico">📦</span>Productos</button>
 <button class="admin-nav-item" data-tab="tab-destacados" onclick="switchTab('tab-destacados',this)"><span class="nav-ico">⭐</span>Destacados</button>
-<button class="admin-nav-item" data-tab="tab-banners" onclick="switchTab('tab-banners',this)"><span class="nav-ico">️</span>Banners</button>
+<button class="admin-nav-item" data-tab="tab-banners" onclick="switchTab('tab-banners',this)"><span class="nav-ico">🖼️</span>Banners</button>
 <button class="admin-nav-item" data-tab="tab-categorias" onclick="switchTab('tab-categorias',this)"><span class="nav-ico">️</span>Categorías</button>
 <button class="admin-nav-item" data-tab="tab-carga-masiva" onclick="switchTab('tab-carga-masiva',this)"><span class="nav-ico">📊</span>Carga masiva</button>
 <button class="admin-nav-item" data-tab="tab-nube" onclick="switchTab('tab-nube',this)"><span class="nav-ico">☁️</span>Nube</button>
@@ -918,8 +919,8 @@ Agregar al Carrito
 <h4>⚡ Acciones rápidas</h4>
 <div class="quick-grid">
 <button class="quick-btn" onclick="switchTab('tab-nuevo',navBtn('tab-nuevo'))"><span class="qi">➕</span>Nuevo producto</button>
-<button class="quick-btn" onclick="switchTab('tab-banners',navBtn('tab-banners'))"><span class="qi">🖼️</span>Nuevo banner</button>
-<button class="quick-btn" onclick="switchTab('tab-nube',navBtn('tab-nube'))"><span class="qi">️</span>Sincronizar nube</button>
+<button class="quick-btn" onclick="switchTab('tab-banners',navBtn('tab-banners'))"><span class="qi">️</span>Nuevo banner</button>
+<button class="quick-btn" onclick="switchTab('tab-nube',navBtn('tab-nube'))"><span class="qi">☁️</span>Sincronizar nube</button>
 <button class="quick-btn" onclick="switchTab('tab-personaliza',navBtn('tab-personaliza'))"><span class="qi">🎨</span>Personalizar marca</button>
 <button class="quick-btn" onclick="verCatalogo()"><span class="qi">👁</span>Ver tienda</button>
 <button class="quick-btn" onclick="exportarDatosJSON()"><span class="qi"></span>Exportar respaldo</button>
@@ -930,7 +931,7 @@ Agregar al Carrito
 <div id="dashRecientes"></div>
 </div>
 <div class="dashboard-card">
-<h4>🚀 Guía rápida</h4>
+<h4> Guía rápida</h4>
 <div class="steps">
 <div class="step"><span>1</span><div><b>Crea tus productos</b><small>Ve a "Nuevo producto", completa nombre, precio e imágenes y publícalo.</small></div></div>
 <div class="step"><span>2</span><div><b>Conecta la nube</b><small>En "☁️ Nube" agrega tu API key de ImgBB y la URL de tu base de datos para guardar todo en internet.</small></div></div>
@@ -967,7 +968,7 @@ Agregar al Carrito
 <div style="margin-top:10px;font-size:12px;color:#64748b;">O pega URLs directas separadas por coma:</div>
 <input type="text" id="prodUrlImg" placeholder="https://img1.jpg, https://img2.jpg" style="margin-top:5px;width:100%;padding:12px 14px;border:1.5px solid var(--gray-border);border-radius:12px;background:#f8fafc;">
 <div class="images-list" id="prodImagesList"></div>
-<div class="card-sec-title"><span class="ico">🎨</span>Tonos<small>Aparecen como círculos de color</small></div>
+<div class="card-sec-title"><span class="ico"></span>Tonos<small>Aparecen como círculos de color</small></div>
 <div id="prodTonosList"></div>
 <button type="button" class="add-tono-btn" onclick="addTonoRow('prodTonosList')">➕ Agregar tono</button>
 <div class="card-sec-title"><span class="ico">️</span>Opciones de publicación</div>
@@ -1029,8 +1030,8 @@ Agregar al Carrito
 <small>Elige <b>Destacados</b> para que el banner lleve a tu colección de productos destacados.</small></div>
 <div class="form-group"><label>Tema de color (si no usa identidad)</label>
 <select id="bannerTema">
-<option value="1">🌸 Rosa</option>
-<option value="2">🍓 Fresa</option>
+<option value="1"> Rosa</option>
+<option value="2"> Fresa</option>
 <option value="3">🌼 Amarillo</option>
 </select>
 </div>
@@ -1101,7 +1102,7 @@ Llenar
 </div>
 <div id="tab-carga-masiva" class="admin-view">
 <div class="dashboard-card">
-<h4>📊 Sube muchos productos a la vez</h4>
+<h4> Sube muchos productos a la vez</h4>
 <div class="steps" style="margin-bottom:18px;">
 <div class="step"><span>1</span><div><b>Descarga la plantilla</b><small>Ábrela en Excel y completa una fila por producto.</small></div></div>
 <div class="step"><span>2</span><div><b>Selecciona tu archivo</b><small>Formatos: .xlsx · .xls · .csv</small></div></div>
@@ -1136,7 +1137,7 @@ Llenar
 </div>
 </div>
 <div class="dashboard-card">
-<h4>📦 Sincronizar catálogo</h4>
+<h4> Sincronizar catálogo</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Sube todo el catálogo a la nube o tráelo de vuelta a este dispositivo.</p>
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
 <button class="sync-btn success" style="flex:1;min-width:160px;margin:0;" onclick="subirDatosANube()">️ Subir todo a la nube</button>
@@ -1159,7 +1160,7 @@ Llenar
 </div>
 <div id="tab-categorias" class="admin-view">
 <div class="dashboard-card">
-<h4>🏷️ Nueva categoría</h4>
+<h4>️ Nueva categoría</h4>
 <div style="display:flex;gap:10px;">
 <input type="text" id="nuevaCategoriaInput" placeholder="Ej: Labiales" style="flex:1;padding:12px;border:1.5px solid var(--gray-border);border-radius:12px;">
 <button class="sync-btn primary" style="width:auto;padding:12px 24px;margin:0;" onclick="agregarCategoria()">✨ Crear</button>
@@ -1243,7 +1244,7 @@ Llenar
 </div>
 </div>
 <div class="dashboard-card">
-<h4>🛒 Carrito</h4>
+<h4> Carrito</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Configuración independiente del panel del carrito.</p>
 <div class="color-row" data-key="cartBg">
 <span class="cr-swatch" id="sw-cartBg"></span>
@@ -1318,7 +1319,7 @@ Llenar
 </div>
 </div>
 <div class="dashboard-card">
-<h4>📞 Datos de contacto</h4>
+<h4> Datos de contacto</h4>
 <div class="grid-form-2">
 <div class="form-group"><label>Ubicación</label><input type="text" id="persUbicacion" placeholder="Colombia"></div>
 <div class="form-group"><label>WhatsApp (código de país)</label><input type="text" id="persWhatsapp" placeholder="573003896683"></div>
@@ -1431,12 +1432,12 @@ palette:{primary:'#f472b6',secondary:'#fce7f3',background:'#fdf2f8',light:'#fce7
 gradients:{background:{type:'gradient',colors:['#fdf2f8','#fce7f3'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#fdf2f8','#fce7f3'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
-name:'🌷 Rosa + crema',
+name:' Rosa + crema',
 palette:{primary:'#ec4899',secondary:'#fce4ec',background:'#fff8f5',light:'#fce4ec',text:'#4a1942',button:'#ec4899',accent:'#f472b6',adminBtn:'#ec4899',headerBg:'#fff8f5',cartBg:'#ffffff',categoryBg:'#fce4ec',categoryText:'#ec4899',featuredBg:'#fce4ec',featuredText:'#ec4899'},
 gradients:{background:{type:'gradient',colors:['#fff8f5','#fce4ec'],direction:'to bottom'},headerBg:{type:'gradient',colors:['#fff8f5','#fce4ec'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
-name:'🤎 Nude elegante',
+name:' Nude elegante',
 palette:{primary:'#a67c52',secondary:'#f5ebe0',background:'#faf6f1',light:'#f5ebe0',text:'#3d2817',button:'#a67c52',accent:'#d4a574',adminBtn:'#a67c52',headerBg:'#faf6f1',cartBg:'#ffffff',categoryBg:'#f5ebe0',categoryText:'#a67c52',featuredBg:'#f5ebe0',featuredText:'#a67c52'},
 gradients:{background:{type:'gradient',colors:['#faf6f1','#f5ebe0'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#faf6f1','#f5ebe0'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
@@ -2196,7 +2197,7 @@ const ICO_IG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 const ICO_TK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 4c.5 2.4 2 3.8 4.4 4v3c-1.7 0-3.2-.5-4.4-1.4v6.4A5.9 5.9 0 1 1 10 10.2v3.1a2.9 2.9 0 1 0 3 2.9V4z"/></svg>';
 const ICO_WA='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.8 13.4L3 21l4.7-1.2A9 9 0 1 0 12 3Z"/></svg>';
 return `
-<div>${ICO_PIN}<span>📍 ${esc(t.ubicacion)}</span></div>
+<div>${ICO_PIN}<span> ${esc(t.ubicacion)}</span></div>
 <a href="https://wa.me/${esc(wa)}" target="_blank" rel="noopener">${ICO_WA}<span>WhatsApp · ${formatWa(wa)}</span></a>
 <a href="https://www.instagram.com/${esc(ig)}/" target="_blank" rel="noopener">${ICO_IG}<span>@${esc(ig)}</span></a>
 <a href="https://www.tiktok.com/@${esc(tk)}" target="_blank" rel="noopener">${ICO_TK}<span>@${esc(tk)}</span></a>`;
@@ -2270,7 +2271,7 @@ if(!heroTotal) return;
 heroIdx=(i+heroTotal)%heroTotal;
 const allSlides=document.querySelectorAll('#heroTrack .hero-slide');
 allSlides.forEach((s,j)=>s.classList.toggle('active',j===heroIdx));
-document.querySelectorAll('#heroDots button').forEach((d,j)=>d.classList.toggle('active',j===heroIdx));
+document.querySelectorAll('#heroDots button').forEach((d,j)=>d.classList.toggle('active',j===0));
 if(manual) startHeroTimer();
 }
 function startHeroTimer(){
@@ -2311,7 +2312,7 @@ const cont=document.getElementById('prodImagesList'); if(!cont) return; cont.inn
 imagenesProductoTemp.forEach((url,idx)=>{
 const div=document.createElement('div');
 div.className='image-item'+(idx===0?' main-img':'');
-div.innerHTML=`<img src="${url}" alt="img-${idx}"><button class="remove-img-btn" onclick="quitarImagenProducto(${idx})">✕</button><span class="img-index">${idx===0?'Portada':'#'+(idx+1)}</span>`;
+div.innerHTML=`<img src="${url}" alt="img-${idx}"><button class="remove-img-btn" onclick="quitarImagenProducto(${idx})"></button><span class="img-index">${idx===0?'Portada':'#'+(idx+1)}</span>`;
 cont.appendChild(div);
 });
 }
@@ -2483,7 +2484,7 @@ const nuevos=visibles.filter(p=>p.descuento>0);
 const secN=document.getElementById('secNuevos');
 const rowN=document.getElementById('rowNuevos');
 rowN.innerHTML='';
-nuevos.forEach(p=>{ const c=buildCard(p,'nv'); if(c) rowD.appendChild(c); });
+nuevos.forEach(p=>{ const c=buildCard(p,'nv'); if(c) rowN.appendChild(c); });
 secN.style.display=nuevos.length?'':'none';
 }
 function refreshPublic(){ renderHome(); renderProductos(); initHero(); programarSyncNube(); saveCache(); }
@@ -2822,7 +2823,7 @@ sel.appendChild(o);
 }
 function limpiarFormBanner(){
 bannerEditandoId=null;
-document.getElementById('bannerFormTitle').textContent='🖼️ Nuevo banner del carrusel';
+document.getElementById('bannerFormTitle').textContent='️ Nuevo banner del carrusel';
 ['bannerEtiqueta','bannerPromo','bannerTitulo','bannerSub','bannerImg'].forEach(id=>document.getElementById(id).value='');
 document.getElementById('bannerTema').value='1';
 document.getElementById('bannerCat').value='Todos';
@@ -2937,7 +2938,7 @@ html+=`<tr id="row-${i}">
 <td style="font-weight:500;white-space:nowrap;">${formatearPrecio(p.precio)}</td>
 <td><div class="sw-cell">${switchHtml(vis,`cambiarVisible(${i},this.checked)`)}<span class="sw-lbl ${vis?'on':'off'}">${vis?'ON':'OFF'}</span></div></td>
 <td><div class="sw-cell">${switchHtml(!!p.destacado,`toggleDestacado(${i},this.checked)`)}<span class="sw-lbl ${p.destacado?'on':'off'}">${p.destacado?'ON':'OFF'}</span></div></td>
-<td style="white-space:nowrap;"><button class="btn-action edit" onclick="abrirModalEdicion(${i})">✏️ Editar</button><button class="btn-action delete" onclick="eliminarProducto(${i})">🗑 Eliminar</button></td>
+<td style="white-space:nowrap;"><button class="btn-action edit" onclick="abrirModalEdicion(${i})">✏️ Editar</button><button class="btn-action delete" onclick="eliminarProducto(${i})"> Eliminar</button></td>
 </tr>`;
 }
 tbody.innerHTML=html;
@@ -3151,7 +3152,7 @@ renderHome(); renderProductos();
 const TAB_META={
 'tab-dashboard':{t:' Resumen',s:'Un vistazo rápido de tu tienda'},
 'tab-nuevo':{t:' Nuevo producto',s:'Completa los datos y publícalo en segundos'},
-'tab-inventario':{t:'📦 Productos',s:'Edita, oculta o elimina tus productos'},
+'tab-inventario':{t:' Productos',s:'Edita, oculta o elimina tus productos'},
 'tab-destacados':{t:'⭐ Destacados',s:'Agrega productos a la colección Destacados'},
 'tab-banners':{t:'️ Banners',s:'El carrusel que ven tus clientes al entrar'},
 'tab-categorias':{t:'🏷️ Categorías',s:'Organiza tu catálogo'},
