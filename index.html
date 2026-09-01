@@ -44,6 +44,10 @@
 --divani-on-primary:#ffffff;
 --divani-admin-btn:#e6538b;
 --divani-admin-btn-text:#ffffff;
+--divani-category-bg:#fff1f6;
+--divani-category-text:#e6538b;
+--divani-featured-bg:#fbe1ea;
+--divani-featured-text:#e6538b;
 --font-title:'Playfair Display',serif;
 --font-body:'Poppins',sans-serif;
 --font-button:'Poppins',sans-serif;
@@ -850,7 +854,7 @@ Agregar al Carrito
 <small>Los destacados se muestran en la sección Destacados de la tienda.</small>
 </div>
 <div class="form-group"><label>💬 Texto promocional (opcional)</label><input type="text" id="editPromo" placeholder="Frase corta promocional"></div>
-<div class="card-sec-title"><span class="ico">🖼️</span>Imágenes<small>La primera es la portada</small></div>
+<div class="card-sec-title"><span class="ico">️</span>Imágenes<small>La primera es la portada</small></div>
 <label class="dropzone" for="editFileImg">
 <span class="dz-ico">📤</span>
 <b>Toca para subir imágenes</b>
@@ -879,7 +883,7 @@ Agregar al Carrito
 <button class="admin-nav-item" data-tab="tab-nuevo" onclick="switchTab('tab-nuevo',this)"><span class="nav-ico">➕</span>Nuevo producto</button>
 <button class="admin-nav-item" data-tab="tab-inventario" onclick="switchTab('tab-inventario',this)"><span class="nav-ico">📦</span>Productos</button>
 <button class="admin-nav-item" data-tab="tab-destacados" onclick="switchTab('tab-destacados',this)"><span class="nav-ico">⭐</span>Destacados</button>
-<button class="admin-nav-item" data-tab="tab-banners" onclick="switchTab('tab-banners',this)"><span class="nav-ico">🖼️</span>Banners</button>
+<button class="admin-nav-item" data-tab="tab-banners" onclick="switchTab('tab-banners',this)"><span class="nav-ico">️</span>Banners</button>
 <button class="admin-nav-item" data-tab="tab-categorias" onclick="switchTab('tab-categorias',this)"><span class="nav-ico">️</span>Categorías</button>
 <button class="admin-nav-item" data-tab="tab-carga-masiva" onclick="switchTab('tab-carga-masiva',this)"><span class="nav-ico">📊</span>Carga masiva</button>
 <button class="admin-nav-item" data-tab="tab-nube" onclick="switchTab('tab-nube',this)"><span class="nav-ico">☁️</span>Nube</button>
@@ -915,10 +919,10 @@ Agregar al Carrito
 <div class="quick-grid">
 <button class="quick-btn" onclick="switchTab('tab-nuevo',navBtn('tab-nuevo'))"><span class="qi">➕</span>Nuevo producto</button>
 <button class="quick-btn" onclick="switchTab('tab-banners',navBtn('tab-banners'))"><span class="qi">🖼️</span>Nuevo banner</button>
-<button class="quick-btn" onclick="switchTab('tab-nube',navBtn('tab-nube'))"><span class="qi">☁️</span>Sincronizar nube</button>
+<button class="quick-btn" onclick="switchTab('tab-nube',navBtn('tab-nube'))"><span class="qi">️</span>Sincronizar nube</button>
 <button class="quick-btn" onclick="switchTab('tab-personaliza',navBtn('tab-personaliza'))"><span class="qi">🎨</span>Personalizar marca</button>
 <button class="quick-btn" onclick="verCatalogo()"><span class="qi">👁</span>Ver tienda</button>
-<button class="quick-btn" onclick="exportarDatosJSON()"><span class="qi">📤</span>Exportar respaldo</button>
+<button class="quick-btn" onclick="exportarDatosJSON()"><span class="qi"></span>Exportar respaldo</button>
 </div>
 </div>
 <div class="dashboard-card">
@@ -955,7 +959,7 @@ Agregar al Carrito
 </div>
 <div class="card-sec-title"><span class="ico">️</span>Imágenes<small>La primera es la portada</small></div>
 <label class="dropzone" for="prodFileImg">
-<span class="dz-ico">📤</span>
+<span class="dz-ico"></span>
 <b>Toca para subir imágenes</b>
 <small id="prodUploadHint">Varios tonos/colores · máx. 3MB c/u</small>
 </label>
@@ -966,7 +970,7 @@ Agregar al Carrito
 <div class="card-sec-title"><span class="ico">🎨</span>Tonos<small>Aparecen como círculos de color</small></div>
 <div id="prodTonosList"></div>
 <button type="button" class="add-tono-btn" onclick="addTonoRow('prodTonosList')">➕ Agregar tono</button>
-<div class="card-sec-title"><span class="ico">⚙️</span>Opciones de publicación</div>
+<div class="card-sec-title"><span class="ico">️</span>Opciones de publicación</div>
 <div class="estado-box">
 <div class="estado-txt"><b>Mostrar producto en catálogo</b><small>ON: los clientes lo ven · OFF: queda oculto</small></div>
 <div class="switch-col">
@@ -988,7 +992,7 @@ Agregar al Carrito
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Usa el interruptor <b>Visible</b> para mostrar u ocultar sin eliminar. Toca <b>Editar</b> para cambiar cualquier dato.</p>
 <div class="inv-filters">
 <button class="inv-chip active" onclick="filtrarInventario('todos',this)">Todos</button>
-<button class="inv-chip" onclick="filtrarInventario('visibles',this)">🟢 Visibles</button>
+<button class="inv-chip" onclick="filtrarInventario('visibles',this)"> Visibles</button>
 <button class="inv-chip" onclick="filtrarInventario('ocultos',this)"> Ocultos</button>
 </div>
 <input type="text" id="inventarioBuscador" placeholder="🔍 Buscar por nombre o categoría..." oninput="filtrarTablaInventario(this.value)" style="width:100%;padding:12px;border-radius:12px;border:1.5px solid var(--gray-border);margin-bottom:16px;">
@@ -1074,7 +1078,7 @@ Llenar
 <input type="number" id="bannerDuracion" min="2" max="15" value="3" style="width:100px">
 <small>Este banner se mostrará durante este tiempo antes de pasar al siguiente.</small>
 </div>
-<div class="card-sec-title"><span class="ico">👁️</span>Vista previa</div>
+<div class="card-sec-title"><span class="ico">️</span>Vista previa</div>
 <div class="banner-preview-box" id="bannerPreviewBox">
 <img id="bannerPreviewImg" src="" alt="Vista previa del banner" style="display:none">
 <div class="banner-preview-overlay"></div>
@@ -1105,7 +1109,7 @@ Llenar
 </div>
 <small style="color:#64748b;display:block;line-height:1.6;margin-bottom:13px;">Columnas: <b>nombre, categoria, precio, url</b> (varias separadas con coma o |) · opcionales: <b>descuento, promo, destacado (si/no), visible (si/no)</b>. Sin columna visible = se publica automáticamente.</small>
 <input type="file" id="archivoExcel" accept=".xlsx,.xls,.csv" style="padding:10px;border:1.5px solid var(--gray-border);border-radius:10px;width:100%;margin-bottom:11px;">
-<button class="btn-buy" onclick="procesarArchivoExcel()" style="margin-top:6px;">⚙️ Procesar archivo</button>
+<button class="btn-buy" onclick="procesarArchivoExcel()" style="margin-top:6px;">️ Procesar archivo</button>
 <button class="btn-buy" onclick="descargarPlantillaCSV()" style="background:var(--success);margin-top:10px;">⬇️ Descargar plantilla</button>
 <div id="resultadoCarga" style="margin-top:16px;padding:16px;border-radius:10px;display:none;"></div>
 </div>
@@ -1128,7 +1132,7 @@ Llenar
 </div>
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
 <button class="sync-btn primary" style="flex:1;min-width:160px;margin:0;" onclick="guardarCredencialesNube()">💾 Guardar credenciales</button>
-<button class="sync-btn secondary" style="flex:1;min-width:160px;margin:0;" onclick="probarConexionNube()">🔌 Probar conexión</button>
+<button class="sync-btn secondary" style="flex:1;min-width:160px;margin:0;" onclick="probarConexionNube()"> Probar conexión</button>
 </div>
 </div>
 <div class="dashboard-card">
@@ -1140,7 +1144,7 @@ Llenar
 </div>
 </div>
 <div class="dashboard-card">
-<h4>🖼️ Migrar imágenes locales a ImgBB</h4>
+<h4>️ Migrar imágenes locales a ImgBB</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Si subiste imágenes sin tener la API key, quedan guardadas dentro del navegador. Este botón las publica en ImgBB para que estén disponibles en la nube y en cualquier dispositivo.</p>
 <button class="sync-btn primary" onclick="migrarImagenesAImgBB()" style="margin:0;">☁️ Migrar imágenes locales a ImgBB</button>
 </div>
@@ -1179,7 +1183,7 @@ Llenar
 <input type="text" id="persLogoUrl" placeholder="https://.../logo.png" style="flex:1;padding:11px 13px;border:1.5px solid var(--gray-border);border-radius:10px;">
 <button class="sync-btn secondary" style="width:auto;margin:0;padding:11px 17px;" onclick="aplicarLogoUrlPers()">Usar URL</button>
 </div>
-<button class="sync-btn warning" style="margin-top:11px;margin-bottom:0;" onclick="quitarLogoPers()">🗑 Eliminar logo</button>
+<button class="sync-btn warning" style="margin-top:11px;margin-bottom:0;" onclick="quitarLogoPers()"> Eliminar logo</button>
 <small style="color:#64748b;display:block;margin-top:9px;line-height:1.5;">Al cargar el logo se <b>analizan sus colores</b> y se genera una paleta automática (confirma con "Aplicar cambios").</small>
 </div>
 </div>
@@ -1188,13 +1192,11 @@ Llenar
 <div class="form-group"><label>Eslogan</label><input type="text" id="persTagline" oninput="setDraftTagline(this.value)"></div>
 </div>
 </div>
-
 <div class="dashboard-card">
 <h4>✨ Paletas prediseñadas</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Selecciona una paleta para cargar automáticamente los colores. Puedes modificarlos después.</p>
 <div class="palette-suggestions" id="paletteSuggestions"></div>
 </div>
-
 <div class="dashboard-card">
 <h4>🎨 Fondo del catálogo</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Personaliza el fondo general. Puedes usar color sólido o degradado con varios colores.</p>
@@ -1219,7 +1221,6 @@ Llenar
 </div>
 </div>
 </div>
-
 <div class="dashboard-card">
 <h4> Header DIVANI</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Configuración independiente del header. No cambia con el fondo.</p>
@@ -1235,13 +1236,12 @@ Llenar
 <select id="gradDir-headerBg" onchange="updateGradient('headerBg')">
 <option value="to right">→ Horizontal</option>
 <option value="to bottom">↓ Vertical</option>
-<option value="to bottom right">↘ Diagonal</option>
+<option value="to bottom right"> Diagonal</option>
 </select>
 <div class="gradient-preview" id="gradPrev-headerBg"></div>
 </div>
 </div>
 </div>
-
 <div class="dashboard-card">
 <h4>🛒 Carrito</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Configuración independiente del panel del carrito.</p>
@@ -1263,18 +1263,16 @@ Llenar
 </div>
 </div>
 </div>
-
 <div class="dashboard-card">
-<h4>🎨 Colores de la marca</h4>
+<h4> Colores de la marca</h4>
 <div id="colorRows"></div>
 <div style="display:flex;gap:10px;margin-top:13px;flex-wrap:wrap;">
 <button class="sync-btn primary" id="btnExtraer" style="flex:1;min-width:210px;margin:0;" onclick="extraerColoresLogo()">✨ Extraer colores del logo</button>
 <button class="sync-btn secondary" style="flex:1;min-width:210px;margin:0;" onclick="restaurarOriginales()">↩️ Restaurar originales</button>
 </div>
 </div>
-
 <div class="dashboard-card">
-<h4>🔤 Tipografía</h4>
+<h4> Tipografía</h4>
 <div class="grid-form-2">
 <div class="form-group"><label>Títulos</label><select id="sel-font-title" onchange="setDraftFont('title',this.value)"></select></div>
 <div class="form-group"><label>Texto principal</label><select id="sel-font-body" onchange="setDraftFont('body',this.value)"></select></div>
@@ -1291,7 +1289,6 @@ Llenar
 <small>Engrosa textos, nombres, títulos y precios de todo el catálogo.</small>
 </div>
 </div>
-
 <div class="dashboard-card">
 <h4>👀 Vista previa en tiempo real</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 16px;">Así se verá tu catálogo con los cambios actuales.</p>
@@ -1320,7 +1317,6 @@ Llenar
 </div>
 </div>
 </div>
-
 <div class="dashboard-card">
 <h4>📞 Datos de contacto</h4>
 <div class="grid-form-2">
@@ -1329,9 +1325,8 @@ Llenar
 <div class="form-group"><label>Instagram (usuario)</label><input type="text" id="persInstagram" placeholder="divani_maquillaje"></div>
 <div class="form-group"><label>TikTok (usuario)</label><input type="text" id="persTiktok" placeholder="divani_maquillaje"></div>
 </div>
-<button class="sync-btn success" style="max-width:310px;margin-bottom:0;" onclick="guardarContacto()">💾 Guardar contacto</button>
+<button class="sync-btn success" style="max-width:310px;margin-bottom:0;" onclick="guardarContacto()"> Guardar contacto</button>
 </div>
-
 <div class="dashboard-card">
 <h4>✅ Acciones finales</h4>
 <div style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -1401,7 +1396,7 @@ let tiendaConfig = { ubicacion:'Colombia', instagram:'divani_maquillaje', tiktok
 const DEFAULT_PERS = {
 logo: LOGO_DEFAULT, name:'DIVANI', tagline:'Tu tienda de confianza', weight:'normal',
 palette:{ primary:'#e6538b', secondary:'#fbe1ea', background:'#fff9fb', light:'#fff1f6', text:'#33252b', button:'#e6538b', accent:'#e9a0bf', adminBtn:'#e6538b',
-headerBg:'#fff9fb', cartBg:'#ffffff' },
+headerBg:'#fff9fb', cartBg:'#ffffff', categoryBg:'#fff1f6', categoryText:'#e6538b', featuredBg:'#fbe1ea', featuredText:'#e6538b' },
 gradients:{
 background:{type:'solid',value:'#fff9fb'},
 headerBg:{type:'solid',value:'#fff9fb'},
@@ -1423,47 +1418,51 @@ const COLOR_META=[
 {key:'text', label:'Color de textos', desc:'Títulos y párrafos'},
 {key:'button', label:'Color de botones', desc:'Botones de acción'},
 {key:'accent', label:'Color de detalles', desc:'Bordes, acentos y scrollbars'},
-{key:'adminBtn', label:'Color del botón Admin', desc:'Botón de acceso al panel'}
+{key:'adminBtn', label:'Color del botón Admin', desc:'Botón de acceso al panel'},
+{key:'categoryBg', label:'Fondo de categorías', desc:'Color de fondo de los chips de categorías'},
+{key:'categoryText', label:'Texto de categorías', desc:'Color del texto de categorías activas'},
+{key:'featuredBg', label:'Fondo de destacados', desc:'Color de fondo de productos destacados'},
+{key:'featuredText', label:'Texto de destacados', desc:'Color de elementos destacados'}
 ];
 const PALETTE_SUGGESTIONS = [
 {
 name:'🌸 Rosa pastel',
-palette:{primary:'#f472b6',secondary:'#fce7f3',background:'#fdf2f8',light:'#fce7f3',text:'#4a1942',button:'#f472b6',accent:'#f9a8d4',adminBtn:'#f472b6',headerBg:'#fdf2f8',cartBg:'#ffffff'},
+palette:{primary:'#f472b6',secondary:'#fce7f3',background:'#fdf2f8',light:'#fce7f3',text:'#4a1942',button:'#f472b6',accent:'#f9a8d4',adminBtn:'#f472b6',headerBg:'#fdf2f8',cartBg:'#ffffff',categoryBg:'#fce7f3',categoryText:'#f472b6',featuredBg:'#fce7f3',featuredText:'#f472b6'},
 gradients:{background:{type:'gradient',colors:['#fdf2f8','#fce7f3'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#fdf2f8','#fce7f3'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:'🌷 Rosa + crema',
-palette:{primary:'#ec4899',secondary:'#fce4ec',background:'#fff8f5',light:'#fce4ec',text:'#4a1942',button:'#ec4899',accent:'#f472b6',adminBtn:'#ec4899',headerBg:'#fff8f5',cartBg:'#ffffff'},
+palette:{primary:'#ec4899',secondary:'#fce4ec',background:'#fff8f5',light:'#fce4ec',text:'#4a1942',button:'#ec4899',accent:'#f472b6',adminBtn:'#ec4899',headerBg:'#fff8f5',cartBg:'#ffffff',categoryBg:'#fce4ec',categoryText:'#ec4899',featuredBg:'#fce4ec',featuredText:'#ec4899'},
 gradients:{background:{type:'gradient',colors:['#fff8f5','#fce4ec'],direction:'to bottom'},headerBg:{type:'gradient',colors:['#fff8f5','#fce4ec'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:'🤎 Nude elegante',
-palette:{primary:'#a67c52',secondary:'#f5ebe0',background:'#faf6f1',light:'#f5ebe0',text:'#3d2817',button:'#a67c52',accent:'#d4a574',adminBtn:'#a67c52',headerBg:'#faf6f1',cartBg:'#ffffff'},
+palette:{primary:'#a67c52',secondary:'#f5ebe0',background:'#faf6f1',light:'#f5ebe0',text:'#3d2817',button:'#a67c52',accent:'#d4a574',adminBtn:'#a67c52',headerBg:'#faf6f1',cartBg:'#ffffff',categoryBg:'#f5ebe0',categoryText:'#a67c52',featuredBg:'#f5ebe0',featuredText:'#a67c52'},
 gradients:{background:{type:'gradient',colors:['#faf6f1','#f5ebe0'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#faf6f1','#f5ebe0'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:'💜 Lila + blanco',
-palette:{primary:'#8b5cf6',secondary:'#ede9fe',background:'#faf5ff',light:'#ede9fe',text:'#3b1f6e',button:'#8b5cf6',accent:'#a78bfa',adminBtn:'#8b5cf6',headerBg:'#faf5ff',cartBg:'#ffffff'},
+palette:{primary:'#8b5cf6',secondary:'#ede9fe',background:'#faf5ff',light:'#ede9fe',text:'#3b1f6e',button:'#8b5cf6',accent:'#a78bfa',adminBtn:'#8b5cf6',headerBg:'#faf5ff',cartBg:'#ffffff',categoryBg:'#ede9fe',categoryText:'#8b5cf6',featuredBg:'#ede9fe',featuredText:'#8b5cf6'},
 gradients:{background:{type:'gradient',colors:['#faf5ff','#ede9fe'],direction:'to bottom'},headerBg:{type:'gradient',colors:['#faf5ff','#ede9fe'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:'💗 Rosa + lila',
-palette:{primary:'#d946a8',secondary:'#f5d0f0',background:'#fdf0f8',light:'#f5d0f0',text:'#4a1540',button:'#d946a8',accent:'#e879c8',adminBtn:'#d946a8',headerBg:'#fdf0f8',cartBg:'#ffffff'},
+palette:{primary:'#d946a8',secondary:'#f5d0f0',background:'#fdf0f8',light:'#f5d0f0',text:'#4a1540',button:'#d946a8',accent:'#e879c8',adminBtn:'#d946a8',headerBg:'#fdf0f8',cartBg:'#ffffff',categoryBg:'#f5d0f0',categoryText:'#d946a8',featuredBg:'#f5d0f0',featuredText:'#d946a8'},
 gradients:{background:{type:'gradient',colors:['#fdf0f8','#ede9fe'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#fdf0f8','#f5d0f0'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:' Minimalista',
-palette:{primary:'#1a1a1a',secondary:'#f5f5f5',background:'#ffffff',light:'#fafafa',text:'#1a1a1a',button:'#1a1a1a',accent:'#d4d4d4',adminBtn:'#1a1a1a',headerBg:'#ffffff',cartBg:'#ffffff'},
+palette:{primary:'#1a1a1a',secondary:'#f5f5f5',background:'#ffffff',light:'#fafafa',text:'#1a1a1a',button:'#1a1a1a',accent:'#d4d4d4',adminBtn:'#1a1a1a',headerBg:'#ffffff',cartBg:'#ffffff',categoryBg:'#fafafa',categoryText:'#1a1a1a',featuredBg:'#f5f5f5',featuredText:'#1a1a1a'},
 gradients:{background:{type:'solid',value:'#ffffff'},headerBg:{type:'solid',value:'#ffffff'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:'🖤 Elegante oscuro',
-palette:{primary:'#c9a96e',secondary:'#2a2a2a',background:'#1a1a1a',light:'#2a2a2a',text:'#f5f5f5',button:'#c9a96e',accent:'#d4af37',adminBtn:'#c9a96e',headerBg:'#1a1a1a',cartBg:'#222222'},
+palette:{primary:'#c9a96e',secondary:'#2a2a2a',background:'#1a1a1a',light:'#2a2a2a',text:'#f5f5f5',button:'#c9a96e',accent:'#d4af37',adminBtn:'#c9a96e',headerBg:'#1a1a1a',cartBg:'#222222',categoryBg:'#2a2a2a',categoryText:'#c9a96e',featuredBg:'#2a2a2a',featuredText:'#c9a96e'},
 gradients:{background:{type:'gradient',colors:['#1a1a1a','#2a2a2a'],direction:'to bottom'},headerBg:{type:'gradient',colors:['#1a1a1a','#2a2a2a'],direction:'to right'},cartBg:{type:'gradient',colors:['#222222','#2a2a2a'],direction:'to bottom'}}
 },
 {
 name:'✨ Degradado moderno',
-palette:{primary:'#6366f1',secondary:'#e0e7ff',background:'#f8fafc',light:'#e0e7ff',text:'#1e1b4b',button:'#6366f1',accent:'#818cf8',adminBtn:'#6366f1',headerBg:'#f8fafc',cartBg:'#ffffff'},
+palette:{primary:'#6366f1',secondary:'#e0e7ff',background:'#f8fafc',light:'#e0e7ff',text:'#1e1b4b',button:'#6366f1',accent:'#818cf8',adminBtn:'#6366f1',headerBg:'#f8fafc',cartBg:'#ffffff',categoryBg:'#e0e7ff',categoryText:'#6366f1',featuredBg:'#e0e7ff',featuredText:'#6366f1'},
 gradients:{background:{type:'gradient',colors:['#f8fafc','#e0e7ff'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#f8fafc','#e0e7ff'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 }
 ];
@@ -1554,6 +1553,10 @@ r.setProperty('--divani-on-primary', luminancia(p.primary)>.55 ? p.text : '#ffff
 const adminBtnColor = p.adminBtn || p.primary;
 r.setProperty('--divani-admin-btn', adminBtnColor);
 r.setProperty('--divani-admin-btn-text', luminancia(adminBtnColor) > .55 ? p.text : '#ffffff');
+r.setProperty('--divani-category-bg', p.categoryBg || mixHex(p.primary, '#ffffff', 0.9));
+r.setProperty('--divani-category-text', p.categoryText || p.primary);
+r.setProperty('--divani-featured-bg', p.featuredBg || mixHex(p.primary, '#ffffff', 0.85));
+r.setProperty('--divani-featured-text', p.featuredText || p.primary);
 r.setProperty('--font-title',stackOf(cfg.fonts.title));
 r.setProperty('--font-body',stackOf(cfg.fonts.body));
 r.setProperty('--font-button',stackOf(cfg.fonts.button));
@@ -1660,12 +1663,12 @@ document.getElementById('persInstagram').value=tiendaConfig.instagram;
 document.getElementById('persTiktok').value=tiendaConfig.tiktok;
 }
 function markDirty(){ draftDirty=true; }
-function setDraftColor(key,val){ 
-draft.palette[key]=val; 
+function setDraftColor(key,val){
+draft.palette[key]=val;
 if(draft.gradients[key] && draft.gradients[key].type==='gradient'){
 draft.gradients[key].colors[0]=val;
 }
-markDirty(); applyPers(draft); syncPersUI(); 
+markDirty(); applyPers(draft); syncPersUI();
 }
 function setDraftColorHex(key,val){
 let v=val.trim(); if(!v.startsWith('#')) v='#'+v;
@@ -2480,7 +2483,7 @@ const nuevos=visibles.filter(p=>p.descuento>0);
 const secN=document.getElementById('secNuevos');
 const rowN=document.getElementById('rowNuevos');
 rowN.innerHTML='';
-nuevos.forEach(p=>{ const c=buildCard(p,'nv'); if(c) rowN.appendChild(c); });
+nuevos.forEach(p=>{ const c=buildCard(p,'nv'); if(c) rowD.appendChild(c); });
 secN.style.display=nuevos.length?'':'none';
 }
 function refreshPublic(){ renderHome(); renderProductos(); initHero(); programarSyncNube(); saveCache(); }
@@ -2773,7 +2776,7 @@ row.className='recent-row';
 row.innerHTML=`<img src="${obtenerImagenPrincipal(p)}" alt="" onerror="this.onerror=null;this.src=FALLBACK_IMG">
 <div class="ri"><b>${esc(p.nombre)}</b><small>${esc(p.categoria)} · ${formatearPrecio(p.precio)} · ${esVisible(p)?'🟢 Visible':' Oculto'}${p.destacado?' · Destacado':''}</small></div>
 <button class="mini-btn" onclick="switchTab('tab-inventario',navBtn('tab-inventario'))">Ver</button>
-<button class="mini-btn" onclick="abrirModalEdicion(${i})">✏️</button>`;
+<button class="mini-btn" onclick="abrirModalEdicion(${i})">️</button>`;
 rec.appendChild(row);
 });
 }
@@ -3146,14 +3149,14 @@ document.getElementById('adminPanel').style.display='none';
 renderHome(); renderProductos();
 }
 const TAB_META={
-'tab-dashboard':{t:'🏠 Resumen',s:'Un vistazo rápido de tu tienda'},
-'tab-nuevo':{t:'➕ Nuevo producto',s:'Completa los datos y publícalo en segundos'},
+'tab-dashboard':{t:' Resumen',s:'Un vistazo rápido de tu tienda'},
+'tab-nuevo':{t:' Nuevo producto',s:'Completa los datos y publícalo en segundos'},
 'tab-inventario':{t:'📦 Productos',s:'Edita, oculta o elimina tus productos'},
 'tab-destacados':{t:'⭐ Destacados',s:'Agrega productos a la colección Destacados'},
-'tab-banners':{t:'🖼️ Banners',s:'El carrusel que ven tus clientes al entrar'},
+'tab-banners':{t:'️ Banners',s:'El carrusel que ven tus clientes al entrar'},
 'tab-categorias':{t:'🏷️ Categorías',s:'Organiza tu catálogo'},
 'tab-carga-masiva':{t:'📊 Carga masiva',s:'Sube muchos productos desde Excel o CSV'},
-'tab-nube':{t:'☁️ Nube',s:'ImgBB + base de datos: tus productos en internet'},
+'tab-nube':{t:'️ Nube',s:'ImgBB + base de datos: tus productos en internet'},
 'tab-personaliza':{t:'🎨 Personalización',s:'Logo, colores, tipografías y contacto'}
 };
 function switchTab(id,btn){
