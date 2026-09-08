@@ -5,10 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
 <meta name="theme-color" content="#e8557a">
 <title>DIVANI · La tienda más rosadita de todo Tunja</title>
-
 <!-- CAMBIO: Favicon optimizado -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23e8557a'/%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-size='58' fill='%23ffffff' text-anchor='middle'%3ED%3C/text%3E%3C/svg%3E">
-
 <!-- CAMBIO: Preconexión a dominios externos para reducir latencia -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
@@ -16,15 +14,13 @@
 <link rel="preconnect" href="https://image.qwenlm.ai" crossorigin>
 <link rel="dns-prefetch" href="https://api.imgbb.com">
 <link rel="dns-prefetch" href="https://divani-1ab68-default-rtdb.firebaseio.com">
-
-<!-- CAMBIO: Solo las fuentes que realmente se usan (Playfair + Poppins). 
-     Se eliminaron Cormorant, Marcellus, Montserrat y Jost para reducir ~400KB de descarga -->
+<!-- CAMBIO: Solo las fuentes que realmente se usan (Playfair + Poppins).
+Se eliminaron Cormorant, Marcellus, Montserrat y Jost para reducir ~400KB de descarga -->
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/files/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/files/poppins-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/files/poppins-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/files/poppins-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/files/playfair-display-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
-
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/300.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/500.css">
@@ -32,10 +28,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/500.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/600.css">
-
 <!-- CAMBIO: SheetJS con defer para no bloquear el renderizado inicial -->
 <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js" defer></script>
-
 <style>
 :root{
 --divani-primary:#e8557a;
@@ -58,6 +52,15 @@
 --divani-category-text:#e8557a;
 --divani-featured-bg:#fff8e1;
 --divani-featured-text:#f9a825;
+/* CAMBIO: Nuevas variables para el recuadro inferior de productos */
+--divani-card-info-bg:#ffffff;
+--divani-card-info-text:#3d1f2e;
+/* CAMBIO: Nuevas variables para los botones de categorías */
+--categoryBtnBg:#ffffff;
+--categoryBtnText:#3d1f2e;
+--categoryBtnBorder:#f0dce4;
+--categoryBtnActiveBg:#e8557a;
+--categoryBtnActiveText:#ffffff;
 --font-title:'Playfair Display',serif;
 --font-body:'Poppins',sans-serif;
 --font-button:'Poppins',sans-serif;
@@ -80,19 +83,16 @@
 --pink-soft:var(--divani-secondary);
 --safe-top:env(safe-area-inset-top); --safe-bottom:env(safe-area-inset-bottom);
 --radius-sm:10px; --radius-md:14px; --radius-lg:20px; --radius-xl:26px;
-
 /* CAMBIO: Variables para el logo ajustable. Se actualizan dinámicamente desde JS */
 --logo-scale:1;
 --logo-offset-x:0px;
 --logo-offset-y:0px;
 --logo-max-height:60px;
 }
-
 body.fw-medium{--fw-body:400;--fw-mid:500;--fw-high:600;--fw-max:600}
 body.fw-bold{--fw-body:500;--fw-mid:600;--fw-high:700;--fw-max:700}
 *,*::before,*::after{box-sizing:border-box}
 html{scroll-behavior:smooth}
-
 /* CAMBIO: font-display:swap ya viene en @fontsource, pero reforzamos */
 body{margin:0;font-family:var(--font-body);font-size:14px;font-weight:var(--fw-body);background:var(--divani-background-gradient);
 color:var(--divani-text);min-height:100dvh;-webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.6;letter-spacing:.2px;
@@ -106,7 +106,6 @@ img{max-width:100%}
 ::-webkit-scrollbar-thumb{background:var(--divani-accent);border-radius:8px}
 ::-webkit-scrollbar-track{background:transparent}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
 /* ===== HEADER ===== */
 header{background:var(--divani-header-gradient);
 border-bottom:1px solid color-mix(in srgb,var(--divani-primary) 8%, transparent);position:sticky;top:0;z-index:100;
@@ -117,14 +116,12 @@ header.scrolled{box-shadow:0 2px 16px color-mix(in srgb,var(--divani-text) 5%, t
 .header-inner{max-width:1320px;margin:0 auto}
 .header-row{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;height:56px}
 .header-actions{display:flex;align-items:center;gap:10px;flex-shrink:0}
-
 /* Botón hamburguesa */
 .icon-btn{position:relative;width:42px;height:42px;flex-shrink:0;border-radius:50%;border:1px solid var(--pink-line);
 background:transparent;color:var(--divani-text);cursor:pointer;display:flex;align-items:center;justify-content:center;
 transition:all .25s ease}
 .icon-btn:hover{background:var(--divani-primary);color:var(--divani-on-primary);border-color:var(--divani-primary);transform:translateY(-1px)}
 .icon-btn svg{width:18px;height:18px}
-
 /* CAMBIO: Logo centrado con transform escalable y posicionable */
 .brand{position:absolute;left:50%;
 transform:translate(calc(-50% + var(--logo-offset-x)), var(--logo-offset-y));
@@ -132,17 +129,16 @@ cursor:pointer;line-height:1;display:inline-flex;align-items:center;
 user-select:none;white-space:nowrap;transition:transform .3s ease;
 max-width:calc(100% - 110px)}
 .brand-logo{
-  height:auto;
-  max-height:var(--logo-max-height);
-  width:auto;
-  max-width:none;
-  object-fit:contain;
-  display:block;
-  transform:scale(var(--logo-scale));
-  transform-origin:center center;
-  transition:transform .2s ease}
+height:auto;
+max-height:var(--logo-max-height);
+width:auto;
+max-width:none;
+object-fit:contain;
+display:block;
+transform:scale(var(--logo-scale));
+transform-origin:center center;
+transition:transform .2s ease}
 .brand:hover{transform:translate(calc(-50% + var(--logo-offset-x)), var(--logo-offset-y)) scale(1.03)}
-
 /* Carrito circular */
 .cart-btn-wrap{position:relative;display:flex;align-items:center;justify-content:center}
 .cart-circle{width:44px;height:44px;border-radius:50%;background:#ffffff;border:1px solid var(--pink-line);
@@ -154,29 +150,26 @@ transition:all .25s ease;position:relative}
 .badge-count{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 6px;background:var(--divani-primary);
 color:var(--divani-on-primary);border-radius:999px;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;
 border:2px solid var(--divani-background);transition:transform .25s;line-height:1;box-shadow:0 2px 6px color-mix(in srgb,var(--divani-primary) 30%, transparent)}
-
 /* CAMBIO: Animación de rebote del carrito */
 #headerCartBtn.bump{animation:bump .4s ease}
 @keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.18)}70%{transform:scale(.96)}100%{transform:scale(1)}}
-
 /* CAMBIO: Contenedor de destellos alrededor del carrito */
 .cart-sparkles{position:fixed;pointer-events:none;z-index:9999}
 .sparkle{
-  position:absolute;
-  width:6px;height:6px;
-  border-radius:50%;
-  background:var(--divani-primary);
-  opacity:0;
-  animation:sparkle-fly .8s ease-out forwards;
-  box-shadow:0 0 6px var(--divani-primary), 0 0 12px color-mix(in srgb,var(--divani-primary) 50%, transparent)}
+position:absolute;
+width:6px;height:6px;
+border-radius:50%;
+background:var(--divani-primary);
+opacity:0;
+animation:sparkle-fly .8s ease-out forwards;
+box-shadow:0 0 6px var(--divani-primary), 0 0 12px color-mix(in srgb,var(--divani-primary) 50%, transparent)}
 .sparkle.white{background:#fff;box-shadow:0 0 6px #fff, 0 0 12px rgba(255,255,255,.6)}
 .sparkle.pink-light{background:#f48fb1;box-shadow:0 0 6px #f48fb1}
 @keyframes sparkle-fly{
-  0%{transform:translate(0,0) scale(0);opacity:1}
-  50%{opacity:1}
-  100%{transform:translate(var(--tx), var(--ty)) scale(1.5);opacity:0}
+0%{transform:translate(0,0) scale(0);opacity:1}
+50%{opacity:1}
+100%{transform:translate(var(--tx), var(--ty)) scale(1.5);opacity:0}
 }
-
 .search-wrap{position:relative;margin-top:10px;max-width:780px;margin-left:auto;margin-right:auto}
 .search-wrap .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted-2);pointer-events:none}
 #buscadorInput{width:100%;padding:12px 18px 12px 42px;border-radius:999px;border:1px solid var(--pink-line);
@@ -190,7 +183,6 @@ box-shadow:0 16px 40px color-mix(in srgb,var(--divani-text) 12%, transparent);di
 .search-result-item:last-child{border-bottom:none}
 .search-result-item:hover{background:var(--light-pink)}
 .search-hint{padding:10px 18px;font-size:12px;color:var(--muted);background:var(--light-pink);border-bottom:1px solid var(--gray-light);font-style:italic}
-
 /* ===== DRAWER ===== */
 .drawer-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 40%, transparent);backdrop-filter:blur(4px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:210}
 .drawer-backdrop.show{opacity:1;pointer-events:auto}
@@ -213,7 +205,6 @@ a.store-row:hover,button.store-row:hover{transform:translateY(-2px);box-shadow:0
 .store-row b{display:block;font-size:12.5px;line-height:1.25;font-weight:500}
 .store-row small{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}
 .store-row .chev{margin-left:auto;color:var(--muted-2);font-size:16px;font-weight:400}
-
 /* ===== MAIN ===== */
 main{max-width:1320px;margin:0 auto;padding:20px 24px 16px}
 .section-head{display:flex;justify-content:space-between;align-items:flex-end;margin:28px 4px 14px;gap:10px}
@@ -224,7 +215,6 @@ main{max-width:1320px;margin:0 auto;padding:20px 24px 16px}
 .link-ver{background:none;border:none;color:var(--divani-primary);font-size:12.5px;font-weight:500;cursor:pointer;padding:0 0 2px;letter-spacing:.4px;transition:opacity .2s;font-family:var(--font-button);display:inline-flex;align-items:center;gap:4px}
 .link-ver:hover{opacity:.7}
 .shop-section{margin-bottom:10px}
-
 /* ===== HERO ===== */
 .hero-frame{position:relative;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-elevated);margin-top:8px;background:#000;
 width:100%;max-width:870px;margin-left:auto;margin-right:auto;aspect-ratio:870/304.5;min-height:auto;max-height:none}
@@ -254,7 +244,6 @@ width:100%;max-width:870px;margin-left:auto;margin-right:auto;aspect-ratio:870/3
 .hero-dots button.active{width:28px;background:var(--divani-primary)}
 @media(max-width:768px){.hero-frame{aspect-ratio:16/9;max-width:100%}.hero-content{padding:22px 24px 28px}.hero-title{font-size:clamp(18px,5vw,28px)}.hero-sub{font-size:12px}.hero-arrow{width:38px;height:38px;font-size:16px}.hero-arrow.prev{left:12px}.hero-arrow.next{right:12px}.hero-promo-badge{top:12px;right:12px;font-size:9.5px;padding:5px 10px}}
 @media(max-width:480px){.hero-frame{aspect-ratio:16/10;max-width:100%}.hero-content{padding:18px 18px 24px;gap:8px}.hero-title{font-size:clamp(16px,5.5vw,22px)}.hero-sub{font-size:11px}.hero-arrow{width:32px;height:32px;font-size:14px}.hero-arrow.prev{left:8px}.hero-arrow.next{right:8px}.hero-tag{font-size:8px;padding:4px 8px;letter-spacing:1.6px}}
-
 /* ===== SKELETON ===== */
 .skeleton-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 12px}
 @media(min-width:640px){.skeleton-grid{grid-template-columns:repeat(3,1fr);gap:20px 16px}}
@@ -265,15 +254,24 @@ width:100%;max-width:870px;margin-left:auto;margin-right:auto;aspect-ratio:870/3
 .skeleton-text.short{width:60%;margin-top:4px;margin-bottom:14px}
 .skeleton-text.price{width:40%;height:14px}
 @keyframes skeletonShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
 /* ===== CATEGORÍAS ===== */
 .chips{display:flex;gap:8px;overflow-x:auto;padding:8px 2px;margin-top:14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .chips::-webkit-scrollbar{display:none}
-.chips a{flex-shrink:0;text-decoration:none;font-size:12.5px;font-weight:500;color:var(--divani-text);background:#ffffff;border:1.5px solid var(--gray-border);
+/* CAMBIO: Botones de categorías ahora usan variables personalizables */
+.chips a{flex-shrink:0;text-decoration:none;font-size:12.5px;font-weight:500;
+color:var(--categoryBtnText);
+background:var(--categoryBtnBg);
+border:1.5px solid var(--categoryBtnBorder);
 padding:9px 20px;border-radius:999px;transition:all .25s;white-space:nowrap;letter-spacing:.3px}
-.chips a:hover{color:var(--divani-primary);border-color:var(--divani-primary);transform:translateY(-1px)}
-.chips a.active{background:var(--divani-primary);border-color:var(--divani-primary);color:var(--divani-on-primary);box-shadow:0 4px 14px color-mix(in srgb,var(--divani-primary) 25%, transparent);font-weight:500}
-
+.chips a:hover{
+color:var(--categoryBtnActiveBg);
+border-color:var(--categoryBtnActiveBg);
+transform:translateY(-1px)}
+.chips a.active{
+background:var(--categoryBtnActiveBg);
+border-color:var(--categoryBtnActiveBg);
+color:var(--categoryBtnActiveText);
+box-shadow:0 4px 14px color-mix(in srgb,var(--categoryBtnActiveBg) 25%, transparent);font-weight:500}
 /* ===== GRID PRODUCTOS ===== */
 .container{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 12px}
 @media(min-width:640px){.container{grid-template-columns:repeat(3,1fr);gap:20px 16px}}
@@ -283,14 +281,15 @@ padding:9px 20px;border-radius:999px;transition:all .25s;white-space:nowrap;lett
 .hscroll{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .hscroll::-webkit-scrollbar{display:none}
 .hscroll .card{width:180px;flex:0 0 auto}
-.hscroll .card-top{height:180px}
-
+/* CAMBIO: Ajuste del tamaño de la imagen en carruseles horizontales */
+.hscroll .card-top{height:190px}
 /* ===== TARJETAS ===== */
 .card{background:var(--card-bg);border-radius:var(--radius-lg);overflow:hidden;display:flex;flex-direction:column;box-shadow:var(--shadow-card);
 border:1px solid color-mix(in srgb,var(--divani-primary) 4%, transparent);
-position:relative;transition:transform .3s ease,box-shadow .3s ease;cursor:pointer;content-visibility:auto;contain-intrinsic-size:0 350px}
+position:relative;transition:transform .3s ease,box-shadow .3s ease;cursor:pointer;content-visibility:auto;contain-intrinsic-size:0 320px}
 .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
-.card-top{background:#ffffff;padding:16px;text-align:center;height:clamp(160px,32vw,220px);display:flex;align-items:center;justify-content:center;position:relative;overflow:visible}
+/* CAMBIO: Card-top ahora es más grande para dar más protagonismo a la imagen */
+.card-top{background:#ffffff;padding:14px;text-align:center;height:clamp(170px,34vw,230px);display:flex;align-items:center;justify-content:center;position:relative;overflow:visible}
 .card-top>img{max-width:100%;max-height:100%;object-fit:contain;border-radius:var(--radius-md);transition:transform .5s ease;background:#ffffff}
 .card:hover .card-top>img{transform:scale(1.04)}
 .card-badges{position:absolute;top:12px;left:12px;display:flex;flex-direction:column;align-items:flex-start;gap:5px;z-index:4;pointer-events:none}
@@ -305,14 +304,26 @@ display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;
 .fab-add svg{width:16px;height:16px}
 .fab-add:hover{background:var(--primary-dark);transform:scale(1.08)}
 .fab-add:active{transform:scale(.95)}
-.card-info{padding:22px 14px 14px;display:flex;flex-direction:column;gap:4px;flex:1;min-height:140px}
-.card h3{font-size:13px;margin:0;font-weight:400;min-height:34px;line-height:1.35;color:var(--divani-text);letter-spacing:.2px;
+/* CAMBIO: card-info ahora es más compacto y usa colores personalizables */
+.card-info{
+padding:12px 12px 12px;
+display:flex;flex-direction:column;gap:2px;flex:1;min-height:88px;
+background:var(--divani-card-info-bg);
+color:var(--divani-card-info-text);
+border-top:1px solid color-mix(in srgb,var(--divani-primary) 6%, transparent);
+transition:background .25s, color .25s}
+/* CAMBIO: Nombre del producto más compacto */
+.card h3{font-size:12.5px;margin:0;font-weight:400;min-height:28px;line-height:1.3;color:var(--divani-card-info-text);letter-spacing:.2px;
 display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.card .category-tag{font-size:9.5px;text-transform:uppercase;color:var(--divani-primary);font-weight:600;letter-spacing:1.4px;
-min-height:14px;display:block}
-.card .tonos-placeholder{min-height:22px;display:block}
-.card-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:auto;padding-top:8px}
-.card .price{font-family:var(--font-price);font-size:15px;font-weight:600;color:var(--divani-primary);margin:0;letter-spacing:-.2px}
+/* CAMBIO: Etiqueta de categoría más compacta */
+.card .category-tag{font-size:9px;text-transform:uppercase;color:var(--divani-primary);font-weight:600;letter-spacing:1.2px;
+min-height:12px;display:block;margin-bottom:0}
+/* CAMBIO: Eliminamos el placeholder de tonos para ahorrar espacio vertical */
+.card .tonos-placeholder{min-height:0;display:none}
+/* CAMBIO: card-bottom ahora está más pegado al nombre */
+.card-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:2px;padding-top:2px}
+/* CAMBIO: Precio ligeramente más compacto */
+.card .price{font-family:var(--font-price);font-size:14.5px;font-weight:600;color:var(--divani-primary);margin:0;letter-spacing:-.2px}
 .card-gallery{position:relative;width:100%;height:100%;overflow:hidden;border-radius:var(--radius-md);background:#ffffff}
 .card-gallery img{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);max-width:100%;max-height:100%;object-fit:contain;
 border-radius:var(--radius-md);opacity:0;transition:opacity .3s,transform .5s ease;background:#ffffff}
@@ -328,7 +339,6 @@ box-shadow:0 2px 10px rgba(0,0,0,.16);opacity:0;transition:opacity .25s}
 .gallery-nav-btn.prev{left:6px}
 .gallery-nav-btn.next{right:6px}
 .gallery-nav-btn:hover{background:var(--divani-primary);color:var(--divani-on-primary)}
-
 /* ===== PROMO BAND ===== */
 .promo-band{margin:36px 0 12px;border-radius:var(--radius-lg);padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
 background:linear-gradient(120deg,var(--divani-primary),color-mix(in srgb,var(--divani-primary) 55%, var(--divani-secondary)));
@@ -337,7 +347,6 @@ color:var(--divani-on-primary);box-shadow:0 12px 28px color-mix(in srgb,var(--di
 .promo-band small{font-size:12px;opacity:.94;display:block;margin-top:3px;font-weight:300}
 .promo-band button{background:#fff;color:var(--divani-primary);border:none;border-radius:999px;padding:10px 20px;font-weight:500;font-size:12.5px;cursor:pointer;transition:transform .2s;font-family:var(--font-button);letter-spacing:.5px}
 .promo-band button:hover{transform:translateY(-2px)}
-
 /* ===== FOOTER ===== */
 .footer{margin-top:48px;background:var(--divani-text);color:#f5ebf1;padding:40px 24px 20px}
 .foot-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:1.2fr 1fr;gap:32px}
@@ -349,7 +358,6 @@ color:var(--divani-on-primary);box-shadow:0 12px 28px color-mix(in srgb,var(--di
 .foot-contact a:hover{color:#fff}
 .foot-contact svg{width:15px;height:15px;flex-shrink:0;color:var(--divani-accent)}
 .foot-bottom{max-width:1320px;margin:28px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:11px;color:#a88b9c;letter-spacing:.5px;font-weight:300}
-
 /* ===== CARRITO ===== */
 .cart-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 40%, transparent);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:200}
 .cart-backdrop.show{opacity:1;pointer-events:auto}
@@ -394,7 +402,6 @@ font-weight:500;font-size:14px;font-family:var(--font-button);transition:all .25
 .cart-store-info-btn{width:100%;background:transparent;border:1.5px solid var(--pink-line);color:var(--divani-text);padding:11px;border-radius:var(--radius-md);cursor:pointer;font-size:12.5px;font-weight:500;font-family:var(--font-button);transition:all .2s;display:flex;align-items:center;justify-content:center;gap:8px}
 .cart-store-info-btn:hover{background:var(--light-pink);border-color:var(--divani-primary);color:var(--divani-primary)}
 .cart-store-info-btn svg{width:16px;height:16px}
-
 /* ===== MODALES ===== */
 .login-modal,.admin-panel,.edit-modal,.detail-modal,.store-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100dvh;
 background:color-mix(in srgb,var(--divani-text) 50%, transparent);backdrop-filter:blur(10px);z-index:230;
@@ -414,7 +421,6 @@ border-radius:50%;cursor:pointer;font-size:16px;font-weight:500;transition:all .
 .store-body{padding:56px 18px 8px;display:flex;flex-direction:column;gap:8px}
 .store-body .store-row{margin-bottom:0}
 .store-foot{padding:16px 18px 20px}
-
 /* ===== DETALLE ===== */
 .detail-modal-content{background:#fff;border-radius:var(--radius-xl);width:100%;max-width:1060px;max-height:92vh;
 position:relative;animation:popIn .35s cubic-bezier(.2,.7,.3,1);display:flex;flex-direction:column;overflow:hidden}
@@ -470,7 +476,6 @@ font-family:var(--font-button);transition:all .25s;box-shadow:0 8px 22px color-m
 @media(max-width:900px){.detail-layout{grid-template-columns:1fr;gap:16px}.detail-main{order:1;min-height:320px}.detail-main img{max-height:300px}.detail-thumbs{order:2;flex-direction:row;overflow-x:auto;max-height:none;padding:2px}.detail-info{order:3}}
 @media(max-width:640px){.detail-modal{padding:8px}.detail-modal-content{max-height:calc(100dvh - 16px);border-radius:var(--radius-lg)}.detail-topbar{padding:12px 14px 12px 18px}.detail-scroll{padding:16px 16px 24px}.detail-main{min-height:280px;border-radius:var(--radius-md)}.detail-main img{max-height:260px}.detail-thumb{width:60px;height:60px}.detail-info h2{font-size:20px}.detail-price{font-size:22px}}
 @media(max-width:350px){.detail-actions{flex-direction:column}.qty-stepper{justify-content:center}}
-
 /* ===== EDIT MODAL ===== */
 .edit-modal-content{background:#fff;padding:26px;border-radius:var(--radius-xl);width:100%;max-width:620px;max-height:92vh;overflow-y:auto;animation:popIn .3s}
 .edit-modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--gray-light)}
@@ -535,7 +540,6 @@ border:1px solid var(--pink-line);border-radius:var(--radius-md);padding:13px 16
 .logo-preview{width:105px;height:105px;border-radius:var(--radius-lg);background:#ffffff;border:2px dashed var(--pink-line);
 display:flex;align-items:center;justify-content:center;overflow:hidden;color:var(--muted-2);font-size:11px;font-weight:500;flex-shrink:0;text-align:center}
 .logo-preview img{width:100%;height:100%;object-fit:contain;background:#ffffff;display:block}
-
 /* CAMBIO: Controles de logo en el panel admin */
 .logo-controls-box{background:var(--gray-light);border:1.5px solid var(--gray-border);border-radius:var(--radius-md);padding:16px;margin-top:14px}
 .logo-controls-box h5{margin:0 0 12px;font-size:13px;font-weight:500;color:var(--divani-text);display:flex;align-items:center;gap:6px}
@@ -548,7 +552,6 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;color:var
 .logo-control-item input[type=number]{padding:8px 10px;border:1.5px solid var(--gray-border);border-radius:8px;font-size:12px!important;background:#fff;width:100%}
 .logo-reset-btn{background:transparent;border:1.5px solid var(--pink-line);color:var(--divani-text);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:11px;font-weight:500;transition:all .2s}
 .logo-reset-btn:hover{background:var(--light-pink);border-color:var(--divani-primary);color:var(--divani-primary)}
-
 /* ===== ADMIN ===== */
 .admin-panel{padding:8px}
 .admin-content{background:#f1f5f9;width:100%;max-width:1340px;height:95vh;border-radius:var(--radius-xl);display:grid;grid-template-columns:230px 1fr;overflow:hidden;animation:popIn .3s}
@@ -673,8 +676,9 @@ display:flex;align-items:center;justify-content:center;font-family:var(--font-ti
 .pv-live-item{padding:9px;border-radius:10px;border:1px solid var(--gray-border);text-align:center;font-size:11px;font-weight:500}
 .pv-live-item .lbl{display:block;font-size:9px;color:var(--muted);margin-bottom:3px;text-transform:uppercase;letter-spacing:.5px}
 .pv-live-btn{background:var(--divani-button);color:var(--divani-on-primary);padding:7px;border-radius:8px}
-.pv-live-cat{background:var(--divani-background);color:var(--divani-text)}
-.pv-live-cat.active{background:var(--divani-primary);color:var(--divani-on-primary)}
+/* CAMBIO: Vista previa en vivo ahora refleja los colores de categorías y recuadro */
+.pv-live-cat{background:var(--categoryBtnBg);color:var(--categoryBtnText);border-color:var(--categoryBtnBorder)}
+.pv-live-cat.active{background:var(--categoryBtnActiveBg);color:var(--categoryBtnActiveText);border-color:var(--categoryBtnActiveBg)}
 .pv-live-card{background:var(--card-bg);color:var(--divani-text);padding:11px}
 .pv-live-search{background:var(--divani-background);color:var(--divani-text);border:1px solid var(--pink-line)}
 .pv-live-cart{background:var(--divani-cart-gradient);color:var(--divani-text);padding:11px;border:1px solid var(--gray-border)}
@@ -707,7 +711,6 @@ font-weight:400;font-size:13px;pointer-events:auto;animation:toastIn .35s cubic-
 .img-fit-opt:hover{border-color:var(--divani-primary);color:var(--divani-primary)}
 .img-fit-opt.active{background:var(--divani-primary);color:#fff;border-color:var(--divani-primary)}
 .img-fit-opt svg{display:block;margin:0 auto 3px;width:22px;height:22px}
-
 /* ===== MOBILE ===== */
 @media(max-width:480px){
 header{padding:10px 14px 12px;padding-top:calc(10px + var(--safe-top))}
@@ -724,15 +727,17 @@ main{padding:14px 14px 10px}
 .chips{gap:7px;padding:6px 2px;margin-top:12px}
 .chips a{font-size:12px;padding:8px 16px}
 .container{gap:12px 10px}
-.card-top{height:clamp(140px,32vw,180px);padding:14px}
-.card h3{font-size:12.5px;min-height:32px}
-.card .price{font-size:14.5px}
+/* CAMBIO: card-top más grande en móvil */
+.card-top{height:clamp(150px,34vw,190px);padding:12px}
+/* CAMBIO: card-info más compacto en móvil */
+.card h3{font-size:12px;min-height:26px;line-height:1.28}
+.card .price{font-size:14px}
 .fab-add{width:36px;height:36px;right:10px;bottom:-12px}
 .fab-add svg{width:14px;height:14px}
-.card-info{padding:20px 12px 12px;min-height:130px}
+.card-info{padding:10px 10px 10px;min-height:78px}
 .hscroll{gap:12px}
 .hscroll .card{width:160px}
-.hscroll .card-top{height:160px}
+.hscroll .card-top{height:170px}
 .promo-band{padding:18px 20px;margin:28px 0 10px}
 .promo-band b{font-size:15px}
 .promo-band small{font-size:11.5px}
@@ -755,9 +760,9 @@ main{padding:14px 14px 10px}
 .hero-arrow.prev{left:8px}
 .hero-arrow.next{right:8px}
 .container{gap:10px 8px}
-.card-top{height:clamp(130px,32vw,170px);padding:12px}
-.card-info{padding:18px 10px 10px;min-height:125px}
-.card h3{font-size:12px;min-height:30px}
+.card-top{height:clamp(140px,34vw,175px);padding:11px}
+.card-info{padding:9px 9px 9px;min-height:74px}
+.card h3{font-size:11.5px;min-height:24px}
 }
 @media(max-width:393px){
 .header-row{height:48px;gap:7px}
@@ -772,13 +777,13 @@ main{padding:12px 12px 8px}
 .section-sub{font-size:11px}
 .chips a{font-size:11.5px;padding:7px 13px}
 .container{grid-template-columns:repeat(2,1fr);gap:10px 8px}
-.card-top{height:clamp(120px,32vw,160px);padding:11px}
-.card h3{font-size:11.5px;min-height:28px}
-.card .price{font-size:14px}
-.card-info{padding:16px 10px 10px;min-height:120px}
+.card-top{height:clamp(130px,34vw,165px);padding:10px}
+.card h3{font-size:11px;min-height:22px}
+.card .price{font-size:13.5px}
+.card-info{padding:8px 9px 9px;min-height:70px}
 .hscroll{gap:10px}
 .hscroll .card{width:150px}
-.hscroll .card-top{height:150px}
+.hscroll .card-top{height:155px}
 .promo-band{flex-direction:column;align-items:flex-start;gap:12px;padding:16px 18px}
 .promo-band button{width:100%;text-align:center}
 .foot-inner{gap:18px}
@@ -799,25 +804,23 @@ main{padding:10px 10px 6px}
 .hero-title{font-size:clamp(14px,5.5vw,18px)}
 .hero-tag{font-size:7.5px;padding:4px 7px}
 .container{gap:8px 6px}
-.card-top{height:clamp(110px,32vw,150px);padding:10px}
-.card h3{font-size:11px;min-height:26px}
-.card .price{font-size:13.5px}
-.card-info{padding:14px 8px 8px;min-height:115px}
+.card-top{height:clamp(120px,34vw,155px);padding:9px}
+.card h3{font-size:10.5px;min-height:20px}
+.card .price{font-size:13px}
+.card-info{padding:7px 8px 8px;min-height:66px}
 }
 @media(max-width:320px){
 .brand-logo{max-height:28px}
 .container{gap:6px 5px}
-.card-top{height:clamp(100px,32vw,140px)}
-.card h3{font-size:10.5px}
+.card-top{height:clamp(110px,34vw,145px)}
+.card h3{font-size:10px}
 }
 </style>
 </head>
 <body>
 <div class="toast-container" id="toastContainer"></div>
-
 <!-- CAMBIO: Contenedor de destellos para animación del carrito -->
 <div class="cart-sparkles" id="cartSparkles" aria-hidden="true"></div>
-
 <header id="mainHeader">
 <div class="header-inner">
 <div class="header-row">
@@ -827,7 +830,7 @@ main{padding:10px 10px 6px}
 <!-- CAMBIO: Logo con fetchpriority="high" para cargar primero -->
 <div class="brand" onclick="irInicio()" title="DIVANI · Ir al inicio">
 <img class="brand-logo" id="brandLogo" src="" alt="DIVANI" fetchpriority="high" decoding="async"
-     onerror="this.style.display='none';document.getElementById('brandText').style.display='block'">
+onerror="this.style.display='none';document.getElementById('brandText').style.display='block'">
 <span id="brandText" style="display:none;font-family:var(--font-title);font-size:clamp(18px,3.2vw,24px);font-weight:500;color:var(--divani-primary);letter-spacing:clamp(4px,1.4vw,10px);text-indent:clamp(2px,0.8vw,10px)">DIVANI</span>
 </div>
 <div class="header-actions">
@@ -1360,7 +1363,6 @@ Llenar
 <small style="color:#64748b;display:block;margin-top:8px;line-height:1.5;">Al cargar el logo se <b>analizan sus colores</b> y se genera una paleta automática (confirma con "Aplicar cambios").</small>
 </div>
 </div>
-
 <!-- CAMBIO: Controles completos para ajustar el logo -->
 <div class="logo-controls-box">
 <h5> Ajustes del logo en el header</h5>
@@ -1391,7 +1393,6 @@ Llenar
 </div>
 </div>
 </div>
-
 <div class="grid-form-2" style="margin-top:16px;">
 <div class="form-group"><label>Nombre de la tienda</label><input type="text" id="persNombre" oninput="setDraftNombre(this.value)"></div>
 <div class="form-group"><label>Eslogan</label><input type="text" id="persTagline" oninput="setDraftTagline(this.value)"></div>
@@ -1466,6 +1467,58 @@ Llenar
 </select>
 <div class="gradient-preview" id="gradPrev-cartBg"></div>
 </div>
+</div>
+</div>
+<!-- CAMBIO: Nueva sección para personalizar el recuadro inferior de productos -->
+<div class="dashboard-card">
+<h4>🛍️ Recuadro inferior de productos</h4>
+<p style="font-size:12.5px;color:#64748b;margin:-6px 0 14px;">Personaliza el color de fondo y del texto de la parte inferior de cada tarjeta de producto (donde van el nombre y el precio). No afecta al resto del catálogo.</p>
+<div class="color-row">
+<span class="cr-swatch" id="sw-cardInfoBg"></span>
+<div class="cr-txt"><b>Fondo del recuadro</b><small>Parte inferior de cada tarjeta</small></div>
+<input type="color" id="col-cardInfoBg" oninput="setDraftColor('cardInfoBg',this.value)" aria-label="Fondo del recuadro">
+<input type="text" id="hex-cardInfoBg" maxlength="7" oninput="setDraftColorHex('cardInfoBg',this.value)" aria-label="HEX fondo recuadro">
+</div>
+<div class="color-row">
+<span class="cr-swatch" id="sw-cardInfoText"></span>
+<div class="cr-txt"><b>Texto del recuadro</b><small>Nombre del producto</small></div>
+<input type="color" id="col-cardInfoText" oninput="setDraftColor('cardInfoText',this.value)" aria-label="Texto del recuadro">
+<input type="text" id="hex-cardInfoText" maxlength="7" oninput="setDraftColorHex('cardInfoText',this.value)" aria-label="HEX texto recuadro">
+</div>
+</div>
+<!-- CAMBIO: Nueva sección para personalizar los botones de categorías -->
+<div class="dashboard-card">
+<h4>🏷️ Botones de categorías</h4>
+<p style="font-size:12.5px;color:#64748b;margin:-6px 0 14px;">Personaliza los colores de los botones de categorías. Puedes cambiar el color normal y el color cuando se selecciona una categoría.</p>
+<div class="color-row">
+<span class="cr-swatch" id="sw-categoryBtnBg"></span>
+<div class="cr-txt"><b>Fondo normal</b><small>Color de fondo del botón</small></div>
+<input type="color" id="col-categoryBtnBg" oninput="setDraftColor('categoryBtnBg',this.value)" aria-label="Fondo categoría">
+<input type="text" id="hex-categoryBtnBg" maxlength="7" oninput="setDraftColorHex('categoryBtnBg',this.value)" aria-label="HEX fondo categoría">
+</div>
+<div class="color-row">
+<span class="cr-swatch" id="sw-categoryBtnText"></span>
+<div class="cr-txt"><b>Texto normal</b><small>Color del texto del botón</small></div>
+<input type="color" id="col-categoryBtnText" oninput="setDraftColor('categoryBtnText',this.value)" aria-label="Texto categoría">
+<input type="text" id="hex-categoryBtnText" maxlength="7" oninput="setDraftColorHex('categoryBtnText',this.value)" aria-label="HEX texto categoría">
+</div>
+<div class="color-row">
+<span class="cr-swatch" id="sw-categoryBtnBorder"></span>
+<div class="cr-txt"><b>Borde del botón</b><small>Color del borde</small></div>
+<input type="color" id="col-categoryBtnBorder" oninput="setDraftColor('categoryBtnBorder',this.value)" aria-label="Borde categoría">
+<input type="text" id="hex-categoryBtnBorder" maxlength="7" oninput="setDraftColorHex('categoryBtnBorder',this.value)" aria-label="HEX borde categoría">
+</div>
+<div class="color-row" style="background:var(--light-pink);border-color:var(--pink-line);">
+<span class="cr-swatch" id="sw-categoryBtnActiveBg"></span>
+<div class="cr-txt"><b>Fondo al seleccionar</b><small>Cuando se toca/activa</small></div>
+<input type="color" id="col-categoryBtnActiveBg" oninput="setDraftColor('categoryBtnActiveBg',this.value)" aria-label="Fondo categoría activa">
+<input type="text" id="hex-categoryBtnActiveBg" maxlength="7" oninput="setDraftColorHex('categoryBtnActiveBg',this.value)" aria-label="HEX fondo activa">
+</div>
+<div class="color-row" style="background:var(--light-pink);border-color:var(--pink-line);">
+<span class="cr-swatch" id="sw-categoryBtnActiveText"></span>
+<div class="cr-txt"><b>Texto al seleccionar</b><small>Cuando se toca/activa</small></div>
+<input type="color" id="col-categoryBtnActiveText" oninput="setDraftColor('categoryBtnActiveText',this.value)" aria-label="Texto categoría activa">
+<input type="text" id="hex-categoryBtnActiveText" maxlength="7" oninput="setDraftColorHex('categoryBtnActiveText',this.value)" aria-label="HEX texto activa">
 </div>
 </div>
 <div class="dashboard-card">
@@ -1547,6 +1600,7 @@ Llenar
 </div>
 </div>
 </div>
+</div>
 <script>
 const CLOUD_CONFIG = {
 IMGBB_API_KEY: '23fd3f8de134902e74fba7938f900ba3',
@@ -1598,12 +1652,16 @@ let banners = [
 { id:'b2', etiqueta:'Selección especial', titulo:'Los favoritos de la casa', sub:'Marca productos favoritos y aparecerán aquí.', promo:'TOP', textoBoton:'Ver destacados', img:IMG.swatches, tema:2, cat:'Destacados', usarIdentidad:true, imgFit:'cover', imgPos:'center', duracion:3 }
 ];
 let tiendaConfig = { ubicacion:'Colombia', instagram:'divani_maquillaje', tiktok:'divani_maquillaje', whatsapp:'573003896683' };
-
-/* CAMBIO: DEFAULT_PERS incluye logoSettings para persistir ajustes del logo */
+/* CAMBIO: DEFAULT_PERS ahora incluye los nuevos colores para recuadro y categorías */
 const DEFAULT_PERS = {
 logo: LOGO_DEFAULT, name:'DIVANI', tagline:'Tu tienda de confianza', weight:'normal',
 palette:{ primary:'#e8557a', secondary:'#fce4ec', background:'#fdf2f8', light:'#fce4ec', text:'#3d1f2e', button:'#e8557a', accent:'#f48fb1', adminBtn:'#e8557a',
-headerBg:'#fdf2f8', cartBg:'#ffffff', categoryBg:'#ffffff', categoryText:'#e8557a', featuredBg:'#fff8e1', featuredText:'#f9a825' },
+headerBg:'#fdf2f8', cartBg:'#ffffff', categoryBg:'#ffffff', categoryText:'#e8557a', featuredBg:'#fff8e1', featuredText:'#f9a825',
+/* CAMBIO: Nuevos colores para el recuadro inferior */
+cardInfoBg:'#ffffff', cardInfoText:'#3d1f2e',
+/* CAMBIO: Nuevos colores para los botones de categorías */
+categoryBtnBg:'#ffffff', categoryBtnText:'#3d1f2e', categoryBtnBorder:'#f0dce4',
+categoryBtnActiveBg:'#e8557a', categoryBtnActiveText:'#ffffff' },
 gradients:{
 background:{type:'solid',value:'#fdf2f8'},
 headerBg:{type:'solid',value:'#fdf2f8'},
@@ -1631,27 +1689,43 @@ const COLOR_META=[
 const PALETTE_SUGGESTIONS = [
 {
 name:'🌸 Rosa pastel',
-palette:{primary:'#f472b6',secondary:'#fce7f3',background:'#fdf2f8',light:'#fce7f3',text:'#4a1942',button:'#f472b6',accent:'#f9a8d4',adminBtn:'#f472b6',headerBg:'#fdf2f8',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#f472b6',featuredBg:'#fff8e1',featuredText:'#f9a825'},
+palette:{primary:'#f472b6',secondary:'#fce7f3',background:'#fdf2f8',light:'#fce7f3',text:'#4a1942',button:'#f472b6',accent:'#f9a8d4',adminBtn:'#f472b6',headerBg:'#fdf2f8',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#f472b6',featuredBg:'#fff8e1',featuredText:'#f9a825',
+/* CAMBIO: paletas sugeridas incluyen los nuevos colores */
+cardInfoBg:'#ffffff', cardInfoText:'#4a1942',
+categoryBtnBg:'#ffffff', categoryBtnText:'#4a1942', categoryBtnBorder:'#fce7f3',
+categoryBtnActiveBg:'#f472b6', categoryBtnActiveText:'#ffffff'},
 gradients:{background:{type:'gradient',colors:['#fdf2f8','#fce7f3'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#fdf2f8','#fce7f3'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:'🌷 Rosa + crema',
-palette:{primary:'#ec4899',secondary:'#fce4ec',background:'#fff8f5',light:'#fce4ec',text:'#4a1942',button:'#ec4899',accent:'#f472b6',adminBtn:'#ec4899',headerBg:'#fff8f5',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#ec4899',featuredBg:'#fff8e1',featuredText:'#f9a825'},
+palette:{primary:'#ec4899',secondary:'#fce4ec',background:'#fff8f5',light:'#fce4ec',text:'#4a1942',button:'#ec4899',accent:'#f472b6',adminBtn:'#ec4899',headerBg:'#fff8f5',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#ec4899',featuredBg:'#fff8e1',featuredText:'#f9a825',
+cardInfoBg:'#ffffff', cardInfoText:'#4a1942',
+categoryBtnBg:'#ffffff', categoryBtnText:'#4a1942', categoryBtnBorder:'#fce4ec',
+categoryBtnActiveBg:'#ec4899', categoryBtnActiveText:'#ffffff'},
 gradients:{background:{type:'gradient',colors:['#fff8f5','#fce4ec'],direction:'to bottom'},headerBg:{type:'gradient',colors:['#fff8f5','#fce4ec'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:'🤎 Nude elegante',
-palette:{primary:'#a67c52',secondary:'#f5ebe0',background:'#faf6f1',light:'#f5ebe0',text:'#3d2817',button:'#a67c52',accent:'#d4a574',adminBtn:'#a67c52',headerBg:'#faf6f1',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#a67c52',featuredBg:'#fff8e1',featuredText:'#f9a825'},
+palette:{primary:'#a67c52',secondary:'#f5ebe0',background:'#faf6f1',light:'#f5ebe0',text:'#3d2817',button:'#a67c52',accent:'#d4a574',adminBtn:'#a67c52',headerBg:'#faf6f1',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#a67c52',featuredBg:'#fff8e1',featuredText:'#f9a825',
+cardInfoBg:'#ffffff', cardInfoText:'#3d2817',
+categoryBtnBg:'#ffffff', categoryBtnText:'#3d2817', categoryBtnBorder:'#f5ebe0',
+categoryBtnActiveBg:'#a67c52', categoryBtnActiveText:'#ffffff'},
 gradients:{background:{type:'gradient',colors:['#faf6f1','#f5ebe0'],direction:'to bottom right'},headerBg:{type:'gradient',colors:['#faf6f1','#f5ebe0'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:'💜 Lila + blanco',
-palette:{primary:'#8b5cf6',secondary:'#ede9fe',background:'#faf5ff',light:'#ede9fe',text:'#3b1f6e',button:'#8b5cf6',accent:'#a78bfa',adminBtn:'#8b5cf6',headerBg:'#faf5ff',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#8b5cf6',featuredBg:'#fff8e1',featuredText:'#f9a825'},
+palette:{primary:'#8b5cf6',secondary:'#ede9fe',background:'#faf5ff',light:'#ede9fe',text:'#3b1f6e',button:'#8b5cf6',accent:'#a78bfa',adminBtn:'#8b5cf6',headerBg:'#faf5ff',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#8b5cf6',featuredBg:'#fff8e1',featuredText:'#f9a825',
+cardInfoBg:'#ffffff', cardInfoText:'#3b1f6e',
+categoryBtnBg:'#ffffff', categoryBtnText:'#3b1f6e', categoryBtnBorder:'#ede9fe',
+categoryBtnActiveBg:'#8b5cf6', categoryBtnActiveText:'#ffffff'},
 gradients:{background:{type:'gradient',colors:['#faf5ff','#ede9fe'],direction:'to bottom'},headerBg:{type:'gradient',colors:['#faf5ff','#ede9fe'],direction:'to right'},cartBg:{type:'solid',value:'#ffffff'}}
 },
 {
 name:' Minimalista',
-palette:{primary:'#1a1a1a',secondary:'#f5f5f5',background:'#ffffff',light:'#fafafa',text:'#1a1a1a',button:'#1a1a1a',accent:'#d4d4d4',adminBtn:'#1a1a1a',headerBg:'#ffffff',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#1a1a1a',featuredBg:'#fff8e1',featuredText:'#f9a825'},
+palette:{primary:'#1a1a1a',secondary:'#f5f5f5',background:'#ffffff',light:'#fafafa',text:'#1a1a1a',button:'#1a1a1a',accent:'#d4d4d4',adminBtn:'#1a1a1a',headerBg:'#ffffff',cartBg:'#ffffff',categoryBg:'#ffffff',categoryText:'#1a1a1a',featuredBg:'#fff8e1',featuredText:'#f9a825',
+cardInfoBg:'#ffffff', cardInfoText:'#1a1a1a',
+categoryBtnBg:'#ffffff', categoryBtnText:'#1a1a1a', categoryBtnBorder:'#f5f5f5',
+categoryBtnActiveBg:'#1a1a1a', categoryBtnActiveText:'#ffffff'},
 gradients:{background:{type:'solid',value:'#ffffff'},headerBg:{type:'solid',value:'#ffffff'},cartBg:{type:'solid',value:'#ffffff'}}
 }
 ];
@@ -1667,6 +1741,7 @@ const data = { productos, categorias, banners, tiendaConfig, personalizacion: pe
 localStorage.setItem(CACHE_KEY, JSON.stringify(data));
 }catch(e){}
 }
+/* CAMBIO: applyCachedData ahora también restaura los nuevos colores */
 function applyCachedData(cache){
 if(!cache) return false;
 let applied = false;
@@ -1731,8 +1806,7 @@ return `radial-gradient(ellipse at center, ${colors})`;
 }
 return `linear-gradient(${dir}, ${colors})`;
 }
-
-/* CAMBIO: applyPers ahora aplica también los ajustes del logo */
+/* CAMBIO: applyPers ahora también aplica los nuevos colores del recuadro y categorías */
 function applyPers(cfg){
 const r=document.documentElement.style, p=cfg.palette;
 r.setProperty('--divani-primary',p.primary);
@@ -1750,6 +1824,15 @@ r.setProperty('--divani-category-bg', p.categoryBg || '#ffffff');
 r.setProperty('--divani-category-text', p.categoryText || p.primary);
 r.setProperty('--divani-featured-bg', p.featuredBg || '#fff8e1');
 r.setProperty('--divani-featured-text', p.featuredText || '#f9a825');
+/* CAMBIO: aplicar los nuevos colores del recuadro inferior */
+r.setProperty('--divani-card-info-bg', p.cardInfoBg || '#ffffff');
+r.setProperty('--divani-card-info-text', p.cardInfoText || p.text || '#3d1f2e');
+/* CAMBIO: aplicar los nuevos colores de los botones de categorías */
+r.setProperty('--categoryBtnBg', p.categoryBtnBg || '#ffffff');
+r.setProperty('--categoryBtnText', p.categoryBtnText || p.text || '#3d1f2e');
+r.setProperty('--categoryBtnBorder', p.categoryBtnBorder || '#f0dce4');
+r.setProperty('--categoryBtnActiveBg', p.categoryBtnActiveBg || p.primary || '#e8557a');
+r.setProperty('--categoryBtnActiveText', p.categoryBtnActiveText || '#ffffff');
 r.setProperty('--font-title',stackOf(cfg.fonts.title));
 r.setProperty('--font-body',stackOf(cfg.fonts.body));
 r.setProperty('--font-button',stackOf(cfg.fonts.button));
@@ -1768,7 +1851,6 @@ const meta=document.querySelector('meta[name=theme-color]'); if(meta) meta.conte
 updateBrand(cfg); updatePv(cfg);
 applyLogoSettings(cfg.logoSettings || {scale:1,height:60,offsetX:0,offsetY:0});
 }
-
 /* CAMBIO: Funciones para aplicar y actualizar los ajustes del logo */
 function applyLogoSettings(settings){
 const r=document.documentElement.style;
@@ -1835,7 +1917,6 @@ markDirty();
 applyLogoSettings(draft.logoSettings);
 showToast('Logo restablecido a valores originales','success');
 }
-
 function updateBrand(cfg){
 const brandLogo=document.getElementById('brandLogo');
 const drawerBrandLogo=document.getElementById('drawerBrandLogo');
@@ -1884,6 +1965,7 @@ const sel=document.getElementById('sel-font-'+role); if(!sel) return;
 sel.innerHTML=FONT_OPTIONS.map(f=>`<option value="${f.id}">${f.label}</option>`).join('');
 });
 }
+/* CAMBIO: syncPersUI ahora también sincroniza los nuevos colores */
 function syncPersUI(){
 COLOR_META.forEach(m=>{
 const v=draft.palette[m.key];
@@ -1891,7 +1973,8 @@ const c=document.getElementById('col-'+m.key); if(c) c.value=v;
 const h=document.getElementById('hex-'+m.key); if(h) h.value=v.toUpperCase();
 const s=document.getElementById('sw-'+m.key); if(s) s.style.background=v;
 });
-['background','headerBg','cartBg'].forEach(key=>{
+/* CAMBIO: sincronizar los nuevos colores del recuadro y categorías */
+['background','headerBg','cartBg','cardInfoBg','cardInfoText','categoryBtnBg','categoryBtnText','categoryBtnBorder','categoryBtnActiveBg','categoryBtnActiveText'].forEach(key=>{
 const v=draft.palette[key];
 const c=document.getElementById('col-'+key); if(c) c.value=v;
 const h=document.getElementById('hex-'+key); if(h) h.value=v.toUpperCase();
@@ -2022,6 +2105,7 @@ const A=avg(sat[0]);
 const primary=rgbToHex(A.r,A.g,A.b);
 const secondary= sat.length>1 ? rgbToHex(avg(sat[1])) : mixHex(primary,'#ffffff',.55);
 const secondaryF= luminancia(secondary)<luminancia(primary)? mixHex(primary,'#ffffff',.55) : secondary;
+/* CAMBIO: la paleta extraída del logo ahora también genera los nuevos colores */
 return {
 primary,
 secondary: mixHex(secondaryF,'#ffffff',.25),
@@ -2029,7 +2113,15 @@ background: mixHex(primary,'#ffffff',.93),
 light: mixHex(primary,'#ffffff',.86),
 text: darkN>6? rgbToHex(Math.round(dr/darkN),Math.round(dg/darkN),Math.round(db/darkN)) : mixHex(primary,'#000000',.72),
 button: mixHex(primary,'#000000',.05),
-accent: mixHex(primary,'#ffffff',.4)
+accent: mixHex(primary,'#ffffff',.4),
+/* CAMBIO: colores derivados para recuadro y categorías */
+cardInfoBg: '#ffffff',
+cardInfoText: darkN>6? rgbToHex(Math.round(dr/darkN),Math.round(dg/darkN),Math.round(db/darkN)) : mixHex(primary,'#000000',.72),
+categoryBtnBg: '#ffffff',
+categoryBtnText: darkN>6? rgbToHex(Math.round(dr/darkN),Math.round(dg/darkN),Math.round(db/darkN)) : mixHex(primary,'#000000',.72),
+categoryBtnBorder: mixHex(primary,'#ffffff',.86),
+categoryBtnActiveBg: primary,
+categoryBtnActiveText: '#ffffff'
 };
 }catch(e){ return null; }
 }
@@ -2334,7 +2426,6 @@ function prepararCacheBusqueda(){ productos.forEach(p=>{ p._cache=(p.nombre+' '+
 function obtenerImagenPrincipal(p){ if(p.imagenes&&p.imagenes.length) return p.imagenes[0]; if(p.img) return p.img; return FALLBACK_IMG; }
 function tonosDe(p){ if(p.tonos && p.tonos.length) return p.tonos; if(p.imagenes && p.imagenes.length>1) return p.imagenes.map((u,i)=>({n:'Tono '+(i+1),c:null,i})); return []; }
 function formatWa(d){ d=String(d||'').replace(/\D/g,''); if(d.startsWith('57')&&d.length===12) return `+57 ${d.slice(2,5)} ${d.slice(5,8)} ${d.slice(8)}`; return '+'+d; }
-
 /* CAMBIO: bumpCart ahora también dispara la animación de destellos */
 function bumpCart(){
 const b=document.getElementById('headerCartBtn');
@@ -2345,19 +2436,16 @@ b.classList.add('bump');
 }
 sparkleCart();
 }
-
 /* CAMBIO: Función que genera destellos alrededor del carrito */
 function sparkleCart(){
 const cartBtn = document.getElementById('headerCartBtn');
 const container = document.getElementById('cartSparkles');
 if(!cartBtn || !container) return;
-
 const rect = cartBtn.getBoundingClientRect();
 const cx = rect.left + rect.width/2;
 const cy = rect.top + rect.height/2;
 const colors = ['','white','pink-light'];
 const numSparkles = 10;
-
 for(let i=0;i<numSparkles;i++){
 const sparkle = document.createElement('div');
 sparkle.className = 'sparkle ' + colors[i % colors.length];
@@ -2373,7 +2461,6 @@ container.appendChild(sparkle);
 setTimeout(()=>sparkle.remove(), 850);
 }
 }
-
 function syncSwLbl(inputId,lblId){
 const on=document.getElementById(inputId).checked;
 const l=document.getElementById(lblId);
