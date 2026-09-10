@@ -310,42 +310,68 @@ color:var(--divani-on-primary);box-shadow:0 12px 28px color-mix(in srgb,var(--di
 .foot-contact a:hover{color:#fff}
 .foot-contact svg{width:15px;height:15px;flex-shrink:0;color:var(--divani-accent)}
 .foot-bottom{max-width:1320px;margin:28px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:11px;color:#a88b9c;letter-spacing:.5px;font-weight:300}
-/* CARRITO - Panel lateral completo */
-.cart-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 40%, transparent);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:200}
-.cart-backdrop.show{opacity:1;pointer-events:auto}
-.cart{
-position:fixed;
-top:0;
-bottom:0;
-right:0;
-left:auto;
-width:50%;
-max-width:50%;
-height:100dvh;
-max-height:100dvh;
-background:var(--divani-cart-gradient);
-padding:24px 24px calc(24px + var(--safe-bottom));
-overflow-y:auto;
-z-index:210;
-transition:transform .32s cubic-bezier(.4,0,.2,1), opacity .25s ease;
-box-shadow:-8px 0 30px rgba(0,0,0,.18);
-display:flex;
-flex-direction:column;
-border-radius:0;
-border:none;
-transform:translateX(100%);
-opacity:0;
-pointer-events:none;
+/* CARRITO - Panel lateral de media pantalla */
+.cart-backdrop{
+    position:fixed;
+    inset:0;
+    background:color-mix(in srgb,var(--divani-text) 40%, transparent);
+    backdrop-filter:blur(3px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease;
+    z-index:200;
 }
+
+.cart-backdrop.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.cart{
+    position:fixed;
+    top:0;
+    bottom:0;
+    right:0;
+    left:auto;
+
+    /* MEDIA PANTALLA */
+    width:50%;
+    max-width:50%;
+    
+    height:100dvh;
+    max-height:100dvh;
+
+    background:var(--divani-cart-gradient);
+    padding:24px 24px calc(24px + var(--safe-bottom));
+    overflow-y:auto;
+
+    z-index:210;
+    transition:transform .32s cubic-bezier(.4,0,.2,1), opacity .25s ease;
+    box-shadow:-8px 0 30px rgba(0,0,0,.18);
+
+    display:flex;
+    flex-direction:column;
+
+    border-radius:0;
+    border:none;
+
+    transform:translateX(100%);
+    opacity:0;
+    pointer-events:none;
+}
+
 .cart.open{
-transform:translateX(0);
-opacity:1;
-pointer-events:auto;
+    transform:translateX(0);
+    opacity:1;
+    pointer-events:auto;
 }
+
+/* En celular también ocupa exactamente la mitad */
 @media(max-width:768px){
-.cart{
-width:100%;
-max-width:100%;
+    .cart{
+        width:50%;
+        max-width:50%;
+    }
 }
 }
 .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-shrink:0;padding-bottom:12px;border-bottom:1px solid var(--gray-light)}
