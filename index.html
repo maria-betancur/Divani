@@ -49,7 +49,6 @@
 --divani-featured-text:#f9a825;
 --divani-card-info-bg:#ffffff;
 --divani-card-info-text:#3d1f2e;
-/* NUEVO: Variables para el recuadro inferior de información de la tienda */
 --divani-store-foot-bg:#ffffff;
 --divani-store-foot-text:#3d1f2e;
 --categoryBtnBg:#ffffff;
@@ -140,24 +139,7 @@ transition:all .25s ease;position:relative}
 .badge-count{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 6px;background:var(--divani-primary);
 color:var(--divani-on-primary);border-radius:999px;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;
 border:2px solid var(--divani-background);transition:transform .25s;line-height:1;box-shadow:0 2px 6px color-mix(in srgb,var(--divani-primary) 30%, transparent)}
-#headerCartBtn.bump{animation:bump .4s ease}
-@keyframes bump{0%{transform:scale(1)}40%{transform:scale(1.18)}70%{transform:scale(.96)}100%{transform:scale(1)}}
 .cart-sparkles{position:fixed;pointer-events:none;z-index:9999}
-.sparkle{
-position:absolute;
-width:6px;height:6px;
-border-radius:50%;
-background:var(--divani-primary);
-opacity:0;
-animation:sparkle-fly .8s ease-out forwards;
-box-shadow:0 0 6px var(--divani-primary), 0 0 12px color-mix(in srgb,var(--divani-primary) 50%, transparent)}
-.sparkle.white{background:#fff;box-shadow:0 0 6px #fff, 0 0 12px rgba(255,255,255,.6)}
-.sparkle.pink-light{background:#f48fb1;box-shadow:0 0 6px #f48fb1}
-@keyframes sparkle-fly{
-0%{transform:translate(0,0) scale(0);opacity:1}
-50%{opacity:1}
-100%{transform:translate(var(--tx), var(--ty)) scale(1.5);opacity:0}
-}
 .search-wrap{position:relative;margin-top:10px;max-width:780px;margin-left:auto;margin-right:auto}
 .search-wrap .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted-2);pointer-events:none}
 #buscadorInput{width:100%;padding:12px 18px 12px 42px;border-radius:999px;border:1px solid var(--pink-line);
@@ -328,7 +310,7 @@ color:var(--divani-on-primary);box-shadow:0 12px 28px color-mix(in srgb,var(--di
 .foot-contact a:hover{color:#fff}
 .foot-contact svg{width:15px;height:15px;flex-shrink:0;color:var(--divani-accent)}
 .foot-bottom{max-width:1320px;margin:28px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:11px;color:#a88b9c;letter-spacing:.5px;font-weight:300}
-/* CARRITO - CAMBIO: Ahora es panel flotante en móvil */
+/* CARRITO - Panel lateral completo */
 .cart-backdrop{position:fixed;inset:0;background:color-mix(in srgb,var(--divani-text) 40%, transparent);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s ease;z-index:200}
 .cart-backdrop.show{opacity:1;pointer-events:auto}
 .cart{
@@ -339,38 +321,31 @@ right:0;
 left:auto;
 width:50%;
 max-width:50%;
-max-height:min(95dvh, 640px);
-height:1100dvh;
+height:100dvh;
+max-height:100dvh;
 background:var(--divani-cart-gradient);
-padding:18px 18px calc(18px + var(--safe-bottom));
+padding:24px 24px calc(24px + var(--safe-bottom));
 overflow-y:auto;
 z-index:210;
 transition:transform .32s cubic-bezier(.4,0,.2,1), opacity .25s ease;
-box-shadow:- 8px 0 30px rgba(0,0,0,.18), 
+box-shadow:-8px 0 30px rgba(0,0,0,.18);
 display:flex;
 flex-direction:column;
-border-radius:0
+border-radius:0;
 border:none;
-transform:translateY(100%);
+transform:translateX(100%);
 opacity:0;
 pointer-events:none;
 }
 .cart.open{
-transform:translateY(0);
+transform:translateX(0);
 opacity:1;
 pointer-events:auto;
 }
-@media(min-width:768px){
+@media(max-width:768px){
 .cart{
-bottom:24px;
-right:24px;
-max-width:420px;
-max-height:min(80dvh, 720px);
-}
-}
-@media(min-width:1024px){
-.cart{
-max-width:460px;
+width:100%;
+max-width:100%;
 }
 }
 .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-shrink:0;padding-bottom:12px;border-bottom:1px solid var(--gray-light)}
@@ -427,7 +402,6 @@ border-radius:50%;cursor:pointer;font-size:16px;font-weight:500;transition:all .
 .store-close:hover{background:var(--divani-primary);color:var(--divani-on-primary);transform:rotate(90deg)}
 .store-body{padding:56px 18px 8px;display:flex;flex-direction:column;gap:8px}
 .store-body .store-row{margin-bottom:0}
-/* CAMBIO: store-foot ahora usa las variables personalizables */
 .store-foot{
 padding:16px 18px 20px;
 background:var(--divani-store-foot-bg);
@@ -833,7 +807,6 @@ main{padding:10px 10px 6px}
 </head>
 <body>
 <div class="toast-container" id="toastContainer"></div>
-<div class="cart-sparkles" id="cartSparkles" aria-hidden="true"></div>
 <header id="mainHeader">
 <div class="header-inner">
 <div class="header-row">
@@ -1480,7 +1453,6 @@ Llenar
 </div>
 </div>
 </div>
-<!-- NUEVO: Sección para personalizar el recuadro inferior de información de la tienda -->
 <div class="dashboard-card">
 <h4>🛍️ Recuadro inferior de información de la tienda</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 14px;">Personaliza el color de fondo y del texto del recuadro inferior del modal de información de la tienda (donde está el botón "Cerrar"). No afecta al resto del catálogo.</p>
@@ -1686,7 +1658,6 @@ headerBg:'#fdf2f8', cartBg:'#ffffff', categoryBg:'#ffffff', categoryText:'#e8557
 cardInfoBg:'#ffffff', cardInfoText:'#3d1f2e',
 categoryBtnBg:'#ffffff', categoryBtnText:'#3d1f2e', categoryBtnBorder:'#f0dce4',
 categoryBtnActiveBg:'#e8557a', categoryBtnActiveText:'#ffffff',
-/* NUEVO: colores del recuadro inferior de información de la tienda */
 storeFootBg:'#ffffff', storeFootText:'#3d1f2e' },
 gradients:{
 background:{type:'solid',value:'#fdf2f8'},
@@ -1854,7 +1825,6 @@ r.setProperty('--divani-featured-bg', p.featuredBg || '#fff8e1');
 r.setProperty('--divani-featured-text', p.featuredText || '#f9a825');
 r.setProperty('--divani-card-info-bg', p.cardInfoBg || '#ffffff');
 r.setProperty('--divani-card-info-text', p.cardInfoText || p.text || '#3d1f2e');
-/* NUEVO: aplicar colores del recuadro inferior de información de la tienda */
 r.setProperty('--divani-store-foot-bg', p.storeFootBg || '#ffffff');
 r.setProperty('--divani-store-foot-text', p.storeFootText || p.text || '#3d1f2e');
 r.setProperty('--categoryBtnBg', p.categoryBtnBg || '#ffffff');
@@ -2459,31 +2429,7 @@ b.classList.remove('bump');
 void b.offsetWidth;
 b.classList.add('bump');
 }
-sparkleCart();
-}
-function sparkleCart(){
-const cartBtn = document.getElementById('headerCartBtn');
-const container = document.getElementById('cartSparkles');
-if(!cartBtn || !container) return;
-const rect = cartBtn.getBoundingClientRect();
-const cx = rect.left + rect.width/2;
-const cy = rect.top + rect.height/2;
-const colors = ['','white','pink-light'];
-const numSparkles = 10;
-for(let i=0;i<numSparkles;i++){
-const sparkle = document.createElement('div');
-sparkle.className = 'sparkle ' + colors[i % colors.length];
-const angle = (Math.PI * 2 * i) / numSparkles;
-const distance = 25 + Math.random() * 20;
-const tx = Math.cos(angle) * distance;
-const ty = Math.sin(angle) * distance;
-sparkle.style.setProperty('--tx', tx + 'px');
-sparkle.style.setProperty('--ty', ty + 'px');
-sparkle.style.left = (cx - 3) + 'px';
-sparkle.style.top = (cy - 3) + 'px';
-container.appendChild(sparkle);
-setTimeout(()=>sparkle.remove(), 850);
-}
+/* Animación de burbujas/sparkles eliminada */
 }
 function syncSwLbl(inputId,lblId){
 const on=document.getElementById(inputId).checked;
@@ -3175,10 +3121,8 @@ document.getElementById('detailModal').style.display='none';
 productoDetalleIndex=null;
 if(!document.querySelector('.cart.open')&&!document.querySelector('.drawer.open')) document.body.classList.remove('no-scroll');
 }
-/* CAMBIO: Nueva función que agrega al carrito Y abre el carrito automáticamente */
 function agregarAlCarroYAbrir(i, qty=1){
 agregarAlCarro(i, qty);
-/* Abrir el carrito automáticamente tras agregar */
 setTimeout(()=>{
 toggleCart(true);
 }, 120);
@@ -3187,7 +3131,6 @@ function agregarDesdeDetalle(){
 if(productoDetalleIndex===null) return;
 agregarAlCarro(productoDetalleIndex, detalleCantidad);
 cerrarDetalle();
-/* Abrir el carrito automáticamente tras agregar desde el detalle */
 setTimeout(()=>{
 toggleCart(true);
 }, 120);
@@ -3425,7 +3368,6 @@ function toggleCart(abrir){
 const c=document.getElementById('cartSidebar'), b=document.getElementById('cartBackdrop');
 const open = abrir===undefined ? !c.classList.contains('open') : abrir;
 c.classList.toggle('open',open); b.classList.toggle('show',open);
-/* CAMBIO: Ya no se bloquea el scroll al abrir el carrito, permitiendo ver el catálogo detrás */
 if(open){
 document.body.classList.add('no-scroll');
 }else{
