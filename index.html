@@ -766,7 +766,7 @@ display:flex;align-items:center;justify-content:center;overflow:hidden;color:var
 .pv-id{background:var(--divani-header-gradient);color:var(--divani-text);padding:22px 14px;text-align:center;border-bottom:1px solid var(--pink-line)}
 .pv-id .pv-logo{border-color:color-mix(in srgb,var(--divani-text) 25%, transparent)}
 .pv-id .pv-name{color:var(--divani-primary)}
-.pv-logo{width:54px;height:54px;margin:0 auto 8px;border-radius:50%;border:1.5px solid color-mix(in srgb,var(--divani-on-primary) 75%, transparent);
+.pv-logo{width:54px;height:54px;margin:0 auto 8px;border-radius:50%;border:1.5px solid color-mix(in srgb(var(--divani-on-primary) 75%, transparent);
 display:flex;align-items:center;justify-content:center;font-family:var(--font-title);font-size:25px;font-weight:500;overflow:hidden;background:#ffffff}
 .pv-logo img{width:100%;height:100%;object-fit:contain;border-radius:50%;background:#ffffff}
 .pv-name{font-family:var(--font-title);font-size:19px;letter-spacing:5px;text-indent:5px;font-weight:500}
@@ -1553,7 +1553,6 @@ Llenar
 </div>
 </div>
 </div>
-</div>
 <div class="dashboard-card">
 <h4> Carrito</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 14px;">Configuración independiente del panel del carrito.</p>
@@ -1572,7 +1571,6 @@ Llenar
 <option value="to bottom right"> Diagonal</option>
 </select>
 <div class="gradient-preview" id="gradPrev-cartBg"></div>
-</div>
 </div>
 </div>
 </div>
@@ -1715,8 +1713,6 @@ Llenar
 <button class="sync-btn warning" style="flex:1;min-width:155px;margin:0;" onclick="verCatalogo()">👁 Ver catálogo</button>
 </div>
 <small style="color:#64748b;display:block;margin-top:10px;line-height:1.5;">Los cambios se ven en vivo sobre el catálogo. Nada se guarda hasta presionar <b>Guardar cambios</b>.</small>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -3256,8 +3252,8 @@ productoDetalleIndex=null;
 if(!document.querySelector('.cart.open')&&!document.querySelector('.drawer.open')) document.body.classList.remove('no-scroll');
 }
 /* ============================================================
-   CARRITO: clave única por variante (id + tono)
-   ============================================================ */
+CARRITO: clave única por variante (id + tono)
+============================================================ */
 function buildCartKey(productId, tonoData){
 if(tonoData && tonoData.idx!==undefined && tonoData.idx!==null){
 return productId + '__tono__' + tonoData.idx;
@@ -3584,7 +3580,7 @@ div.innerHTML+=`
 <div class="cart-item-variants">${variantsHtml}</div>
 <div class="cart-item-controls">
 <div class="cart-qty">
-<button onclick="cambiarCantidadCarrito('${esc(row.key)}'",-1)" aria-label="Reducir cantidad">−</button>
+<button onclick="cambiarCantidadCarrito('${esc(row.key)}',-1)" aria-label="Reducir cantidad">−</button>
 <b>${row.qty}</b>
 <button onclick="cambiarCantidadCarrito('${esc(row.key)}',1)" aria-label="Añadir más">+</button>
 </div>
@@ -3617,12 +3613,17 @@ const unit=precioFinalDe(p);
 const sub=unit*row.qty;
 msg+=`• ${row.qty} × ${p.nombre}`;
 if(row.tono && row.tono.n){
-msg+=`\n   Tono: ${row.tono.n}`;
+msg+=`
+Tono: ${row.tono.n}`;
 }
-msg+=`\n   Precio unitario: ${formatearPrecio(unit)}\n   Subtotal: ${formatearPrecio(sub)}\n`;
+msg+=`
+Precio unitario: ${formatearPrecio(unit)}
+Subtotal: ${formatearPrecio(sub)}
+`;
 total+=sub;
 });
-msg+=`\n*TOTAL: ${formatearPrecio(total)}*`;
+msg+=`
+*TOTAL: ${formatearPrecio(total)}*`;
 const wa=(tiendaConfig.whatsapp||'573003896683').replace(/\D/g,'');
 carrito=[]; actualizarCarrito(); toggleCart(false); renderProductos(); renderHome();
 window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`,'_blank');
