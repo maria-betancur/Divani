@@ -312,88 +312,178 @@ color:var(--divani-on-primary);box-shadow:0 12px 28px color-mix(in srgb,var(--di
 .foot-bottom{max-width:1320px;margin:28px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:11px;color:#a88b9c;letter-spacing:.5px;font-weight:300}
 /* CARRITO - Panel lateral de media pantalla */
 .cart-backdrop{
-    position:fixed;
-    inset:0;
-    background:color-mix(in srgb,var(--divani-text) 40%, transparent);
-    backdrop-filter:blur(3px);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .3s ease;
-    z-index:200;
+position:fixed;
+inset:0;
+background:color-mix(in srgb,var(--divani-text) 40%, transparent);
+backdrop-filter:blur(3px);
+opacity:0;
+pointer-events:none;
+transition:opacity .3s ease;
+z-index:200;
 }
-
 .cart-backdrop.show{
-    opacity:1;
-    pointer-events:auto;
+opacity:1;
+pointer-events:auto;
 }
-
 .cart{
-    position:fixed;
-    top:0;
-    bottom:0;
-    right:0;
-    left:auto;
-
-    /* MEDIA PANTALLA */
-    width:50%;
-    max-width:50%;
-    
-    height:100dvh;
-    max-height:100dvh;
-
-    background:var(--divani-cart-gradient);
-    padding:24px 24px calc(24px + var(--safe-bottom));
-    overflow-y:auto;
-
-    z-index:210;
-    transition:transform .32s cubic-bezier(.4,0,.2,1), opacity .25s ease;
-    box-shadow:-8px 0 30px rgba(0,0,0,.18);
-
-    display:flex;
-    flex-direction:column;
-
-    border-radius:0;
-    border:none;
-
-    transform:translateX(100%);
-    opacity:0;
-    pointer-events:none;
+position:fixed;
+top:0;
+bottom:0;
+right:0;
+left:auto;
+width:50%;
+max-width:50%;
+height:100dvh;
+max-height:100dvh;
+background:var(--divani-cart-gradient);
+padding:24px 24px calc(24px + var(--safe-bottom));
+overflow-y:auto;
+z-index:210;
+transition:transform .32s cubic-bezier(.4,0,.2,1), opacity .25s ease;
+box-shadow:-8px 0 30px rgba(0,0,0,.18);
+display:flex;
+flex-direction:column;
+border-radius:0;
+border:none;
+transform:translateX(100%);
+opacity:0;
+pointer-events:none;
 }
-
 .cart.open{
-    transform:translateX(0);
-    opacity:1;
-    pointer-events:auto;
+transform:translateX(0);
+opacity:1;
+pointer-events:auto;
 }
-
-/* En celular también ocupa exactamente la mitad */
 @media(max-width:768px){
-    .cart{
-        width:50%;
-        max-width:50%;
-    }
+.cart{
+width:50%;
+max-width:50%;
+}
 }
 .cart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-shrink:0;padding-bottom:12px;border-bottom:1px solid var(--gray-light)}
 .cart-header h2{margin:0;font-family:var(--font-title);font-size:22px;font-weight:500;color:var(--divani-text)}
 .close-cart{background:var(--gray-light);border:none;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;font-weight:500;color:var(--divani-text);transition:all .2s;display:flex;align-items:center;justify-content:center}
 .close-cart:hover{background:var(--danger);color:#fff;transform:rotate(90deg)}
 #carrito{flex:1;overflow-y:auto;margin:0 -4px;padding:0 4px;overscroll-behavior:contain}
-.cart-item{display:flex;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--gray-light)}
-.cart-item>img{width:56px;height:56px;object-fit:contain;border-radius:var(--radius-md);background:#ffffff;border:1px solid var(--pink-line);flex-shrink:0}
-.cart-item-body{flex:1;min-width:0}
-.cart-item-body b{display:block;font-size:12.5px;line-height:1.3;margin-bottom:2px;font-weight:400}
-.cart-item-body .unit{font-size:11px;color:var(--muted);font-weight:400}
-.cart-item-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
-.cart-qty{display:flex;align-items:center;gap:2px;background:var(--gray-light);border-radius:10px;padding:3px}
-.cart-qty button{width:30px;height:30px;border-radius:8px;border:none;background:transparent;cursor:pointer;font-size:16px;font-weight:500;
-color:var(--divani-text);display:flex;align-items:center;justify-content:center;transition:all .15s}
+/* === CARRITO REORGANIZADO === */
+.cart-item{
+display:grid;
+grid-template-columns:64px 1fr auto;
+grid-template-rows:auto auto auto;
+gap:4px 12px;
+padding:14px 0;
+border-bottom:1px solid var(--gray-light);
+align-items:start;
+}
+.cart-item-img{
+grid-column:1;
+grid-row:1 / span 3;
+width:64px;
+height:64px;
+object-fit:contain;
+border-radius:var(--radius-md);
+background:#ffffff;
+border:1px solid var(--pink-line);
+align-self:start;
+}
+.cart-item-name{
+grid-column:2;
+grid-row:1;
+font-size:13px;
+line-height:1.35;
+font-weight:500;
+color:var(--divani-text);
+margin:0;
+word-break:break-word;
+}
+.cart-item-variants{
+grid-column:2;
+grid-row:2;
+display:flex;
+flex-wrap:wrap;
+gap:6px 10px;
+margin-top:2px;
+}
+.cart-variant-tag{
+display:inline-flex;
+align-items:center;
+gap:5px;
+font-size:11px;
+color:var(--muted);
+font-weight:400;
+background:var(--gray-light);
+padding:3px 8px;
+border-radius:999px;
+border:1px solid var(--gray-border);
+}
+.cart-variant-tag .swatch{
+width:11px;
+height:11px;
+border-radius:50%;
+border:1px solid rgba(0,0,0,.12);
+flex-shrink:0;
+}
+.cart-variant-tag b{
+font-weight:500;
+color:var(--divani-text);
+}
+.cart-item-controls{
+grid-column:2;
+grid-row:3;
+display:flex;
+align-items:center;
+gap:10px;
+margin-top:6px;
+}
+.cart-qty{
+display:flex;
+align-items:center;
+gap:2px;
+background:var(--gray-light);
+border-radius:10px;
+padding:3px;
+}
+.cart-qty button{
+width:28px;
+height:28px;
+border-radius:8px;
+border:none;
+background:transparent;
+cursor:pointer;
+font-size:15px;
+font-weight:500;
+color:var(--divani-text);
+display:flex;
+align-items:center;
+justify-content:center;
+transition:all .15s;
+}
 .cart-qty button:hover{background:var(--light-pink);color:var(--divani-primary)}
-.cart-qty b{min-width:26px;text-align:center;font-size:14px;font-weight:500}
-.cart-item-remove{background:none;border:none;color:var(--muted-2);cursor:pointer;font-size:16px;padding:6px;border-radius:8px;transition:all .2s;display:flex;align-items:center;justify-content:center;position:relative}
+.cart-qty b{min-width:22px;text-align:center;font-size:13px;font-weight:500}
+.cart-item-remove{
+background:none;
+border:none;
+color:var(--muted-2);
+cursor:pointer;
+font-size:14px;
+padding:6px;
+border-radius:8px;
+transition:all .2s;
+display:flex;
+align-items:center;
+justify-content:center;
+}
 .cart-item-remove:hover{color:var(--danger);background:color-mix(in srgb,var(--danger) 8%, #fff)}
-.cart-item-remove::after{content:"Eliminar producto";position:absolute;bottom:calc(100% + 4px);left:50%;transform:translateX(-50%);background:var(--divani-text);color:#fff;font-size:10px;padding:4px 8px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
-.cart-item-remove:hover::after{opacity:1}
-.cart-item-sub{font-family:var(--font-price);font-size:13.5px;font-weight:600;color:var(--divani-primary);white-space:nowrap}
+.cart-item-price{
+grid-column:3;
+grid-row:1;
+font-family:var(--font-price);
+font-size:14.5px;
+font-weight:600;
+color:var(--divani-primary);
+white-space:nowrap;
+text-align:right;
+}
 .cart-empty{text-align:center;padding:44px 12px;color:var(--muted)}
 .cart-empty svg{width:48px;height:48px;color:color-mix(in srgb,var(--divani-primary) 25%, #fff);margin-bottom:12px}
 .cart-empty b{display:block;color:var(--muted);font-size:14px;font-weight:500}
@@ -758,6 +848,11 @@ main{padding:14px 14px 10px}
 .footer{padding:28px 16px 16px}
 .foot-brand{font-size:20px;letter-spacing:6px}
 .palette-suggestions{grid-template-columns:repeat(2,1fr)}
+.cart-item{grid-template-columns:56px 1fr auto;gap:3px 10px;padding:12px 0}
+.cart-item-img{width:56px;height:56px}
+.cart-item-name{font-size:12.5px}
+.cart-variant-tag{font-size:10.5px;padding:2px 7px}
+.cart-item-price{font-size:13.5px}
 }
 @media(max-width:430px){
 .header-row{height:50px}
@@ -839,8 +934,8 @@ main{padding:10px 10px 6px}
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
 </button>
 <div class="brand" onclick="irInicio()" title="DIVANI · Ir al inicio">
-<img class="brand-logo" id="brandLogo" src="" alt="DIVANI" width="160" height="60" loading="eager" fetchpriority="high" decoding="sync"
-onerror="this.style.display='none';document.getElementById('brandText').style.display='block'">
+<img class="brand-logo" id="brandLogo" src="https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/130151fe0-5fd8-4d2b-b32e-c85eec11139f.png" alt="DIVANI" width="160" height="60" loading="eager" fetchpriority="high" decoding="sync"
+onerror="this.onerror=null;if(!this.src||this.src===''){this.style.display='none';var t=document.getElementById('brandText');if(t)t.style.display='block';}">
 <span id="brandText" style="display:none;font-family:var(--font-title);font-size:clamp(18px,3.2vw,24px);font-weight:500;color:var(--divani-primary);letter-spacing:clamp(4px,1.4vw,10px);text-indent:clamp(2px,0.8vw,10px)">DIVANI</span>
 </div>
 <div class="header-actions">
@@ -863,7 +958,8 @@ onerror="this.style.display='none';document.getElementById('brandText').style.di
 <aside class="drawer" id="drawer">
 <div class="drawer-head">
 <div class="brand" onclick="toggleDrawer(false);irInicio()">
-<img class="brand-logo" id="drawerBrandLogo" src="" alt="DIVANI" width="120" height="28" loading="lazy" decoding="async" onerror="this.style.display='none';document.getElementById('drawerBrandText').style.display='block'">
+<img class="brand-logo" id="drawerBrandLogo" src="https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/130151fe0-5fd8-4d2b-b32e-c85eec11139f.png" alt="DIVANI" width="120" height="28" loading="lazy" decoding="async"
+onerror="this.onerror=null;if(!this.src||this.src===''){this.style.display='none';var t=document.getElementById('drawerBrandText');if(t)t.style.display='block';}">
 <span id="drawerBrandText" style="display:none;font-family:var(--font-title);font-size:18px;font-weight:500;color:var(--divani-primary);letter-spacing:5px;text-indent:5px">DIVANI</span>
 </div>
 <button class="icon-btn" onclick="toggleDrawer(false)" aria-label="Cerrar">✕</button>
@@ -1457,6 +1553,7 @@ Llenar
 </div>
 </div>
 </div>
+</div>
 <div class="dashboard-card">
 <h4> Carrito</h4>
 <p style="font-size:12.5px;color:#64748b;margin:-6px 0 14px;">Configuración independiente del panel del carrito.</p>
@@ -1475,6 +1572,7 @@ Llenar
 <option value="to bottom right"> Diagonal</option>
 </select>
 <div class="gradient-preview" id="gradPrev-cartBg"></div>
+</div>
 </div>
 </div>
 </div>
@@ -1617,6 +1715,7 @@ Llenar
 <button class="sync-btn warning" style="flex:1;min-width:155px;margin:0;" onclick="verCatalogo()">👁 Ver catálogo</button>
 </div>
 <small style="color:#64748b;display:block;margin-top:10px;line-height:1.5;">Los cambios se ven en vivo sobre el catálogo. Nada se guarda hasta presionar <b>Guardar cambios</b>.</small>
+</div>
 </div>
 </div>
 </div>
@@ -1943,8 +2042,19 @@ showToast('Logo restablecido a valores originales','success');
 function updateBrand(cfg){
 const brandLogo=document.getElementById('brandLogo');
 const drawerBrandLogo=document.getElementById('drawerBrandLogo');
-if(brandLogo) brandLogo.src=cfg.logo||'';
-if(drawerBrandLogo) drawerBrandLogo.src=cfg.logo||'';
+const logoSrc = cfg.logo || LOGO_DEFAULT;
+if(brandLogo){
+brandLogo.src = logoSrc;
+brandLogo.style.display = '';
+const brandText = document.getElementById('brandText');
+if(brandText) brandText.style.display = 'none';
+}
+if(drawerBrandLogo){
+drawerBrandLogo.src = logoSrc;
+drawerBrandLogo.style.display = '';
+const drawerText = document.getElementById('drawerBrandText');
+if(drawerText) drawerText.style.display = 'none';
+}
 const fb=document.getElementById('footBrand'); if(fb) fb.textContent=cfg.name;
 const fbb=document.getElementById('footBottomBrand'); if(fbb) fbb.textContent=cfg.name;
 const ft=document.getElementById('footTag'); if(ft) ft.textContent=cfg.tagline;
@@ -2454,7 +2564,6 @@ b.classList.remove('bump');
 void b.offsetWidth;
 b.classList.add('bump');
 }
-/* Animación de burbujas/sparkles eliminada */
 }
 function syncSwLbl(inputId,lblId){
 const on=document.getElementById(inputId).checked;
@@ -3146,15 +3255,55 @@ document.getElementById('detailModal').style.display='none';
 productoDetalleIndex=null;
 if(!document.querySelector('.cart.open')&&!document.querySelector('.drawer.open')) document.body.classList.remove('no-scroll');
 }
+/* ============================================================
+   CARRITO: clave única por variante (id + tono)
+   ============================================================ */
+function buildCartKey(productId, tonoData){
+if(tonoData && tonoData.idx!==undefined && tonoData.idx!==null){
+return productId + '__tono__' + tonoData.idx;
+}
+return productId + '__notono';
+}
+function agregarAlCarro(i, qty=1, tonoIdx=null){
+const p=productos[i];
+if(!esVisible(p)){ return; }
+const tonos=tonosDe(p);
+let tonoData=null;
+if(tonos.length && tonoIdx!==null && tonoIdx!==undefined && tonos[tonoIdx]){
+const t = tonos[tonoIdx];
+tonoData = { n:t.n, c:t.c, i:t.i, idx:tonoIdx };
+}
+const key = buildCartKey(p.id, tonoData);
+const row=carrito.find(r=>r.key===key);
+if(row){
+row.qty=Math.min(99,row.qty+qty);
+}else{
+carrito.push({ key, id:p.id, qty, tono:tonoData });
+}
+actualizarCarrito(); bumpCart();
+}
 function agregarAlCarroYAbrir(i, qty=1){
-agregarAlCarro(i, qty);
+// Desde la card: si hay tonos, abrir detalle para que elija tono
+const p=productos[i];
+const tonos=tonosDe(p);
+if(tonos.length){
+abrirDetalle(i);
+return;
+}
+agregarAlCarro(i, qty, null);
 setTimeout(()=>{
 toggleCart(true);
 }, 120);
 }
 function agregarDesdeDetalle(){
 if(productoDetalleIndex===null) return;
-agregarAlCarro(productoDetalleIndex, detalleCantidad);
+const prod=productos[productoDetalleIndex];
+const tonos=tonosDe(prod);
+let tonoIdx=null;
+if(tonos.length){
+tonoIdx = detalleTonoActual;
+}
+agregarAlCarro(productoDetalleIndex, detalleCantidad, tonoIdx);
 cerrarDetalle();
 setTimeout(()=>{
 toggleCart(true);
@@ -3368,7 +3517,11 @@ aplicarFiltroInventario();
 }
 function cambiarVisible(i,val){
 productos[i].visible=val;
-if(!val){ const idp=productos[i].id; if(carrito.some(r=>r.id===idp)){ carrito=carrito.filter(r=>r.id!==idp); actualizarCarrito(); } }
+if(!val){
+const idp=productos[i].id;
+carrito=carrito.filter(r=>r.id!==idp);
+actualizarCarrito();
+}
 refreshPublic(); refreshAdminViews(); saveFlags();
 showToast(val?'Producto visible en el catálogo':'Producto oculto para los clientes', val?'success':'warning');
 }
@@ -3401,21 +3554,14 @@ document.body.classList.remove('no-scroll');
 }
 }
 }
-function agregarAlCarro(i, qty=1){
-const p=productos[i];
-if(!esVisible(p)){ return; }
-const row=carrito.find(r=>r.id===p.id);
-if(row) row.qty=Math.min(99,row.qty+qty); else carrito.push({id:p.id, qty});
-actualizarCarrito(); bumpCart();
-}
-function cambiarCantidadCarrito(id,delta){
-const row=carrito.find(r=>r.id===id); if(!row) return;
+function cambiarCantidadCarrito(key,delta){
+const row=carrito.find(r=>r.key===key); if(!row) return;
 row.qty+=delta;
-if(row.qty<=0) carrito=carrito.filter(r=>r.id!==id);
+if(row.qty<=0) carrito=carrito.filter(r=>r.key!==key);
 else if(row.qty>99) row.qty=99;
 actualizarCarrito();
 }
-function quitarDelCarro(id){ carrito=carrito.filter(r=>r.id!==id); actualizarCarrito(); }
+function quitarDelCarro(key){ carrito=carrito.filter(r=>r.key!==key); actualizarCarrito(); }
 function actualizarCarrito(){
 const div=document.getElementById('carrito'); div.innerHTML='';
 let total=0, totalItems=0;
@@ -3425,22 +3571,26 @@ if(!p) return;
 const unit=precioFinalDe(p);
 const sub=unit*row.qty;
 total+=sub; totalItems+=row.qty;
+// Etiqueta de variante (tono)
+let variantsHtml='';
+if(row.tono && row.tono.n){
+const swatchColor = row.tono.c || '#cccccc';
+variantsHtml += `<span class="cart-variant-tag"><span class="swatch" style="background:${esc(swatchColor)}"></span>Tono: <b>${esc(row.tono.n)}</b></span>`;
+}
 div.innerHTML+=`
 <div class="cart-item">
-<img src="${obtenerImagenPrincipal(p)}" alt="${esc(p.nombre)}" loading="lazy" decoding="async" width="56" height="56" onerror="this.onerror=null;this.src=FALLBACK_IMG">
-<div class="cart-item-body">
-<b>${esc(p.nombre)}</b>
-<span class="unit">${formatearPrecio(unit)} c/u</span>
+<img class="cart-item-img" src="${obtenerImagenPrincipal(p)}" alt="${esc(p.nombre)}" loading="lazy" decoding="async" width="64" height="64" onerror="this.onerror=null;this.src=FALLBACK_IMG">
+<div class="cart-item-name">${esc(p.nombre)}</div>
+<div class="cart-item-variants">${variantsHtml}</div>
 <div class="cart-item-controls">
 <div class="cart-qty">
-<button onclick="cambiarCantidadCarrito('${p.id}',-1)" aria-label="Reducir cantidad">−</button>
+<button onclick="cambiarCantidadCarrito('${esc(row.key)}'",-1)" aria-label="Reducir cantidad">−</button>
 <b>${row.qty}</b>
-<button onclick="cambiarCantidadCarrito('${p.id}',1)" aria-label="Añadir más">+</button>
+<button onclick="cambiarCantidadCarrito('${esc(row.key)}',1)" aria-label="Añadir más">+</button>
 </div>
-<button class="cart-item-remove" onclick="quitarDelCarro('${p.id}')" title="Eliminar producto">${TRASH_SVG}</button>
+<button class="cart-item-remove" onclick="quitarDelCarro('${esc(row.key)}')" title="Eliminar producto">${TRASH_SVG}</button>
 </div>
-</div>
-<div class="cart-item-sub">${formatearPrecio(sub)}</div>
+<div class="cart-item-price">${formatearPrecio(sub)}</div>
 </div>`;
 });
 if(!carrito.length){
@@ -3465,12 +3615,14 @@ const p=productos.find(x=>x.id===row.id);
 if(!p) return;
 const unit=precioFinalDe(p);
 const sub=unit*row.qty;
-msg+=`• ${row.qty} × ${p.nombre} (${formatearPrecio(unit)} c/u) = ${formatearPrecio(sub)}
-`;
+msg+=`• ${row.qty} × ${p.nombre}`;
+if(row.tono && row.tono.n){
+msg+=`\n   Tono: ${row.tono.n}`;
+}
+msg+=`\n   Precio unitario: ${formatearPrecio(unit)}\n   Subtotal: ${formatearPrecio(sub)}\n`;
 total+=sub;
 });
-msg+=`
-*TOTAL: ${formatearPrecio(total)}*`;
+msg+=`\n*TOTAL: ${formatearPrecio(total)}*`;
 const wa=(tiendaConfig.whatsapp||'573003896683').replace(/\D/g,'');
 carrito=[]; actualizarCarrito(); toggleCart(false); renderProductos(); renderHome();
 window.open(`https://wa.me/${wa}?text=${encodeURIComponent(msg)}`,'_blank');
@@ -3630,6 +3782,24 @@ Bruma Facial,Skincare,36000,https://ejemplo.com/bruma.jpg,,,,`;
 const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
 const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='plantilla_divani.csv'; a.click();
 }
+// === INICIALIZACIÓN DEL LOGO: forzar src antes de cualquier otra cosa ===
+(function initLogoImmediately(){
+const logoSrc = (pers && pers.logo) ? pers.logo : LOGO_DEFAULT;
+const brandLogo = document.getElementById('brandLogo');
+const drawerBrandLogo = document.getElementById('drawerBrandLogo');
+if(brandLogo){
+brandLogo.src = logoSrc;
+brandLogo.style.display = '';
+const brandText = document.getElementById('brandText');
+if(brandText) brandText.style.display = 'none';
+}
+if(drawerBrandLogo){
+drawerBrandLogo.src = logoSrc;
+drawerBrandLogo.style.display = '';
+const drawerText = document.getElementById('drawerBrandText');
+if(drawerText) drawerText.style.display = 'none';
+}
+})();
 const cachedData = loadCache();
 const cacheApplied = applyCachedData(cachedData);
 applyPers(pers);
@@ -3666,6 +3836,8 @@ updatePrecioPreview('prodPrecio','prodDescuento','prodPrecioPreview');
 actualizarPreviewBanner();
 }
 actualizarCarrito();
+// Reforzar logo tras renderizados
+updateBrand(pers);
 document.getElementById('adminPassInput').addEventListener('keydown',e=>{ if(e.key==='Enter') verificarPassword(); });
 ['storeModal','detailModal','editModal'].forEach(id=>{
 const el=document.getElementById(id);
