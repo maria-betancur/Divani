@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/500.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/600.css">
-<script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js" defer></script>
+<!-- ✅ OPTIMIZACIÓN: xlsx.full.min.js ya NO se carga aquí. Se carga bajo demanda solo al abrir "Carga masiva". -->
 <style>
 :root{
 --divani-primary:#e8557a;
@@ -1585,7 +1585,7 @@ onerror="this.onerror=null;if(!this.src||this.src===''){this.style.display='none
 <div id="carrito"></div>
 <div class="cart-total"><span>Total:</span><span>$<span id="total">0</span></span></div>
 <button class="btn-buy wa" onclick="comprar()">
-<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.8 13.4L3 21l4.7-1.2A9 9 0 1 0 12 3Zm4.6 12.3c-.2.6-1.2 1.1-1.7 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.5-3.9-4.6-4-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.6c-.1.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.1 2.4 1.5 2.7 1.6.3.1.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 .1 0 .7-.2 1.2Z"/></svg>
+<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.8 13.4L3 21l4.7-1.2A9 9 0 1 0 12 3Zm4.6 12.3c-.2.6-1.2 1.1-1.7 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.5-3.9-4.6-4-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.6c-.1.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.1 2.4 1.5 2.7 1.6.3.1.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 1 0 7-.2 1.2Z"/></svg>
 Realizar pedido por WhatsApp
 </button>
 <div class="cart-store-info">
@@ -1648,7 +1648,6 @@ Información de la tienda
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 7h12l1.5 13h-15L6 7Z"/><path d="M9 10V6a3 3 0 0 1 6 0v4"/></svg>
 Agregar al Carrito
 </button>
-</div>
 </div>
 </div>
 </div>
@@ -2363,6 +2362,8 @@ Llenar
 </div>
 </div>
 </div>
+</div>
+</div>
 <script>
 const CLOUD_CONFIG = {
 IMGBB_API_KEY: '23fd3f8de134902e74fba7938f900ba3',
@@ -2495,6 +2496,11 @@ gradients:{background:{type:'solid',value:'#ffffff'},headerBg:{type:'solid',valu
 ];
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 const CACHE_KEY = 'divani_cache_v1';
+// ✅ OPTIMIZACIÓN: timestamp de última sincronización con la nube (ISO)
+const SYNC_TS_KEY = 'divani_last_sync_ts';
+// ✅ OPTIMIZACIÓN: Umbral de frescura del cache local (4 horas).
+// Si el cache local es más reciente que esto, NO se descarga de Firebase al inicio.
+const CACHE_FRESHNESS_MS = 4 * 60 * 60 * 1000;
 function loadCache(){
 try{ const raw = localStorage.getItem(CACHE_KEY); if(!raw) return null; return JSON.parse(raw); }
 catch(e){ return null; }
@@ -2963,6 +2969,9 @@ showToast('Datos de contacto guardados','success');
 programarSyncNube();
 }
 let _syncTimer=null, _aplicandoNube=false, _nubeFetching=false, _syncInProgress=false;
+// ✅ OPTIMIZACIÓN: promesa compartida para el fetch del catálogo.
+// Evita que múltiples llamadas descarguen divani.json al mismo tiempo.
+let _cloudFetchPromise = null;
 function dbEndpoint(){
 let u=(CLOUD.dbUrl||'').trim().replace(/\/+$/,'');
 if(!u) return '';
@@ -3088,10 +3097,17 @@ if(!res.ok){
 const errText = await res.text().catch(()=>'');
 throw new Error('HTTP '+res.status+(errText?' · '+errText.slice(0,100):''));
 }
-try{ localStorage.setItem('divani_last_sync', new Date().toLocaleString('es-CO')); }catch(e){}
+const nowISO = new Date().toISOString();
+try{
+localStorage.setItem('divani_last_sync', new Date().toLocaleString('es-CO'));
+// ✅ OPTIMIZACIÓN: guardar timestamp numérico e ISO para comparar frescura
+localStorage.setItem(SYNC_TS_KEY, nowISO);
+}catch(e){}
 saveCache();
 syncNubeUI();
 _syncInProgress = false;
+// ✅ OPTIMIZACIÓN: invalidar la promesa compartida tras un PUT exitoso
+_cloudFetchPromise = null;
 return {ok:true};
 }catch(e){
 _syncInProgress = false;
@@ -3106,6 +3122,33 @@ showToast('☁️ Catálogo guardado en la nube','success');
 }
 return result.ok;
 }
+// ✅ OPTIMIZACIÓN: función única que devuelve el JSON del catálogo.
+// Reutiliza la promesa en curso y cachea el resultado en memoria para
+// evitar descargas duplicadas durante la misma sesión.
+let _cloudDataCache = null;
+function invalidateCloudCache(){
+_cloudDataCache = null;
+_cloudFetchPromise = null;
+}
+async function fetchCatalogoUnaVez(){
+const ep = dbEndpoint();
+if(!ep) return null;
+if(_cloudDataCache) return _cloudDataCache;
+if(_cloudFetchPromise) return _cloudFetchPromise;
+_cloudFetchPromise = (async () => {
+try{
+const res = await fetch(ep, { cache: 'no-store' });
+if(!res.ok) throw new Error('HTTP '+res.status);
+const data = await res.json();
+_cloudDataCache = data;
+return data;
+}catch(e){
+_cloudFetchPromise = null;
+throw e;
+}
+})();
+return _cloudFetchPromise;
+}
 async function descargarDeNube(silent=false){
 const ep=dbEndpoint();
 if(!ep){ if(!silent) showToast('Primero guarda la URL de la base de datos en la pestaña Nube','warning'); return false; }
@@ -3113,9 +3156,8 @@ if(_nubeFetching) return false;
 _nubeFetching = true;
 try{
 if(!silent) showToast('Descargando datos de la nube…','success');
-const res=await fetch(ep);
-if(!res.ok) throw new Error('HTTP '+res.status);
-const data=await res.json();
+// ✅ OPTIMIZACIÓN: reutilizar la promesa compartida
+const data = await fetchCatalogoUnaVez();
 if(!data || !data.productos || data.productos.length === 0){
 if(!silent) showToast('La nube está vacía, usando datos locales','warning');
 return false;
@@ -3140,13 +3182,19 @@ logoSettings: Object.assign(clone(base.logoSettings||{scale:1,height:60,offsetX:
 draft=clone(pers);
 applyPers(pers); saveConfig();
 }
+// ✅ OPTIMIZACIÓN: registrar timestamp de la descarga
+try{ localStorage.setItem(SYNC_TS_KEY, new Date().toISOString()); }catch(e){}
 saveCache();
 prepararCacheBusqueda();
 ordenarCategorias();
 ordenarProductos();
+// ✅ OPTIMIZACIÓN: desactivar temporalmente auto-sync para evitar PUT redundante
+const prevAuto = CLOUD.autoSync;
+CLOUD.autoSync = false;
 refreshPublic(); refreshAdminViews();
 renderNavCategorias(); renderSelectCategorias(); renderSelectCategoriasBanner(); renderAllTienda();
 syncPersUI();
+CLOUD.autoSync = prevAuto;
 _aplicandoNube=false;
 if(!silent) showToast('☁️ Catálogo cargado desde la nube','success');
 return true;
@@ -3225,14 +3273,6 @@ function precioFinalDe(p){ const num=limpiarPrecio(p.precio); const d=p.descuent
 function esVisible(p){ return p && p.visible!==false; }
 function prepararCacheBusqueda(){ productos.forEach(p=>{ p._cache=(p.nombre+' '+p.categoria+' '+(p.promo||'')).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,''); }); }
 function obtenerImagenPrincipal(p){ if(p.imagenes&&p.imagenes.length) return p.imagenes[0]; if(p.img) return p.img; return FALLBACK_IMG; }
-/* ============================================================
-TONOS INDEPENDIENTES DE IMÁGENES
-Los tonos son una lista propia del producto. Cada tono tiene:
-  - n: nombre del tono
-  - c: color (hex)
-  - i: índice opcional de imagen asociada (-1 o null si no tiene)
-Si el tono no tiene imagen asociada, se usa la imagen principal.
-============================================================ */
 function tonosDe(p){
 if(!p) return [];
 if(Array.isArray(p.tonos) && p.tonos.length) return p.tonos;
@@ -3282,9 +3322,6 @@ const final=Math.round(num*(100-d)/100);
 const el=document.getElementById(previewId);
 if(el) el.innerHTML=`El cliente pagará: <b>${formatearPrecio(final)}</b>${d>0?` <s style="color:#94a3b8">${formatearPrecio(num)}</s>`:''}`;
 }
-/* ============================================================
-ADMIN: Fila de tono. Ya no se asocia a índice de imagen.
-============================================================ */
 function addTonoRow(containerId, nombre='', color='#e8557a'){
 const cont=document.getElementById(containerId); if(!cont) return;
 const row=document.createElement('div');
@@ -3553,7 +3590,7 @@ const wa=String(t.whatsapp||'').replace(/\D/g,'');
 const ICO_PIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5.3-7-11a7 7 0 0 1 14 0c0 5.7-7 11-7 11Z"/><circle cx="12" cy="10" r="2.5"/></svg>';
 const ICO_IG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>';
 const ICO_TK='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 4c.5 2.4 2 3.8 4.4 4v3c-1.7 0-3.2-.5-4.4-1.4v6.4A5.9 5.9 0 1 1 10 10.2v3.1a2.9 2.9 0 1 0 3 2.9V4z"/></svg>';
-const ICO_WA='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.8 13.4L3 21l4.7-1.2A9 9 0 1 0 12 3Zm4.6 12.3c-.2.6-1.2 1.1-1.7 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.5-3.9-4.6-4-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.6c-.1.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.1 2.4 1.5 2.7 1.6.3.1.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 .1 0 .7-.2 1.2Z"/></svg>';
+const ICO_WA='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 0 0-7.8 13.4L3 21l4.7-1.2A9 9 0 1 0 12 3Zm4.6 12.3c-.2.6-1.2 1.1-1.7 1.2-.5.1-1 .2-3.2-.7-2.7-1.1-4.5-3.9-4.6-4-.1-.2-1.1-1.5-1.1-2.9s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4l.9 2.1c.1.2.1.4 0 .6l-.4.6-.5.6c-.1.2-.3.3-.1.6.2.3.9 1.4 1.9 2.3 1.3 1.1 2.4 1.5 2.7 1.6.3.1.5.1.7-.1l1-1.1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4 0 1 0 7-.2 1.2Z"/></svg>';
 return `
 <div class="store-row"><span class="store-ico pink">${ICO_PIN}</span><div><b>Ubicación</b><small>${esc(t.ubicacion)}</small></div></div>
 <a class="store-row" href="https://www.instagram.com/${esc(ig)}/" target="_blank" rel="noopener"><span class="store-ico ig">${ICO_IG}</span><div><b>Instagram</b><small>@${esc(ig)}</small></div><span class="chev">›</span></a>
@@ -4104,7 +4141,6 @@ if(ok) cerrarModalEdicion();
 };
 }
 async function ejecutarEliminacion(){
-// Buscar el producto por ID (más robusto que por índice, que puede cambiar)
 const idObjetivo = _pendingDeleteId;
 const idxById = productos.findIndex(p => p.id === idObjetivo);
 if(idxById === -1){
@@ -4122,13 +4158,11 @@ okBtn.disabled = true;
 okBtn.innerHTML = '⏳ Eliminando...';
 if(cancelBtn) cancelBtn.disabled = true;
 try{
-// Eliminar localmente por índice actual (seguro porque lo acabamos de buscar)
 productos.splice(idxById, 1);
 carrito = carrito.filter(r => r.id !== idObjetivo);
 if(CLOUD.dbUrl){
 const result = await subirDatosANubeConConfirmacion(true);
 if(!result.ok){
-// Revertir: insertar en la posición original
 productos.splice(idxById, 0, backup);
 okBtn.disabled = false;
 okBtn.innerHTML = origOkText;
@@ -4177,7 +4211,6 @@ productoDetalleIndex=index;
 const imagenes=prod.imagenes&&prod.imagenes.length?prod.imagenes:[obtenerImagenPrincipal(prod)];
 const tonos=tonosDe(prod);
 detalleTonoActual=Math.min(tonoInicial, Math.max(0,tonos.length-1));
-// Si el tono tiene imagen asociada válida, mostrarla; si no, imagen principal
 if(tonos.length && tonoTieneImagenValida(prod, tonos[detalleTonoActual])){
 detalleImagenActual = tonos[detalleTonoActual].i;
 }else{
@@ -4233,7 +4266,6 @@ tonos.forEach((t,i)=>{
 const b=document.createElement('button');
 b.className='tono-swatch'+(i===detalleTonoActual?' active':'');
 b.title=t.n; b.type='button';
-// El color del swatch SIEMPRE es el color del tono (independiente de imágenes)
 b.style.background = t.c || '#cccccc';
 b.onclick=()=>seleccionarTono(i);
 list.appendChild(b);
@@ -4246,12 +4278,10 @@ const prod=productos[productoDetalleIndex];
 const tonos=tonosDe(prod);
 if(!tonos[i]) return;
 detalleTonoActual=i;
-// Si el tono tiene imagen válida asociada, cambiar a esa imagen; si no, mantener la actual
 if(tonoTieneImagenValida(prod, tonos[i])){
 detalleImagenActual = tonos[i].i;
 actualizarVistaDetalle();
 }
-// Actualizar solo el nombre del tono y el estado activo (sin reconstruir todo)
 document.getElementById('detailTonoName').textContent = tonos[i].n;
 const list=document.getElementById('detailTonos');
 list.querySelectorAll('.tono-swatch').forEach((sw,idx)=>sw.classList.toggle('active', idx===i));
@@ -4852,9 +4882,39 @@ if(id==='tab-duplicados'){ if(!duplicadosCache.length) analizarDuplicados(); els
 if(id==='tab-banners'){ renderBannersAdmin(); actualizarPreviewBanner(); }
 if(id==='tab-personaliza'){ syncPersUI(); renderPaletteSuggestions(); }
 if(id==='tab-nube') syncNubeUI();
+// ✅ OPTIMIZACIÓN: cargar xlsx.full.min.js solo cuando se abre "Carga masiva"
+if(id==='tab-carga-masiva') cargarXLSX();
+}
+// ✅ OPTIMIZACIÓN: carga diferida de xlsx.full.min.js
+let _xlsxPromise = null;
+function cargarXLSX(){
+if(window.XLSX) return Promise.resolve();
+if(_xlsxPromise) return _xlsxPromise;
+_xlsxPromise = new Promise((resolve, reject) => {
+const s = document.createElement('script');
+s.src = 'https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js';
+s.defer = true;
+s.onload = resolve;
+s.onerror = () => {
+_xlsxPromise = null;
+reject(new Error('No se pudo cargar xlsx.full.min.js'));
+};
+document.head.appendChild(s);
+});
+return _xlsxPromise;
 }
 function parseSiNo(v){ return /^(si|sí|1|true|x|on)$/i.test(String(v||'').trim()); }
-function procesarArchivoExcel(){
+async function procesarArchivoExcel(){
+// ✅ OPTIMIZACIÓN: asegurar que XLSX esté cargado antes de procesar
+if(!window.XLSX){
+try{
+showToast('Cargando procesador de Excel…','success');
+await cargarXLSX();
+}catch(e){
+showToast('❌ '+e.message,'danger');
+return;
+}
+}
 const file=document.getElementById('archivoExcel').files[0];
 if(!file){ showToast('Selecciona archivo','warning'); return; }
 const reader=new FileReader();
@@ -4899,24 +4959,12 @@ Bruma Facial,Skincare,36000,https://ejemplo.com/bruma.jpg,,,,`;
 const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
 const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='plantilla_divani.csv'; a.click();
 }
-/* ============================================================
-ORDEN ALFABÉTICO DE CATEGORÍAS (A-Z, ignorando mayúsculas,
-tildes y ñ, respetando el orden natural del español)
-============================================================ */
 function ordenarCategorias(){
 categorias.sort((a,b) => a.localeCompare(b, 'es', {sensitivity:'base', numeric:true}));
 }
-/* ============================================================
-ORDEN ALFABÉTICO DE PRODUCTOS (A-Z por nombre)
-Se aplica en el array global para que todas las vistas
-(home, categorías, búsqueda, admin) lo vean ordenado.
-============================================================ */
 function ordenarProductos(){
 productos.sort((a,b) => (a.nombre||'').localeCompare(b.nombre||'', 'es', {sensitivity:'base', numeric:true}));
 }
-/* ============================================================
-ADMIN PANEL REDIMENSIONABLE
-============================================================ */
 let _adminResizing = false;
 let _adminResizeDir = '';
 let _adminResizeStartX = 0;
@@ -4997,7 +5045,6 @@ if(drawerText) drawerText.style.display = 'none';
 })();
 const cachedData = loadCache();
 const cacheApplied = applyCachedData(cachedData);
-// Ordenar categorías y productos al inicio (después de aplicar caché)
 ordenarCategorias();
 ordenarProductos();
 applyPers(pers);
@@ -5080,17 +5127,43 @@ const header=document.getElementById('mainHeader');
 window.addEventListener('scroll',()=>{
 header.classList.toggle('scrolled', window.scrollY>10);
 },{passive:true});
+// ============================================================
+// ✅ OPTIMIZACIÓN PRINCIPAL: carga inteligente del catálogo
+// - Si el cache local es reciente (< 4h) Y la nube no es más nueva,
+//   NO se descarga divani.json al inicio.
+// - Se usa fetchCatalogoUnaVez() para reutilizar la promesa.
+// - Se desactiva temporalmente el auto-sync tras aplicar datos
+//   para evitar un PUT redundante.
+// ============================================================
 if(CLOUD.dbUrl){
 setTimeout(async ()=>{
 const ep = dbEndpoint();
 if(!ep) return;
+// 1) Verificar si el cache local es suficientemente reciente
+const lastSyncISO = localStorage.getItem(SYNC_TS_KEY);
+const lastSyncTs = lastSyncISO ? Date.parse(lastSyncISO) : 0;
+const nowTs = Date.now();
+const cacheEsReciente = (nowTs - lastSyncTs) < CACHE_FRESHNESS_MS;
+if(cacheEsReciente && cacheApplied){
+// Cache local fresco: evitar la descarga por completo
+console.log('[DIVANI] Cache local reciente, omitiendo descarga de divani.json');
+return;
+}
 try {
-const res = await fetch(ep);
-if(res.ok) {
-const data = await res.json();
-if(!data || !data.productos || data.productos.length === 0) {
+// 2) Descargar una sola vez (promesa compartida)
+const data = await fetchCatalogoUnaVez();
+if(!data) return;
+// 3) Comparar timestamp de la nube vs. última sync local
+const cloudUpdatedISO = data.actualizado;
+const cloudUpdatedTs = cloudUpdatedISO ? Date.parse(cloudUpdatedISO) : 0;
+if(cloudUpdatedTs && lastSyncTs && cloudUpdatedTs <= lastSyncTs && cacheApplied){
+console.log('[DIVANI] Datos de la nube iguales o anteriores al cache local, omitiendo');
+return;
+}
+if(!data.productos || data.productos.length === 0) {
 await subirDatosANube(true);
-} else {
+return;
+}
 _aplicandoNube=true;
 if(Array.isArray(data.productos)&&data.productos.length) productos=data.productos;
 if(Array.isArray(data.categorias)&&data.categorias.length) categorias=data.categorias;
@@ -5111,19 +5184,22 @@ logoSettings: Object.assign(clone(base.logoSettings||{scale:1,height:60,offsetX:
 draft=clone(pers);
 applyPers(pers); saveConfig();
 }
-// Ordenar después de cargar desde la nube
+// Registrar timestamp de la descarga
+try{ localStorage.setItem(SYNC_TS_KEY, new Date().toISOString()); }catch(e){}
 ordenarCategorias();
 ordenarProductos();
 saveCache();
 prepararCacheBusqueda();
+// 4) Desactivar temporalmente auto-sync para evitar PUT redundante
+const prevAuto = CLOUD.autoSync;
+CLOUD.autoSync = false;
 refreshPublic(); refreshAdminViews();
 renderNavCategorias(); renderSelectCategorias(); renderSelectCategoriasBanner(); renderAllTienda();
 syncPersUI();
+CLOUD.autoSync = prevAuto;
 _aplicandoNube=false;
-}
-}
 } catch(e) {
-console.log('Cloud sync skipped:', e.message);
+console.log('[DIVANI] Cloud sync skipped:', e.message);
 }
 }, 1200);
 }
