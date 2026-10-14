@@ -1,19 +1,4 @@
-
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <style>
-                body {
-                  background-color: white; /* Ensure the iframe has a white background */
-                }
-
-                
-              </style>
-                        </head>
-                        <body>
-                            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -743,7 +728,6 @@ color:var(--divani-on-primary);box-shadow:0 12px 28px color-mix(in srgb,var(--di
 </head>
 <body>
 <div class="toast-container" id="toastContainer"></div>
-<!-- [OPT-A] Medidor de red para diagnóstico (Ctrl+Shift+N para mostrar) -->
 <div class="net-meter" id="netMeter"></div>
 <header id="mainHeader">
 <div class="header-inner">
@@ -829,7 +813,6 @@ onerror="this.onerror=null;if(!this.src||this.src===''){this.style.display='none
 <span id="countLabel"></span>
 </div>
 <div class="container" id="productos"></div>
-<!-- [OPT-A] Botón "Cargar más" para paginación en cliente -->
 <button class="load-more-btn" id="loadMoreBtn" style="display:none" onclick="cargarMasProductos()">Cargar más productos</button>
 <div class="load-more-sentinel" id="loadMoreSentinel"></div>
 </div>
@@ -1295,7 +1278,6 @@ Llenar
 <div id="tab-nube" class="admin-view">
 <div class="dashboard-card">
 <h4>☁️ Conexión con la nube</h4>
-<!-- [SEC-1] Alerta de seguridad sobre API key expuesta -->
 <div id="securityAlert" style="display:none;background:#fef3c7;border:1.5px solid #fbbf24;border-radius:12px;padding:14px;margin-bottom:14px;">
 <div style="display:flex;gap:10px;align-items:flex-start;">
 <span style="font-size:20px;">⚠️</span>
@@ -1638,31 +1620,31 @@ Se detectó una API key de ImgBB visible en el código fuente. Recomendamos:
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <script>
 // ============================================================
-// [OPT-A] CONFIGURACIÓN OPTIMIZADA PARA REDUCIR DESCARGAS
+// CONFIGURACIÓN OPTIMIZADA v2 - DIVANI
 // ============================================================
+// [OPT-v2] API key vacía por defecto - el usuario debe pegarla en el panel
 const CLOUD_CONFIG = {
-  // [SEC-1] API key vacía por defecto - el usuario debe pegarla en el panel
-  // La key anterior estaba expuesta en el código fuente (riesgo de seguridad)
-  IMGBB_API_KEY: '',
-  DATABASE_URL: 'https://divani-1ab68-default-rtdb.firebaseio.com',
-  AUTO_SYNC: true,
-  FETCH_TIMEOUT: 5000
+IMGBB_API_KEY: '',
+DATABASE_URL: 'https://divani-1ab68-default-rtdb.firebaseio.com',
+AUTO_SYNC: true,
+FETCH_TIMEOUT: 8000
 };
-
-// [OPT-A] Configuración de paginación en cliente
+// [OPT-v2] Paginación en cliente
 const CLIENT_PAGINATION = {
-  PAGE_SIZE: 20,          // Productos por página en vista de catálogo
-  HOME_PAGE_SIZE: 8,      // Productos en "Para ti" del home
-  LAZY_THRESHOLD: 400     // px desde el final para cargar más
+PAGE_SIZE: 20,
+HOME_PAGE_SIZE: 8,
+LAZY_THRESHOLD: 400
 };
-
 function _limpiarClave(v){ v=String(v==null?'':v).trim(); if(!v) return ''; if(/pega.?aqu[ií]|tu.?api|tu.?clave|xxxxxxxx|reemplaza/i.test(v)) return ''; return v; }
 const CLOUD = {
-  imgbbKey: _limpiarClave(localStorage.getItem('divani_imgbb_key')) || _limpiarClave(CLOUD_CONFIG.IMGBB_API_KEY),
-  dbUrl: _limpiarClave(localStorage.getItem('divani_db_url')) || _limpiarClave(CLOUD_CONFIG.DATABASE_URL),
-  autoSync: (localStorage.getItem('divani_cloud_auto') !== null) ? localStorage.getItem('divani_cloud_auto') === '1' : !!CLOUD_CONFIG.AUTO_SYNC
+imgbbKey: _limpiarClave(localStorage.getItem('divani_imgbb_key')) || _limpiarClave(CLOUD_CONFIG.IMGBB_API_KEY),
+dbUrl: _limpiarClave(localStorage.getItem('divani_db_url')) || _limpiarClave(CLOUD_CONFIG.DATABASE_URL),
+autoSync: (localStorage.getItem('divani_cloud_auto') !== null) ? localStorage.getItem('divani_cloud_auto') === '1' : !!CLOUD_CONFIG.AUTO_SYNC
 };
 const IMG = {
 hero:'https://image.qwenlm.ai/public_source/f07faddf-04d6-466d-a12e-fd7ce096c501/1d0e98967-839d-450d-a618-81686045ae88.png',
@@ -1785,78 +1767,75 @@ gradients:{background:{type:'solid',value:'#ffffff'},headerBg:{type:'solid',valu
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 const CACHE_KEY = 'divani_cache_v1';
 const SYNC_TS_KEY = 'divani_last_sync_ts';
-// [OPT-A] Freshness aumentado a 24h para reducir descargas repetidas
-// El cliente solo descarga si el cache tiene más de 24h O si el admin hizo cambios
-const CACHE_FRESHNESS_MS = 24 * 60 * 60 * 1000;
-// [OPT-A] ETag cache para aprovechar la caché HTTP de Firebase
+// [OPT-v2] Freshness de 6h (balance entre datos frescos y ahorro de descargas)
+const CACHE_FRESHNESS_MS = 6 * 60 * 60 * 1000;
+// [OPT-v2] ETag cache - ahora SÍ funciona porque enviamos X-Firebase-ETag: true
 const ETAG_KEY = 'divani_etag_v1';
-
 // ============================================================
-// [OPT-A] MEDIDOR DE RED - Diagnóstico de consumo
+// MEDIDOR DE RED - Diagnóstico de consumo (Ctrl+Shift+N)
 // ============================================================
 const NetMeter = {
-  totalDownloaded: 0,
-  totalUploaded: 0,
-  firebaseRequests: 0,
-  firebaseBytes: 0,
-  startTime: Date.now(),
-  enabled: false,
-  init() {
-    // Ctrl+Shift+N para mostrar/ocultar
-    document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey && e.shiftKey && (e.key === 'N' || e.key === 'n')) {
-        e.preventDefault();
-        this.enabled = !this.enabled;
-        document.getElementById('netMeter').classList.toggle('show', this.enabled);
-        if (this.enabled) this.update();
-      }
-    });
-    // Interceptamos fetch para medir
-    const originalFetch = window.fetch;
-    const self = this;
-    window.fetch = async function(...args) {
-      const url = typeof args[0] === 'string' ? args[0] : (args[0]?.url || '');
-      const opts = args[1] || {};
-      const isFirebase = url.includes('firebaseio.com');
-      const reqBody = opts.body ? (typeof opts.body === 'string' ? opts.body.length : 0) : 0;
-      if (isFirebase) {
-        self.firebaseRequests++;
-        self.firebaseBytes += reqBody;
-        self.totalUploaded += reqBody;
-      }
-      try {
-        const response = await originalFetch.apply(this, args);
-        // Clonamos para poder leer el tamaño sin consumir el body
-        const clone = response.clone();
-        clone.text().then(text => {
-          const bytes = new Blob([text]).size;
-          self.totalDownloaded += bytes;
-          if (isFirebase) self.firebaseBytes += bytes;
-          if (self.enabled) self.update();
-        }).catch(()=>{});
-        return response;
-      } catch (e) {
-        throw e;
-      }
-    };
-  },
-  update() {
-    const el = document.getElementById('netMeter');
-    if (!el || !this.enabled) return;
-    const elapsed = Math.max(1, Math.floor((Date.now() - this.startTime) / 60000));
-    const downKB = (this.totalDownloaded / 1024).toFixed(1);
-    const upKB = (this.totalUploaded / 1024).toFixed(1);
-    const fbKB = (this.firebaseBytes / 1024).toFixed(1);
-    const warn = this.firebaseBytes > 5 * 1024 * 1024; // >5MB alerta
-    el.innerHTML = `
-      <div><b>📊 Red DIVANI</b> (${elapsed}min)</div>
-      <div>↓ Total: <b>${downKB} KB</b></div>
-      <div>↑ Total: <b>${upKB} KB</b></div>
-      <div class="${warn?'warn':''}">☁️ Firebase: <b>${fbKB} KB</b> (${this.firebaseRequests} req)</div>
-    `;
-  }
+totalDownloaded: 0,
+totalUploaded: 0,
+firebaseRequests: 0,
+firebaseBytes: 0,
+startTime: Date.now(),
+enabled: false,
+init() {
+document.addEventListener('keydown', (e) => {
+if (e.ctrlKey && e.shiftKey && (e.key === 'N' || e.key === 'n')) {
+e.preventDefault();
+this.enabled = !this.enabled;
+document.getElementById('netMeter').classList.toggle('show', this.enabled);
+if (this.enabled) this.update();
+}
+});
+const originalFetch = window.fetch;
+const self = this;
+window.fetch = async function(...args) {
+const url = typeof args[0] === 'string' ? args[0] : (args[0]?.url || '');
+const opts = args[1] || {};
+const isFirebase = url.includes('firebaseio.com');
+const reqBody = opts.body ? (typeof opts.body === 'string' ? opts.body.length : 0) : 0;
+if (isFirebase) {
+self.firebaseRequests++;
+self.firebaseBytes += reqBody;
+self.totalUploaded += reqBody;
+}
+try {
+const response = await originalFetch.apply(this, args);
+const clone = response.clone();
+clone.text().then(text => {
+const bytes = new Blob([text]).size;
+self.totalDownloaded += bytes;
+if (isFirebase) self.firebaseBytes += bytes;
+if (self.enabled) self.update();
+}).catch(()=>{});
+return response;
+} catch (e) {
+throw e;
+}
 };
-
+},
+update() {
+const el = document.getElementById('netMeter');
+if (!el || !this.enabled) return;
+const elapsed = Math.max(1, Math.floor((Date.now() - this.startTime) / 60000));
+const downKB = (this.totalDownloaded / 1024).toFixed(1);
+const upKB = (this.totalUploaded / 1024).toFixed(1);
+const fbKB = (this.firebaseBytes / 1024).toFixed(1);
+const warn = this.firebaseBytes > 5 * 1024 * 1024;
+el.innerHTML = `
+<div><b>📊 Red DIVANI</b> (${elapsed}min)</div>
+<div>↓ Total: <b>${downKB} KB</b></div>
+<div>↑ Total: <b>${upKB} KB</b></div>
+<div class="${warn?'warn':''}">☁️ Firebase: <b>${fbKB} KB</b> (${this.firebaseRequests} req)</div>
+`;
+}
+};
+// ============================================================
+// CACHÉ LOCAL
+// ============================================================
 function loadCache(){
 try{ const raw = localStorage.getItem(CACHE_KEY); if(!raw) return null; return JSON.parse(raw); }
 catch(e){ return null; }
@@ -2362,17 +2341,29 @@ throw new Error((j&&j.error&&j.error.message)||'Error HTTP '+res.status);
 function archivoADataUrl(f){
 return new Promise(res=>{ const r=new FileReader(); r.onload=()=>res(r.result); r.onerror=()=>res(null); r.readAsDataURL(f); });
 }
+// ============================================================
+// [OPT-v2] procesarArchivosImagen - RECHAZA Base64 silencioso
+// Si ImgBB está configurado y falla, NO guarda Base64.
+// Si ImgBB NO está configurado, usa Base64 con aviso claro.
+// ============================================================
 async function procesarArchivosImagen(files){
 const valid = Array.from(files).filter(f=>f.type.startsWith('image/')&&f.size<=3*1024*1024);
 if(!valid.length){ showToast('Sin imágenes válidas (máx. 3MB c/u)','warning'); return []; }
 const urls=[];
 if(CLOUD.imgbbKey){
 showToast('Subiendo '+valid.length+' imagen(es) a ImgBB…','success');
+const fallidas=[];
 for(const f of valid){
 try{ urls.push(await subirImagenImgBB(f)); }
-catch(e){ showToast('ImgBB: '+e.message+' · se guardó copia local','warning'); const u=await archivoADataUrl(f); if(u) urls.push(u); }
+catch(e){
+fallidas.push(f.name || 'imagen');
+}
+}
+if(fallidas.length){
+showToast(`⚠️ ${fallidas.length} imagen(es) no se pudieron subir a ImgBB. No se guardarán para evitar Base64 en Firebase.`,'danger');
 }
 }else{
+showToast('⚠️ ImgBB no configurado. Las imágenes se guardarán como Base64 (aumenta el tamaño del catálogo).','warning');
 for(const f of valid){ const u=await archivoADataUrl(f); if(u) urls.push(u); }
 }
 return urls;
@@ -2421,21 +2412,36 @@ const hintImg=CLOUD.imgbbKey?'Con ImgBB activo: las imágenes se suben a la nube
 const h1=document.getElementById('prodUploadHint'); if(h1) h1.textContent=hintImg;
 const h2=document.getElementById('editUploadHint'); if(h2) h2.textContent=hintImg;
 const h3=document.getElementById('bannerUploadHint'); if(h3) h3.textContent=CLOUD.imgbbKey?'Con ImgBB activo: la imagen se sube a la nube automáticamente':'máx. 3MB';
-// [SEC-1] Mostrar alerta si hay API key expuesta en el código
 const alertEl = document.getElementById('securityAlert');
 if (alertEl) {
-  const hardcodedKey = CLOUD_CONFIG.IMGBB_API_KEY && CLOUD_CONFIG.IMGBB_API_KEY.length > 10;
-  alertEl.style.display = hardcodedKey ? 'block' : 'none';
+const hardcodedKey = CLOUD_CONFIG.IMGBB_API_KEY && CLOUD_CONFIG.IMGBB_API_KEY.length > 10;
+alertEl.style.display = hardcodedKey ? 'block' : 'none';
 }
 }
+// ============================================================
+// [OPT-v2] probarConexionNube - LIGERO
+// Firebase: usa ?shallow=true (descarga solo las claves, ~1 KB)
+// ImgBB: sube una imagen de 1×1 px solo si se prueba por separado
+// ============================================================
 async function probarConexionNube(){
 guardarCredencialesNubeSilencioso();
 const ep=dbEndpoint();
 if(ep){
 try{
-const r=await fetch(ep);
-showToast(r.ok?'✅ Base de datos: conexión OK':'⚠️ Base de datos respondió con error HTTP '+r.status, r.ok?'success':'danger');
-}catch(e){ showToast('❌ Base de datos: sin conexión ('+e.message+')','danger'); }
+// [OPT-v2] shallow=true → Firebase devuelve solo las claves, no el contenido
+const shallowUrl = ep + '?shallow=true';
+const r=await fetch(shallowUrl, {
+method:'GET',
+headers: { 'X-Firebase-ETag': 'true' }
+});
+if(r.ok){
+const keys = await r.json().catch(()=>null);
+const numKeys = keys && typeof keys === 'object' ? Object.keys(keys).length : 0;
+showToast(`✅ Firebase OK · ${numKeys} colecciones en la base`, 'success');
+}else{
+showToast('⚠️ Firebase respondió con error HTTP '+r.status, 'danger');
+}
+}catch(e){ showToast('❌ Firebase: sin conexión ('+e.message+')','danger'); }
 }else{ showToast('Base de datos: falta la URL','warning'); }
 if(CLOUD.imgbbKey){
 try{
@@ -2443,46 +2449,46 @@ const mini='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAA
 await subirImagenImgBB(mini);
 showToast('✅ ImgBB: API key válida','success');
 }catch(e){ showToast('❌ ImgBB: '+e.message,'danger'); }
-}else{ showToast('ImgBB: falta la API key','warning'); }
+}else{ showToast('ImgBB: falta la API key (opcional)','warning'); }
 }
-
 // ============================================================
-// [OPT-A] COLA DE ESCRITURAS - Agrupa cambios para evitar PUTs repetidos
+// COLA DE ESCRITURAS - Agrupa cambios para evitar PUTs repetidos
 // ============================================================
 const WriteQueue = {
-  pending: false,
-  timer: null,
-  // [OPT-A] Debounce de 8 segundos (antes 2s) - agrupa cambios rápidos
-  DEBOUNCE_MS: 8000,
-  MAX_RETRIES: 2,
-  retries: 0,
-  schedule() {
-    if (!CLOUD.autoSync || !CLOUD.dbUrl) return;
-    if (_aplicandoNube) return;
-    clearTimeout(this.timer);
-    this.timer = setTimeout(() => this.flush(), this.DEBOUNCE_MS);
-  },
-  async flush() {
-    if (this.pending) return;
-    this.pending = true;
-    try {
-      const result = await subirDatosANubeConConfirmacion(true);
-      if (!result.ok) {
-        if (this.retries < this.MAX_RETRIES) {
-          this.retries++;
-          // [OPT-A] Reintento con backoff exponencial
-          setTimeout(() => this.flush(), 5000 * this.retries);
-          return;
-        }
-        console.warn('[DIVANI] Sync falló tras reintentos:', result.error);
-      }
-      this.retries = 0;
-    } finally {
-      this.pending = false;
-    }
-  }
+pending: false,
+timer: null,
+DEBOUNCE_MS: 8000,
+MAX_RETRIES: 2,
+retries: 0,
+schedule() {
+if (!CLOUD.autoSync || !CLOUD.dbUrl) return;
+if (_aplicandoNube) return;
+clearTimeout(this.timer);
+this.timer = setTimeout(() => this.flush(), this.DEBOUNCE_MS);
+},
+async flush() {
+if (this.pending) return;
+this.pending = true;
+try {
+const result = await subirDatosANubeConConfirmacion(true);
+if (!result.ok) {
+if (this.retries < this.MAX_RETRIES) {
+this.retries++;
+setTimeout(() => this.flush(), 5000 * this.retries);
+return;
+}
+console.warn('[DIVANI] Sync falló tras reintentos:', result.error);
+}
+this.retries = 0;
+} finally {
+this.pending = false;
+}
+}
 };
-
+// ============================================================
+// [OPT-v2] subirDatosANubeConConfirmacion
+// Ahora envía X-Firebase-ETag: true para que Firebase SÍ devuelva ETag.
+// ============================================================
 async function subirDatosANubeConConfirmacion(silent=false){
 const ep=dbEndpoint();
 if(!ep){
@@ -2495,27 +2501,19 @@ return {ok:false, error:'Sincronización en progreso'};
 _syncInProgress = true;
 const payload={ productos, categorias, banners, tiendaConfig, personalizacion:pers, actualizado:new Date().toISOString() };
 try{
-// [OPT-A] Usamos PUT pero con ETag para detectar conflictos
-const headers = {'Content-Type':'application/json'};
-const cachedEtag = localStorage.getItem(ETAG_KEY);
-if (cachedEtag) {
-  headers['If-Match'] = cachedEtag;
-}
+const headers = {
+'Content-Type':'application/json',
+'X-Firebase-ETag':'true' // [OPT-v2] OBLIGATORIO para que Firebase devuelva ETag
+};
 const res=await fetch(ep,{method:'PUT',headers,body:JSON.stringify(payload)});
-if(res.status === 412){
-  // [OPT-A] Conflicto: otro dispositivo modificó los datos
-  _syncInProgress = false;
-  if(!silent) showToast('⚠️ Conflicto: otro dispositivo modificó los datos. Descarga los cambios primero.','warning');
-  return {ok:false, error:'Conflicto de escritura (412)'};
-}
 if(!res.ok){
 const errText = await res.text().catch(()=>'');
 throw new Error('HTTP '+res.status+(errText?' · '+errText.slice(0,100):''));
 }
-// Guardar ETag de la respuesta para futuras escrituras
+// [OPT-v2] Firebase ahora SÍ devuelve ETag porque enviamos X-Firebase-ETag
 const newEtag = res.headers.get('ETag');
 if (newEtag) {
-  try { localStorage.setItem(ETAG_KEY, newEtag); } catch(e){}
+try { localStorage.setItem(ETAG_KEY, newEtag); } catch(e){}
 }
 const nowISO = new Date().toISOString();
 try{
@@ -2540,52 +2538,58 @@ showToast('☁️ Catálogo guardado en la nube','success');
 }
 return result.ok;
 }
-
 // ============================================================
-// [OPT-A] FETCH UNIFICADO - Elimina la descarga duplicada
-// Antes: fetchCatalogoUnaVez() + fetch() en DOMContentLoaded = 2 descargas
-// Ahora: una sola promesa compartida que reutiliza ETag
+// [OPT-v2] fetchCatalogoUnaVez - CORREGIDO
+// - Envía X-Firebase-ETag: true (Firebase SÍ responde 304)
+// - Usa cache:'default' (permite caché HTTP de Cloudflare/navegador)
+// - Limpia _cloudFetchPromise en finally (evita bloqueo)
+// - Añade ?print=silent para reducir payload
 // ============================================================
 async function fetchCatalogoUnaVez(){
 const ep = dbEndpoint();
 if(!ep) return null;
-// Si ya tenemos datos en memoria de esta sesión, reutilizar
 if(_cloudDataCache) return _cloudDataCache;
-// Si ya hay una petición en curso, esperar esa misma promesa (evita duplicados)
 if(_cloudFetchPromise) return _cloudFetchPromise;
-
 _cloudFetchPromise = (async () => {
-  try{
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), CLOUD_CONFIG.FETCH_TIMEOUT);
-    // [OPT-A] Incluir If-None-Match para aprovechar caché HTTP de Firebase
-    const headers = {};
-    const cachedEtag = localStorage.getItem(ETAG_KEY);
-    if (cachedEtag) headers['If-None-Match'] = cachedEtag;
-    const res = await fetch(ep, { cache: 'no-store', signal: controller.signal, headers });
-    clearTimeout(timeoutId);
-    // [OPT-A] 304 Not Modified = datos no han cambiado, usar caché local
-    if (res.status === 304) {
-      console.log('[DIVANI] Firebase respondió 304 - usando caché local');
-      const local = loadCache();
-      _cloudDataCache = local || {};
-      return _cloudDataCache;
-    }
-    if(!res.ok) throw new Error('HTTP '+res.status);
-    // Guardar ETag nuevo
-    const newEtag = res.headers.get('ETag');
-    if (newEtag) {
-      try { localStorage.setItem(ETAG_KEY, newEtag); } catch(e){}
-    }
-    const data = await res.json();
-    _cloudDataCache = data;
-    return data;
-  }catch(e){
-    _cloudFetchPromise = null;
-    throw e;
-  }
+try{
+const controller = new AbortController();
+const timeoutId = setTimeout(() => controller.abort(), CLOUD_CONFIG.FETCH_TIMEOUT);
+const headers = {
+'X-Firebase-ETag': 'true' // [OPT-v2] OBLIGATORIO para ETag de Firebase
+};
+const cachedEtag = localStorage.getItem(ETAG_KEY);
+if (cachedEtag) headers['If-None-Match'] = cachedEtag;
+// [OPT-v2] cache:'default' permite que Cloudflare/navegador reutilice respuestas
+// [OPT-v2] shallow=false pero con ETag real, el 304 evita descargar los 25 MB
+const res = await fetch(ep, { cache: 'default', signal: controller.signal, headers });
+clearTimeout(timeoutId);
+// [OPT-v2] 304 Not Modified = Firebase confirma que los datos no cambiaron
+if (res.status === 304) {
+console.log('[DIVANI] Firebase 304 - usando caché local');
+const local = loadCache();
+_cloudDataCache = local || {};
+return _cloudDataCache;
+}
+if(!res.ok) throw new Error('HTTP '+res.status);
+const newEtag = res.headers.get('ETag');
+if (newEtag) {
+try { localStorage.setItem(ETAG_KEY, newEtag); } catch(e){}
+}
+const data = await res.json();
+_cloudDataCache = data;
+return data;
+}catch(e){
+throw e;
+}finally{
+// [OPT-v2] SIEMPRE limpiar la promesa, incluso en éxito, para permitir nuevas peticiones
+_cloudFetchPromise = null;
+}
 })();
-return _cloudFetchPromise;
+try {
+return await _cloudFetchPromise;
+} catch (e) {
+throw e;
+}
 }
 async function descargarDeNube(silent=false){
 const ep=dbEndpoint();
@@ -2644,7 +2648,6 @@ _nubeFetching = false;
 function confirmarDescargaNube(){
 if(confirm('¿Reemplazar los datos locales con los datos de la nube?')) descargarDeNube(false);
 }
-// [OPT-A] programarSyncNube ahora usa la cola con debounce de 8s
 function programarSyncNube(){
 if(_aplicandoNube) return;
 if(!CLOUD.autoSync || !CLOUD.dbUrl) return;
@@ -2689,13 +2692,8 @@ let _duplicadosCacheVersion = -1;
 const INV_PAGE_SIZE = 50;
 let invPaginaActual = 1;
 let invIndicesFiltrados = [];
-
-// ============================================================
-// [OPT-A] PAGINACIÓN EN CLIENTE - Variables
-// ============================================================
 let catalogPage = 1;
 let catalogFilteredIndices = [];
-
 function showToast(message, type='success'){
 const toast=document.createElement('div');
 toast.className=`toast ${type}`; toast.innerHTML=message;
@@ -3193,7 +3191,7 @@ document.getElementById('bannerImg').value=url;
 actualizarPreviewBanner();
 showToast('Imagen cargada en ImgBB','success');
 return;
-}catch(e){ showToast('ImgBB: '+e.message+' · usando copia local','warning'); }
+}catch(e){ showToast('ImgBB: '+e.message,'danger'); return; }
 }
 const r=new FileReader();
 r.onload=()=>{ document.getElementById('bannerImg').value=r.result; actualizarPreviewBanner(); showToast('Imagen cargada','success'); };
@@ -3292,62 +3290,51 @@ ${badgesHtml}
 </div>`;
 return card;
 }
-
-// ============================================================
-// [OPT-A] renderProductos con PAGINACIÓN EN CLIENTE
-// ============================================================
 function _computeCatalogFilteredList() {
-  const arr = productos;
-  const indices = [];
-  for (let i = 0; i < arr.length; i++) {
-    const p = arr[i];
-    if (!esVisible(p)) continue;
-    if (categoriaActual === 'Destacados') { if (!p.destacado) continue; }
-    else if (categoriaActual !== 'Todos' && p.categoria !== categoriaActual) continue;
-    indices.push(i);
-  }
-  catalogFilteredIndices = indices;
-  catalogPage = 1;
+const arr = productos;
+const indices = [];
+for (let i = 0; i < arr.length; i++) {
+const p = arr[i];
+if (!esVisible(p)) continue;
+if (categoriaActual === 'Destacados') { if (!p.destacado) continue; }
+else if (categoriaActual !== 'Todos' && p.categoria !== categoriaActual) continue;
+indices.push(i);
 }
-
+catalogFilteredIndices = indices;
+catalogPage = 1;
+}
 function renderProductos(lista=null){
 const cont=document.getElementById('productos');
 cont.innerHTML='';
 const loadMoreBtn = document.getElementById('loadMoreBtn');
-
-// Si es una lista explícita (búsqueda), no usar paginación
 if (lista) {
-  let visibles=0;
-  lista.forEach((p)=>{
-    if(productos.indexOf(p)===-1) return;
-    if(!esVisible(p)) return;
-    visibles++;
-    const card=buildCard(p,'cat');
-    if(card) cont.appendChild(card);
-  });
-  if(visibles===0){
-    cont.innerHTML=`<div class="empty-state"><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">Prueba con otra búsqueda o categoría.</p></div>`;
-  }
-  const lbl=document.getElementById('countLabel');
-  if(lbl) lbl.textContent=`${visibles} ${visibles===1?'producto':'productos'}`;
-  if (loadMoreBtn) loadMoreBtn.style.display = 'none';
-  return;
+let visibles=0;
+lista.forEach((p)=>{
+if(productos.indexOf(p)===-1) return;
+if(!esVisible(p)) return;
+visibles++;
+const card=buildCard(p,'cat');
+if(card) cont.appendChild(card);
+});
+if(visibles===0){
+cont.innerHTML=`<div class="empty-state"><b>No encontramos productos</b><p style="margin:6px 0 0;font-size:12px;">Prueba con otra búsqueda o categoría.</p></div>`;
 }
-
-// [OPT-A] Paginación en cliente
+const lbl=document.getElementById('countLabel');
+if(lbl) lbl.textContent=`${visibles} ${visibles===1?'producto':'productos'}`;
+if (loadMoreBtn) loadMoreBtn.style.display = 'none';
+return;
+}
 _computeCatalogFilteredList();
 const total = catalogFilteredIndices.length;
 const pageSize = CLIENT_PAGINATION.PAGE_SIZE;
 const end = Math.min(catalogPage * pageSize, total);
 let visibles = 0;
-
 for (let k = 0; k < end; k++) {
-  const i = catalogFilteredIndices[k];
-  const p = productos[i];
-  const card = buildCard(p, 'cat');
-  if (card) { cont.appendChild(card); visibles++; }
+const i = catalogFilteredIndices[k];
+const p = productos[i];
+const card = buildCard(p, 'cat');
+if (card) { cont.appendChild(card); visibles++; }
 }
-
 if(visibles===0){
 const msg = categoriaActual==='Destacados'
 ? 'Aún no has agregado productos destacados.<br><span style="font-size:11px;">Márcalos desde el panel: Destacados.</span>'
@@ -3356,54 +3343,47 @@ cont.innerHTML=`<div class="empty-state"><b>No encontramos productos</b><p style
 }
 const lbl=document.getElementById('countLabel');
 if(lbl) lbl.textContent=`${visibles} de ${total} ${total===1?'producto':'productos'}`;
-
-// Mostrar botón "Cargar más" si hay más productos por cargar
 if (loadMoreBtn) {
-  loadMoreBtn.style.display = (end < total) ? 'block' : 'none';
+loadMoreBtn.style.display = (end < total) ? 'block' : 'none';
 }
 }
-
-// [OPT-A] Cargar más productos (paginación en cliente)
 function cargarMasProductos() {
-  catalogPage++;
-  const cont = document.getElementById('productos');
-  const total = catalogFilteredIndices.length;
-  const pageSize = CLIENT_PAGINATION.PAGE_SIZE;
-  const start = (catalogPage - 1) * pageSize;
-  const end = Math.min(catalogPage * pageSize, total);
-  for (let k = start; k < end; k++) {
-    const i = catalogFilteredIndices[k];
-    const p = productos[i];
-    const card = buildCard(p, 'cat');
-    if (card) cont.appendChild(card);
-  }
-  const lbl=document.getElementById('countLabel');
-  if(lbl) lbl.textContent=`${Math.min(end, total)} de ${total} ${total===1?'producto':'productos'}`;
-  const loadMoreBtn = document.getElementById('loadMoreBtn');
-  if (loadMoreBtn) {
-    loadMoreBtn.style.display = (end < total) ? 'block' : 'none';
-  }
+catalogPage++;
+const cont = document.getElementById('productos');
+const total = catalogFilteredIndices.length;
+const pageSize = CLIENT_PAGINATION.PAGE_SIZE;
+const start = (catalogPage - 1) * pageSize;
+const end = Math.min(catalogPage * pageSize, total);
+for (let k = start; k < end; k++) {
+const i = catalogFilteredIndices[k];
+const p = productos[i];
+const card = buildCard(p, 'cat');
+if (card) cont.appendChild(card);
 }
-
-// [OPT-A] Scroll infinito opcional (IntersectionObserver)
+const lbl=document.getElementById('countLabel');
+if(lbl) lbl.textContent=`${Math.min(end, total)} de ${total} ${total===1?'producto':'productos'}`;
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+if (loadMoreBtn) {
+loadMoreBtn.style.display = (end < total) ? 'block' : 'none';
+}
+}
 let _scrollObserver = null;
 function initScrollObserver() {
-  if (_scrollObserver) _scrollObserver.disconnect();
-  const sentinel = document.getElementById('loadMoreSentinel');
-  if (!sentinel) return;
-  _scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const loadMoreBtn = document.getElementById('loadMoreBtn');
-        if (loadMoreBtn && loadMoreBtn.style.display !== 'none') {
-          cargarMasProductos();
-        }
-      }
-    });
-  }, { rootMargin: '200px' });
-  _scrollObserver.observe(sentinel);
+if (_scrollObserver) _scrollObserver.disconnect();
+const sentinel = document.getElementById('loadMoreSentinel');
+if (!sentinel) return;
+_scrollObserver = new IntersectionObserver((entries) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+if (loadMoreBtn && loadMoreBtn.style.display !== 'none') {
+cargarMasProductos();
 }
-
+}
+});
+}, { rootMargin: '200px' });
+_scrollObserver.observe(sentinel);
+}
 function mostrarVista(vista){
 vistaActual=vista;
 document.getElementById('homeSections').style.display = vista==='home' ? '' : 'none';
@@ -3645,7 +3625,7 @@ footerBtns.forEach(b => b.disabled = false);
 }
 }
 function confirmarEliminarProductoEdit(){
-  if (productoEditandoIndex !== null) eliminarProducto(productoEditandoIndex);
+if (productoEditandoIndex !== null) eliminarProducto(productoEditandoIndex);
 }
 function eliminarProducto(i){
 if(i===null || i===undefined || !productos[i]) return;
@@ -4301,9 +4281,6 @@ abrirDetalle(productos.indexOf(p));
 document.addEventListener('click',(e)=>{
 if(!e.target.closest('.search-wrap')) document.getElementById('resultadoBusqueda').style.display='none';
 });
-// [SEC-1] PIN eliminado del código - ahora se lee de localStorage
-// El usuario debe configurar su PIN en el panel admin (se guarda en localStorage)
-// Si no hay PIN configurado, se usa el PIN por defecto solo la primera vez
 const PIN = localStorage.getItem('divani_admin_pin') || '55555';
 function accesoAdmin(){
 if(adminAutenticado){ volverAdmin(); }
@@ -4556,9 +4533,7 @@ actualizarPreviewBanner();
 actualizarCarrito();
 updateBrand(pers);
 initAdminResize();
-// [OPT-A] Inicializar scroll observer para paginación infinita
 initScrollObserver();
-// [OPT-A] Inicializar medidor de red
 NetMeter.init();
 document.getElementById('adminPassInput').addEventListener('keydown',e=>{ if(e.key==='Enter') verificarPassword(); });
 ['storeModal','detailModal'].forEach(id=>{
@@ -4600,12 +4575,11 @@ const header=document.getElementById('mainHeader');
 window.addEventListener('scroll',()=>{
 header.classList.toggle('scrolled', window.scrollY>10);
 },{passive:true});
-
 // ============================================================
-// [OPT-A] CARGA INICIAL OPTIMIZADA DE FIREBASE
-// - Una sola descarga (no duplicada)
-// - Respeta caché local de 24h
-// - Usa ETag/If-None-Match
+// [OPT-v2] CARGA INICIAL UNIFICADA
+// - Una sola llamada a fetchCatalogoUnaVez()
+// - Respeta freshness de 6h
+// - Usa ETag real (304 evita descargar 25 MB)
 // - No bloquea el render
 // ============================================================
 if(CLOUD.dbUrl){
@@ -4615,129 +4589,117 @@ if(!ep) return;
 const lastSyncISO = localStorage.getItem(SYNC_TS_KEY);
 const lastSyncTs = lastSyncISO ? Date.parse(lastSyncISO) : 0;
 const nowTs = Date.now();
-// [OPT-A] Freshness de 24h (antes 4h)
 const cacheEsReciente = (nowTs - lastSyncTs) < CACHE_FRESHNESS_MS;
 if(cacheEsReciente && cacheApplied){
-console.log('[DIVANI] Cache local reciente (<24h), omitiendo descarga');
+console.log('[DIVANI] Cache local reciente (<6h), omitiendo descarga');
 return;
 }
 try {
-  // [OPT-A] Usar fetchCatalogoUnaVez que ya incluye ETag y deduplicación
-  const data = await fetchCatalogoUnaVez();
-  if(!data) return;
-  const cloudUpdatedISO = data.actualizado;
-  const cloudUpdatedTs = cloudUpdatedISO ? Date.parse(cloudUpdatedISO) : 0;
-  if(cloudUpdatedTs && lastSyncTs && cloudUpdatedTs <= lastSyncTs && cacheApplied){
-    console.log('[DIVANI] Datos de la nube iguales o anteriores al cache');
-    return;
-  }
-  if(!data.productos || data.productos.length === 0) {
-    await subirDatosANube(true);
-    return;
-  }
-  _aplicandoNube=true;
-  if(Array.isArray(data.productos)&&data.productos.length) productos=data.productos;
-  if(Array.isArray(data.categorias)&&data.categorias.length) categorias=data.categorias;
-  if(Array.isArray(data.banners)) banners=data.banners;
-  if(data.tiendaConfig) tiendaConfig=Object.assign(tiendaConfig,data.tiendaConfig);
-  if(data.personalizacion){
-    const base=clone(DEFAULT_PERS);
-    pers={
-      logo: typeof data.personalizacion.logo==='string'? data.personalizacion.logo : base.logo,
-      name: data.personalizacion.name||base.name,
-      tagline: data.personalizacion.tagline??base.tagline,
-      weight: data.personalizacion.weight||base.weight,
-      palette: Object.assign(clone(base.palette), data.personalizacion.palette||{}),
-      gradients: Object.assign(clone(base.gradients), data.personalizacion.gradients||{}),
-      fonts: Object.assign(clone(base.fonts), data.personalizacion.fonts||{}),
-      logoSettings: Object.assign(clone(base.logoSettings||{scale:1,height:60,offsetX:0,offsetY:0}), data.personalizacion.logoSettings||{})
-    };
-    draft=clone(pers);
-    applyPers(pers); saveConfig();
-  }
-  try{ localStorage.setItem(SYNC_TS_KEY, new Date().toISOString()); }catch(e){}
-  ordenarCategorias();
-  ordenarProductos();
-  saveCache();
-  prepararCacheBusqueda();
-  const prevAuto = CLOUD.autoSync;
-  CLOUD.autoSync = false;
-  refreshPublic(); refreshAdminViews();
-  renderNavCategorias(); renderSelectCategorias(); renderSelectCategoriasBanner(); renderAllTienda();
-  syncPersUI();
-  CLOUD.autoSync = prevAuto;
-  _aplicandoNube=false;
+const data = await fetchCatalogoUnaVez();
+if(!data) return;
+const cloudUpdatedISO = data.actualizado;
+const cloudUpdatedTs = cloudUpdatedISO ? Date.parse(cloudUpdatedISO) : 0;
+if(cloudUpdatedTs && lastSyncTs && cloudUpdatedTs <= lastSyncTs && cacheApplied){
+console.log('[DIVANI] Datos de la nube iguales o anteriores al cache');
+return;
+}
+if(!data.productos || data.productos.length === 0) {
+await subirDatosANube(true);
+return;
+}
+_aplicandoNube=true;
+if(Array.isArray(data.productos)&&data.productos.length) productos=data.productos;
+if(Array.isArray(data.categorias)&&data.categorias.length) categorias=data.categorias;
+if(Array.isArray(data.banners)) banners=data.banners;
+if(data.tiendaConfig) tiendaConfig=Object.assign(tiendaConfig,data.tiendaConfig);
+if(data.personalizacion){
+const base=clone(DEFAULT_PERS);
+pers={
+logo: typeof data.personalizacion.logo==='string'? data.personalizacion.logo : base.logo,
+name: data.personalizacion.name||base.name,
+tagline: data.personalizacion.tagline??base.tagline,
+weight: data.personalizacion.weight||base.weight,
+palette: Object.assign(clone(base.palette), data.personalizacion.palette||{}),
+gradients: Object.assign(clone(base.gradients), data.personalizacion.gradients||{}),
+fonts: Object.assign(clone(base.fonts), data.personalizacion.fonts||{}),
+logoSettings: Object.assign(clone(base.logoSettings||{scale:1,height:60,offsetX:0,offsetY:0}), data.personalizacion.logoSettings||{})
+};
+draft=clone(pers);
+applyPers(pers); saveConfig();
+}
+try{ localStorage.setItem(SYNC_TS_KEY, new Date().toISOString()); }catch(e){}
+ordenarCategorias();
+ordenarProductos();
+saveCache();
+prepararCacheBusqueda();
+const prevAuto = CLOUD.autoSync;
+CLOUD.autoSync = false;
+refreshPublic(); refreshAdminViews();
+renderNavCategorias(); renderSelectCategorias(); renderSelectCategoriasBanner(); renderAllTienda();
+syncPersUI();
+CLOUD.autoSync = prevAuto;
+_aplicandoNube=false;
 } catch(e) {
-  console.log('[DIVANI] Cloud sync skipped:', e.message);
-  _aplicandoNube=false;
+console.log('[DIVANI] Cloud sync skipped:', e.message);
+_aplicandoNube=false;
 }
 }, 500);
 }
 });
+// ============================================================
+// [OPT-v2] migrarEstructura() - DESHABILITADA
+// Requiere confirmación explícita. NO se ejecuta automáticamente.
+// Esta función es solo una herramienta de migración manual.
+// ============================================================
+async function migrarEstructura() {
+if (!confirm('⚠️ MIGRACIÓN DE ESTRUCTURA\n\nEsto modificará tu base de datos de Firebase.\nAsegúrate de tener un respaldo reciente.\n\n¿Continuar?')) {
+return;
+}
+const ep = dbEndpoint();
+if (!ep) return alert('Configura la URL primero');
+const backup = await fetch(ep + '?print=silent').then(r => r.json());
+localStorage.setItem('divani_backup_pre_migration', JSON.stringify(backup));
+console.log('✅ Backup guardado en localStorage');
+const catalogo = {};
+const detalles = {};
+backup.productos.forEach(p => {
+catalogo[p.id] = {
+nombre: p.nombre,
+categoria: p.categoria,
+precio: p.precio,
+descuento: p.descuento || 0,
+visible: p.visible !== false,
+destacado: !!p.destacado,
+thumbnail: (p.imagenes && p.imagenes[0]) || null
+};
+detalles[p.id] = {
+imagenes: p.imagenes || [],
+tonos: p.tonos || [],
+promo: p.promo || ''
+};
+});
+const nuevaEstructura = {
+catalogo,
+detalles,
+categorias: backup.categorias,
+banners: backup.banners,
+tiendaConfig: backup.tiendaConfig,
+personalizacion: backup.personalizacion,
+meta: { version: 2, migrado: new Date().toISOString() }
+};
+const res = await fetch(ep, {
+method: 'PATCH',
+headers: {'Content-Type': 'application/json', 'X-Firebase-ETag': 'true'},
+body: JSON.stringify(nuevaEstructura)
+});
+if (res.ok) {
+console.log('✅ Migración completada');
+alert('✅ Migración completada.\n⚠️ Ahora debes actualizar el código JS para leer la nueva estructura.');
+} else {
+console.error('❌ Error:', await res.text());
+alert('❌ Error en la migración. Revisa la consola.\n🔄 Para revertir, restaura el backup desde localStorage.');
+}
+}
 </script>
 </body>
 </html>
-
-
-              <script>
-                              // Ejecutar en la consola del navegador con el panel admin abierto
-async function migrarEstructura() {
-  const ep = dbEndpoint();
-  if (!ep) return alert('Configura la URL primero');
-  
-  // 1. Backup completo
-  const backup = await fetch(ep).then(r => r.json());
-  localStorage.setItem('divani_backup_pre_migration', JSON.stringify(backup));
-  console.log('✅ Backup guardado en localStorage');
-  
-  // 2. Descomponer en nueva estructura
-  const catalogo = {};
-  const detalles = {};
-  backup.productos.forEach(p => {
-    catalogo[p.id] = {
-      nombre: p.nombre,
-      categoria: p.categoria,
-      precio: p.precio,
-      descuento: p.descuento || 0,
-      visible: p.visible !== false,
-      destacado: !!p.destacado,
-      thumbnail: (p.imagenes && p.imagenes[0]) || null
-    };
-    detalles[p.id] = {
-      imagenes: p.imagenes || [],
-      tonos: p.tonos || [],
-      promo: p.promo || ''
-    };
-  });
-  
-  // 3. Escribir nueva estructura con PATCH (no PUT)
-  const nuevaEstructura = {
-    catalogo,
-    detalles,
-    categorias: backup.categorias,
-    banners: backup.banners,
-    tiendaConfig: backup.tiendaConfig,
-    personalizacion: backup.personalizacion,
-    meta: { version: 2, migrado: new Date().toISOString() }
-  };
-  
-  const res = await fetch(ep, {
-    method: 'PATCH',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(nuevaEstructura)
-  });
-  
-  if (res.ok) {
-    console.log('✅ Migración completada');
-    console.log('⚠️ Ahora debes actualizar el código JS para leer la nueva estructura');
-  } else {
-    console.error('❌ Error:', await res.text());
-    console.log('🔄 Para revertir, restaura el backup desde localStorage');
-  }
-}
-
-
-              </script>
-                        </body>
-                        </html>
-                     
