@@ -11,13 +11,18 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="dns-prefetch" href="https://api.imgbb.com">
 <link rel="dns-prefetch" href="https://divanirecuperacion-default-rtdb.firebaseio.com">
-<!-- ⚡ OPTIMIZACIÓN 1: Solo las fuentes esenciales (ahorra ~200-300 KB) -->
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/files/poppins-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/files/poppins-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/files/poppins-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/files/poppins-latin-300-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/files/playfair-display-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/300.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/poppins@5/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/400.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/playfair-display@5/600.css">
 <style>
 :root{
 --divani-primary:#e8557a;
@@ -134,7 +139,6 @@ transition:all .25s ease;position:relative}
 .badge-count{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;padding:0 6px;background:var(--divani-primary);
 color:var(--divani-on-primary);border-radius:999px;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;
 border:2px solid var(--divani-background);transition:transform .25s;line-height:1;box-shadow:0 2px 6px color-mix(in srgb,var(--divani-primary) 30%, transparent)}
-.cart-sparkles{position:fixed;pointer-events:none;z-index:9999}
 .search-wrap{position:relative;margin-top:10px;max-width:780px;margin-left:auto;margin-right:auto}
 .search-wrap .search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:var(--muted-2);pointer-events:none}
 #buscadorInput{width:100%;padding:12px 18px 12px 42px;border-radius:999px;border:1px solid var(--pink-line);
@@ -713,6 +717,7 @@ color:var(--divani-on-primary);box-shadow:0 12px 28px color-mix(in srgb,var(--di
 .net-meter.show{display:block}
 .net-meter b{color:#4ade80}
 .net-meter .warn{color:#fbbf24}
+/* BANNER DE SEGURIDAD - NUEVO */
 .security-banner{background:linear-gradient(135deg,#fef3c7,#fde68a);border:2px solid #f59e0b;border-radius:var(--radius-md);padding:14px 18px;margin-bottom:20px;display:flex;align-items:center;gap:12px;box-shadow:0 4px 12px rgba(245,158,11,.15)}
 .security-banner .sec-icon{font-size:24px;flex-shrink:0}
 .security-banner .sec-content{flex:1;font-size:12.5px;color:#78350f;line-height:1.5}
@@ -1014,6 +1019,7 @@ Agregar al Carrito
 </div>
 <div class="admin-body">
 <div id="tab-dashboard" class="admin-view active">
+<!-- BANNER DE SEGURIDAD - NUEVO -->
 <div class="security-banner" id="securityBanner">
 <span class="sec-icon">🛡️</span>
 <div class="sec-content">
@@ -1634,26 +1640,34 @@ Se detectó una API key de ImgBB visible en el código fuente. Recomendamos:
 </div>
 </div>
 </div>
-</div>
 <script>
 /* ============================================================
 DIVANI MAQUILLAJE - ARQUITECTURA SEGURA RECONSTRUIDA
 Fase 1: Modo READ_ONLY, validación de esquema, sin claves hardcodeadas.
 Base de recuperación: divanirecuperacion (protegida)
-⚡ Optimizado para carga rápida (fuentes mínimas, caché 24h, NetMeter desactivado)
 ============================================================ */
+// ============================
+// 1. CONFIGURACIÓN SEGURA
+// ============================
 const CLOUD_CONFIG = {
-IMGBB_API_KEY: '',
+IMGBB_API_KEY: '',  // ⛔ NUNCA poner claves aquí. Se cargan desde localStorage.
+// 🛡️ Base de RECUPERACIÓN (protegida, solo lectura por defecto)
 DATABASE_URL: 'https://divanirecuperacion-default-rtdb.firebaseio.com',
+// ⛔ AUTO_SYNC DESACTIVADO por seguridad. Requiere activación manual explícita.
 AUTO_SYNC: false,
 FETCH_TIMEOUT: 8000,
-SECURITY_MODE: 'READ_ONLY'
+// 🛡️ MODO DE SEGURIDAD GLOBAL
+SECURITY_MODE: 'READ_ONLY'  // 'READ_ONLY' | 'READ_WRITE_STAGING' | 'READ_WRITE_PROD'
 };
+// ============================
+// 2. CAPA DE DATOS BLINDADA (SecureDataLayer)
+// ============================
 class SecureDataLayer {
 constructor() {
 this.isWritingAllowed = CLOUD_CONFIG.SECURITY_MODE !== 'READ_ONLY';
 this.auditLog = [];
 }
+// Auditoría interna
 _audit(action, detail) {
 const entry = {
 ts: new Date().toISOString(),
@@ -1664,10 +1678,12 @@ allowed: action !== 'WRITE' || this.isWritingAllowed
 this.auditLog.push(entry);
 console.log(`[SecureDataLayer] ${action}:`, detail, entry.allowed ? '✅' : '⛔');
 }
+// 🛡️ Validación de esquema (evita que datos corruptos rompan la tienda)
 validateSchema(data) {
 if (!data || typeof data !== 'object') {
 throw new Error("Datos inválidos o nulos recibidos de la base de datos");
 }
+// Los nodos esperados bajo /divani son: productos, categorias, banners, personalizacion, tiendaConfig, actualizado
 const requiredArrays = ['productos', 'categorias'];
 for (const key of requiredArrays) {
 if (data[key] !== undefined && !Array.isArray(data[key])) {
@@ -1676,6 +1692,7 @@ throw new Error(`Esquema inválido: '${key}' debe ser un array`);
 }
 return true;
 }
+// 🔒 BLOQUEO DE ESCRITURA
 async write(payload, dbUrl) {
 this._audit('WRITE', { target: dbUrl, hasProductos: !!payload?.productos });
 if (!this.isWritingAllowed) {
@@ -1683,6 +1700,7 @@ const errorMsg = "⛔ OPERACIÓN DENEGADA: Modo READ_ONLY activo. Las operacione
 console.error('[SecureDataLayer]', errorMsg);
 return { ok: false, error: errorMsg, blocked: true };
 }
+// Validación de payload (evita borrar la BD por accidente)
 if (!payload || !Array.isArray(payload.productos) || !Array.isArray(payload.categorias)) {
 return { ok: false, error: "Payload incompleto. Se requieren al menos 'productos' y 'categorias' como arrays." };
 }
@@ -1698,6 +1716,7 @@ return { ok: true };
 return { ok: false, error: e.message };
 }
 }
+// 🔓 Habilitar escritura SOLO con confirmación explícita
 enableWriteMode() {
 if (confirm("⚠️ ADVERTENCIA DE SEGURIDAD\n¿Estás seguro de habilitar el modo de escritura?\nEsto permitirá que los cambios se guarden en la base de datos de recuperación.\nSolo hazlo si ya validaste la integridad de los datos en la Fase 4.")) {
 this.isWritingAllowed = true;
@@ -1716,7 +1735,9 @@ return true;
 return false;
 }
 }
+// Instancia global del DataLayer blindado
 const secureDB = new SecureDataLayer();
+// Exponer para debugging controlado desde consola
 window.__secureDB = secureDB;
 const CLIENT_PAGINATION = {
 PAGE_SIZE: 20,
@@ -1727,15 +1748,8 @@ function _limpiarClave(v){ v=String(v==null?'':v).trim(); if(!v) return ''; if(/
 
 const CLOUD = {
 imgbbKey: _limpiarClave(localStorage.getItem('divani_imgbb_key')) || _limpiarClave(CLOUD_CONFIG.IMGBB_API_KEY),
-dbUrl: (() => {
-  const localUrl = _limpiarClave(localStorage.getItem('divani_db_url'));
-  if (localUrl && localUrl.includes('divani-1ab68')) {
-    console.warn('[DIVANI] URL antigua detectada en caché local. Limpiando y usando base de recuperación.');
-    localStorage.removeItem('divani_db_url');
-    return _limpiarClave(CLOUD_CONFIG.DATABASE_URL);
-  }
-  return localUrl || _limpiarClave(CLOUD_CONFIG.DATABASE_URL);
-})(),
+dbUrl: _limpiarClave(localStorage.getItem('divani_db_url')) || _limpiarClave(CLOUD_CONFIG.DATABASE_URL),
+// ⛔ autoSync DESACTIVADO por defecto, incluso si el usuario lo marcó antes
 autoSync: CLOUD_CONFIG.SECURITY_MODE !== 'READ_ONLY'
 ? ((localStorage.getItem('divani_cloud_auto') !== null) ? localStorage.getItem('divani_cloud_auto') === '1' : !!CLOUD_CONFIG.AUTO_SYNC)
 : false
@@ -1862,68 +1876,9 @@ gradients:{background:{type:'solid',value:'#ffffff'},headerBg:{type:'solid',valu
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 const CACHE_KEY = 'divani_cache_v1';
 const SYNC_TS_KEY = 'divani_last_sync_ts';
-// ⚡ OPTIMIZACIÓN 2: Caché de 24 horas en lugar de 6 (reduce fetchs a Firebase)
-const CACHE_FRESHNESS_MS = 24 * 60 * 60 * 1000;
+const CACHE_FRESHNESS_MS = 6 * 60 * 60 * 1000;
 const ETAG_KEY = 'divani_etag_v1';
-const NetMeter = {
-totalDownloaded: 0,
-totalUploaded: 0,
-firebaseRequests: 0,
-firebaseBytes: 0,
-startTime: Date.now(),
-enabled: false,
-init() {
-document.addEventListener('keydown', (e) => {
-if (e.ctrlKey && e.shiftKey && (e.key === 'N' || e.key === 'n')) {
-e.preventDefault();
-this.enabled = !this.enabled;
-document.getElementById('netMeter').classList.toggle('show', this.enabled);
-if (this.enabled) this.update();
-}
-});
-const originalFetch = window.fetch;
-const self = this;
-window.fetch = async function(...args) {
-const url = typeof args[0] === 'string' ? args[0] : (args[0]?.url || '');
-const opts = args[1] || {};
-const isFirebase = url.includes('firebaseio.com');
-const reqBody = opts.body ? (typeof opts.body === 'string' ? opts.body.length : 0) : 0;
-if (isFirebase) {
-self.firebaseRequests++;
-self.firebaseBytes += reqBody;
-self.totalUploaded += reqBody;
-}
-try {
-const response = await originalFetch.apply(this, args);
-const clone = response.clone();
-clone.text().then(text => {
-const bytes = new Blob([text]).size;
-self.totalDownloaded += bytes;
-if (isFirebase) self.firebaseBytes += bytes;
-if (self.enabled) self.update();
-}).catch(()=>{});
-return response;
-} catch (e) {
-throw e;
-}
-};
-},
-update() {
-const el = document.getElementById('netMeter');
-if (!el || !this.enabled) return;
-const elapsed = Math.max(1, Math.floor((Date.now() - this.startTime) / 60000));
-const downKB = (this.totalDownloaded / 1024).toFixed(1);
-const upKB = (this.totalUploaded / 1024).toFixed(1);
-const fbKB = (this.firebaseBytes / 1024).toFixed(1);
-const warn = this.firebaseBytes > 5 * 1024 * 1024;
-el.innerHTML = `
-<div><b>📊 Red DIVANI</b> (${elapsed}min)</div>
-<div>↓ Total: <b>${downKB} KB</b></div>
-<div>↑ Total: <b>${upKB} KB</b></div>
-<div class="${warn?'warn':''}">☁️ Firebase: <b>${fbKB} KB</b> (${this.firebaseRequests} req)</div>
-`;
-}
-};
+
 function loadCache(){
 try{ const raw = localStorage.getItem(CACHE_KEY); if(!raw) return null; return JSON.parse(raw); }
 catch(e){ return null; }
@@ -2456,6 +2411,7 @@ return urls;
 function guardarCredencialesNube(){
 CLOUD.imgbbKey=_limpiarClave(document.getElementById('nubeImgbbKey').value);
 CLOUD.dbUrl=_limpiarClave(document.getElementById('nubeDbUrl').value);
+// ⛔ autoSync NO se activa aunque el usuario lo marque, si SECURITY_MODE es READ_ONLY
 const userWantsAutoSync = document.getElementById('nubeAutoSync').checked;
 CLOUD.autoSync = CLOUD_CONFIG.SECURITY_MODE !== 'READ_ONLY' && userWantsAutoSync;
 if (userWantsAutoSync && CLOUD_CONFIG.SECURITY_MODE === 'READ_ONLY') {
@@ -2610,6 +2566,7 @@ if(!ep){
 if(!silent) showToast('⚠️ Configura la URL de la base de datos en ☁️ Nube','warning');
 return {ok:false, error:'Sin URL de base de datos'};
 }
+// 🛡️ INTERCEPTOR DE SEGURIDAD: pasar por SecureDataLayer
 const payload={ productos, categorias, banners, tiendaConfig, personalizacion:pers, actualizado:new Date().toISOString() };
 const secResult = await secureDB.write(payload, ep);
 if (secResult.blocked) {
@@ -2675,23 +2632,12 @@ if (newEtag) {
 try { localStorage.setItem(ETAG_KEY, newEtag); } catch(e){}
 }
 const data = await res.json();
-
-// 🛡️ CORRECCIÓN FIREBASE: Adaptar formato Objeto a Array en memoria
-if (data && typeof data === 'object') {
-  if (data.productos && !Array.isArray(data.productos)) {
-    console.log('[DIVANI] Adaptando formato de productos de Objeto a Array (nativo Firebase)');
-    data.productos = Object.values(data.productos);
-  }
-  if (data.categorias && !Array.isArray(data.categorias)) {
-    console.log('[DIVANI] Adaptando formato de categorías de Objeto a Array (nativo Firebase)');
-    data.categorias = Object.values(data.categorias);
-  }
-}
-
+// 🛡️ VALIDACIÓN DE ESQUEMA al recibir datos
 try {
 secureDB.validateSchema(data);
 } catch (schemaErr) {
 console.error('[SecureDataLayer] Esquema inválido recibido:', schemaErr);
+if (!silent) showToast('⚠️ Datos de la nube con esquema inválido: ' + schemaErr.message, 'danger');
 return null;
 }
 if (_mutGeneration !== genAlInicio) {
@@ -3648,6 +3594,7 @@ WriteQueue.cancel();
 _mutGeneration++;
 const result = await subirDatosANubeConConfirmacion(true);
 if(!result.ok){
+// Si fue bloqueado por READ_ONLY, NO revertir: el producto queda en local
 if (result.blocked) {
 showToast('✅ Producto guardado localmente. ⛔ No se subió a la nube (modo READ_ONLY)','warning');
 } else {
@@ -3811,6 +3758,7 @@ result = { ok: false, error: err.message || 'Error desconocido' };
 _eliminacionesEnCurso.delete(pid);
 if(!result.ok){
 if (result.blocked) {
+// Escritura bloqueada: el producto se eliminó localmente pero no en la nube
 saveCache();
 invalidateCloudCache();
 showToast(`🗑️ "${p.nombre}" eliminado localmente. ⛔ No se eliminó de la nube (modo READ_ONLY)`,'warning');
@@ -4711,8 +4659,6 @@ actualizarCarrito();
 updateBrand(pers);
 initAdminResize();
 initScrollObserver();
-// ⚡ OPTIMIZACIÓN 4: NetMeter desactivado para mejorar rendimiento
-// NetMeter.init();
 document.getElementById('adminPassInput').addEventListener('keydown',e=>{ if(e.key==='Enter') verificarPassword(); });
 ['storeModal','detailModal'].forEach(id=>{
 const el=document.getElementById(id);
@@ -4753,13 +4699,8 @@ const header=document.getElementById('mainHeader');
 window.addEventListener('scroll',()=>{
 header.classList.toggle('scrolled', window.scrollY>10);
 },{passive:true});
-// ⚡ OPTIMIZACIÓN 3: Cargar Firebase en segundo plano (después de que la página esté lista)
 if(CLOUD.dbUrl){
 setTimeout(async ()=>{
-// Esperar a que la página esté completamente cargada
-if (document.readyState !== 'complete') {
-  await new Promise(resolve => window.addEventListener('load', resolve, { once: true }));
-}
 const ep = dbEndpoint();
 if(!ep) return;
 const genAlInicio = _mutGeneration;
@@ -4772,7 +4713,7 @@ const lastSyncTs = lastSyncISO ? Date.parse(lastSyncISO) : 0;
 const nowTs = Date.now();
 const cacheEsReciente = (nowTs - lastSyncTs) < CACHE_FRESHNESS_MS;
 if(cacheEsReciente && cacheApplied){
-console.log('[DIVANI] Cache local reciente (<24h), omitiendo descarga');
+console.log('[DIVANI] Cache local reciente (<6h), omitiendo descarga');
 return;
 }
 try {
@@ -4789,6 +4730,7 @@ console.log('[DIVANI] Datos de la nube iguales o anteriores al cache');
 return;
 }
 if(!data.productos || data.productos.length === 0) {
+// ⛔ En modo READ_ONLY NO se suben datos automáticamente a la base de recuperación
 if (CLOUD_CONFIG.SECURITY_MODE === 'READ_ONLY') {
 console.log('[DIVANI] Nube vacía pero modo READ_ONLY: no se sube automáticamente');
 return;
@@ -4835,11 +4777,13 @@ _aplicandoNube=false;
 }, 500);
 }
 });
+// ============================================================
+// MENSAJE DE BIENVENIDA EN CONSOLA
+// ============================================================
 console.log('%c 🛡️ DIVANI MAQUILLAJE - MODO SEGURO ACTIVADO ', 'background: #e8557a; color: #fff; font-size: 14px; font-weight: bold; padding: 6px 12px; border-radius: 6px;');
 console.log('%c Base de datos: divanirecuperacion (protegida)', 'color: #0f9d8f; font-weight: bold;');
 console.log('%c Modo de seguridad: ' + CLOUD_CONFIG.SECURITY_MODE, 'color: #f59e0b; font-weight: bold;');
 console.log('%c Auto-sync: ' + (CLOUD.autoSync ? 'ACTIVO' : 'BLOQUEADO'), 'color: #f59e0b; font-weight: bold;');
-console.log('%c ⚡ Optimizaciones activas: Fuentes mínimas, caché 24h, NetMeter desactivado', 'color: #10b981; font-weight: bold;');
 console.log('%c Para habilitar escrituras manualmente, ejecuta en consola:', 'color: #64748b;');
 console.log('%c __secureDB.enableWriteMode()', 'color: #e8557a; font-family: monospace; font-weight: bold;');
 </script>
