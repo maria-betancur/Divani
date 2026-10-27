@@ -1640,6 +1640,9 @@ Se detectó una API key de ImgBB visible en el código fuente. Recomendamos:
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 <script>
 /* ============================================================
 DIVANI MAQUILLAJE - ARQUITECTURA SEGURA RECONSTRUIDA
@@ -1745,7 +1748,6 @@ HOME_PAGE_SIZE: 8,
 LAZY_THRESHOLD: 400
 };
 function _limpiarClave(v){ v=String(v==null?'':v).trim(); if(!v) return ''; if(/pega.?aqu[ií]|tu.?api|tu.?clave|xxxxxxxx|reemplaza/i.test(v)) return ''; return v; }
-
 const CLOUD = {
 imgbbKey: _limpiarClave(localStorage.getItem('divani_imgbb_key')) || _limpiarClave(CLOUD_CONFIG.IMGBB_API_KEY),
 dbUrl: _limpiarClave(localStorage.getItem('divani_db_url')) || _limpiarClave(CLOUD_CONFIG.DATABASE_URL),
@@ -1754,7 +1756,6 @@ autoSync: CLOUD_CONFIG.SECURITY_MODE !== 'READ_ONLY'
 ? ((localStorage.getItem('divani_cloud_auto') !== null) ? localStorage.getItem('divani_cloud_auto') === '1' : !!CLOUD_CONFIG.AUTO_SYNC)
 : false
 };
-
 const IMG = {
 hero:'',
 labial:'',
@@ -1878,7 +1879,6 @@ const CACHE_KEY = 'divani_cache_v1';
 const SYNC_TS_KEY = 'divani_last_sync_ts';
 const CACHE_FRESHNESS_MS = 6 * 60 * 60 * 1000;
 const ETAG_KEY = 'divani_etag_v1';
-
 function loadCache(){
 try{ const raw = localStorage.getItem(CACHE_KEY); if(!raw) return null; return JSON.parse(raw); }
 catch(e){ return null; }
@@ -2599,7 +2599,7 @@ showToast('☁️ Catálogo guardado en la nube','success');
 }
 return result.ok;
 }
-async function fetchCatalogoUnaVez(){
+async function fetchCatalogoUnaVez(silent=false){
 const ep = dbEndpoint();
 if(!ep) return null;
 if(_cloudDataCache) return _cloudDataCache;
@@ -2670,7 +2670,7 @@ _nubeFetching = true;
 const genAlInicio = _mutGeneration;
 try{
 if(!silent) showToast('Descargando datos de la nube…','success');
-const data = await fetchCatalogoUnaVez();
+const data = await fetchCatalogoUnaVez(silent);
 if (_mutGeneration !== genAlInicio) {
 if(!silent) showToast('Operación en curso, descarga cancelada','warning');
 return false;
@@ -3484,7 +3484,7 @@ rowN.innerHTML='';
 nuevos.forEach(p=>{ const c=buildCard(p,'nv'); if(c) rowN.appendChild(c); });
 secN.style.display=nuevos.length?'':'none';
 }
-function refreshPublic(){ renderHome(); renderProductos(); initHero(); programarSyncNube(); saveCache(); }
+function refreshPublic(){ renderHome(); if(vistaActual==='catalog') renderProductos(); initHero(); programarSyncNube(); saveCache(); }
 function refreshAdminViews(){ renderInventario(); renderDestacadosAdmin(); renderBannersAdmin(); renderDashboard(); renderDuplicados(); }
 function cambiarImagenCard(cardId,dir){
 const cont=document.getElementById(cardId); if(!cont) return;
@@ -3731,7 +3731,8 @@ if(_eliminacionesEnCurso.has(pid)){
 showToast('Ya se está eliminando este producto','warning');
 return;
 }
-if(!confirm(`¿Eliminar "${p.nombre}"?\nEsta acción no se puede deshacer.`)) return;
+if(!confirm(`¿Eliminar "${p.nombre}"?
+Esta acción no se puede deshacer.`)) return;
 _eliminacionesEnCurso.add(pid);
 _mutGeneration++;
 const backup = clone(p);
@@ -4717,7 +4718,7 @@ console.log('[DIVANI] Cache local reciente (<6h), omitiendo descarga');
 return;
 }
 try {
-const data = await fetchCatalogoUnaVez();
+const data = await fetchCatalogoUnaVez(true);
 if(!data) return;
 if (_mutGeneration !== genAlInicio) {
 console.log('[DIVANI] Carga inicial descartada: mutación local durante el fetch');
