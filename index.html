@@ -1609,7 +1609,7 @@ Se detectó una API key de ImgBB visible en el código fuente. Recomendamos:
 <h4>📞 Datos de contacto</h4>
 <div class="grid-form-2">
 <div class="form-group"><label>Ubicación</label><input type="text" id="persUbicacion" placeholder="Colombia"></div>
-<div class="form-group"><label>WhatsApp (código de país)</label><input type="text" id="persWhatsapp" placeholder="573003896683"></div>
+<div class="form-group"><label>WhatsApp (código de país)</label><input type="text" id="persWhatsapp" placeholder="573125043288"></div>
 <div class="form-group"><label>Instagram (usuario)</label><input type="text" id="persInstagram" placeholder="divani_maquillaje"></div>
 <div class="form-group"><label>TikTok (usuario)</label><input type="text" id="persTiktok" placeholder="divani_maquillaje"></div>
 </div>
@@ -2356,10 +2356,26 @@ _cloudDataCache = null;
 _cloudFetchPromise = null;
 }
 function dbEndpoint(){
-let u=(CLOUD.dbUrl||'').trim().replace(/\/+$/,'');
-if(!u) return '';
-if(!u.endsWith('.json')) u+='/divani.json';
-return u;
+// Acepta la URL raíz de Firebase o la ruta /divani, sin duplicarla.
+const raw = String(CLOUD.dbUrl || '').trim();
+if (!raw) return '';
+try {
+  const parsed = new URL(raw);
+  if (parsed.protocol !== 'https:') return '';
+  const host = parsed.hostname.toLowerCase();
+  if (!(host === 'firebaseio.com' || host.endsWith('.firebaseio.com') || host === 'firebasedatabase.app' || host.endsWith('.firebasedatabase.app'))) return '';
+  // Conserva parámetros legítimos de Firebase (por ejemplo, auth) y elimina solo el fragmento.
+  parsed.searchParams.delete('shallow');
+  parsed.hash = '';
+  let path = parsed.pathname.replace(/\/+$/,'');
+  if (path.endsWith('.json')) path = path.slice(0, -5).replace(/\/+$/,'');
+  if (path === '' || path === '/') path = '/divani';
+  if (path !== '/divani') return '';
+  parsed.pathname = '/divani.json';
+  return parsed.toString();
+} catch (e) {
+  return '';
+}
 }
 function dataUrlABlob(dataUrl){
 const parts=String(dataUrl).split(',');
@@ -2466,31 +2482,49 @@ alertEl.style.display = hardcodedKey ? 'block' : 'none';
 }
 }
 async function probarConexionNube(){
-guardarCredencialesNubeSilencioso();
-const ep=dbEndpoint();
-if(ep){
-try{
-const shallowUrl = ep + '?shallow=true';
-const r=await fetch(shallowUrl, {
-method:'GET',
-headers: { 'X-Firebase-ETag': 'true' }
-});
-if(r.ok){
-const keys = await r.json().catch(()=>null);
-const numKeys = keys && typeof keys === 'object' ? Object.keys(keys).length : 0;
-showToast(`✅ Firebase OK · ${numKeys} colecciones en la base`, 'success');
-}else{
-showToast('⚠️ Firebase respondió con error HTTP '+r.status, 'danger');
+// Esta prueba es SOLO LECTURA: no sube imágenes ni escribe datos.
+if (typeof guardarCredencialesNubeSilencioso === 'function') {
+  guardarCredencialesNubeSilencioso();
 }
-}catch(e){ showToast('❌ Firebase: sin conexión ('+e.message+')','danger'); }
-}else{ showToast('Base de datos: falta la URL','warning'); }
-if(CLOUD.imgbbKey){
-try{
-const mini='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==';
-await subirImagenImgBB(mini);
-showToast('✅ ImgBB: API key válida','success');
-}catch(e){ showToast('❌ ImgBB: '+e.message,'danger'); }
-}else{ showToast('ImgBB: falta la API key (opcional)','warning'); }
+const ep = dbEndpoint();
+if (!ep) {
+  showToast('⚠️ URL de Firebase no válida. Usa la URL raíz o la ruta /divani de tu Realtime Database.', 'danger');
+  return;
+}
+let timeoutId = null;
+try {
+  const testUrl = new URL(ep);
+  testUrl.searchParams.set('shallow', 'true');
+  const controller = new AbortController();
+  timeoutId = setTimeout(() => controller.abort(), CLOUD_CONFIG.FETCH_TIMEOUT);
+  const response = await fetch(testUrl.toString(), {
+    method: 'GET',
+    cache: 'no-store',
+    signal: controller.signal
+  });
+  const bodyText = await response.text();
+  if (!response.ok) {
+    console.error('[DIVANI] Error de prueba Firebase:', response.status, bodyText.slice(0, 500));
+    showToast('⚠️ Firebase HTTP ' + response.status + (bodyText ? ': ' + bodyText.slice(0, 120) : ''), 'danger');
+    return;
+  }
+  let data = null;
+  try { data = bodyText ? JSON.parse(bodyText) : null; } catch (e) {}
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
+    showToast('⚠️ Firebase responde, pero la ruta /divani no devuelve un objeto de catálogo.', 'warning');
+    console.warn('[DIVANI] Respuesta de prueba inesperada:', bodyText.slice(0, 500));
+    return;
+  }
+  const keys = Object.keys(data);
+  showToast('✅ Firebase responde en modo lectura · ' + keys.length + ' claves en /divani', 'success');
+  console.info('[DIVANI] Prueba de Firebase OK. Claves encontradas:', keys);
+} catch (e) {
+  const message = e && e.name === 'AbortError' ? 'tiempo de espera agotado' : (e.message || String(e));
+  console.error('[DIVANI] Falló la prueba de Firebase:', e);
+  showToast('❌ No se pudo comprobar Firebase: ' + message, 'danger');
+} finally {
+  if (timeoutId !== null) clearTimeout(timeoutId);
+}
 }
 const OpQueue = {
 _chain: Promise.resolve(),
@@ -2609,12 +2643,8 @@ _cloudFetchPromise = (async () => {
 try{
 const controller = new AbortController();
 const timeoutId = setTimeout(() => controller.abort(), CLOUD_CONFIG.FETCH_TIMEOUT);
-const headers = {
-'X-Firebase-ETag': 'true'
-};
-const cachedEtag = localStorage.getItem(ETAG_KEY);
-if (cachedEtag) headers['If-None-Match'] = cachedEtag;
-const res = await fetch(ep, { cache: 'default', signal: controller.signal, headers });
+// GET simple de solo lectura; evitamos encabezados ETag personalizados innecesarios.
+const res = await fetch(ep, { method: 'GET', cache: 'default', signal: controller.signal });
 clearTimeout(timeoutId);
 if (_mutGeneration !== genAlInicio) {
 console.log('[DIVANI] Descarga descartada: mutación local durante el fetch');
@@ -2626,7 +2656,10 @@ const local = loadCache();
 _cloudDataCache = local || {};
 return _cloudDataCache;
 }
-if(!res.ok) throw new Error('HTTP '+res.status);
+if(!res.ok) {
+  const errorBody = await res.text().catch(() => '');
+  throw new Error('Firebase HTTP ' + res.status + (errorBody ? ': ' + errorBody.slice(0, 180) : ''));
+}
 const newEtag = res.headers.get('ETag');
 if (newEtag) {
 try { localStorage.setItem(ETAG_KEY, newEtag); } catch(e){}
